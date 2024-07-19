@@ -4,7 +4,7 @@
         <div class="title pb-20">
             <h2 class="h2 mb-0">Rekapitulasi</h2>
         </div>
-        <div class="row pb-10">
+        {{-- <div class="row pb-10">
             <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
                 <div class="card-box height-100-p widget-style3">
                     <div class="d-flex flex-wrap">
@@ -71,7 +71,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <div class="row">
             <div class="col-md-12">
                 <div class="pd-20 card-box mb-30">
@@ -110,14 +110,14 @@
         </div>
 
         <div class="row pb-10">
-            <div class="col-md-8 mb-20">
+            <div class="col-md-12 mb-20">
                 <!-- Export Datatable start -->
 				<div class="card-box mb-30">
 					<div class="pd-20">
 						<h4 class="text-blue h4">Provinsi</h4>
 					</div>
 					<div class="pb-20">
-						<table id="provinsi-table" class="table hover responsive multiple-select-row data-table-export nowrap">
+						<table id="provinsi-table" class="table hover multiple-select-row data-table-export wrap">
 							<thead>
 								<tr>
 									<th class="table-plus datatable-nosort">Nomor</th>
@@ -128,10 +128,21 @@
 							</thead>
 							<tbody>
                                 <tr>
-                                    <td>0</td>
-                                    <td>Dhimas-Ibna</td>
+                                    <td>as</td>
+                                    <td>Muhammad DHimas Arista - Ibna Fatimah</td>
                                     <td>2,390</td>
-                                    <td></td>
+                                    <td>
+                                        <div class="dropdown">
+											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+												<i class="dw dw-more"></i>
+											</a>
+											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+												<a class="dropdown-item" href="#"><i class="dw dw-eye"></i> Lihat</a>
+												<a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
+												<a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
+											</div>
+										</div>
+                                    </td>
                                 </tr>
                             </tbody>
 						</table>
