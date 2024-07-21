@@ -66,13 +66,15 @@ class DatabaseSeeder extends Seeder
             'username' => 'masterdev',
             'password' => "soliddd45",
             "is_admin" => true,
-            "kabkota_id" => 2171,
+            "level" => "master",
+            "code" => 1,
         ]);
         User::create([
             'name' => 'Kota Batam - Test (DEV)',
             'username' => 'kotabatamdev',
             'password' => "soliddd45",
-            "kabkota_id" => 2171,
+            "code" => 2171,
+            "level" => "kabkota"
         ]);
     }
 }

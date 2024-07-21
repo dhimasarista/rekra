@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('calon', function (Blueprint $table) {
+        Schema::create('jumlah_suara', function (Blueprint $table) {
             $table->uuid("id")->primary();
-            $table->integer("code");
-            $table->string("calon_name");
-            $table->string("wakil_name");
-            $table->enum("level", ["provinsi", "kabkota"]);
+            $table->integer("amount");
+            $table->text("note");
+            $table->uuid("tps_id");
+            $table->foreign("tps_id")->references("id")->on("tps");
+            $table->uuid("calon_id");
+            $table->foreign("calon_id")->references("id")->on("calon");
             $table->timestamps();
             $table->softDeletes();
         });
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('calon');
+        Schema::dropIfExists('jumlah_suara');
     }
 };

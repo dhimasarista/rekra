@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kabkota', function (Blueprint $table) {
-            $table->id()->primary();
-            $table->string("name", 50)->unique();
-            $table->foreignId('provinsi_id')->constrained('provinsi');
+        Schema::create('kecamatan', function (Blueprint $table) {
+            $table->uuid("id")->primary();
+            $table->string("name")->unique();
+            $table->foreignId('kabkota_id')->constrained('kabkota', "id");
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kabkota');
+        Schema::dropIfExists('kecamatan');
     }
 };

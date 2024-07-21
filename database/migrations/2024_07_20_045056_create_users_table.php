@@ -19,7 +19,8 @@ return new class extends Migration
             $table->rememberToken();
             $table->boolean("is_admin")->default(false);
             $table->boolean("is_active")->default(true);
-            $table->foreignId('kabkota_id')->constrained('kabkota');
+            $table->integer("code");
+            $table->enum("level", ["master", "provinsi", "kabkota"]);
             $table->timestamp("created_at")->useCurrent();
             $table->timestamp("updated_at")->useCurrentOnUpdate();
             $table->softDeletes()->nullable();
