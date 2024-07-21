@@ -86,78 +86,59 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Jenis Wilayah</label>
-									<select class="custom-select2 form-control" name="state" style="width: 100%; height: 38px;">
+									<select id="select-jenis-wilayah" class="custom-select2 form-control" name="state" style="width: 100%; height: 38px;">
                                         <option selected disabled>Pilih</option>
-                                        <option value="AK">Provinsi</option>
-                                        <option value="HI">Kab/Kota</option>
+                                        <option value="provinsi">Provinsi</option>
+                                        <option value="kabkota">Kab/Kota</option>
 									</select>
+                                    <script>
+                                        let value
+                                        $("#select-jenis-wilayah").on("change", e => {
+                                            value = $("#select-jenis-wilayah").val()
+                                            const url = `/rekapitulasi?Jenis=${$("#select-jenis-wilayah").val()}`
+                                            $.ajax({
+                                                type: "GET",
+                                                contentType: "application/json",
+                                                dataType: "json",
+                                                url: url,
+                                                // data: "data",
+                                                success: function (response) {
+                                                    const namaWilayah = $("#select-nama-wilayah")
+                                                    namaWilayah.empty();
+                                                    namaWilayah.append('<option>Pilih</option>');
+                                                    response["data"].forEach(x => {
+                                                        namaWilayah.append(`<option value="${x.id}">${Formatting.capitalize(x.name)}</option>`);
+                                                    });
+                                                    namaWilayah.removeAttr("disabled");
+                                                }
+                                            });
+                                        });
+                                    </script>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label>Nama Wilayah</label>
-									<select class="custom-select2 form-control" name="state" style="width: 100%; height: 38px;">
-                                        <option value="AK">Kota Batam</option>
-                                        <option value="HI">Kab. Karimun</option>
+									<select disabled id="select-nama-wilayah" class="custom-select2 form-control" name="state" style="width: 100%; height: 38px;">
 									</select>
 								</div>
 							</div>
 						</div>
+                        <div class="form-group row text-right">
+                            <label class="col-sm-12 col-md-2 col-form-label"></label>
+                            <div id="container-button-submit-form" class="col-sm-12 col-md-10">
+                                <button id="button-submit-rekap-type" type="button" class="btn btn-dark btn-sm scroll-click">submit</button>
+                                <script>
+                                    $("#button-submit-rekap-type").on("click", e => {
+                                        window.location.replace("/rekapitulasi/list?Id=2171");
+                                    })
+                                </script>
+                            </div>
+                        </div>
 					</form>
 				</div>
 				<!-- Select-2 end -->
             </div>
         </div>
-
-        <div class="row pb-10">
-            <div class="col-md-12 mb-20">
-                <!-- Export Datatable start -->
-				<div class="card-box mb-30">
-					<div class="pd-20">
-						<h4 class="text-blue h4">Provinsi</h4>
-					</div>
-					<div class="pb-20">
-						<table id="provinsi-table" class="table hover multiple-select-row data-table-export wrap">
-							<thead>
-								<tr>
-									<th class="table-plus datatable-nosort">Nomor</th>
-									<th>Nama Calon</th>
-									<th>Total</th>
-									<th>Action</th>
-								</tr>
-							</thead>
-							<tbody>
-                                <tr>
-                                    <td>as</td>
-                                    <td>Muhammad DHimas Arista - Ibna Fatimah</td>
-                                    <td>2,390</td>
-                                    <td>
-                                        <div class="dropdown">
-											<a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-												<i class="dw dw-more"></i>
-											</a>
-											<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-												<a class="dropdown-item" href="#"><i class="dw dw-eye"></i> Lihat</a>
-												<a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
-												<a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
-											</div>
-										</div>
-                                    </td>
-                                </tr>
-                            </tbody>
-						</table>
-					</div>
-				</div>
-                <script>
-                    $("#provinsi-table").DataTable({})
-                </script>
-				<!-- Export Datatable End -->
-            </div>
-            <div class="col-md-4 mb-20">
-
-            </div>
-        </div>
     </div>
-    <script src="../admin/src/plugins/apexcharts/apexcharts.min.js"></script>
-    <script src="../admin/vendors/scripts/dashboard3.js"></script>
 @endsection
