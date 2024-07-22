@@ -4,7 +4,7 @@
         <div class="title pb-20 d-flex justify-content-between align-items-center">
             <h2 class="h2 mb-0">List</h2>
             <div class="text-right">
-                <a class="btn btn-sm btn-dark" href="#">
+                <a class="btn btn-sm btn-dark" href="{{ url()->previous() }}">
                     <i class="fa fa-arrow-left"></i> Kembali
                 </a>
             </div>
@@ -14,7 +14,6 @@
                 <!-- Export Datatable start -->
                 <div class="card-box mb-30">
                     <div class="pd-20">
-                        {{-- {{ url()->previous() }} --}}
                         @use('App\Helpers\Formatting')
                         <h4 class="text-blue h4">{{ Formatting::capitalize(request()->query('Jenis')) }}</h4>
                     </div>
