@@ -31,11 +31,12 @@
                                 @php
                                     $counter = 1;
                                 @endphp
+                                {{-- @dd($data) --}}
                                 @foreach ($data as $d)
                                     <tr>
                                         <td>{{ $counter++ }}</td>
-                                        <td>{{ $d['name'] }}</td>
-                                        <td>{{ $d['total'] }}</td>
+                                        <td>{{ $d->calon_name }} - {{ $d->wakil_name }}</td>
+                                        <td>12</td>
                                         <td>
                                             <div class="dropdown">
                                                 <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
