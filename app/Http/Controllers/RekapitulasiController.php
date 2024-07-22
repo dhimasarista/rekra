@@ -20,12 +20,16 @@ class RekapitulasiController extends Controller
             return response()->json(["data" => $jenis], 200);
         }
         if ($jenis == "kabkota") {
-            $jenis = KabKota::all();
+            $userRole = "kabkota";
+            $code = 2171;
+            $jenis = KabKota::where("id", $code);
             return response()->json(["data" => $jenis], 200);
         }
         return view('rekapitulasi.index');
     }
     public function list(Request $request){
+        $userRole = "kabkota";
+        $code = 2171;
         if (!$request->query("Id")) {
             return redirect("/rekapitulasi");
         }
