@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Calon;
 use App\Models\KabKota;
 use App\Models\Provinsi;
 use App\Utilities\Formatting;
@@ -33,22 +34,23 @@ class RekapitulasiController extends Controller
     }
     public function list(Request $request){
         $userRole = "kabkota";
-        $code = 2171;
         if (!$request->query("Id")) {
             return redirect("/rekapitulasi");
         }
-        $data = [
-            [
-                "name" => "Dhimas - Ibna",
-                "total" => 2390,
-            ],
-            [
-                "name" => "Anto - Udin",
-                "total" => 0,
-            ]
-        ];
+        // $data = [
+        //     [
+        //         "name" => "Dhimas - Ibna",
+        //         "total" => 2390,
+        //     ],
+        //     [
+        //         "name" => "Anto - Udin",
+        //         "total" => 0,
+        //     ]
+        // ];
+
+        $data = Calon::where("code", $request->query("Id"))->get();
+
         return view("rekapitulasi.list", [
-            "name" => "provinsi",
             "data" => $data
         ]);
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\RekapitulasiController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,3 +14,5 @@ Route::prefix("/rekapitulasi")->group(function(){
     Route::get("", [RekapitulasiController::class, "index"]);
     Route::get("/list", [RekapitulasiController::class, "list"]);
 });
+
+Route::get("/error", [ErrorController::class, "index"]);

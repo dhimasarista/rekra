@@ -1,78 +1,14 @@
 @extends('layouts/main')
 @section('body')
     <div class="xs-pd-20-10 pd-ltr-20">
-        <div class="title pb-20">
+        <div class="title pb-20 d-flex justify-content-between align-items-center">
             <h2 class="h2 mb-0">List</h2>
-        </div>
-        <div class="row pb-10">
-            <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
-                <div class="card-box height-100-p widget-style3">
-                    <div class="d-flex flex-wrap">
-                        <div class="widget-data">
-                            <div class="weight-700 font-24 text-dark">1</div>
-                            <div class="font-14 text-secondary weight-500">
-                                Items
-                            </div>
-                        </div>
-                        <div class="widget-icon">
-                            <div class="icon" data-color="#00eccf">
-                                <i class="icon-copy bi bi-archive"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
-                <div class="card-box height-100-p widget-style3">
-                    <div class="d-flex flex-wrap">
-                        <div class="widget-data">
-                            <div class="weight-700 font-24 text-dark">1</div>
-                            <div class="font-14 text-secondary weight-500">
-                                Success Orders
-                            </div>
-                        </div>
-                        <div class="widget-icon">
-                            <div class="icon" data-color="#ff5b5b">
-                                <span class="icon-copy bi bi-view-list"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
-                <div class="card-box height-100-p widget-style3">
-                    <div class="d-flex flex-wrap">
-                        <div class="widget-data">
-                            <div class="weight-700 font-24 text-dark">1</div>
-                            <div class="font-14 text-secondary weight-500">
-                                Fail Orders
-                            </div>
-                        </div>
-                        <div class="widget-icon">
-                            <div class="icon">
-                                <i class="icon-copy bi bi-arrow-left-square" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
-                <div class="card-box height-100-p widget-style3">
-                    <div class="d-flex flex-wrap">
-                        <div class="widget-data">
-                            <div class="weight-700 font-24 text-dark">1</div>
-                            <div class="font-14 text-secondary weight-500">Users</div>
-                        </div>
-                        <div class="widget-icon">
-                            <div class="icon" data-color="#09cc06">
-                                <i class="icon-copy bi bi-people" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="text-right">
+                <a class="btn btn-sm btn-dark" href="#">
+                    <i class="fa fa-arrow-left"></i> Kembali
+                </a>
             </div>
         </div>
-
         <div class="row pb-10">
             <div class="col-md-12 mb-20">
                 <!-- Export Datatable start -->
@@ -80,7 +16,7 @@
                     <div class="pd-20">
                         {{-- {{ url()->previous() }} --}}
                         @use('App\Helpers\Formatting')
-                        <h4 class="text-blue h4">{{ Formatting::capitalize($name) }}</h4>
+                        <h4 class="text-blue h4">{{ Formatting::capitalize(request()->query('Jenis')) }}</h4>
                     </div>
                     <div class="pb-20">
                         <table id="provinsi-table" class="table hover multiple-select-row data-table-export wrap">
@@ -99,8 +35,8 @@
                                 @foreach ($data as $d)
                                     <tr>
                                         <td>{{ $counter++ }}</td>
-                                        <td>{{ $d["name"] }}</td>
-                                        <td>{{ $d["total"] }}</td>
+                                        <td>{{ $d['name'] }}</td>
+                                        <td>{{ $d['total'] }}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
