@@ -15,6 +15,10 @@ class RekapitulasiController extends Controller
      */
     public function index(Request $request)
     {
+        /**
+         * jika query param ber-value provinsi || kabkota
+         * maka controller akan mengambil dan merespon data json
+         */
         $jenis = $request->query("Jenis");
         if ($jenis == "provinsi") {
             $jenis = Provinsi::all();
@@ -30,24 +34,16 @@ class RekapitulasiController extends Controller
             }
             return response()->json(["data" => $jenis], 200);
         }
+        // jika tidak render halaman
         return view('rekapitulasi.index');
     }
     public function list(Request $request){
         $userRole = "kabkota";
-        if (!$request->query("Id")) {
+        $idQuery = $request->query("Id");
+        $checkQuery = !$idQuery || $idQuery == "null" || $idQuery == "Pilih";
+        if ($checkQuery) {
             return redirect("/rekapitulasi");
         }
-        // $data = [
-        //     [
-        //         "name" => "Dhimas - Ibna",
-        //         "total" => 2390,
-        //     ],
-        //     [
-        //         "name" => "Anto - Udin",
-        //         "total" => 0,
-        //     ]
-        // ];
-
         $data = Calon::where("code", $request->query("Id"))->get();
 
         return view("rekapitulasi.list", [

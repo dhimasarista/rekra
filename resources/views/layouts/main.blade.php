@@ -281,14 +281,14 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/users"
+                        <a href="/calon"
                             class="dropdown-toggle no-arrow {{ request()->is('users') ? 'active' : '' }}">
                             <span class="micon bi bi-people"></span>
                             <span class="text">Calon</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/users"
+                        <a href="/wilayah-pemilihan"
                             class="dropdown-toggle no-arrow {{ request()->is('users') ? 'active' : '' }}">
                             <span class="micon dw dw-map1"></span>
                             <span class="text">Wilayah Pemilihan</span>
