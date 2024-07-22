@@ -20,9 +20,13 @@ class RekapitulasiController extends Controller
             return response()->json(["data" => $jenis], 200);
         }
         if ($jenis == "kabkota") {
-            $userRole = "kabkota";
-            $code = 2171;
-            $jenis = KabKota::where("id", $code);
+            $userRole = "master";
+            if ($userRole === "master") {
+                $jenis = KabKota::all();
+            } else if ($userRole === "kabkota") {
+                $code = 2171;
+                $jenis = KabKota::where("id", $code)->get();
+            }
             return response()->json(["data" => $jenis], 200);
         }
         return view('rekapitulasi.index');
