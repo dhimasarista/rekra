@@ -17,7 +17,7 @@
                         <h4 class="text-blue h4">Daftar Calon</h4>
                     </div>
                     <div class="pb-20">
-                        <table id="provinsi-table" class="table hover multiple-select-row data-table-export wrap">
+                        <table id="provinsi-table" class="table hover stripe multiple-select-row data-table-export wrap">
                             <thead>
                                 <tr>
                                     <th class="table-plus datatable-nosort">Tingkat</th>
