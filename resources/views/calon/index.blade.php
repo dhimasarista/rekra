@@ -7,9 +7,6 @@
                 <a class="btn btn-sm btn-dark" href="{{ route('calon.create') }}">
                     <i class="fa fa-plus"></i> Tambah Calon
                 </a>
-                <a class="btn btn-sm btn-dark" href="{{ route('calon.create', ['Id' => 1]) }}">
-                    <i class="fa fa-plus"></i> Edit Calon
-                </a>
             </div>
         </div>
         <div class="row pb-10">
