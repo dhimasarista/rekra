@@ -7,7 +7,7 @@
                 <a class="btn btn-sm btn-dark" href="{{ route('calon.create') }}">
                     <i class="fa fa-plus"></i> Tambah Calon
                 </a>
-                <a class="btn btn-sm btn-dark" href="{{ route('calon.create', ['Id' => 1]); }}">
+                <a class="btn btn-sm btn-dark" href="{{ route('calon.create', ['Id' => 1]) }}">
                     <i class="fa fa-plus"></i> Edit Calon
                 </a>
             </div>
@@ -34,9 +34,10 @@
                                     $counter = 1;
                                 @endphp
                                 {{-- @dd($data) --}}
+                                @use('App\Helpers\Formatting')
                                 @foreach ($calon as $c)
                                     <tr>
-                                        <td>{{ $counter++ }}</td>
+                                        <td>{{ Formatting::capitalize($c->level) }}</td>
                                         <td>{{ $c->calon_name }} - {{ $c->wakil_name }}</td>
                                         <td>12</td>
                                         <td>
@@ -48,7 +49,9 @@
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                                                     <a class="dropdown-item" href="#"><i class="dw dw-eye"></i>
                                                         Lihat</a>
-                                                    <a class="dropdown-item" href="{{ route('calon.create', ['Id' => $c->id]); }}"><i class="dw dw-edit2"></i>
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('calon.create', ['Id' => $c->id]) }}"><i
+                                                            class="dw dw-edit2"></i>
                                                         Edit</a>
                                                     <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i>
                                                         Delete</a>
