@@ -38,7 +38,8 @@
                                 @foreach ($calon as $c)
                                     <tr>
                                         <td>{{ Formatting::capitalize($c->level) }}</td>
-                                        <td>{{ $c->calon_name }} - {{ $c->wakil_name }}</td>
+                                        <td>{{ Formatting::capitalize($c->calon_name) }} -
+                                            {{ Formatting::capitalize($c->wakil_name) }}</td>
                                         <td>12</td>
                                         <td>
                                             <div class="dropdown">
