@@ -124,7 +124,7 @@
                                                 Swal.fire({
                                                     icon: 'error',
                                                     title: 'Error',
-                                                    text: error
+                                                    text: xhr.responseJSON.message ?? error
                                                 });
                                             },
                                             complete: data => {

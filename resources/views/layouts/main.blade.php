@@ -282,7 +282,7 @@
                     </li>
                     <li>
                         <a href="/calon"
-                            class="dropdown-toggle no-arrow {{ request()->is('users') ? 'active' : '' }}">
+                            class="dropdown-toggle no-arrow {{ request()->is('calon') ? 'active' : '' }}">
                             <span class="micon bi bi-people"></span>
                             <span class="text">Calon</span>
                         </a>
