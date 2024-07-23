@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Calon;
 use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use PhpParser\Node\Expr\Throw_;
@@ -41,32 +42,41 @@ class CalonController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            "code" => "required",
-            "calon_name" => "required|string",
-            "wakil_name" => "required|string",
-            "level" => "required|string"
-        ]);
-        if ($validator->fails()) {
-            return response()->json(["message" => $validator->errors()], 500);
-        }
-        $idQuery = $request->query("Id");
-        $message = "";
-
-        if ($idQuery) {
-            $calon = Calon::find($idQuery);
-            if ($calon) {
-                $calon->update($request->all());
-                $message = "Data diperbarui";
-            } else {
-                return response()->json(["message" => "Not Found"], 404);
+        try {
+            $validator = Validator::make($request->all(), [
+                "code" => "required",
+                "calon_name" => "required|string",
+                "wakil_name" => "required|string",
+                "level" => "required|string"
+            ]);
+            if ($validator->fails()) {
+                return response()->json(["message" => $validator->errors()], 500);
             }
+            $idQuery = $request->query("Id");
+            $message = "";
 
-        } else {
-            Calon::create($request->all());
-            $message = "Data baru dibuat";
+            if ($idQuery) {
+                $calon = Calon::find($idQuery);
+                if ($calon) {
+                    $calon->update($request->all());
+                    $message = "Data diperbarui";
+                } else {
+                    return response()->json(["message" => "Not Found"], 404);
+                }
+
+            } else {
+                Calon::create($request->all());
+                $message = "Data baru dibuat";
+            }
+            return response()->json(["message" => $message], 200);
+        } catch (QueryException $e) {
+            $message = null;
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                $message = "Duplikasi Data";
+            }
+            return response()->json(["message" => $message], 500);
         }
-        return response()->json(["message" => $message], 200);
     }
 
     /**
