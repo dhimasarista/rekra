@@ -25,6 +25,7 @@ class CalonController extends Controller
     {
         $calon = null;
         $idQuery = $request->query("Id");
+        // dd($idQuery);
         if ($idQuery) {
             $calon = Calon::find($idQuery);
         }
@@ -32,14 +33,6 @@ class CalonController extends Controller
             "calon" => $calon,
         ]);
     }
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit()
-    {
-
-    }
-
 
     /**
      * Store a newly created resource in storage.
@@ -56,13 +49,22 @@ class CalonController extends Controller
             return response()->json(["message" => $validator->errors()],500);
         }
         $idQuery = $request->query("Id");
-        $calon = Calon::find($idQuery);
-        if ($calon) {
-            $calon = $calon->update($request->all());
+        $message = "";
+
+        if ($idQuery) {
+            $calon = Calon::find($idQuery);
+            if ($calon) {
+                $calon->update($request->all());
+                $message = "Data diperbarui";
+            } else {
+                return response()->json(["message" => "Not Found"], 404);
+            }
+
         } else {
-            $calon = Calon::create($request->all());
+            Calon::create($request->all());
+            $message = "Data baru dibuat";
         }
-        return response()->json(["message" => $calon], 200);
+        return response()->json(["message" => $message], 200);
     }
 
     /**

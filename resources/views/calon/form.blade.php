@@ -22,14 +22,16 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label >Nama Calon</label>
-                                    <input id="nama-calon" value="{{ $calon ? "$calon->calon_name" : "" }}" type="text" class="form-control">
+                                    <label>Nama Calon</label>
+                                    <input id="nama-calon" value="{{ $calon ? "$calon->calon_name" : '' }}" type="text"
+                                        class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label >Nama Pasangan</label>
-                                    <input id="nama-pasangan" value="{{ $calon ? "$calon->wakil_name" : "" }}" type="text" class="form-control">
+                                    <label>Nama Pasangan</label>
+                                    <input id="nama-pasangan" value="{{ $calon ? "$calon->wakil_name" : '' }}"
+                                        type="text" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -39,13 +41,15 @@
                                     <label>Jenis Wilayah</label>
                                     <select id="select-jenis-wilayah" class="custom-select2 form-control" name="state"
                                         style="width: 100%; height: 38px;">
-                                        <option selected disabled>Pilih</option>
-                                        <option value="provinsi">Provinsi</option>
-                                        <option value="kabkota">Kab/Kota</option>
+                                        <option {{ $calon ? '' : 'selected' }} disabled>Pilih</option>
+                                        <option {{ isset($calon) && $calon->level == 'provinsi' ? 'selected' : '' }}
+                                            value="provinsi">Provinsi</option>
+                                        <option {{ isset($calon) && $calon->level == 'kabkota' ? 'selected' : '' }}
+                                            value="kabkota">Kab/Kota</option>
                                     </select>
                                     <script>
                                         let value
-                                        $("#select-jenis-wilayah").on("change", e => {
+                                        const selectJenisWilayah = () => {
                                             value = $("#select-jenis-wilayah").val()
                                             const url = `/rekapitulasi?Jenis=${$("#select-jenis-wilayah").val()}`
                                             $.ajax({
@@ -66,6 +70,10 @@
                                                     namaWilayah.removeAttr("disabled");
                                                 }
                                             });
+                                        }
+                                        selectJenisWilayah()
+                                        $("#select-jenis-wilayah").on("change", e => {
+                                            selectJenisWilayah()
                                         });
                                     </script>
                                 </div>
@@ -82,13 +90,47 @@
                         <div class="form-group row text-right">
                             <label class="col-sm-12 col-md-2 col-form-label"></label>
                             <div id="container-button-submit-form" class="col-sm-12 col-md-10">
-                                <button id="button-submit-rekap-type" type="button"
+                                <button id="submit-form-calon" type="button"
                                     class="btn btn-dark btn-sm scroll-click">submit</button>
                                 <script>
-                                    $("#button-submit-rekap-type").on("click", e => {
-                                        window.location.replace(
-                                            `/rekapitulasi/list?Jenis=${$("#select-jenis-wilayah").val()}&Id=${$("#select-nama-wilayah").val()}`
-                                            );
+                                    $("#submit-form-calon").on("click", e => {
+                                        const id = @json(request()->query('Id'));
+                                        var formData = {
+                                            calon_name: $('#nama-calon').val(), // Adjust according to the selected company id
+                                            wakil_name: $('#nama-pasangan').val(),
+                                            level: $('#select-jenis-wilayah').val(),
+                                            code: $("#select-nama-wilayah").val(),
+                                        };
+                                        TopLoaderService.start()
+                                        $.ajax({
+                                            url: id ? `/calon?Id=${id}` : "/calon",
+                                            type: "POST",
+                                            data: formData,
+                                            dataType: 'json',
+                                            headers: {
+                                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                            },
+                                            success: function(response) {
+                                                Swal.fire({
+                                                    icon: 'success',
+                                                    title: 'Success',
+                                                    text: response.message
+                                                }).then(() => {
+                                                    window.location.replace("/calon");
+                                                });
+                                            },
+                                            error: function(xhr, status, error) {
+                                                console.error(xhr);
+                                                Swal.fire({
+                                                    icon: 'error',
+                                                    title: 'Error',
+                                                    text: error
+                                                });
+                                            },
+                                            complete: data => {
+                                                TopLoaderService.end()
+                                            }
+                                        });
                                     })
                                 </script>
                             </div>
