@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string("name", 50)->unique();
             $table->foreignId('provinsi_id')->constrained('provinsi');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
