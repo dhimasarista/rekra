@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Calon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use PhpParser\Node\Expr\Throw_;
 
 class CalonController extends Controller
 {
@@ -45,8 +47,8 @@ class CalonController extends Controller
             "wakil_name" => "required|string",
             "level" => "required|string"
         ]);
-        if($validator->fails()){
-            return response()->json(["message" => $validator->errors()],500);
+        if ($validator->fails()) {
+            return response()->json(["message" => $validator->errors()], 500);
         }
         $idQuery = $request->query("Id");
         $message = "";
@@ -72,22 +74,26 @@ class CalonController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $calon = Calon::find($id);
+        if (!$calon) {
+            return response()->json(['message' => "not found"], 404);
+        }
+        return response()->json(["data" => $calon], 200);
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $calon = Calon::find($id);
+            if (!$calon) {
+                return response()->json(['message' => "not found"], 404);
+            }
+            $calon->delete();
+            return response()->json(["message" => "berhasil dihapus"], 200);
+        } catch (Exception $exception) {
+            return response()->json(["message" => $exception], 500);
+        }
     }
 }

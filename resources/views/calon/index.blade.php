@@ -51,7 +51,8 @@
                                                         href="{{ route('calon.create', ['Id' => $c->id]) }}"><i
                                                             class="dw dw-edit2"></i>
                                                         Edit</a>
-                                                    <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i>
+                                                    <a class="dropdown-item" onclick="buttonDelete('{{ $c->id }}')" href="#"><i
+                                                            class="dw dw-delete-3"></i>
                                                         Delete</a>
                                                 </div>
                                             </div>
@@ -60,6 +61,50 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <script>
+                            const buttonDelete = (id) => {
+                                TopLoaderService.start()
+                                Swal.fire({
+                                    title: "Hapus Data?",
+                                    text: "data yang sudah dihapus tidak bisa dikembalikan!",
+                                    icon: "warning",
+                                    showCancelButton: true,
+                                    confirmButtonColor: "#3085d6",
+                                    cancelButtonColor: "#d33",
+                                    confirmButtonText: "Yes!"
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        $.ajax({
+                                            type: "DELETE",
+                                            url: `/calon/${id}`,
+                                            dataType: "json",
+                                            headers: {
+                                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                            },
+                                            success: function (response) {
+                                                Swal.fire({
+                                                    icon: 'success',
+                                                    title: 'Success',
+                                                    text: response.message
+                                                }).then(() => {
+                                                    window.location.replace("/calon");
+                                                });
+                                            },
+                                            error: function(xhr, status, error) {
+                                                Swal.fire({
+                                                    icon: 'error',
+                                                    title: 'Error',
+                                                    text: error
+                                                });
+                                            },
+                                            complete: data => {
+                                                TopLoaderService.end()
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        </script>
                     </div>
                 </div>
                 <script>
