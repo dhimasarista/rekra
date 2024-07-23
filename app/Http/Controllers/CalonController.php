@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Calon;
+use App\Models\KabKota;
+use App\Models\Provinsi;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -17,8 +19,12 @@ class CalonController extends Controller
     public function index()
     {
         $calon = Calon::all();
+        $provinsi = Provinsi::all();
+        $kabkota = KabKota::all();
         return view("calon.index", [
             "calon" => $calon,
+            "provinsi" => $provinsi,
+            "kabkota" => $kabkota,
         ]);
     }
     /**

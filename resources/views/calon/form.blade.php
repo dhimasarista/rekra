@@ -48,9 +48,8 @@
                                             value="kabkota">Kab/Kota</option>
                                     </select>
                                     <script>
-                                        let value
                                         const selectJenisWilayah = () => {
-                                            value = $("#select-jenis-wilayah").val()
+                                            let value = @json( $calon ? $calon->code : null);
                                             const url = `/rekapitulasi?Jenis=${$("#select-jenis-wilayah").val()}`
                                             $.ajax({
                                                 type: "GET",
@@ -63,8 +62,9 @@
                                                     namaWilayah.empty();
                                                     namaWilayah.append('<option>Pilih</option>');
                                                     response["data"].forEach(x => {
+                                                        const selectedOpt = x.id === value ? "selected" : "";
                                                         namaWilayah.append(
-                                                            `<option value="${x.id}">${Formatting.capitalize(x.name)}</option>`
+                                                            `<option ${selectedOpt} value="${x.id}">${Formatting.capitalize(x.name)}</option>`
                                                         );
                                                     });
                                                     namaWilayah.removeAttr("disabled");
@@ -120,7 +120,6 @@
                                                 });
                                             },
                                             error: function(xhr, status, error) {
-                                                console.error(xhr);
                                                 Swal.fire({
                                                     icon: 'error',
                                                     title: 'Error',
