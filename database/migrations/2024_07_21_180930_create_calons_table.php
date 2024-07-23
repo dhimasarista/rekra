@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('calon', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->integer("code");
-            $table->string("calon_name");
-            $table->string("wakil_name");
+            $table->string("calon_name")->unique();
+            $table->string("wakil_name")->unique();
             $table->enum("level", ["provinsi", "kabkota"]);
             $table->timestamps();
             $table->softDeletes();
