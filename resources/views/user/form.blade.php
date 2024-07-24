@@ -5,7 +5,7 @@
         <div class="title pb-20 d-flex justify-content-between align-items-center">
             <h2 class="h2 mb-0">{{ $user ? "Update : ".Formatting::capitalize($user->name) : ' Create New user' }}</h2>
             <div class="text-right">
-                <a class="btn btn-sm btn-dark" href="{{ url()->previous() }}">
+                <a class="btn btn-sm btn-dark" href="{{ route('user.index') }}">
                     <i class="fa fa-arrow-left"></i> Kembali
                 </a>
             </div>
