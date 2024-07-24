@@ -3,6 +3,7 @@
 use App\Http\Controllers\CalonController;
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\RekapitulasiController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,6 +18,7 @@ Route::prefix("/rekapitulasi")->group(function(){
 });
 
 Route::resource("calon", CalonController::class);
+Route::resource('user', UserController::class);
 Route::get("/error", [ErrorController::class, "index"]);
 Route::get("/404", function(){
     return redirect("/error?code=404&title=Page+Not+Found&message=It+looks+like+you+found+a+glitch+in+the+matrix...");
