@@ -20,7 +20,7 @@ return new class extends Migration
             $table->boolean("is_admin")->default(false);
             $table->boolean("is_active")->default(true);
             $table->integer("code");
-            $table->enum("level", ["master", "provinsi", "kabkota"]);
+            $table->enum("level", ["master", "provinsi", "kabkota"])->default("kabkota");
             // $table->timestamp("created_at")->useCurrent();
             $table->timestamps();
             // $table->timestamp("updated_at")->useCurrentOnUpdate();

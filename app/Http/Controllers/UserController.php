@@ -7,6 +7,7 @@ use App\Models\KabKota;
 use App\Models\Provinsi;
 use App\Models\User;
 use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -55,46 +56,56 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $message = null;
-        $responseCode = 200;
-        $validator = Validator::make($request->all(), [
-            "username" => "required|string",
-            "password" => "string|null",
-            "code" => "required|integer",
-            "is_admin" => "required|boolean",
-            "is_active" => "required|boolean",
-            "level" => "required|string"
+        try {
+            $message = null;
+            $responseCode = 200;
+            $validator = Validator::make($request->all(), [
+                "username" => "required|string",
+                "password" => "string|nullable",
+                "code" => "required|integer",
 
-        ]);
-        if ($validator->fails()) {
-            $message = $validator->errors();
-            $responseCode = 500;
-        }
-        $idQuery = $request->query("Id");
-        if ($idQuery) {
-            $user = User::find($idQuery);
-            if ($user) {
-                $userPassword = $request->password;
-                if (!$userPassword) {
-                    $userPassword = $user->password;
+            ]);
+            if ($validator->fails()) {
+                $message = $validator->errors()->all();
+                $responseCode = 500;
+            }
+            $idQuery = $request->query("Id");
+            if ($idQuery) {
+                $user = User::find($idQuery);
+                if ($user) {
+                    $userPassword = $request->password;
+                    if (!$userPassword) {
+                        $userPassword = $user->password;
+                    }
+                    $user->username = $request->username;
+                    $user->password = $userPassword;
+                    $user->code = $request->code;
+                    $user->save();
+                    $message = "User diperbarui";
                 }
-                $user->username = $request->username;
-                $user->password = $userPassword;
-                $user->is_admin = $request->is_admin;
-                $user->is_active = $request->is_active;
-                $user->code = $request->code;
-                $user->level = $request->level;
-                $user->save();
-                $message = "User diperbarui";
             } else {
-                $user->create($request->all());
+                User::create([
+                    "name" => $request->name,
+                    "username" => $request->username,
+                    "password" => $request->password,
+                    "code" => $request->code,
+                ]);
                 $message = "User baru dibuat";
             }
-        }
 
-        return response()->json([
-            "message" => $message,
-        ], $responseCode);
+            return response()->json([
+                "message" => $message,
+            ], $responseCode);
+        } catch (QueryException $e) {
+            $message = $e->errorInfo;
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                $message = "Duplikasi Data";
+            }
+            return response()->json([
+                "message" => $message,
+            ], 500);
+        }
     }
 
     /**
