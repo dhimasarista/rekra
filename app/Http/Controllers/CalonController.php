@@ -56,7 +56,7 @@ class CalonController extends Controller
                 "level" => "required|string"
             ]);
             if ($validator->fails()) {
-                return response()->json(["message" => $validator->errors()], 500);
+                return response()->json(["message" => $$message = $validator->errors()->all()], 500);
             }
             $idQuery = $request->query("Id");
             $message = "";
