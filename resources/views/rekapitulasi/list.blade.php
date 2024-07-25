@@ -35,7 +35,7 @@
                                 @foreach ($data as $d)
                                     <tr>
                                         <td>{{ $counter++ }}</td>
-                                        <td>{{ $d->calon_name }} - {{ $d->wakil_name }}</td>
+                                        <td>{{ Formatting::capitalize($d->calon_name . ' - ' . $d->wakil_name) }}</td>
                                         <td>12</td>
                                         <td>
                                             <div class="dropdown">
