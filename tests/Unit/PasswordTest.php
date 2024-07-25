@@ -5,7 +5,7 @@ namespace Tests\Unit;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 class PasswordTest extends TestCase
 {

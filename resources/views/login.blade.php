@@ -296,7 +296,8 @@
                         <button class="LoginButton" id="login-button">Login</button>
                         {{-- <a href="/guest" class="GuestButton">Guest</a> --}}
                     </form>
-                    <script src="../admin/plugins/jquery/jquery.min.js"></script>
+                    <script src="../admin/src/scripts/jquery.min.js"></script>
+                    <script src="../admin/src/plugins/TopLoaderService/TopLoaderService.js"></script>
                     <script>
                         document.getElementById("login-button").addEventListener("click", (e) => {
                             e.preventDefault()
@@ -306,22 +307,25 @@
                             method: 'POST',
                             headers: {
                                 'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                                'Content-Type': 'application/json'
                             },
-                            data: JSON.stringify({
+                            data: {
                                 username: $("input[name='username'").val(),
                                 password: $("input[name='password'").val()
-                            }),
+                            },
+                            dataType: "json",
                             success: function(response) {
                                 // Menampilkan pesan sukses jika ada
                                 $("#error-message").text(response.message);
                                 // Mengarahkan ke halaman utama setelah login berhasil
-                                window.location.replace("/");
+                                // window.location.replace("/");
                             },
                             error: function(xhr, status, error) {
                                 // Menampilkan pesan kesalahan jika terjadi kesalahan
                                 console.log(xhr);
                                 $("#error-message").text(ErrorResponse(xhr.responseJSON));
+                                if (xhr.status === 419) {
+                                    location.reload()
+                                }
                             },
                             complete: function() {
                                 TopLoaderService.end();

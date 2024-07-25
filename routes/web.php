@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CalonController;
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\RekapitulasiController;
@@ -9,9 +10,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect("/login");
 });
-Route::get('/login', function () {
-    return view('login');
-});
+Route::get("/login", [AuthController::class, "index"]);
+Route::get("/logout", [AuthController::class, "destroy"]);
+Route::post('/login', [AuthController::class, 'post']);
+
 Route::prefix("/rekapitulasi")->group(function(){
     Route::get("", [RekapitulasiController::class, "index"]);
     Route::get("/list", [RekapitulasiController::class, "list"]);
