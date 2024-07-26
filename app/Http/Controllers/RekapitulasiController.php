@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Calon;
 use App\Models\KabKota;
 use App\Models\Provinsi;
+use App\Models\User;
 use App\Utilities\Formatting;
 use Illuminate\Http\Request;
 
@@ -19,16 +20,16 @@ class RekapitulasiController extends Controller
          * jika query param ber-value provinsi || kabkota
          * maka controller akan mengambil dan merespon data json
          */
+        $user = User::find($request->session()->get('user_id'));
         $jenis = $request->query("Jenis");
         if ($jenis == "provinsi") {
             $jenis = Provinsi::all();
             return response()->json(["data" => $jenis], 200);
         }
         if ($jenis == "kabkota") {
-            $userRole = "master";
-            if ($userRole === "master") {
+            if ($user->level === "master") {
                 $jenis = KabKota::all();
-            } else if ($userRole === "kabkota") {
+            } else if ($user->level === "kabkota") {
                 $code = 2171;
                 $jenis = KabKota::where("id", $code)->get();
             }

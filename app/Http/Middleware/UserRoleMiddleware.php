@@ -19,7 +19,7 @@ class UserRoleMiddleware
         $username = $request->session()->get('username');
         $user = User::where("username", $username)->first();
         if ($user->level != "master") {
-            return redirect("/error");
+            return redirect("/404");
         }
         // $username = session('username'); // atau Session::get('username');
         // $userRole = session('userRole'); // atau Session::get('userRole');

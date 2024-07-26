@@ -47,6 +47,7 @@ class AuthController extends Controller
                         $request->session()->put('username', $user->username);
                         $request->session()->put('user_id', $user->id);
                         $request->session()->put('name', $user->name);
+                        $request->session()->put('level', $user->level);
                         $message = "Autentikasi Berhasil";
                     }
                 } else { // Jika tidak cocok

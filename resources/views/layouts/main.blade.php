@@ -267,30 +267,32 @@
                     <li>
                         <div class="dropdown-divider"></div>
                     </li>
-                    <li>
-                        <div class="sidebar-small-cap">System Administrator</div>
-                    </li>
-                    <li>
-                        <a href="/user"
-                            class="dropdown-toggle no-arrow {{ request()->is('user') ? 'active' : '' }}">
-                            <span class="micon dw dw-settings1"></span>
-                            <span class="text">User Management</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/calon"
-                            class="dropdown-toggle no-arrow {{ request()->is('calon') ? 'active' : '' }}">
-                            <span class="micon bi bi-people"></span>
-                            <span class="text">Calon</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/wilayah-pemilihan"
-                            class="dropdown-toggle no-arrow {{ request()->is('wilayah-pemilihan') ? 'active' : '' }}">
-                            <span class="micon dw dw-map1"></span>
-                            <span class="text">Wilayah Pemilihan</span>
-                        </a>
-                    </li>
+                    @if (session()->get('level') == 'master')
+                        <li>
+                            <div class="sidebar-small-cap">System Administrator</div>
+                        </li>
+                        <li>
+                            <a href="/user"
+                                class="dropdown-toggle no-arrow {{ request()->is('user') ? 'active' : '' }}">
+                                <span class="micon dw dw-settings1"></span>
+                                <span class="text">User Management</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/calon"
+                                class="dropdown-toggle no-arrow {{ request()->is('calon') ? 'active' : '' }}">
+                                <span class="micon bi bi-people"></span>
+                                <span class="text">Calon</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/wilayah-pemilihan"
+                                class="dropdown-toggle no-arrow {{ request()->is('wilayah-pemilihan') ? 'active' : '' }}">
+                                <span class="micon dw dw-map1"></span>
+                                <span class="text">Wilayah Pemilihan</span>
+                            </a>
+                        </li>
+                    @endif
                 </ul>
             </div>
         </div>
