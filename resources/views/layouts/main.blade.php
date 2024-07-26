@@ -126,10 +126,7 @@
                         <span class="user-icon">
                             <i class="bi bi-person"></i>
                         </span>
-                        @php
-                            $username = 'dhimasarista';
-                        @endphp
-                        <span class="user-name">{{ $username }}</span>
+                        <span class="user-name">{{ session()->get('name') }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                         <a class="dropdown-item" href="#"><i class="dw dw-user1"></i> Account</a>

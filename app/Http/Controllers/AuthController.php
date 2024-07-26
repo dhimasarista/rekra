@@ -7,6 +7,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -31,6 +32,7 @@ class AuthController extends Controller
             $responseCode = 200;
             if ($validator->fails()) {
                 $message = $validator->errors()->all();
+                $responseCode = 401;
             } else {
                 // Mencoba memeriksa kredensial
                 if (Auth::attempt($credentials)) {
@@ -39,15 +41,14 @@ class AuthController extends Controller
                     // Memeriksa apakah akun user aktif
                     if ($user->deleted_at != null) {
                         // Jika tidak aktif, response dengan status 400
-                        $message = "Akun anda tidak ditemukan";
+                        $message = "Akun anda tidak aktif";
                         $responseCode = 400;
+                    } else {
+                        $request->session()->put('username', $user->username);
+                        $request->session()->put('user_id', $user->id);
+                        $request->session()->put('name', $user->name);
+                        $message = "Autentikasi Berhasil";
                     }
-
-                    // Jika aktif, tambahkan sesi ke user
-                    // $request->session()->put('username', $user->username);
-                    // $request->session()->put('user_id', $user->id);
-                    // $request->session()->put('name', $user->name);
-                    $message = "Autentikasi Berhasil";
                 } else { // Jika tidak cocok
                     $message = "Periksa Kembali Username dan Password";
                     $responseCode = 401;
