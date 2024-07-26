@@ -52,7 +52,11 @@
                                         style="width: 100%; height: 38px;">
                                         <option selected disabled>Pilih</option>
                                         @foreach ($kabkota as $k)
-                                            <option {{ $user->code == $k->id ? "selected": "" }} value="{{ $k->id }}">{{ Formatting::capitalize($k->name) }}
+                                            <option
+                                            @if ($user)
+                                                {{ $user->code == $k->id ? "selected": "" }}
+                                            @endif
+                                            value="{{ $k->id }}">{{ Formatting::capitalize($k->name) }}
                                             </option>
                                         @endforeach
                                     </select>
