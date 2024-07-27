@@ -25,7 +25,7 @@ class UserController extends Controller {
             "kabkota" => $kabkota,
         ]);
     }
-    public function create(Request $request)
+    public function form(Request $request)
     {
         try {
             $user = User::find($request->query("Id"));

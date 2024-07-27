@@ -8,7 +8,7 @@
         <div class="title pb-20 d-flex justify-content-between align-items-center">
             <h2 class="h2 mb-0">{{ Formatting::capitalize($segments[0]) }}</h2>
             <div class="text-right">
-                <a class="btn btn-sm btn-dark" href="{{ route('user.create') }}">
+                <a class="btn btn-sm btn-dark" href="{{ route('user.form') }}">
                     <i class="fa fa-plus"></i> Tambah User
                 </a>
             </div>
@@ -69,7 +69,7 @@
                                                     <a class="dropdown-item" href="#"><i class="dw dw-eye"></i>
                                                         Lihat</a>
                                                     <a class="dropdown-item"
-                                                        href="{{ route('user.create', ['Id' => $u->id]) }}"><i
+                                                        href="{{ route('user.form', ['Id' => $u->id]) }}"><i
                                                             class="dw dw-edit2"></i>
                                                         Edit</a>
                                                     <a class="dropdown-item" onclick="buttonDelete('{{ $u->id }}')"
