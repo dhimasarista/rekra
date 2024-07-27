@@ -29,14 +29,11 @@ class CalonController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request)
+    public function form(Request $request)
     {
         $calon = null;
         $idQuery = $request->query("Id");
-        // dd($idQuery);
-        if ($idQuery) {
-            $calon = Calon::find($idQuery);
-        }
+        if ($idQuery) $calon = Calon::find($idQuery);
         return view("calon.form", [
             "calon" => $calon,
         ]);
@@ -89,9 +86,7 @@ class CalonController extends Controller
     public function show(string $id)
     {
         $calon = Calon::find($id);
-        if (!$calon) {
-            return response()->json(['message' => "not found"], 404);
-        }
+        if (!$calon) return response()->json(['message' => "not found"], 404);
         return response()->json(["data" => $calon], 200);
     }
     /**
@@ -101,9 +96,7 @@ class CalonController extends Controller
     {
         try {
             $calon = Calon::find($id);
-            if (!$calon) {
-                return response()->json(['message' => "not found"], 404);
-            }
+            if (!$calon) return response()->json(['message' => "not found"], 404);
             $calon->delete();
             return response()->json(["message" => "berhasil dihapus"], 200);
         } catch (Exception $exception) {

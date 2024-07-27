@@ -4,7 +4,7 @@
         <div class="title pb-20 d-flex justify-content-between align-items-center">
             <h2 class="h2 mb-0">List</h2>
             <div class="text-right">
-                <a class="btn btn-sm btn-dark" href="{{ route('calon.create') }}">
+                <a class="btn btn-sm btn-dark" href="{{ route('calon.form') }}">
                     <i class="fa fa-plus"></i> Tambah Calon
                 </a>
             </div>
@@ -57,7 +57,7 @@
                                                     <a class="dropdown-item" href="#"><i class="dw dw-eye"></i>
                                                         Lihat</a>
                                                     <a class="dropdown-item"
-                                                        href="{{ route('calon.create', ['Id' => $c->id]) }}"><i
+                                                        href="{{ route('calon.form', ['Id' => $c->id]) }}"><i
                                                             class="dw dw-edit2"></i>
                                                         Edit</a>
                                                     <a class="dropdown-item" onclick="buttonDelete('{{ $c->id }}')" href="#"><i
@@ -72,7 +72,6 @@
                         </table>
                         <script>
                             const buttonDelete = (id) => {
-                                TopLoaderService.start()
                                 Swal.fire({
                                     title: "Hapus Data?",
                                     text: "data yang sudah dihapus tidak bisa dikembalikan!",
@@ -83,6 +82,7 @@
                                     confirmButtonText: "Yes!"
                                 }).then((result) => {
                                     if (result.isConfirmed) {
+                                        TopLoaderService.start()
                                         $.ajax({
                                             type: "DELETE",
                                             url: `/calon/${id}`,

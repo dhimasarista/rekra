@@ -97,7 +97,7 @@
                                         TopLoaderService.start()
                                         $.ajax({
                                             type: "DELETE",
-                                            url: `/calon/${id}`,
+                                            url: `/user/${id}`,
                                             dataType: "json",
                                             headers: {
                                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -108,7 +108,7 @@
                                                     title: 'Success',
                                                     text: response.message
                                                 }).then(() => {
-                                                    window.location.replace("/calon");
+                                                    window.location.replace("/user");
                                                 });
                                             },
                                             error: function(xhr, status, error) {
