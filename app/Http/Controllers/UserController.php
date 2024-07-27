@@ -13,11 +13,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class UserController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     */
+class UserController extends Controller {
     public function index()
     {
         $users = User::all();
@@ -29,10 +25,6 @@ class UserController extends Controller
             "kabkota" => $kabkota,
         ]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(Request $request)
     {
         try {
@@ -52,10 +44,6 @@ class UserController extends Controller
             return redirect("/error$val");
         }
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request) // everything's work here
     {
         try {
@@ -110,36 +98,10 @@ class UserController extends Controller
             return response()->json(["message" => $message], 500);
         }
     }
+    public function destroy(string $id){
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+    public function activeDeactive(Request $request){}
+    public function adminDeadmin(Request $request){}
 }
