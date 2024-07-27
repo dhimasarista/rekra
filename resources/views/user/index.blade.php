@@ -84,7 +84,6 @@
                         </table>
                         <script>
                             const buttonDelete = (id) => {
-                                TopLoaderService.start()
                                 Swal.fire({
                                     title: "Hapus Data?",
                                     text: "data yang sudah dihapus tidak bisa dikembalikan!",
@@ -95,6 +94,7 @@
                                     confirmButtonText: "Yes!"
                                 }).then((result) => {
                                     if (result.isConfirmed) {
+                                        TopLoaderService.start()
                                         $.ajax({
                                             type: "DELETE",
                                             url: `/calon/${id}`,
