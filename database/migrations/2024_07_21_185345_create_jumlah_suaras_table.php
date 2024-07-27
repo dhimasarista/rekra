@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign("tps_id")->references("id")->on("tps");
             $table->uuid("calon_id");
             $table->foreign("calon_id")->references("id")->on("calon");
+            $table->string("updated_by")->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
