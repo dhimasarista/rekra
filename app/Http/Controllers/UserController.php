@@ -93,10 +93,10 @@ class UserController extends Controller
                         "password" => $request->password,
                         "code" => $request->code,
                     ]);
-                    $message = "User baru dibuat";
+                    $message = "😊User baru dibuat";
                 }
             } else {
-                $message = "nama pengguna yang dibuat tidak diperbolehkan";
+                $message = "😒 username yang dibuat tidak diperbolehkan";
                 $responseCode = 400;
             }
             return response()->json([

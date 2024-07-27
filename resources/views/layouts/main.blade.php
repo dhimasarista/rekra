@@ -124,7 +124,8 @@
                 <div class="dropdown">
                     <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                         <span class="user-icon">
-                            <i class="bi bi-person"></i>
+                            {{-- <i class="bi bi-person"></i> --}}
+                            😊
                         </span>
                         <span class="user-name">{{ session()->get('name') }}</span>
                     </a>
