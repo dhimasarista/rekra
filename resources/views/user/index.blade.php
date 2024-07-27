@@ -1,9 +1,9 @@
 @extends('layouts/main')
 @section('body')
-@php
-    $segments = request()->segments();
-@endphp
-@use('App\Helpers\Formatting')
+    @php
+        $segments = request()->segments();
+    @endphp
+    @use('App\Helpers\Formatting')
     <div class="xs-pd-20-10 pd-ltr-20">
         <div class="title pb-20 d-flex justify-content-between align-items-center">
             <h2 class="h2 mb-0">{{ Formatting::capitalize($segments[0]) }}</h2>
@@ -27,6 +27,7 @@
                                     <th class="table-plus datatable-nosort">Nama</th>
                                     <th>Username</th>
                                     <th>Hak Akses</th>
+                                    <th>Aktif</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -52,6 +53,12 @@
                                                 <td>{{ Formatting::capitalize($k->name) }}</td>
                                             @endif
                                         @endforeach
+                                        <td>
+                                            <input id="input_isactive_${row.username}" onchange="updateIsActive(this)"
+                                                data-username="${row.username}" type="checkbox" class="switch-btn"
+                                                data-size="small" data-color="#0059b2" data-secondary-color="#28a745"
+                                                {{ $u->is_active ? 'checked' : '' }} />
+                                        </td>
                                         <td>
                                             <div class="dropdown">
                                                 <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"

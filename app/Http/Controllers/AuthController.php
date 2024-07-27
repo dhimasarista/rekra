@@ -37,18 +37,21 @@ class AuthController extends Controller
                 // Mencoba memeriksa kredensial
                 if (Auth::attempt($credentials)) {
                     $user = Auth::user();
-
-                    // Memeriksa apakah akun user aktif
                     if ($user->deleted_at != null) {
-                        // Jika tidak aktif, response dengan status 400
-                        $message = "Akun anda tidak aktif";
+                        $message = "Akun anda tidak ditemukan";
                         $responseCode = 400;
                     } else {
-                        $request->session()->put('username', $user->username);
-                        $request->session()->put('user_id', $user->id);
-                        $request->session()->put('name', $user->name);
-                        $request->session()->put('level', $user->level);
-                        $message = "Autentikasi Berhasil";
+                        if (!$user->is_active){
+                            $message = "Akun anda tidak aktif";
+                            $responseCode = 400;
+                        } else {
+                            $request->session()->put('username', $user->username);
+                            $request->session()->put('user_id', $user->id);
+                            $request->session()->put('name', $user->name);
+                            $request->session()->put('level', $user->level);
+                            $request->session()->put("is_admin", $user->is_admin);
+                            $message = "Autentikasi Berhasil";
+                        }
                     }
                 } else { // Jika tidak cocok
                     $message = "Periksa Kembali Username dan Password";

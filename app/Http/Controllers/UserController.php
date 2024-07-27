@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller {
     public function index()
     {
-        $users = User::all();
+        $users = User::whereNot("level", "master")->get();
         $provinsi = Provinsi::all();
         $kabkota = KabKota::all();
         return view("user.index", [
