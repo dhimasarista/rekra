@@ -59,8 +59,11 @@ class AuthController extends Controller
                 'message' => $message,
             ], $responseCode);
         } catch (QueryException $e) {
-            // Tangani exception jika terjadi
-            return response()->json(['message' => $e->errorInfo], 500);
+            $message = match($e->errorInfo[1]){
+                1062 => "Duplikasi Data",
+                default => $e->getMessage(),
+            };
+            return response()->json(['message' => $message], 500);
         }
     }
 

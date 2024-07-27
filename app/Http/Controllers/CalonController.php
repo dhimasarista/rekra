@@ -9,7 +9,6 @@ use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use PhpParser\Node\Expr\Throw_;
 
 class CalonController extends Controller
 {
@@ -76,11 +75,10 @@ class CalonController extends Controller
             }
             return response()->json(["message" => $message], 200);
         } catch (QueryException $e) {
-            $message = null;
-            $errorCode = $e->errorInfo[1];
-            if ($errorCode == 1062) {
-                $message = "Duplikasi Data";
-            }
+            $message = match($e->errorInfo[1]){
+                1062 => "Duplikasi Data",
+                default => $e->getMessage(),
+            };
             return response()->json(["message" => $message], 500);
         }
     }

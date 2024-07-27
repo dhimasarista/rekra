@@ -6,7 +6,6 @@ use App\Models\Calon;
 use App\Models\KabKota;
 use App\Models\Provinsi;
 use App\Models\User;
-use App\Utilities\Formatting;
 use Illuminate\Http\Request;
 
 class RekapitulasiController extends Controller
