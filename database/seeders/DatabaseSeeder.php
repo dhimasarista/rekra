@@ -65,7 +65,6 @@ class DatabaseSeeder extends Seeder
             'name' => 'Master - Test (DEV)',
             'username' => 'masterdev',
             'password' => "soliddd45",
-            "is_admin" => true,
             "level" => "master",
             "code" => 1,
         ]);

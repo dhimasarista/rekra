@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->rememberToken();
-            $table->boolean("is_admin")->default(false);
+            // $table->boolean("is_admin")->default(false);
             $table->boolean("is_active")->default(true);
             $table->integer("code");
             $table->enum("level", ["master", "provinsi", "kabkota"])->default("kabkota");
