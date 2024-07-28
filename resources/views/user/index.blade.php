@@ -54,8 +54,8 @@
                                             @endif
                                         @endforeach
                                         <td>
-                                            <input id="input_isactive_${row.username}" onchange="updateIsActive(this)"
-                                                data-username="${row.username}" type="checkbox" class="switch-btn"
+                                            <input id="input_isactive_{{ $u->id }}" onchange="updateIsActive(this)"
+                                                data-user-id="{{ $u->id }}" type="checkbox" class="switch-btn"
                                                 data-size="small" data-color="#0059b2" data-secondary-color="#28a745"
                                                 {{ $u->is_active ? 'checked' : '' }} />
                                         </td>
@@ -140,4 +140,39 @@
     </div>
     <script src="../admin/src/plugins/apexcharts/apexcharts.min.js"></script>
     <script src="../admin/vendors/scripts/dashboard3.js"></script>
+    <script>
+        function updateIsActive(element) {
+            const isActive = element.checked;
+            const dataUser = element.getAttribute("data-user-id");
+
+            TopLoaderService.start()
+            $.ajax({
+                url: `/user/status?Id=${dataUser}`,
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    Toast.fire({
+                        icon: "success",
+                        title: response.message
+                    });
+                },
+                error: function(xhr, status, error) {
+                    element.checked = !isActive;
+                    const data = xhr.responseJSON;
+                    let message = ErrorResponse(data)
+                    Toast.fire({
+                        icon: "warning",
+                        title: message
+                    });
+                },
+                complete: function(data) {
+                    TopLoaderService.end()
+                }
+            });
+        }
+    </script>
 @endsection

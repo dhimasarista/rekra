@@ -27,6 +27,7 @@ Route::middleware("auth")->group(function (){
         Route::name("calon.form")->get("/calon/form", [CalonController::class, "form"]);
         Route::resource("calon", CalonController::class);
         Route::name("user.form")->get("/user/form", [UserController::class, "form"]);
+        Route::name("user.active")->get("/user/status", [UserController::class, "activeDeactive"]);
         Route::resource('user', UserController::class);
     });
 });
