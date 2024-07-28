@@ -21,6 +21,7 @@ Route::middleware("auth")->group(function (){
     Route::prefix("rekapitulasi")->group(function(){
         Route::get("", [RekapitulasiController::class, "index"])->name("rekap-index");
         Route::get("/list", [RekapitulasiController::class, "list"]);
+        Route::get("wilayah/kabkota", [RekapitulasiController::class, "kabkota"]);
     });
     Route::get("/logout", [AuthController::class, "destroy"]);
     Route::middleware(["userRole"])->group(function (){

@@ -246,9 +246,21 @@
             <div class="sidebar-menu">
                 <ul id="accordion-menu">
                     <li>
-                        <a href="/rekapitulasi"
-                            class="dropdown-toggle no-arrow {{ request()->is('rekapitulasi') ? 'active' : '' }}">
-                            <span class="micon dw dw-columns1"></span><span class="mtext">Rekapitulasi</span>
+                        <a href="/dashboard"
+                            class="dropdown-toggle no-arrow {{ request()->is('dashboard') ? 'active' : '' }}">
+                            <span class="micon dw dw-columns1"></span><span class="mtext">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/rekapitulasi?Type=Provinsi"
+                            class="dropdown-toggle no-arrow {{ request()->is('rekapitulasi?Type=Provinsi') ? 'active' : '' }}">
+                            <span class="micon dw dw-columns1"></span><span class="mtext">Rekap Provinsi</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/rekapitulasi?Type=Kabkota"
+                            class="dropdown-toggle no-arrow {{ request()->is('rekapitulasi?Type=Kabkota') ? 'active' : '' }}">
+                            <span class="micon dw dw-columns1"></span><span class="mtext">Rekap KabKota</span>
                         </a>
                     </li>
                     <li>
