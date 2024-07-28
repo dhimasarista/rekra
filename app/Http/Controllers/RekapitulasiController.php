@@ -29,7 +29,7 @@ class RekapitulasiController extends Controller
             if ($user->level === "master") {
                 $jenis = KabKota::all();
             } else if ($user->level === "kabkota") {
-                $code = 2171;
+                $code = $user->code;
                 $jenis = KabKota::where("id", $code)->get();
             }
             return response()->json(["data" => $jenis], 200);
