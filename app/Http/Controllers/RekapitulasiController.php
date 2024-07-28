@@ -79,7 +79,7 @@ class RekapitulasiController extends Controller
         if ($user->level == "kabkota") {
             $kabkota = KabKota::where("id", $user->code)->get();
         } else {
-            $kabkota = KabKota::where("id", $provinsi)->get();
+            $kabkota = KabKota::where("provinsi_id", $provinsi)->get();
         }
         return response()->json([
             "kabkota" => $kabkota,
