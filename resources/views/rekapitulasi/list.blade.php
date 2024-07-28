@@ -2,10 +2,15 @@
 @section('body')
     <div class="xs-pd-20-10 pd-ltr-20">
         <div class="title pb-20 d-flex justify-content-between align-items-center">
-            <h2 class="h2 mb-0">List</h2>
-            <div class="text-right">
+            {{-- <h2 class="h2 mb-0">List</h2> --}}
+            <div class="text-left">
                 <a class="btn btn-sm btn-dark" href="{{ url()->previous() }}">
                     <i class="fa fa-arrow-left"></i> Kembali
+                </a>
+            </div>
+            <div class="text-right">
+                <a class="btn btn-sm btn-dark" href="{{ url()->previous() }}">
+                    <i class="fa fa-pie-chart"></i> Chart
                 </a>
             </div>
         </div>
