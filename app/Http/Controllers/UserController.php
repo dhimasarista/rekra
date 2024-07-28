@@ -61,29 +61,26 @@ class UserController extends Controller {
             }
             // regex: checking username pattern from user input
             if (preg_match('/^[a-zA-Z0-9]+$/', $request->username)) {
-                $idQuery = $request->query("Id"); // query params: id
-                if ($idQuery) { // if not null
-                    $user = User::find($idQuery); // find the user by id
-                    // if user finded, update usr data
-                    if ($user) {
-                        $userPassword = $request->password;
-                        // password not updating, if password from body response null
-                        if (!$userPassword) $userPassword = $user->password;
-                        $user->username = $request->username;
-                        $user->password = $userPassword;
-                        $user->code = $request->code;
-                        $user->save(); // save user
-                        // set new message and response code
-                        $message = "User diperbarui";
-                    } else { // creating new user, if user not finded
-                        User::create([
-                            "name" => $request->name,
-                            "username" => $request->username,
-                            "password" => $request->password,
-                            "code" => $request->code,
-                        ]);
-                        $message = "😊User baru dibuat";
-                    }
+                $user = User::find($request->query("Id"));
+                if ($user) { // if user finded, update user data
+                    $userPassword = $request->password;
+                    // password not updating, if password from body response null
+                    if (!$userPassword) $userPassword = $user->password;
+                    $user->username = $request->username;
+                    $user->password = $userPassword;
+                    $user->code = $request->code;
+                    $user->save(); // save user
+                    // set new message and response code
+                    $message = "User diperbarui";
+                } else {
+                    // creating new user
+                    User::create([
+                        "name" => $request->name,
+                        "username" => $request->username,
+                        "password" => $request->password,
+                        "code" => $request->code,
+                    ]);
+                    $message = "😊User baru dibuat";
                 }
             } else { // else of regexp of username
                 $message = "username yang dibuat tidak diperbolehkan";
