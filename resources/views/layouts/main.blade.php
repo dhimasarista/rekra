@@ -253,13 +253,13 @@
                     </li>
                     <li>
                         <a href="/rekapitulasi?Type=Provinsi"
-                            class="dropdown-toggle no-arrow {{ request()->is('rekapitulasi?Type=Provinsi') ? 'active' : '' }}">
+                            class="dropdown-toggle no-arrow {{ request()->query("Type") == "Provinsi" ? 'active' : '' }}">
                             <span class="micon dw dw-columns1"></span><span class="mtext">Rekap Provinsi</span>
                         </a>
                     </li>
                     <li>
                         <a href="/rekapitulasi?Type=Kabkota"
-                            class="dropdown-toggle no-arrow {{ request()->is('rekapitulasi?Type=Kabkota') ? 'active' : '' }}">
+                            class="dropdown-toggle no-arrow {{ request()->query("Type") == "Kabkota" ? 'active' : '' }}">
                             <span class="micon dw dw-columns1"></span><span class="mtext">Rekap KabKota</span>
                         </a>
                     </li>
