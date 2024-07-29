@@ -20,7 +20,7 @@
                 <div class="card-box mb-30">
                     <div class="pd-20">
                         @use('App\Helpers\Formatting')
-                        <h4 class="text-blue h4">{{ Formatting::capitalize(request()->query('Jenis')) }}</h4>
+                        <h4 class="text-blue h4">{{ Formatting::capitalize(request()->query('Type')) }}</h4>
                     </div>
                     <div class="pb-20">
                         <table id="provinsi-table" class="table hover multiple-select-row data-table-export wrap">

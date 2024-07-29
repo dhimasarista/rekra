@@ -88,13 +88,14 @@ class RekapitulasiController extends Controller
     public function list(Request $request){
         $view = "rekapitulasi.list"; // soon: change list to table
         $idQuery = $request->query("Id");
-        $typeQuery = $request->query("Type");
+        // $typeQuery = $request->query("Type");
+        $chartQuery = $request->query("Chart");
         $checkQuery = !$idQuery || $idQuery == "null" || $idQuery == "Pilih";
         if ($checkQuery) {
             return redirect("/rekapitulasi");
         }
         $data = Calon::where("code", $request->query("Id"))->get();
-        if ($typeQuery == "Chart") {
+        if ($chartQuery) {
             $view = "rekapitulasi.chart";
         }
         return view($view, [

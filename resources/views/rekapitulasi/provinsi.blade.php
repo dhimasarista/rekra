@@ -34,10 +34,10 @@
                                 <button id="button-submit-provinsi" type="button"
                                     class="btn btn-dark btn-sm scroll-click">submit</button>
                                 <script>
-                                    $("#button-submit-rekap-type").on("click", e => {
+                                    $("#button-submit-provinsi").on("click", e => {
                                         window.location.replace(
-                                            `/rekapitulasi/provinsi/?Wilayah=${$("#select-nama-wilayah").val()}`
-                                            );
+                                            `/rekapitulasi/list?Type=Provinsi&Id=${$("#select-nama-wilayah").val()}`
+                                        );
                                     })
                                 </script>
                             </div>

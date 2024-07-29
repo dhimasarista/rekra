@@ -136,8 +136,8 @@
                                 <script>
                                     $("#button-submit-rekap-type").on("click", e => {
                                         window.location.replace(
-                                            `/rekapitulasi/list?Jenis=${$("#select-jenis-wilayah").val()}&Id=${$("#select-nama-kabkota").val()}`
-                                            );
+                                            `/rekapitulasi/list?Type=Kabkota&Id=${$("#select-nama-kabkota").val()}`
+                                        );
                                     })
                                 </script>
                             </div>
