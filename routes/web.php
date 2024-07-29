@@ -5,6 +5,7 @@ use App\Http\Controllers\CalonController;
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\RekapitulasiController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WilayahController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,10 +26,14 @@ Route::middleware("auth")->group(function (){
     });
     Route::get("/logout", [AuthController::class, "destroy"]);
     Route::middleware(["userRole"])->group(function (){
+        // Calon
         Route::name("calon.form")->get("/calon/form", [CalonController::class, "form"]);
         Route::resource("calon", CalonController::class);
+        // User
         Route::name("user.form")->get("/user/form", [UserController::class, "form"]);
         Route::name("user.active")->get("/user/status", [UserController::class, "activeDeactive"]);
         Route::resource('user', UserController::class);
+        // Wilayah
+        Route::get("/wilayah-pemilihan", [WilayahController::class,"index"]);
     });
 });

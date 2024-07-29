@@ -43,14 +43,14 @@
                                         style="width: 100%; height: 38px;">
                                         <option {{ $calon ? '' : 'selected' }} disabled>Pilih</option>
                                         <option {{ isset($calon) && $calon->level == 'provinsi' ? 'selected' : '' }}
-                                            value="provinsi">Provinsi</option>
+                                            value="Provinsi">Provinsi</option>
                                         <option {{ isset($calon) && $calon->level == 'kabkota' ? 'selected' : '' }}
-                                            value="kabkota">Kab/Kota</option>
+                                            value="Kabkota">Kab/Kota</option>
                                     </select>
                                     <script>
                                         const selectJenisWilayah = () => {
-                                            let value = @json( $calon ? $calon->code : null);
-                                            const url = `/rekapitulasi?Jenis=${$("#select-jenis-wilayah").val()}`
+                                            let value = @json($calon ? $calon->code : null);
+                                            const url = `/wilayah-pemilihan?Type=${$("#select-jenis-wilayah").val()}`
                                             $.ajax({
                                                 type: "GET",
                                                 contentType: "application/json",
@@ -58,16 +58,18 @@
                                                 url: url,
                                                 // data: "data",
                                                 success: function(response) {
-                                                    const namaWilayah = $("#select-nama-wilayah")
-                                                    namaWilayah.empty();
-                                                    namaWilayah.append('<option>Pilih</option>');
-                                                    response["data"].forEach(x => {
-                                                        const selectedOpt = x.id === value ? "selected" : "";
-                                                        namaWilayah.append(
-                                                            `<option ${selectedOpt} value="${x.id}">${Formatting.capitalize(x.name)}</option>`
-                                                        );
-                                                    });
-                                                    namaWilayah.removeAttr("disabled");
+                                                    if (response.data) {
+                                                        const namaWilayah = $("#select-nama-wilayah")
+                                                        namaWilayah.empty();
+                                                        namaWilayah.append('<option>Pilih</option>');
+                                                        response["data"].forEach(x => {
+                                                            const selectedOpt = x.id === value ? "selected" : "";
+                                                            namaWilayah.append(
+                                                                `<option ${selectedOpt} value="${x.id}">${Formatting.capitalize(x.name)}</option>`
+                                                            );
+                                                        });
+                                                        namaWilayah.removeAttr("disabled");
+                                                    }
                                                 }
                                             });
                                         }
