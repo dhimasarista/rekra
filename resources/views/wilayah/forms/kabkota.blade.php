@@ -58,10 +58,10 @@
                         <div class="form-group row text-right">
                             <label class="col-sm-12 col-md-2 col-form-label"></label>
                             <div id="container-button-submit-form" class="col-sm-12 col-md-10">
-                                <button id="submit-form-calon" type="button"
+                                <button id="submit-form-kabkota" type="button"
                                     class="btn btn-dark btn-sm scroll-click">submit</button>
                                 <script>
-                                    $("#submit-form-calon").on("click", e => {
+                                    $("#submit-form-kabkota").on("click", e => {
                                         const id = @json(request()->query('Id'));
                                         var formData = {
                                             calon_name: $('#nama-calon').val(), // Adjust according to the selected company id
