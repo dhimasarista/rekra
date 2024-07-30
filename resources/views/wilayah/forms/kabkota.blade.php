@@ -22,14 +22,23 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Nama Kabupaten/Kota</label>
-                                    <input id="nama-calon" value="{{ $data ? "$data->name" : '' }}" type="text"
-                                        class="form-control">
+                                    <label>ID<span class="text-danger">*</span></label>
+                                    <input id="nama-calon" value="{{ $data ? "$data->id" : '' }}" type="text"
+                                        class="form-control" @required(true)>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Jenis Wilayah</label>
+                                    <label>Nama Kabupaten/Kota<span class="text-danger">*</span></label>
+                                    <input id="nama-calon" value="{{ $data ? "$data->name" : '' }}" type="text"
+                                        class="form-control" @required(true)>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Jenis Wilayah<span class="text-danger">*</span></label>
                                     <select id="select-jenis-wilayah" class="custom-select2 form-control" name="state"
                                         style="width: 100%; height: 38px;">
                                         <option {{ $data ? '' : 'selected' }} disabled>Pilih</option>
@@ -41,6 +50,11 @@
                                 </div>
                             </div>
                         </div>
+                        {{-- <div class="row">
+                            <div class="col-md-6">
+                                <span class="text-danger"><i>*Required</i></span>
+                            </div>
+                        </div> --}}
                         <div class="form-group row text-right">
                             <label class="col-sm-12 col-md-2 col-form-label"></label>
                             <div id="container-button-submit-form" class="col-sm-12 col-md-10">
