@@ -11,23 +11,38 @@ use Illuminate\Http\Request;
 
 class WilayahController extends Controller
 {
-    public function index(Request $request){
+    public function index(){
+        try {
+            $data = KabKota::all();
+            return view("wilayah.index", [
+                "data"=> $data,
+            ]);
+        } catch (Exception $e) {
+            $val = Formatting::formatUrl([
+                "code" => 500,
+                "title" => $e->getMessage(),
+                "message" => $e->getMessage(),
+            ]);
+
+            return redirect("/error$val");
+        }
+    }
+    public function findAllByType(Request $request)
+    {
         try {
             $typeQuery = $request->query("Type");
-            $data = KabKota::all();
+            $data = null;
             if ($typeQuery) {
                 if($typeQuery == "Provinsi" || $typeQuery == "provinsi"){
                     $data = Provinsi::all();
                 }
-                // else if ($typeQuery == "Kabkota" || $typeQuery == "kabkota"){}
-
-                return response()->json([
-                    "data"=> $data
-                ], 200);
+                else if ($typeQuery == "Kabkota" || $typeQuery == "kabkota"){
+                    $data = KabKota::all();
+                }
             }
-            return view("wilayah.index", [
-                "data"=> $data,
-            ]);
+            return response()->json([
+                "data"=> $data
+            ], 200);
         } catch (QueryException $e) {
             $message = match ($e->errorInfo[1]) {
                 default => $e->getMessage(),

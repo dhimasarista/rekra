@@ -50,7 +50,7 @@
                                     <script>
                                         const selectJenisWilayah = () => {
                                             let value = @json($calon ? $calon->code : null);
-                                            const url = `/wilayah-pemilihan?Type=${$("#select-jenis-wilayah").val()}`
+                                            const url = `/wilayah-pemilihan/list?Type=${$("#select-jenis-wilayah").val()}`
                                             $.ajax({
                                                 type: "GET",
                                                 contentType: "application/json",
