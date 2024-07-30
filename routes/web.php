@@ -34,6 +34,7 @@ Route::middleware("auth")->group(function (){
         Route::name("user.active")->get("/user/status", [UserController::class, "activeDeactive"]);
         Route::resource('user', UserController::class);
         // Wilayah
-        Route::get("/wilayah-pemilihan", [WilayahController::class,"index"]);
+        Route::get("/wilayah-pemilihan", [WilayahController::class,"index"])->name("wilayah.index");
+        Route::get("/wilayah-pemilihan/form", [WilayahController::class,"form"])->name("wilayah.form");
     });
 });
