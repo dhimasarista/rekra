@@ -10,33 +10,6 @@ use Illuminate\Http\Request;
 
 class RekapitulasiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    // public function index(Request $request)
-    // {
-    //     /**
-    //      * jika query param ber-value provinsi || kabkota
-    //      * maka controller akan mengambil dan merespon data json
-    //      */
-    //     $user = User::find($request->session()->get('user_id'));
-    //     $jenis = $request->query("Jenis");
-    //     if ($jenis == "provinsi") {
-    //         $jenis = Provinsi::all();
-    //         return response()->json(["data" => $jenis], 200);
-    //     }
-    //     if ($jenis == "kabkota") {
-    //         if ($user->level === "master") {
-    //             $jenis = KabKota::all();
-    //         } else if ($user->level === "kabkota") {
-    //             $code = $user->code;
-    //             $jenis = KabKota::where("id", $code)->get();
-    //         }
-    //         return response()->json(["data" => $jenis], 200);
-    //     }
-    //     // jika tidak render halaman
-    //     return view('rekapitulasi.index');
-    // }
     public function index(Request $request){
         $view = "rekapitulasi.index";
         $provinsi = null;
