@@ -39,7 +39,7 @@ class WilayahController extends Controller
     {
         try {
             $typeQuery = $request->query("Type");
-            $view = "wialayah.index";
+            $view = "wilayah.index";
             $data = null;
             $dataWilayah = null;
             if ($typeQuery) {
@@ -50,6 +50,12 @@ class WilayahController extends Controller
                     if ($idQuery) {
                         $data = KabKota::find($idQuery);
                     }
+                } else if($typeQuery == "Kecamatan"|| $typeQuery == "kecamatan"){
+
+                } else if($typeQuery == "Kelurahan"|| $typeQuery == "kelurahan"){
+
+                } else if($typeQuery == "TPS"|| $typeQuery == "tps"){
+
                 }
             }
 
