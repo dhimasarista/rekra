@@ -245,12 +245,12 @@
             <script></script>
             <div class="sidebar-menu">
                 <ul id="accordion-menu">
-                    <li>
+                    {{-- <li>
                         <a href="/dashboard"
                             class="dropdown-toggle no-arrow {{ request()->is('dashboard') ? 'active' : '' }}">
                             <span class="micon dw dw-columns1"></span><span class="mtext">Dashboard</span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li>
                         <a href="/rekapitulasi?Type=Provinsi"
                             class="dropdown-toggle no-arrow {{ request()->is('rekapitulasi') && request()->query('Type') == 'Provinsi' ? 'active' : '' }}">
