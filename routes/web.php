@@ -35,6 +35,7 @@ Route::middleware("auth")->group(function (){
         Route::resource('user', UserController::class);
         // Wilayah
         Route::get("/wilayah-pemilihan", [WilayahController::class,"index"])->name("wilayah.index");
+        Route::post("/wilayah-pemilihan", [WilayahController::class,"store"])->name("wilayah.post");
         Route::get("/wilayah-pemilihan/list", [WilayahController::class,"findAllByType"])->name("wilayah.list");
         Route::get("/wilayah-pemilihan/form", [WilayahController::class,"form"])->name("wilayah.form");
     });
