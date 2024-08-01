@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tps', function (Blueprint $table) {
-            $table->uuid("id")->primary();
-            $table->string("name")->unique();
+            $table->uuid("id")->unique()->primary();
+            $table->string("name");
             $table->uuid("kelurahan_id");
             $table->foreign("kelurahan_id")->references("id")->on("kelurahan");
             $table->timestamps();

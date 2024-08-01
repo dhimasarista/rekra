@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('kelurahan', function (Blueprint $table) {
-            $table->uuid("id")->primary();
+            $table->uuid("id")->unique()->primary();;
             $table->string("name")->unique();
             $table->uuid("kecamatan_id");
             $table->foreign("kecamatan_id")->references("id")->on("kecamatan");
