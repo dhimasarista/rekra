@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Formatting;
 use App\Models\KabKota;
+use App\Models\Kecamatan;
+use App\Models\Kelurahan;
 use App\Models\Provinsi;
+use App\Models\Tps;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Ramsey\Uuid\Rfc4122\UuidV1;
+use Ramsey\Uuid\Uuid;
 
 class WilayahController extends Controller
 {
@@ -90,7 +96,102 @@ class WilayahController extends Controller
     }
     public function store(Request $request)
     {
-        //
+        $message = null;
+        $responseCode = 200;
+        try {
+            $queryType = $request->query("Type");
+            $queryId = $request->query("Id");
+            if ($queryType == "Kabkota" || $queryType == "kabkota") {
+                $validator = Validator::make($request->all(), [
+                    "id" => "required|integer",
+                    "name" => "required|string|max:255",
+                    "provinsi_id" => "required|integer"
+                ]);
+                if ($validator->fails()) {
+                    $message = $validator->errors()->all();
+                    $responseCode = 500;
+                } else {
+                    $data = KabKota::withTrashed()->find($queryId);
+                    if ($data) {
+                        $data->update($request->all());
+                        $data->save();
+                    } else {
+                        KabKota::create($request->all());
+                    }
+                }
+            } else if ($queryType == "Kecamatan" || $queryType == "kecamatan"){
+                $validator = Validator::make($request->all(), [
+                    "name" => "required|string|max:255",
+                    "kabkota_id" => "required|integer"
+                ]);
+                if ($validator->fails()) {
+                    $message = $validator->errors()->all();
+                    $responseCode = 500;
+                } else {
+                    $data = Kecamatan::withTrashed()->find($queryId);
+                    if ($data) {
+                        $data->update($request->all());
+                    } else {
+                        $data = $request->all();
+                        if (!$request->id) {
+                            $data["id"] = Uuid::uuid7();
+                        }
+                        Kecamatan::create($data);
+                    }
+                }
+            } else if ($queryType == "Kecamatan" || $queryType == "kecamatan") {
+                $validator = Validator::make($request->all(), [
+                    "name" => "required|string|max:255",
+                    "kecamatan_id" => "required|string"
+                ]);
+                if ($validator->fails()) {
+                    $message = $validator->errors()->all();
+                    $responseCode = 500;
+                } else {
+                    $data = Kelurahan::withTrashed()->find($queryId);
+                    if ($data) {
+                        $data->update($request->all());
+                    } else {
+                        $data = $request->all();
+                        if (!$request->id) {
+                            $data["id"] = Uuid::uuid7();
+                        }
+                        Kelurahan::create($data);
+                    }
+                }
+            } else if ($queryType == "TPS" || $queryType == "tps") {
+                $validator = Validator::make($request->all(), [
+                    "name" => "required|string|max:255",
+                    "kelurahan_id" => "required|string"
+                ]);
+                if ($validator->fails()) {
+                    $message = $validator->errors()->all();
+                    $responseCode = 500;
+                } else {
+                    $data = Tps::withTrashed()->find($queryId);
+                    if ($data) {
+                        $data->update($request->all());
+                    } else {
+                        $data = $request->all();
+                        if (!$request->id) {
+                            $data["id"] = Uuid::uuid7();
+                        }
+                        Tps::create($data);
+                    }
+                }
+            }
+
+            return response()->json([
+                "message" => $message,
+            ], $responseCode);
+        } catch (QueryException $e) {
+            $message = match ($e->errorInfo[1]) {
+                1062 => "Data sudah ada",
+                default => $e->getMessage(),
+            };
+            return response()->json(["message" => $message], $responseCode);
+        }
+
     }
 
     /**
