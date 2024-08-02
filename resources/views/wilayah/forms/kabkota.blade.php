@@ -64,13 +64,13 @@
                                     $("#submit-form-kabkota").on("click", e => {
                                         const id = @json(request()->query('Id'));
                                         var formData = {
-                                            id: $('#kabkota-id').val(), // Adjust according to the selected company id
+                                            id: $('#kabkota-id').val(),
                                             name: $('#kabkota-name').val(),
-                                            provinsi_id: $('#select-provinsi').val(),
+                                            provinsi_id: parseInt($('#select-provinsi').val()),
                                         };
                                         TopLoaderService.start()
                                         $.ajax({
-                                            url: '{{ route('wilayah.post', ['Id' => request()->query('Id'), 'Type' => 'Kabkota']) }}',
+                                            url: '{!! route('wilayah.post', ['Type' => 'Kabkota', 'Id' => request()->query('Id')]) !!}',
                                             type: "POST",
                                             data: formData,
                                             dataType: 'json',
