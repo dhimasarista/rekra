@@ -64,14 +64,14 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'Master - Test (DEV)',
             'username' => 'masterdev',
-            'password' => "soliddd45",
+            'password' => "123",
             "level" => "master",
             "code" => 1,
         ]);
         User::create([
             'name' => 'Kota Batam - Test (DEV)',
             'username' => 'kotabatamdev',
-            'password' => "soliddd45",
+            'password' => "123",
             "code" => 2171,
             "level" => "kabkota"
         ]);

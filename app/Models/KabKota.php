@@ -11,6 +11,7 @@ class KabKota extends Model
 {
     use HasFactory, SoftDeletes;
     protected $table = 'kabkota';
+    public $incrementing = false;
     protected $fillable = [
         'name',
         'provinsi_id'

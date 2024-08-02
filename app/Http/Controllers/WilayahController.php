@@ -69,8 +69,7 @@ class WilayahController extends Controller
             $view = "wilayah.index";
             $data = null;
             $dataWilayah = null;
-            if ($typeQuery) {
-                $idQuery = $request->query("Id");
+            $idQuery = $request->query("Id");
                 if($typeQuery == "Kabkota"|| $typeQuery == "kabkota"){
                     $view = "wilayah.forms.kabkota";
                     $dataWilayah = Provinsi::all();
@@ -84,10 +83,6 @@ class WilayahController extends Controller
                 } else if($typeQuery == "TPS"|| $typeQuery == "tps"){
 
                 }
-            }
-            if (!$data) {
-                return response()->redirectToRoute("wilayah.index", ["message"=> "Fuck You"]);
-            }
 
             return view($view, [
                 "data" => $data,
@@ -113,7 +108,7 @@ class WilayahController extends Controller
                 $validator = Validator::make($request->all(), [
                     "id" => "required|integer",
                     "name" => "required|string|max:255",
-                    "provinsi_id" => "required|int"
+                    "provinsi_id" => "required|integer"
                 ]);
                 if ($validator->fails()) {
                     $message = $validator->errors()->all();
