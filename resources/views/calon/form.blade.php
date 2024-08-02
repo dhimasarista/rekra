@@ -50,12 +50,12 @@
                                     <script>
                                         const selectJenisWilayah = () => {
                                             let value = @json($calon ? $calon->code : null);
-                                            const url = `/wilayah-pemilihan/list?Type=${$("#select-jenis-wilayah").val()}`
+                                            let jenisWilayah = $("#select-jenis-wilayah").val();
                                             $.ajax({
                                                 type: "GET",
                                                 contentType: "application/json",
                                                 dataType: "json",
-                                                url: url,
+                                                url: `{!! route('wilayah.list', []) !!}?Type=${jenisWilayah}`,
                                                 // data: "data",
                                                 success: function(response) {
                                                     if (response.data) {
