@@ -94,8 +94,7 @@ class WilayahController extends Controller
             return redirect("/error$val");
         }
     }
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $message = null;
         $responseCode = 200;
         try {
@@ -139,7 +138,7 @@ class WilayahController extends Controller
                         Kecamatan::create($data);
                     }
                 }
-            } else if ($queryType == "Kecamatan" || $queryType == "kecamatan") {
+            } else if ($queryType == "Kelurahan" || $queryType == "kelurahan") {
                 $validator = Validator::make($request->all(), [
                     "name" => "required|string|max:255",
                     "kecamatan_id" => "required|string"
@@ -191,7 +190,6 @@ class WilayahController extends Controller
             };
             return response()->json(["message" => $message], $responseCode);
         }
-
     }
 
     /**

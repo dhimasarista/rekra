@@ -18,4 +18,14 @@ class KabKota extends Model
     public function provinsi(): BelongsTo{
         return $this->belongsTo(Provinsi::class);
     }
+    protected static function boot()
+    {
+        parent::boot();
+        static::saving(function ($model) {
+            if (!$model->exists) {
+                $model->created_at = $model->freshTimestamp();
+            }
+            $model->updated_at = $model->freshTimestamp();
+        });
+    }
 }

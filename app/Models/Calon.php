@@ -31,5 +31,11 @@ class Calon extends Model
                 $model->{$model->getKeyName()} = (string) Uuid::uuid7();
             }
         });
+        static::saving(function ($model) {
+            if (!$model->exists) {
+                $model->created_at = $model->freshTimestamp();
+            }
+            $model->updated_at = $model->freshTimestamp();
+        });
     }
 }

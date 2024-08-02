@@ -67,11 +67,16 @@ class User extends Authenticatable
          * dimana key password = hashed
          */
 
-        // static::saving(function ($model) {
-        //     if ($model->isDirty('password')) {
-        //         $model->password = Hash::make($model->password);
-        //     }
-        // });
+        static::saving(function ($model) {
+            // if ($model->isDirty('password')) {
+            //     $model->password = Hash::make($model->password);
+            // }
+
+            if (!$model->exists) {
+                $model->created_at = $model->freshTimestamp();
+            }
+            $model->updated_at = $model->freshTimestamp();
+        });
     }
     public function kabkota(): BelongsTo{
         return $this->belongsTo(KabKota::class);

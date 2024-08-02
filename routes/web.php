@@ -18,14 +18,14 @@ Route::get("/404", function(){
     return redirect("/error?code=404&title=Page+Not+Found&message=It+looks+like+you+found+a+glitch+in+the+matrix...");
 });
 
-Route::middleware("auth")->group(function (){
+// Route::middleware("auth")->group(function (){
     Route::prefix("rekapitulasi")->group(function(){
         Route::get("", [RekapitulasiController::class, "index"])->name("rekap-index");
         Route::get("/list", [RekapitulasiController::class, "list"]);
         Route::get("wilayah/kabkota", [RekapitulasiController::class, "kabkota"]);
     });
     Route::get("/logout", [AuthController::class, "destroy"]);
-    Route::middleware(["userRole"])->group(function (){
+    // Route::middleware(["userRole"])->group(function (){
         // Calon
         Route::name("calon.form")->get("/calon/form", [CalonController::class, "form"]);
         Route::resource("calon", CalonController::class);
@@ -38,5 +38,5 @@ Route::middleware("auth")->group(function (){
         Route::post("/wilayah-pemilihan", [WilayahController::class,"store"])->name("wilayah.post");
         Route::get("/wilayah-pemilihan/list", [WilayahController::class,"findAllByType"])->name("wilayah.list");
         Route::get("/wilayah-pemilihan/form", [WilayahController::class,"form"])->name("wilayah.form");
-    });
-});
+    // });
+// });
