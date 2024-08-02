@@ -13,6 +13,7 @@ class KabKota extends Model
     protected $table = 'kabkota';
     protected $fillable = [
         'name',
+        'provinsi_id'
     ];
 
     public function provinsi(): BelongsTo{

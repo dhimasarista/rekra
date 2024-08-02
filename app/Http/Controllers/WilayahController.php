@@ -104,7 +104,7 @@ class WilayahController extends Controller
                 $validator = Validator::make($request->all(), [
                     "id" => "required|integer",
                     "name" => "required|string|max:255",
-                    "provinsi_id" => "required|integer"
+                    "provinsi_id" => "required|int"
                 ]);
                 if ($validator->fails()) {
                     $message = $validator->errors()->all();
@@ -112,10 +112,14 @@ class WilayahController extends Controller
                 } else {
                     $data = KabKota::withTrashed()->find($queryId);
                     if ($data) {
-                        $data->update($request->all());
+                        // $data->update($request->all());
+                        $data->name = $request->name;
+                        $data->provinsi_id = (int)$request->provinsi_id;
                         $data->save();
+                        $message = "Data berhasil diperbarui";
                     } else {
                         KabKota::create($request->all());
+                        $message = "Data berhasil dibuat";
                     }
                 }
             } else if ($queryType == "Kecamatan" || $queryType == "kecamatan"){
@@ -184,11 +188,12 @@ class WilayahController extends Controller
                 "message" => $message,
             ], $responseCode);
         } catch (QueryException $e) {
+            $responseCode = 500;
             $message = match ($e->errorInfo[1]) {
                 1062 => "Data sudah ada",
-                default => $e->getMessage(),
+                default => $e->errorInfo[2],
             };
-            return response()->json(["message" => $message], $responseCode);
+            return response()->json(["message" => $message, "data" => $request->all()], $responseCode);
         }
     }
 
