@@ -17,10 +17,23 @@
                 <a class="btn btn-sm btn-dark" href="{{ route('wilayah.form', ['Type' => 'Kelurahan']) }}">
                     <i class="fa fa-plus"></i> Kelurahan
                 </a>
-                <a class="btn btn-sm btn-dark" href="{{ route('wilayah.form', ['Type' => 'TPS']) }}">
+                <a id="tambah-tps" class="btn btn-sm btn-dark" href="javascript:;">
                     <i class="fa fa-plus"></i> TPS
                 </a>
             </div>
+            <script>
+                $("#tambah-tps").on("click", e => {
+                    Swal.fire({
+                        title: '<h1>Pilih Jenis Input Data</h1>',
+                        html: `
+                            <a href="{{ route('wilayah.form', ['Type' => 'TPS', 'Form' => "Single"]) }}" class="btn btn-success">Satu</a>
+                            <a href="{{ route('wilayah.form', ['Type' => 'TPS', 'Form' => "Multiple"]) }}" class="btn btn-warning">Banyak</a>
+                        `,
+                        showConfirmButton: false,
+                        showCancelButton: false
+                    });
+                })
+            </script>
         </div>
         <div class="row pb-10">
             <div class="col-md-12 mb-20">
