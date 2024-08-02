@@ -74,7 +74,7 @@
                                                         Edit</a>
                                                     <a class="dropdown-item" onclick="buttonDelete('{{ $u->id }}')"
                                                         href="#"><i class="dw dw-delete-3"></i>
-                                                        Delete</a>
+                                                        Hapus</a>
                                                 </div>
                                             </div>
                                         </td>
@@ -85,7 +85,7 @@
                         <script>
                             const buttonDelete = (id) => {
                                 Swal.fire({
-                                    title: "Hapus Data?",
+                                    title: "Data tidak bisa dikembalikan",
                                     text: "kami menyarankan anda untuk menonaktifkan saja user, bukan dihapus. Apakah tetap ingin dihapus?",
                                     icon: "warning",
                                     showCancelButton: true,
