@@ -26,13 +26,13 @@ class RekapitulasiController extends Controller
                 } else if ($typeQuery == "Kabkota" || $typeQuery == "kabkota") {
                     $data = Provinsi::all();
                     $options[] = [
-                        "value" => null,
+                        "id" => null,
                         "is_selected" => true,
                         "name" => "Pilih"
                     ];
                     foreach ($data as $p) {
                         $options[] = [
-                            "value" => $p->id,
+                            "id" => $p->id,
                             "is_selected" => false,
                             "name" => $p->name
                         ];
@@ -68,7 +68,7 @@ class RekapitulasiController extends Controller
                                 ],
                                 "options" => [
                                     [
-                                        "value" => null,
+                                        "id" => null,
                                         "is_selected" => true,
                                         "name" => ""
                                     ],
