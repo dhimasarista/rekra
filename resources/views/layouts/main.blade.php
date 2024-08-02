@@ -252,13 +252,13 @@
                         </a>
                     </li> --}}
                     <li>
-                        <a href="/rekapitulasi?Type=Provinsi"
+                        <a href="{{ route('rekap.index', ['Type' => 'Provinsi']) }}"
                             class="dropdown-toggle no-arrow {{ request()->is('rekapitulasi') && request()->query('Type') == 'Provinsi' ? 'active' : '' }}">
                             <span class="micon dw dw-columns1"></span><span class="mtext">Rekap Provinsi</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/rekapitulasi?Type=Kabkota"
+                        <a href="{{ route('rekap.index', ['Type' => 'Kabkota']) }}"
                             class="dropdown-toggle no-arrow {{ request()->is('rekapitulasi') && request()->query('Type') == 'Kabkota' ? 'active' : '' }}">
                             <span class="micon dw dw-columns1"></span><span class="mtext">Rekap KabKota</span>
                         </a>
@@ -299,7 +299,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/wilayah-pemilihan"
+                            <a href="{{ route('wilayah.index', []) }}"
                                 class="dropdown-toggle no-arrow {{ request()->is('wilayah-pemilihan') ? 'active' : '' }}">
                                 <span class="micon dw dw-map1"></span>
                                 <span class="text">Wilayah Pemilihan</span>

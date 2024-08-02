@@ -351,7 +351,7 @@
                                     // Menampilkan pesan sukses jika ada
                                     // $("#error-message").text(response.message);
                                     // Mengarahkan ke halaman utama setelah login berhasil
-                                    window.location.replace("/rekapitulasi");
+                                    window.location.replace("{{ route('rekap.index', []) }}");
                                 },
                                 error: function(xhr, status, error) {
                                     // $("#error-message").text();

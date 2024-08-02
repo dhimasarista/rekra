@@ -26,12 +26,12 @@
                             [
                                 'id' => 1,
                                 'nama' => 'provinsi',
-                                'route' => '/rekapitulasi?Type=Provinsi',
+                                'route' => route('rekap.index', ['Type' => 'Provinsi']),
                             ],
                             [
                                 'id' => 2,
                                 'nama' => 'kabkota',
-                                'route' => '/rekapitulasi?Type=Kabkota',
+                                'route' => route('rekap.index', ['Type' => 'Kabkota']),
                             ],
                         ];
                     @endphp

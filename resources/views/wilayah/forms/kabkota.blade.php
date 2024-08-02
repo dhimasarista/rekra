@@ -23,15 +23,15 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>ID<span class="text-danger">*</span></label>
-                                    <input id="nama-calon" value="{{ $data ? "$data->id" : '' }}" type="text"
-                                        class="form-control" @required(true)>
+                                    <input id="kabkota-id" value="{{ $data ? "$data->id" : '' }}" type="text"
+                                        class="form-control" placeholder="Wajib diisi" @required(true)>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Nama Kabupaten/Kota<span class="text-danger">*</span></label>
-                                    <input id="nama-calon" value="{{ $data ? "$data->name" : '' }}" type="text"
-                                        class="form-control" @required(true)>
+                                    <input id="kabkota-name" value="{{ $data ? "$data->name" : '' }}" type="text"
+                                        class="form-control" placeholder="Wajib diisi" @required(true)>
                                 </div>
                             </div>
                         </div>
@@ -39,7 +39,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Jenis Wilayah<span class="text-danger">*</span></label>
-                                    <select id="select-jenis-wilayah" class="custom-select2 form-control" name="state"
+                                    <select id="select-provinsi" class="custom-select2 form-control" name="state"
                                         style="width: 100%; height: 38px;">
                                         <option {{ $data ? '' : 'selected' }} disabled>Pilih</option>
                                         @foreach ($dataWilayah as $dw)
@@ -64,14 +64,13 @@
                                     $("#submit-form-kabkota").on("click", e => {
                                         const id = @json(request()->query('Id'));
                                         var formData = {
-                                            calon_name: $('#nama-calon').val(), // Adjust according to the selected company id
-                                            wakil_name: $('#nama-pasangan').val(),
-                                            level: $('#select-jenis-wilayah').val(),
-                                            code: $("#select-nama-wilayah").val(),
+                                            id: $('#kabkota-id').val(), // Adjust according to the selected company id
+                                            name: $('#kabkota-name').val(),
+                                            provinsi_id: $('#select-provinsi').val(),
                                         };
                                         TopLoaderService.start()
                                         $.ajax({
-                                            url: id ? `/calon?Id=${id}` : "/calon",
+                                            url: {{ route('wilayah.post', ['Id' => request()->query('Id'), 'Type' => 'Kabkota']) }},
                                             type: "POST",
                                             data: formData,
                                             dataType: 'json',
@@ -84,7 +83,7 @@
                                                     title: 'Success',
                                                     text: response.message
                                                 }).then(() => {
-                                                    window.location.replace("/calon");
+                                                    window.location.replace("{{ route('wilayah.index', []) }}");
                                                 });
                                             },
                                             error: function(xhr, status, error) {
