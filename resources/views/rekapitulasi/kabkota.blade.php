@@ -101,7 +101,7 @@
                                     <script>
                                         let value
                                         $("#select-nama-provinsi").on("change", e => {
-                                            value = $("#select-nama-provinsi").val()
+                                            let value = $("#select-nama-provinsi").val()
                                             $.ajax({
                                                 type: "GET",
                                                 contentType: "application/json",
