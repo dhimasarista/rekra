@@ -98,40 +98,6 @@ class RekapitulasiController extends Controller
             return redirect("/error$val");
         }
     }
-    // public function index(Request $request){
-    //     $view = "rekapitulasi.index";
-    //     $provinsi = null;
-    //     $kabkota = null;
-    //     $user = User::find($request->session()->get('user_id'));
-    //     $typeQuery = $request->query("Type");
-    //     if ($typeQuery == "Provinsi" || $typeQuery == "provinsi") {
-    //         $view = "rekapitulasi.provinsi";
-    //     }
-    //     switch ($user->level) {
-    //         case 'kabkota':
-    //         $kabkota = KabKota::where("id", $user->code)->first();
-    //         $provinsi = Provinsi::where("id", $kabkota->provinsi_id)->get();
-    //         break;
-    //         default:
-    //         $provinsi = Provinsi::all();
-    //         break;
-    //     }
-    //     if ($typeQuery == "Kabkota" || $typeQuery == "kabkota"){
-    //         switch ($user->level) {
-    //             case 'kabkota':
-    //                 $kabkota = KabKota::where("id", $user->code)->first();
-    //                 break;
-    //             default:
-    //                 $kabkota = KabKota::all();
-    //                 break;
-    //         }
-    //         $view = "rekapitulasi.kabkota";
-    //     }
-    //     return view($view, [
-    //         "provinsi" => $provinsi,
-    //         "kabkota" => $kabkota,
-    //     ]);
-    // }
     public function kabkota(Request $request)
     {
         $kabkota = null;
