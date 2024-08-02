@@ -26,7 +26,7 @@ class WilayahController extends Controller
         } catch (Exception $e) {
             $val = Formatting::formatUrl([
                 "code" => 500,
-                "title" => $e->getMessage(),
+                "title" => "Internal Server Error",
                 "message" => $e->getMessage(),
             ]);
 
@@ -78,6 +78,9 @@ class WilayahController extends Controller
                 } else if($typeQuery == "TPS"|| $typeQuery == "tps"){
 
                 }
+            }
+            if (!$data) {
+                return response()->redirectToRoute("wilayah.index", ["message"=> "Fuck You"]);
             }
 
             return view($view, [
