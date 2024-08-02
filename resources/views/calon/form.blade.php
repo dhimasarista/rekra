@@ -105,7 +105,7 @@
                                         };
                                         TopLoaderService.start()
                                         $.ajax({
-                                            url: id ? `/calon?Id=${id}` : "/calon",
+                                            url: "{{ route('calon.store', ['Id' => request()->query('Id')]) }}",
                                             type: "POST",
                                             data: formData,
                                             dataType: 'json',
