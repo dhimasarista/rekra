@@ -6,7 +6,7 @@
     @use('App\Helpers\Formatting')
     <div class="xs-pd-20-10 pd-ltr-20">
         <div class="title pb-20">
-            <h2 class="h2 mb-0">Rekapitulasi</h2>
+            <h2 class="h2 mb-0">{{ $segments[0] }}</h2>
         </div>
         {{-- <div class="row pb-10">
             <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
@@ -81,7 +81,7 @@
                 <div class="pd-20 card-box mb-30">
                     <div class="clearfix">
                         <div class="pull-left">
-                            <h4 class="text-blue h4">Wilayah Rekapitulasi</h4>
+                            <h4 class="text-blue h4">Pilih {{ request()->query('Type') }}</h4>
                             <p class="mb-30"></p>
                         </div>
                     </div>

@@ -1,15 +1,19 @@
 @extends('layouts/main')
 @section('body')
+    @php
+        $segments = request()->segments();
+    @endphp
+    @use('App\Helpers\Formatting')
     <div class="xs-pd-20-10 pd-ltr-20">
         <div class="title pb-20">
-            <h2 class="h2 mb-0">Rekapitulasi Provinsi</h2>
+            <h2 class="h2 mb-0">{{ $segments[0] }}i</h2>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="pd-20 card-box mb-30">
                     <div class="clearfix">
                         <div class="pull-left">
-                            <h4 class="text-blue h4">Wilayah Rekapitulasi</h4>
+                            <h4 class="text-blue h4">Pilih {{ request()->query('Type') }}</h4>
                             <p class="mb-30"></p>
                         </div>
                     </div>
@@ -32,7 +36,8 @@
                                         style="width: 100%; height: 38px;">
                                         <option selected disabled>Pilih</option>
                                         @foreach ($provinsi as $p)
-                                            <option value="{{ $p->id }}">{{ $p->name }}</option>
+                                            <option value="{{ $p->id }}">{{ Formatting::capitalize($p->name) }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
