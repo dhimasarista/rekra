@@ -21,8 +21,9 @@ Route::get("/404", function(){
 Route::middleware("auth")->group(function (){
     Route::prefix("rekapitulasi")->group(function(){
         Route::get("", [RekapitulasiController::class, "index"])->name("rekap.index");
+        Route::get("/sdui", [RekapitulasiController::class, "sdui"])->name("rekap.sdui");
         Route::get("/list", [RekapitulasiController::class, "list"])->name("rekap.list");
-        Route::get("wilayah/kabkota", [RekapitulasiController::class, "kabkota"]);
+        Route::get("wilayah/kabkota", [RekapitulasiController::class, "kabkota"])->name("wilayah.kabkota");
     });
     Route::get("/logout", [AuthController::class, "destroy"]);
     Route::middleware(["userRole"])->group(function (){

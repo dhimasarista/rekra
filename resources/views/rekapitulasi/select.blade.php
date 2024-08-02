@@ -6,7 +6,7 @@
     @use('App\Helpers\Formatting')
     <div class="xs-pd-20-10 pd-ltr-20">
         <div class="title pb-20">
-            <h2 class="h2 mb-0">{{ $segments[0] }}i</h2>
+            <h2 class="h2 mb-0">{{ $segments[0] }}</h2>
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -19,44 +19,64 @@
                     </div>
                     <form>
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Nama Negara</label>
-                                    <select id="select-nama-negara" class="custom-select2 form-control" name="state"
-                                        style="width: 100%; height: 38px;" disabled>
-                                        <option>Pilih</option>
-                                        <option value="1" selected>Indonesia</option>
-                                    </select>
+                            @foreach ($config["form"] as $index => $form)
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>{{ $form["name"] }}</label>
+                                        <select id="select-{{ $form["id"] }}" class="custom-select2 form-control" name="state"
+                                            style="width: 100%; height: 38px;" {{ $form["is_disabled"] ? "disabled" : "" }}>
+                                            @foreach ($form["options"] as $value)
+                                                <option value="{{ $value["value"] }}" {{ $value["is_selected"] ? "selected" : "" }}> {{ $value["name"] }} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    @if ($form["for_submit"])
+                                        <script>
+                                            let idData = "{{ $form["id"] }}"; // for submit
+                                        </script>
+                                    @endif
+                                    @if ($form["fetch_data"]["is_fetching"] == "true")
+                                        <script>
+                                            $("#select-{{ $form["id"] }}").on("change", function(e) {
+                                                let value = $(this).val();
+                                                $.ajax({
+                                                    type: "GET",
+                                                    contentType: "application/json",
+                                                    dataType: "json",
+                                                    url: `{{ url($form["fetch_data"]["route"]) }}${value}`,
+                                                    success: function(response) {
+                                                        const siblingSelect = $("#select-{{ $form["fetch_data"]["sibling_form_id"] }}");
+                                                        siblingSelect.empty();
+                                                        siblingSelect.append('<option>Pilih</option>');
+                                                        response["{{ $form["fetch_data"]["type"] }}"].forEach(val => {
+                                                            siblingSelect.append(
+                                                                `<option value="${val.id}">${val.name}</option>`
+                                                            );
+                                                        });
+                                                        siblingSelect.removeAttr("disabled");
+                                                    }
+                                                });
+                                            });
+                                        </script>
+                                    @endif
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Nama Provinsi</label>
-                                    <select id="select-nama-provinsi" class="custom-select2 form-control" name="state"
-                                        style="width: 100%; height: 38px;">
-                                        <option selected disabled>Pilih</option>
-                                        @foreach ($provinsi as $p)
-                                            <option value="{{ $p->id }}">{{ Formatting::capitalize($p->name) }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                         <div class="form-group row text-right">
                             <label class="col-sm-12 col-md-2 col-form-label"></label>
                             <div id="container-button-submit-form" class="col-sm-12 col-md-10">
-                                <button id="button-submit-provinsi" type="button"
+                                <button id="button-{{ $config["submit"]["id"] }}" type="button"
                                     class="btn btn-dark btn-sm scroll-click">submit</button>
                                 <script>
-                                    $("#button-submit-provinsi").on("click", e => {
-                                        window.location.href =
-                                            `{{ route('rekap.list', ['Type' => 'Provinsi']) }}&Id=${$("#select-nama-provinsi").val()}`
-                                    })
+                                    $("#button-{{ $config["submit"]["id"] }}").on("click", function(e) {
+                                        window.location.href = `{{ $config["submit"]["route"] }}&Id=${idData}`
+                                    });
                                 </script>
                             </div>
                         </div>
                     </form>
+
                 </div>
                 <!-- Select-2 end -->
             </div>

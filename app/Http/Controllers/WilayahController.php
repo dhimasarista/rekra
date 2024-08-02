@@ -8,6 +8,7 @@ use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use App\Models\Provinsi;
 use App\Models\Tps;
+use App\Models\User;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -43,7 +44,12 @@ class WilayahController extends Controller
                     $data = Provinsi::all();
                 }
                 else if ($typeQuery == "Kabkota" || $typeQuery == "kabkota"){
-                    $data = KabKota::all();
+                    $user = User::find($request->session()->get('user_id'));
+                    $data = match ($user->level) {
+                        "kabkota" => KabKota::where("id", $user->code)->first(),
+                        "master" => KabKota::all(),
+                        default => null,
+                    };
                 }
             }
             return response()->json([
