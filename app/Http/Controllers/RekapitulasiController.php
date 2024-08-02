@@ -2,129 +2,136 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Formatting;
 use App\Models\Calon;
 use App\Models\KabKota;
 use App\Models\Provinsi;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Uuid;
 
 class RekapitulasiController extends Controller
 {
-    public function sdui(Request $request){
-        $config = null;
-        $data = null;
-        $typeQuery = $request->query("Type");
-        if ($typeQuery) {
-            $user = User::find($request->session()->get('user_id'));
-            if ($typeQuery == "Provinsi" || $typeQuery == "provinsi") {
-                $data = Provinsi::all();
-            } else if ($typeQuery == "Kabkota" || $typeQuery == "kabkota") {
-                $data = Provinsi::all();
-                $options[] = [
-                    "value" => null,
-                    "is_selected" => true,
-                    "name" => "Pilih"
-                ];
-                foreach ($data as $p) {
+    public function index(Request $request)
+    {
+        try {
+            $config = null;
+            $data = null;
+            $view = "rekapitulasi.select";
+            $typeQuery = $request->query("Type");
+            if ($typeQuery) {
+                if ($typeQuery == "Provinsi" || $typeQuery == "provinsi") {
+                    $data = Provinsi::all();
+                } else if ($typeQuery == "Kabkota" || $typeQuery == "kabkota") {
+                    $data = Provinsi::all();
                     $options[] = [
-                        "value" => $p->id,
-                        "is_selected" => false,
-                        "name" => $p->name
+                        "value" => null,
+                        "is_selected" => true,
+                        "name" => "Pilih"
+                    ];
+                    foreach ($data as $p) {
+                        $options[] = [
+                            "value" => $p->id,
+                            "is_selected" => false,
+                            "name" => $p->name
+                        ];
+                    }
+                    $formId1 = Uuid::uuid7();
+                    $formId2 = Uuid::uuid7();
+                    // $formId3 = Uuid::uuid7();
+                    $config = [
+                        "name" => "Pilih Kabupaten/Kota",
+                        "form" => [
+                            0 => [
+                                "id" => $formId1,
+                                "type" => "select",
+                                "name" => "Nama Provinsi",
+                                "is_disabled" => false,
+                                "for_submit" => false,
+                                "fetch_data" => [
+                                    "is_fetching" => "true",
+                                    "route" => "/rekapitulasi/wilayah/kabkota?Provinsi=",
+                                    "sibling_form_id" => $formId2,
+                                    "type" => "kabkota",
+                                ],
+                                "options" => $options,
+                            ],
+                            1 => [
+                                "id" => $formId2,
+                                "type" => "select",
+                                "name" => "Nama Kab/Kota",
+                                "is_disabled" => true,
+                                "for_submit" => true,
+                                "fetch_data" => [
+                                    "is_fetching" => "false"
+                                ],
+                                "options" => [
+                                    [
+                                        "value" => null,
+                                        "is_selected" => true,
+                                        "name" => ""
+                                    ],
+                                ]
+                            ],
+                        ],
+                        "submit" => [
+                            "id" => Uuid::uuid7(),
+                            "route" => route('rekap.list', ['Type' => 'Kabkota'])
+                        ]
                     ];
                 }
-                $formId1 = Uuid::uuid7();
-                $formId2 = Uuid::uuid7();
-                $formId3 = Uuid::uuid7();
-                $config = [
-                    "form" => [
-                        0 => [
-                            "id" => $formId1,
-                            "name" => "Jenis Wilayah",
-                            "is_disabled" => false,
-                            "for_submit" => false,
-                            "fetch_data" => [
-                                "is_fetching" => "true",
-                                "route" => "/rekapitulasi/wilayah/kabkota?Provinsi=",
-                                "sibling_form_id" => $formId2,
-                                "type" => "kabkota",
-                            ],
-                            "options" => $options,
-                        ],
-                        1 => [
-                            "id" => $formId2,
-                            "name" => "Nama KabKota",
-                            "is_disabled" => true,
-                            "for_submit" => true,
-                            "fetch_data" => [
-                                "is_fetching" => "false"
-                            ],
-                            "options" => [
-                                [
-                                    "value" => null,
-                                    "is_selected" => true,
-                                    "name" => ""
-                                ],
-                            ]
-                        ],
-                    ],
-                    "submit" => [
-                        "id" => Uuid::uuid7(),
-                        "route" => route('rekap.list', ['Type' => 'Kabkota'])
-                    ]
-                ];
+            } else {
+                $view = "rekapitulasi.index";
             }
+            return view($view, [
+                "data" => $data,
+                "config" => $config,
+            ]);
+        } catch (Exception $e) {
+            $val = Formatting::formatUrl([
+                "code" => 500,
+                "title" => $e->getMessage(),
+                "message" => $e->getMessage(),
+            ]);
 
-            if ($typeQuery == "Kabkota" || $typeQuery == "kabkota"){
-                switch ($user->level) {
-                    case 'kabkota':
-                        $kabkota = KabKota::where("id", $user->code)->first();
-                        break;
-                    default:
-                        $kabkota = KabKota::all();
-                        break;
-                }
-            }
+            return redirect("/error$val");
         }
-        return view("rekapitulasi.select", [
-            "data" => $data,
-            "config" => $config,
-        ]);
     }
-    public function index(Request $request){
-        $view = "rekapitulasi.index";
-        $provinsi = null;
-        $kabkota = null;
-        $user = User::find($request->session()->get('user_id'));
-        $typeQuery = $request->query("Type");
-        if ($typeQuery == "Provinsi" || $typeQuery == "provinsi") {
-            $view = "rekapitulasi.provinsi";
-        }
-        switch ($user->level) {
-            case 'kabkota':
-            $kabkota = KabKota::where("id", $user->code)->first();
-            $provinsi = Provinsi::where("id", $kabkota->provinsi_id)->get();
-            break;
-            default:
-            $provinsi = Provinsi::all();
-            break;
-        }
-        if ($typeQuery == "Kabkota" || $typeQuery == "kabkota"){
-            switch ($user->level) {
-                case 'kabkota':
-                    $kabkota = KabKota::where("id", $user->code)->first();
-                    break;
-                default:
-                    $kabkota = KabKota::all();
-                    break;
-            }
-            $view = "rekapitulasi.kabkota";
-        }
-        return view($view, [
-            "provinsi" => $provinsi,
-            "kabkota" => $kabkota,
-        ]);
-    }
+    // public function index(Request $request){
+    //     $view = "rekapitulasi.index";
+    //     $provinsi = null;
+    //     $kabkota = null;
+    //     $user = User::find($request->session()->get('user_id'));
+    //     $typeQuery = $request->query("Type");
+    //     if ($typeQuery == "Provinsi" || $typeQuery == "provinsi") {
+    //         $view = "rekapitulasi.provinsi";
+    //     }
+    //     switch ($user->level) {
+    //         case 'kabkota':
+    //         $kabkota = KabKota::where("id", $user->code)->first();
+    //         $provinsi = Provinsi::where("id", $kabkota->provinsi_id)->get();
+    //         break;
+    //         default:
+    //         $provinsi = Provinsi::all();
+    //         break;
+    //     }
+    //     if ($typeQuery == "Kabkota" || $typeQuery == "kabkota"){
+    //         switch ($user->level) {
+    //             case 'kabkota':
+    //                 $kabkota = KabKota::where("id", $user->code)->first();
+    //                 break;
+    //             default:
+    //                 $kabkota = KabKota::all();
+    //                 break;
+    //         }
+    //         $view = "rekapitulasi.kabkota";
+    //     }
+    //     return view($view, [
+    //         "provinsi" => $provinsi,
+    //         "kabkota" => $kabkota,
+    //     ]);
+    // }
     public function kabkota(Request $request)
     {
         $kabkota = null;
@@ -139,7 +146,8 @@ class RekapitulasiController extends Controller
             "kabkota" => $kabkota,
         ], 200);
     }
-    public function list(Request $request){
+    public function list(Request $request)
+    {
         $view = "rekapitulasi.list"; // soon: change list to table
         $idQuery = $request->query("Id");
         // $typeQuery = $request->query("Type");
@@ -156,7 +164,8 @@ class RekapitulasiController extends Controller
             "data" => $data
         ]);
     }
-    public function selectType($Jenis){
+    public function selectType($Jenis)
+    {
         $value = null;
         if ($Jenis == "provinsi") {
             $value = Provinsi::all();
