@@ -44,7 +44,7 @@
                                         @endforeach
                                         @foreach ($kabkota as $k)
                                             @if ($k->id == $c->code)
-                                            <td>{{ Formatting::capitalize($k->name) }}</td>
+                                                <td>{{ Formatting::capitalize($k->name) }}</td>
                                             @endif
                                         @endforeach
                                         <td>
@@ -60,8 +60,8 @@
                                                         href="{{ route('calon.form', ['Id' => $c->id]) }}"><i
                                                             class="dw dw-edit2"></i>
                                                         Edit</a>
-                                                    <a class="dropdown-item" onclick="buttonDelete('{{ $c->id }}')" href="#"><i
-                                                            class="dw dw-delete-3"></i>
+                                                    <a class="dropdown-item" onclick="buttonDelete('{{ $c->id }}')"
+                                                        href="#"><i class="dw dw-delete-3"></i>
                                                         Delete</a>
                                                 </div>
                                             </div>
@@ -85,12 +85,12 @@
                                         TopLoaderService.start()
                                         $.ajax({
                                             type: "DELETE",
-                                            url: `/calon/${id}`,
+                                            url: `{{ route('calon.destroy', ':id') }}`.replace(':id', id),
                                             dataType: "json",
                                             headers: {
                                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                             },
-                                            success: function (response) {
+                                            success: function(response) {
                                                 Swal.fire({
                                                     icon: 'success',
                                                     title: 'Success',

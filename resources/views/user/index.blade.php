@@ -86,7 +86,7 @@
                             const buttonDelete = (id) => {
                                 Swal.fire({
                                     title: "Hapus Data?",
-                                    text: "data yang sudah dihapus tidak bisa dikembalikan!",
+                                    text: "kami menyarankan anda untuk menonaktifkan saja user, bukan dihapus. Apakah tetap ingin dihapus?",
                                     icon: "warning",
                                     showCancelButton: true,
                                     confirmButtonColor: "#3085d6",
@@ -97,7 +97,7 @@
                                         TopLoaderService.start()
                                         $.ajax({
                                             type: "DELETE",
-                                            url: `/user/${id}`,
+                                            url: `{{ route('user.destroy', ':id') }}`.replace(':id', id),
                                             dataType: "json",
                                             headers: {
                                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
