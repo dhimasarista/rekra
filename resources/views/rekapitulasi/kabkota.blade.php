@@ -1,5 +1,9 @@
 @extends('layouts/main')
 @section('body')
+    @php
+        $segments = request()->segments();
+    @endphp
+    @use('App\Helpers\Formatting')
     <div class="xs-pd-20-10 pd-ltr-20">
         <div class="title pb-20">
             <h2 class="h2 mb-0">Rekapitulasi</h2>
@@ -90,7 +94,8 @@
                                         style="width: 100%; height: 38px;">
                                         <option selected disabled>Pilih</option>
                                         @foreach ($provinsi as $p)
-                                            <option value="{{ $p->id }}">{{ $p->name }}</option>
+                                            <option value="{{ $p->id }}">{{ Formatting::capitalize($p->name) }}
+                                            </option>
                                         @endforeach
                                     </select>
                                     <script>
@@ -136,7 +141,7 @@
                                 <script>
                                     $("#button-submit-rekap-type").on("click", e => {
                                         window.location.replace(
-                                            `/rekapitulasi/list?Type=Kabkota&Id=${$("#select-nama-kabkota").val()}`
+                                            `{{ route('rekap.list', ['Type' => 'Kabkota']) }}&Id=${$("#select-nama-kabkota").val()}`
                                         );
                                     })
                                 </script>

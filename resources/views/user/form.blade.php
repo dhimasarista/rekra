@@ -53,10 +53,8 @@
                                         <option selected disabled>Pilih</option>
                                         @foreach ($kabkota as $k)
                                             <option
-                                            @if ($user)
-                                                {{ $user->code == $k->id ? "selected": "" }}
-                                            @endif
-                                            value="{{ $k->id }}">{{ Formatting::capitalize($k->name) }}
+                                                @if ($user) {{ $user->code == $k->id ? 'selected' : '' }} @endif
+                                                value="{{ $k->id }}">{{ Formatting::capitalize($k->name) }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -79,7 +77,7 @@
                                         };
                                         TopLoaderService.start()
                                         $.ajax({
-                                            url: id ? `/user?Id=${id}` : "/user",
+                                            url: "{{ route('user.store', ['Id' => request()->query('Id')]) }}",
                                             type: "POST",
                                             data: formData,
                                             dataType: 'json',

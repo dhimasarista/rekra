@@ -56,7 +56,7 @@
     <script src="../admin/vendors/scripts/core.js"></script>
     <script src="../admin/vendors/scripts/script.min.js"></script>
     {{--
-  <script src="../admin/vendors/scripts/process.js"></script> --}}
+    <script src="../admin/vendors/scripts/process.js"></script> --}}
     <script src="../admin/vendors/scripts/layout-settings.js"></script>
     <script src="../admin/src/plugins/datatables/js/jquery.dataTables.min.js"></script>
     <script src="../admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
@@ -242,7 +242,6 @@
             </div>
         </div>
         <div class="menu-block customscroll">
-            <script></script>
             <div class="sidebar-menu">
                 <ul id="accordion-menu">
                     {{-- <li>
@@ -264,14 +263,14 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/provinsi"
+                        <a href="#"
                             class="dropdown-toggle no-arrow {{ request()->is('provinsi') ? 'active' : '' }}">
                             <span class="micon dw dw-down-arrow-7"></span>
                             <span class="mtext">Input Provinsi</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/kabkota"
+                        <a href="#"
                             class="dropdown-toggle no-arrow {{ request()->is('kabkota') ? 'active' : '' }}">
                             <span class="micon dw dw-down-arrow-1"></span>
                             <span class="mtext">Input Kab/Kota</span>
@@ -285,14 +284,14 @@
                             <div class="sidebar-small-cap">System Administrator</div>
                         </li>
                         <li>
-                            <a href="/user"
+                            <a href="{{ route('user.index', []) }}"
                                 class="dropdown-toggle no-arrow {{ request()->is('user') ? 'active' : '' }}">
                                 <span class="micon dw dw-settings1"></span>
                                 <span class="text">User Management</span>
                             </a>
                         </li>
                         <li>
-                            <a href="/calon"
+                            <a href="{{ route('calon.index', []) }}"
                                 class="dropdown-toggle no-arrow {{ request()->is('calon') ? 'active' : '' }}">
                                 <span class="micon bi bi-people"></span>
                                 <span class="text">Calon</span>

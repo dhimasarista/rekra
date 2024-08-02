@@ -17,8 +17,18 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label>Nama Negara</label>
+                                    <select id="select-nama-negara" class="custom-select2 form-control" name="state"
+                                        style="width: 100%; height: 38px;" disabled>
+                                        <option>Pilih</option>
+                                        <option value="1" selected>Indonesia</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
                                     <label>Nama Provinsi</label>
-                                    <select id="select-nama-wilayah" class="custom-select2 form-control" name="state"
+                                    <select id="select-nama-provinsi" class="custom-select2 form-control" name="state"
                                         style="width: 100%; height: 38px;">
                                         <option selected disabled>Pilih</option>
                                         @foreach ($provinsi as $p)
@@ -35,9 +45,8 @@
                                     class="btn btn-dark btn-sm scroll-click">submit</button>
                                 <script>
                                     $("#button-submit-provinsi").on("click", e => {
-                                        window.location.replace(
-                                            `/rekapitulasi/list?Type=Provinsi&Id=${$("#select-nama-wilayah").val()}`
-                                        );
+                                        window.location.href =
+                                            `{{ route('rekap.list', ['Type' => 'Provinsi']) }}&Id=${$("#select-nama-provinsi").val()}`
                                     })
                                 </script>
                             </div>

@@ -27,7 +27,7 @@ Route::middleware("auth")->group(function (){
     Route::get("/logout", [AuthController::class, "destroy"]);
     Route::middleware(["userRole"])->group(function (){
         // Calon
-        Route::name("calon.form")->get("/calon/form", [CalonController::class, "form"])->name("calon.form");
+        Route::get("/calon/form", [CalonController::class, "form"])->name("calon.form");
         Route::resource("calon", CalonController::class);
         // User
         Route::get("/user/form", [UserController::class, "form"])->name("user.form");

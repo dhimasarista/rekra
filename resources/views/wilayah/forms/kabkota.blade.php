@@ -70,7 +70,7 @@
                                         };
                                         TopLoaderService.start()
                                         $.ajax({
-                                            url: {{ route('wilayah.post', ['Id' => request()->query('Id'), 'Type' => 'Kabkota']) }},
+                                            url: '{{ route('wilayah.post', ['Id' => request()->query('Id'), 'Type' => 'Kabkota']) }}',
                                             type: "POST",
                                             data: formData,
                                             dataType: 'json',
