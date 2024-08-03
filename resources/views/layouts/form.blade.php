@@ -48,7 +48,7 @@
                                                 let idForm = "{{ $form['id'] }}"; // for submit
                                             </script>
                                         @endif
-                                        @if ($form['fetch_data']['is_fetching'] == 'true')
+                                        @if ($form['fetch_data']['is_fetching'])
                                             <script>
                                                 $("#{{ $form['id'] }}").on("change", function(e) {
                                                     let value = $(this).val();
