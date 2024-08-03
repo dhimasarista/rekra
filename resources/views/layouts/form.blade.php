@@ -37,9 +37,9 @@
                                             </div>
                                         @elseif ($form['type'] == 'text')
                                             <div class="form-group">
-                                                <label>Username</label>
-                                                <input id="{{ $form['id'] }}" value="{{ $form['name'] ?? '' }}"
-                                                    type="text" class="form-control">
+                                                <label>{{ $form['name'] }}</label>
+                                                <input id="{{ $form['id'] }}" value="{{ null ?? '' }}" type="text"
+                                                    class="form-control">
                                             </div>
                                         @endif
 
@@ -61,7 +61,7 @@
                                                             const siblingSelect = $("#{{ $form['fetch_data']['sibling_form_id'] }}");
                                                             siblingSelect.empty();
                                                             siblingSelect.append('<option>Pilih</option>');
-                                                            response["{{ $form['fetch_data']['type'] }}"].forEach(val => {
+                                                            response["{{ $form['fetch_data']['response'] }}"].forEach(val => {
                                                                 siblingSelect.append(
                                                                     `<option value="${val.id}">${Formatting.capitalize(val.name)}</option>`
                                                                 );
@@ -75,19 +75,58 @@
                                     </div>
                                 @endforeach
                             </div>
-                            @if ($config['submit']['type'] == 'redirect')
-                                <div class="form-group row text-right">
-                                    <label class="col-sm-12 col-md-2 col-form-label"></label>
-                                    <div id="container-button-submit-form" class="col-sm-12 col-md-10">
-                                        <button id="{{ $config['submit']['id'] }}" type="button"
-                                            class="btn btn-dark btn-sm scroll-click">submit</button>
-                                        <script>
-                                            $("#{{ $config['submit']['id'] }}").on("click", function(e) {
-                                                window.location.href = `{{ $config['submit']['route'] }}&Id=${$(`#${idForm}`).val()}`
-                                            });
-                                        </script>
-                                    </div>
+                            <div class="form-group row text-right">
+                                <label class="col-sm-12 col-md-2 col-form-label"></label>
+                                <div id="container-button-submit-form" class="col-sm-12 col-md-10">
+                                    <button id="{{ $config['submit']['id'] }}" type="button"
+                                        class="btn btn-dark btn-sm scroll-click">submit</button>
                                 </div>
+                            </div>
+                            @if ($config['submit']['type'] == 'redirect')
+                                <script>
+                                    $("#{{ $config['submit']['id'] }}").on("click", function(e) {
+                                        window.location.href = `{{ $config['submit']['route'] }}&Id=${$(`#${idForm}`).val()}`
+                                    });
+                                </script>
+                            @elseif ($config['submit']['type'] == 'input')
+                                <script>
+                                    $("#{{ $config['submit']['id'] }}").on("click", e => {
+                                        const data = @json('{{ $formData }}')
+                                        let formData = {}
+                                        data.forEach((item) => {
+                                            formData[item.name] = $(`#${item.id}`).val()
+                                        })
+                                        TopLoaderService.start()
+                                        $.ajax({
+                                            url: `{{ $config['submit']['route'] }}&Id=${$(`#${idForm}`).val()}`,
+                                            type: "{{ $config['submit']['method'] }}",
+                                            data: formData,
+                                            dataType: 'json',
+                                            headers: {
+                                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                            },
+                                            success: function(response) {
+                                                Swal.fire({
+                                                    icon: 'success',
+                                                    title: 'Success',
+                                                    text: response.message
+                                                }).then(() => {
+                                                    window.location.replace("/user");
+                                                });
+                                            },
+                                            error: function(xhr, status, error) {
+                                                Swal.fire({
+                                                    icon: 'error',
+                                                    title: 'Error',
+                                                    text: xhr.responseJSON.message ?? error
+                                                });
+                                            },
+                                            complete: data => {
+                                                TopLoaderService.end()
+                                            }
+                                        });
+                                    })
+                                </script>
                             @endif
                         </form>
                     @endif

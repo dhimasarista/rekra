@@ -24,6 +24,23 @@ class UserController extends Controller
             "kabkota" => $kabkota,
         ]);
     }
+    public function form2(Request $request)
+    {
+        try {
+            $view = "layouts.form";
+            $user = User::find($request->query("Id"));
+            $kabkota = KabKota::all();
+            return view($view, []);
+        } catch (Exception $e) {
+            $val = Formatting::formatUrl([
+                "code" => 500,
+                "title" => $e->getMessage(),
+                "message" => $e->getMessage(),
+            ]);
+
+            return redirect("/error$val");
+        }
+    }
     public function form(Request $request)
     {
         try {
