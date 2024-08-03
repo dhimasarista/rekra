@@ -23,6 +23,59 @@ class RekapitulasiController extends Controller
             if ($typeQuery) {
                 if ($typeQuery == "Provinsi" || $typeQuery == "provinsi") {
                     $data = Provinsi::all();
+                    $formId1 = Uuid::uuid7();
+                    $formId2 = Uuid::uuid7();
+                    $options[] = [
+                        "id" => null,
+                        "is_selected" => true,
+                        "name" => "Pilih"
+                    ];
+                    foreach ($data as $provinsi) {
+                        $options[] = [
+                            "id"=> $provinsi->id,
+                            "is_selected" => false,
+                            "name" => $provinsi->name,
+                        ];
+                    }
+                    $config = [
+                        "name" => "Pilih Provinsi",
+                        "submit" => [
+                            "type" => "redirect", // or "input"
+                            "id" => Uuid::uuid7(),
+                            "route" => route('rekap.list', ['Type' => 'Provinsi'])
+                        ],
+                        "form" => [
+                            0 => [
+                                "id" => $formId1,
+                                "type" => "select",
+                                "name" => "Nama Negara",
+                                "is_disabled" => true,
+                                "for_submit" => false,
+                                "fetch_data" => [
+                                    "is_fetching" => false
+                                ],
+                                "options" => [
+                                    [
+                                        "id" => null,
+                                        "is_selected" => true,
+                                        "name" => "indonesia",
+                                    ],
+                                ]
+                            ],
+                            1 => [
+                                "id" => $formId2,
+                                "type" => "select",
+                                "name" => "Nama Provinsi",
+                                "is_disabled" => false,
+                                "for_submit" => true,
+                                "fetch_data" => [
+                                    "is_fetching" => false,
+                                ],
+                                "options" => $options,
+                            ],
+                        ]
+
+                    ];
                 } else if ($typeQuery == "Kabkota" || $typeQuery == "kabkota") {
                     $data = Provinsi::all();
                     $options[] = [
@@ -42,6 +95,11 @@ class RekapitulasiController extends Controller
                     // $formId3 = Uuid::uuid7();
                     $config = [
                         "name" => "Pilih Kabupaten/Kota",
+                        "submit" => [
+                            "type" => "redirect", // or "input"
+                            "id" => Uuid::uuid7(),
+                            "route" => route('rekap.list', ['Type' => 'Kabkota'])
+                        ],
                         "form" => [
                             0 => [
                                 "id" => $formId1,
@@ -50,7 +108,7 @@ class RekapitulasiController extends Controller
                                 "is_disabled" => false,
                                 "for_submit" => false,
                                 "fetch_data" => [
-                                    "is_fetching" => "true",
+                                    "is_fetching" => true,
                                     "route" => "/rekapitulasi/wilayah/kabkota?Provinsi=",
                                     "sibling_form_id" => $formId2,
                                     "type" => "kabkota",
@@ -64,7 +122,7 @@ class RekapitulasiController extends Controller
                                 "is_disabled" => true,
                                 "for_submit" => true,
                                 "fetch_data" => [
-                                    "is_fetching" => "false"
+                                    "is_fetching" => false
                                 ],
                                 "options" => [
                                     [
@@ -75,11 +133,6 @@ class RekapitulasiController extends Controller
                                 ]
                             ],
                         ],
-                        "submit" => [
-                            "type" => "redirect", // or "input"
-                            "id" => Uuid::uuid7(),
-                            "route" => route('rekap.list', ['Type' => 'Kabkota'])
-                        ]
                     ];
                 }
             } else {
