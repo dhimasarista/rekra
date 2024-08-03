@@ -76,6 +76,7 @@ class RekapitulasiController extends Controller
                             ],
                         ],
                         "submit" => [
+                            "type" => "redirect", // or "input"
                             "id" => Uuid::uuid7(),
                             "route" => route('rekap.list', ['Type' => 'Kabkota'])
                         ]

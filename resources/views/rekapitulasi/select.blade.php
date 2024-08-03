@@ -75,22 +75,24 @@
                                     </div>
                                 @endforeach
                             </div>
-                            <div class="form-group row text-right">
-                                <label class="col-sm-12 col-md-2 col-form-label"></label>
-                                <div id="container-button-submit-form" class="col-sm-12 col-md-10">
-                                    <button id="{{ $config['submit']['id'] }}" type="button"
-                                        class="btn btn-dark btn-sm scroll-click">submit</button>
-                                    <script>
-                                        $("#{{ $config['submit']['id'] }}").on("click", function(e) {
-                                            window.location.href = `{{ $config['submit']['route'] }}&Id=${$(`#${idForm}`).val()}`
-                                        });
-                                    </script>
+                            @if ($config['submit']['type'] == 'redirect')
+                                <div class="form-group row text-right">
+                                    <label class="col-sm-12 col-md-2 col-form-label"></label>
+                                    <div id="container-button-submit-form" class="col-sm-12 col-md-10">
+                                        <button id="{{ $config['submit']['id'] }}" type="button"
+                                            class="btn btn-dark btn-sm scroll-click">submit</button>
+                                        <script>
+                                            $("#{{ $config['submit']['id'] }}").on("click", function(e) {
+                                                window.location.href = `{{ $config['submit']['route'] }}&Id=${$(`#${idForm}`).val()}`
+                                            });
+                                        </script>
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
                         </form>
                     @endif
                     @empty($config)
-                        <h1 class="text-center mb-20">Tidak Ada Data</h1>
+                        <h1 class="text-center mb-30">Tidak Ada Data</h1>
                     @endempty
                 </div>
                 <!-- 2 end -->
