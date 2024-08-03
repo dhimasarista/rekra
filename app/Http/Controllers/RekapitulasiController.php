@@ -18,7 +18,7 @@ class RekapitulasiController extends Controller
         try {
             $config = null;
             $data = null;
-            $view = "rekapitulasi.select";
+            $view = "layouts.form";
             $typeQuery = $request->query("Type");
             if ($typeQuery) {
                 if ($typeQuery == "Provinsi" || $typeQuery == "provinsi") {
