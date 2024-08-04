@@ -12,6 +12,7 @@ Route::get('/', function () {
     return redirect("/login");
 });
 Route::get("/login", [AuthController::class, "index"]);
+Route::get("/chart", [ErrorController::class, "test"]);
 Route::post('/login', [AuthController::class, 'post']);
 Route::get("/error", [ErrorController::class, "index"]);
 Route::get("/404", function(){
