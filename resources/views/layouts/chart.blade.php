@@ -15,8 +15,8 @@
             </div>
         </div>
         <div class="row mb-30">
-            <div class="col-md-6">
-                <div class="pd-20 card-box height-100-p">
+            <div class="col-md-6 mb-20">
+                <div class="pd-20 card-box height-100-p ">
                     <h4 class="h4 text-blue">Pie Chart</h4>
                     <div id="chart8"></div>
                 </div>
@@ -32,9 +32,11 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             let kecamatan = @json($kecamatan);
+            let seriesNames = @json($seriesNames);
 
             let categories = Object.keys(kecamatan);
-            let seriesData = ["one", "two"].map(seriesName => ({
+
+            let seriesData = seriesNames.map(seriesName => ({
                 name: seriesName,
                 data: categories.map(category => kecamatan[category][seriesName])
             }));
@@ -88,7 +90,22 @@
             chart4.render();
 
             let options8 = {
-                series: [44, 55, 41, 17, 15],
+                series: seriesData.map(series => series.data.reduce((a, b) => a + b, 0)),
+                labels: seriesNames,
+                dataLabels: {
+                    enabled: true,
+                },
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            labels: {
+                                show: true,
+                                name: {},
+                                value: {}
+                            }
+                        }
+                    }
+                },
                 chart: {
                     type: 'donut',
                 },
