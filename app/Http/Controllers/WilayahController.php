@@ -454,42 +454,6 @@ class WilayahController extends Controller
             return redirect("/error$val");
         }
     }
-    public function form2(Request $request)
-    {
-        try {
-            $typeQuery = $request->query("Type");
-            $view = "wilayah.index";
-            $data = null;
-            $dataWilayah = null;
-            $idQuery = $request->query("Id");
-                if($typeQuery == "Kabkota"|| $typeQuery == "kabkota"){
-                    $view = "wilayah.forms.kabkota";
-                    $dataWilayah = Provinsi::all();
-                    if ($idQuery) {
-                        $data = KabKota::find($idQuery);
-                    }
-                } else if($typeQuery == "Kecamatan"|| $typeQuery == "kecamatan"){
-
-                } else if($typeQuery == "Kelurahan"|| $typeQuery == "kelurahan"){
-
-                } else if($typeQuery == "TPS"|| $typeQuery == "tps"){
-
-                }
-
-            return view($view, [
-                "data" => $data,
-                "dataWilayah" => $dataWilayah,
-            ]);
-        } catch (Exception $e) {
-            $val = Formatting::formatUrl([
-                "code" => 500,
-                "title" => $e->getMessage(),
-                "message" => $e->getMessage(),
-            ]);
-
-            return redirect("/error$val");
-        }
-    }
     public function store(Request $request) {
         $message = null;
         $responseCode = 200;
