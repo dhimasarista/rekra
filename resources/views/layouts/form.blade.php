@@ -5,8 +5,13 @@
     @endphp
     @use('App\Helpers\Formatting')
     <div class="xs-pd-20-10 pd-ltr-20">
-        <div class="title pb-20">
+        <div class="title pb-20 d-flex justify-content-between align-items-center">
             <h2 class="h2 mb-0">{{ Formatting::capitalize($segments[0]) }}</h2>
+            <div class="text-right">
+                <a class="btn btn-sm btn-dark" href="{{ url()->previous() }}">
+                    <i class="fa fa-arrow-left"></i> Kembali
+                </a>
+            </div>
         </div>
         <div class="row">
             <div class="col-md-12">
