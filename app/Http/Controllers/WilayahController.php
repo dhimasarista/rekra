@@ -238,19 +238,16 @@ class WilayahController extends Controller
                         "is_disabled" => false,
                         "for_submit" => false,
                         "fetch_data" => [
-                            "is_fetching" => true,
-                            "route" => "/rekapitulasi/wilayah/kabkota?Provinsi=",
-                            "sibling_form_id" => $formId2,
-                            "response" => "kabkota",
+                            "is_fetching" => false,
                         ],
                     ],
                 ];
                 if($kecamatan){
                     $config["name"] = "Update: $kecamatan->name";
-                    $config["form"][2]["data"]["value"] = $kecamatan->kabkota_id;
+                    $config["form"][1]["data"]["value"] = $kecamatan->kabkota_id;
+
                 } else {
                     $config["name"] = "Create Kecamatan";
-
                 }
 
             }
