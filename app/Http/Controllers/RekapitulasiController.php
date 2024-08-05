@@ -118,7 +118,7 @@ class RekapitulasiController extends Controller
                             1 => [
                                 "id" => $formId2,
                                 "type" => "select",
-                                "name" => "Hak Akses",
+                                "name" => "Nama Kab/Kota",
                                 "is_disabled" => true,
                                 "for_submit" => true,
                                 "fetch_data" => [
