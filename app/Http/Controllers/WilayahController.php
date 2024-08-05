@@ -79,7 +79,8 @@ class WilayahController extends Controller
                     "type" => "input",
                     "id" => Uuid::uuid7(),
                     "route" => null,
-                    "method" => "post"
+                    "method" => "post",
+                    "redirect" => route("wilayah.index")
                 ],
                 "form_data" => [],
                 "form" => [],

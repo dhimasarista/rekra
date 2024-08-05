@@ -30,7 +30,7 @@
                                                     {{ $form['is_disabled'] ? 'disabled' : '' }}>
                                                     @foreach ($form['options'] as $value)
                                                         <option value="{{ $value['id'] }}"
-                                                            {{ ($form["data"]["value"] ?? null) == $value['id'] || $value['is_selected'] ? 'selected' : '' }}>
+                                                            {{ ($form['data']['value'] ?? null) == $value['id'] || $value['is_selected'] ? 'selected' : '' }}>
                                                             {{ Formatting::capitalize($value['name']) }} </option>
                                                     @endforeach
                                                 </select>
@@ -38,7 +38,9 @@
                                         @elseif ($form['type'] == 'text')
                                             <div class="form-group">
                                                 <label>{{ $form['name'] }}</label>
-                                                <input id="{{ $form['id'] }}" placeholder="{{ $form["data"]["placeholder"] ?? null }}" value="{{ $form["data"]["value"] ?? null }}" type="text"
+                                                <input id="{{ $form['id'] }}"
+                                                    placeholder="{{ $form['data']['placeholder'] ?? null }}"
+                                                    value="{{ $form['data']['value'] ?? null }}" type="text"
                                                     class="form-control">
                                             </div>
                                         @endif
@@ -91,14 +93,14 @@
                             @elseif ($config['submit']['type'] == 'input')
                                 <script>
                                     $("#{{ $config['submit']['id'] }}").on("click", e => {
-                                        const data = @json($config["submit"]["form_data"]);
+                                        const data = @json($config['submit']['form_data']);
                                         let formData = {};
                                         data.forEach((item) => {
                                             formData[item.name] = $(`#${item.id}`).val()
                                         });
                                         TopLoaderService.start()
                                         $.ajax({
-                                            url: `{{ url($config['submit']['route']) }}`,
+                                            url: `{!! url($config['submit']['route']) !!}`,
                                             type: "{{ $config['submit']['method'] }}",
                                             data: formData,
                                             dataType: 'json',
@@ -111,7 +113,7 @@
                                                     title: 'Success',
                                                     text: response.message
                                                 }).then(() => {
-                                                    window.location.replace("/user");
+                                                    window.location.replace("{{ $config['submit']['redirect'] }}");
                                                 });
                                             },
                                             error: function(xhr, status, error) {

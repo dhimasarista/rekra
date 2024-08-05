@@ -55,6 +55,7 @@ class UserController extends Controller
                     "id" => Uuid::uuid7(),
                     "route" => route('user.store'),
                     "method" => "post",
+                    "redirect" => route("user.index"),
                     "form_data" => [
                         [
                             "id" => $formId1,
