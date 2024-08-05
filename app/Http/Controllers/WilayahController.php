@@ -330,27 +330,33 @@ class WilayahController extends Controller
                     }
                 }
             } else if ($queryType == "Kecamatan" || $queryType == "kecamatan"){
-                $data = $request->all();
-                $responseCode = 500;
-                // $validator = Validator::make($request->all(), [
-                //     "name" => "required|string|max:255",
-                //     "kabkota_id" => "required|integer"
-                // ]);
-                // if ($validator->fails()) {
-                //     $message = $validator->errors()->all();
-                //     $responseCode = 500;
-                // } else {
-                //     $data = Kecamatan::withTrashed()->find($queryId);
-                //     if ($data) {
-                //         $data->update($request->all());
-                //     } else {
-                //         $data = $request->all();
-                //         if (!$request->id) {
-                //             $data["id"] = Uuid::uuid7();
-                //         }
-                //         Kecamatan::create($data);
-                //     }
-                // }
+                $validator = Validator::make($request->all(), [
+                    "names" => "required|array|min:1",
+                    "kabkota_id" => "required|integer"
+                ]);
+                if ($validator->fails()) {
+                    $message = $validator->errors()->all();
+                    $responseCode = 500;
+                } else {
+                    $data = Kecamatan::withTrashed()->find($queryId);
+                    if ($data) {
+                        $data->update($request->all());
+                        $message = "Data berhasil diperbarui";
+                    } else {
+                        $data = [];
+                        foreach ($request->names as $value) {
+                            if ($value != "") {
+                                array_push($data, [
+                                    "id" => Uuid::uuid7(),
+                                    "name" => $value,
+                                    "kabkota_id" => $request->kabkota_id,
+                                ]);
+                            }
+                        }
+                        Kecamatan::insert($data);
+                        $message = "Data baru ditambahkan";
+                    }
+                }
             } else if ($queryType == "Kelurahan" || $queryType == "kelurahan") {
                 $validator = Validator::make($request->all(), [
                     "name" => "required|string|max:255",
