@@ -13,8 +13,8 @@ use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Ramsey\Uuid\Rfc4122\UuidV1;
 use Ramsey\Uuid\Uuid;
+
 
 class WilayahController extends Controller
 {
@@ -62,7 +62,119 @@ class WilayahController extends Controller
             return response()->json(["message" => $message], 500);
         }
     }
-    public function form(Request $request)
+    public function form(Request $request){
+        try {
+            $typeQuery = $request->query("Type");
+            $view = "layouts.form";
+            $idQuery = $request->query("Id");
+            //
+                $formId1 = Uuid::uuid7();
+                $formId2 = Uuid::uuid7();
+                $formId3 = Uuid::uuid7();
+                $formId4 = Uuid::uuid7();
+            //
+            $config = [
+                "name" => null,
+                "submit" => [
+                    "type" => "input",
+                    "id" => Uuid::uuid7(),
+                    "route" => null,
+                    "method" => "post"
+                ],
+                "form_data" => [],
+                "form" => [],
+            ];
+            if($typeQuery == "Kabkota"|| $typeQuery == "kabkota"){
+                $provinsi = Provinsi::all();
+                $kabkota = KabKota::find($idQuery);
+                $options[] = [
+                    "id" => null,
+                    "is_selected" => true,
+                    "name" => "Pilih"
+                ];
+                foreach ($provinsi as $p) {
+                    $options[] = [
+                        "id"=> $p->id,
+                        "is_selected" => false,
+                        "name" => $p->name,
+                    ];
+                }
+                $config["name"] = "Create Kab/Kota";
+                $config["submit"]["route"] = route("wilayah.post", ["Type" => "Kabkota", "Id" => $idQuery]);
+                $config["submit"]["form_data"] = [
+                    [
+                        "id" => $formId1,
+                        "name" => "id",
+                    ],
+                    [
+                        "id" => $formId2,
+                        "name" => "name",
+                    ],
+                    [
+                        "id" => $formId3,
+                        "name" => "provinsi_id",
+                    ],
+                ];
+                $config["form"] = [
+                    0 => [
+                        "id" => $formId1,
+                        "type" => "text",
+                        "name" => "ID",
+                        "is_disabled" => false,
+                        "for_submit" => false,
+                        "fetch_data" => [
+                            "is_fetching" => false,
+                        ],
+                        "data" => [
+                            "value" => $kabkota->id ?? null,
+                            "placeholder" => "Wajib Diisi",
+                        ],
+                    ],
+                    1 => [
+                        "id" => $formId2,
+                        "type" => "text",
+                        "name" => "Nama Kabupaten/Kota",
+                        "is_disabled" => false,
+                        "for_submit" => false,
+                        "fetch_data" => [
+                            "is_fetching" => false,
+                        ],
+                        "data" => [
+                            "value" => $kabkota->name ?? null,
+                            "placeholder" => "Wajib Diisi",
+                        ],
+                    ],
+                    2 => [
+                        "id" => $formId3,
+                        "type" => "select",
+                        "name" => "Nama Provinsi",
+                        "is_disabled" => false,
+                        "for_submit" => false,
+                        "fetch_data" => [
+                            "is_fetching" => false,
+                        ],
+                        "options" => $options,
+                    ],
+                ];
+                if($kabkota){
+                    $config["name"] = "Update: $kabkota->name";
+                    $config["form"][2]["data"]["value"] = $kabkota->provinsi_id;
+                }
+            }
+            return view($view, [
+                "config" => $config,
+            ]);
+        } catch (Exception $e) {
+            $val = Formatting::formatUrl([
+                "code" => 500,
+                "title" => $e->getMessage(),
+                "message" => $e->getLine(),
+            ]);
+
+            return redirect("/error$val");
+        }
+    }
+    public function form2(Request $request)
     {
         try {
             $typeQuery = $request->query("Type");
@@ -122,8 +234,9 @@ class WilayahController extends Controller
                         $data->save();
                         $message = "Data berhasil diperbarui";
                     } else {
-                        KabKota::create($request->all());
-                        $message = "Data berhasil dibuat";
+                        // KabKota::create($request->all());
+                        $message = "Saat ini belum bisa menambahkan data, hubungi developer";
+                        $responseCode = 500;
                     }
                 }
             } else if ($queryType == "Kecamatan" || $queryType == "kecamatan"){
