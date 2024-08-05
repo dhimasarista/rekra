@@ -62,6 +62,25 @@ class WilayahController extends Controller
                         "delete" => "#"
                     ];
                 }
+            } else if (!$typeQuery || $typeQuery == "Kelurahan" || $typeQuery == "kelurahan") {
+                $kelurahan = Kelurahan::with("kecamatan")->where("kecamatan_id", $idQuery)->get();
+                $tableName = $kelurahan->first()->kecamatan->name ?? "Kocong🥺";
+                foreach ($kelurahan as $k) {
+                    $data[] = [
+                        "id" => $k->id,
+                        "name" => $k->name,
+                        "total" => 1000,
+                        "detail" => route("wilayah.index", [
+                            "Type" => "TPS",
+                            "Id" =>  $k->id,
+                        ]),
+                        "edit" => route("wilayah.form", [
+                            "Type" => "Kelurahan",
+                            "Id" =>  $k->id,
+                        ]),
+                        "delete" => "#"
+                    ];
+                }
             }
             return view($view, [
                 "tableName" => $tableName,
@@ -130,13 +149,13 @@ class WilayahController extends Controller
             if($typeQuery == "Kabkota"|| $typeQuery == "kabkota"){
                 $provinsi = Provinsi::all();
                 $kabkota = KabKota::find($idQuery);
-                $options[] = [
+                $optProvinsi[] = [
                     "id" => null,
                     "is_selected" => true,
                     "name" => "Pilih"
                 ];
                 foreach ($provinsi as $p) {
-                    $options[] = [
+                    $optProvinsi[] = [
                         "id"=> $p->id,
                         "is_selected" => false,
                         "name" => $p->name,
@@ -196,7 +215,7 @@ class WilayahController extends Controller
                         "fetch_data" => [
                             "is_fetching" => false,
                         ],
-                        "options" => $options,
+                        "options" => $optProvinsi,
                     ],
                     2 => [
                         "id" => null,
@@ -250,9 +269,11 @@ class WilayahController extends Controller
                         "for_submit" => false,
                         "fetch_data" => [
                             "is_fetching" => true,
-                            "route" => "/rekapitulasi/wilayah/kabkota?Provinsi=",
+                            "route" => route("wilayah.find", [
+                                "Type" => "Kabkota",
+                            ]),
                             "sibling_form_id" => $formId2,
-                            "response" => "kabkota",
+                            "response" => "data",
                         ],
                         "options" => $options,
                     ],
@@ -279,7 +300,7 @@ class WilayahController extends Controller
                         "type" => "dynamic-input",
                         "button" => [
                             "id" => Uuid::uuid7(),
-                            "name" => "Tambah"
+                            "name" => "+Tambah Kolom"
                         ],
                         "container" => [
                             "id" => $containerIdForm2,
@@ -302,7 +323,123 @@ class WilayahController extends Controller
                 } else {
                     $config["name"] = "Create Kecamatan";
                 }
+            }else if($typeQuery == "Kelurahan"|| $typeQuery == "kelurahan") {
+                $formId4 = Uuid::uuid7();
+                $provinsi = Provinsi::all();
+                $kelurahan = Kelurahan::find($idQuery);
+                $optProvinsi[] = [
+                    "id" => null,
+                    "is_selected" => true,
+                    "name" => "Pilih"
+                ];
+                foreach ($provinsi as $p) {
+                    $optProvinsi[] = [
+                        "id"=> $p->id,
+                        "is_selected" => false,
+                        "name" => $p->name,
+                    ];
+                }
+                $containerIdForm4 = Uuid::uuid7();
+                $config["submit"]["route"] = route("wilayah.post", ["Type" => "Kelurahan", "Id" => $idQuery]);
+                $config["submit"]["form_data"] = [
+                    [
+                        "id" => $formId3,
+                        "name" => "kecamatan_id",
+                    ],
+                    [
+                        "id" => $containerIdForm4,
+                        "name" => "names",
+                        "type" => "array",
+                    ],
+                ];
+                $config["form"] = [
+                    0 => [
+                        "id" => $formId1,
+                        "type" => "select",
+                        "name" => "Nama Provinsi",
+                        "is_disabled" => false,
+                        "for_submit" => false,
+                        "fetch_data" => [
+                            "is_fetching" => true,
+                            "route" => route("wilayah.find", [
+                                "Type" => "Kabkota",
+                                "Id" => ""
+                            ]),
+                            "sibling_form_id" => $formId2,
+                            "response" => "data",
+                        ],
+                        "options" => $optProvinsi,
+                    ],
+                    1 => [
+                        "id" => $formId2,
+                        "type" => "select",
+                        "name" => "Nama Kab/Kota",
+                        "is_disabled" => true,
+                        "for_submit" => false,
+                        "fetch_data" => [
+                            "is_fetching" => true,
+                            "route" => route("wilayah.find", [
+                                "Type" => "Kecamatan",
+                                "Id" => ""
+                            ]),
+                            "sibling_form_id" => $formId3,
+                            "response" => "data",
+                        ],
+                        "options" => [
+                            [
+                                "id" => null,
+                                "is_selected" => true,
+                                "name" => ""
+                            ],
+                        ],
+                    ],
+                    2 => [
+                        "id" => $formId3,
+                        "type" => "select",
+                        "name" => "Nama Kecamatan",
+                        "is_disabled" => true,
+                        "for_submit" => false,
+                        "fetch_data" => [
+                            "is_fetching" => false,
+                        ],
+                        "options" => [
+                            [
+                                "id" => null,
+                                "is_selected" => true,
+                                "name" => ""
+                            ],
+                        ],
+                    ],
+                    // Form Dynamic Input
+                    3 => [
+                        "id" => $formId4,
+                        "type" => "dynamic-input",
+                        "button" => [
+                            "id" => Uuid::uuid7(),
+                            "name" => "+Extend"
+                        ],
+                        "container" => [
+                            "id" => $containerIdForm4,
+                        ],
+                        "data" => [
+                            "placeholder" => null
+                        ],
+                        "name" => "Nama Kecamatan",
+                        "is_disabled" => false,
+                        "for_submit" => false,
+                        "fetch_data" => [
+                            "is_fetching" => false,
+                        ],
+                    ],
+                ];
+                // Todo: update form jika data edit, ganti dynamic/multiple input jadi input biasa
+                if($kelurahan){
+                    $config["name"] = "Update: $kelurahan->name";
+                    $config["form"][1]["data"]["value"] = $kelurahan->kabkota_id;
 
+                } else {
+                    $config["name"] = "Create Kecamatan";
+                }
             }
             return view($view, [
                 "config" => $config,
@@ -398,7 +535,7 @@ class WilayahController extends Controller
                     } else {
                         $data = [];
                         foreach ($request->names as $value) {
-                            if ($value != "") {
+                            if ($value) {
                                 array_push($data, [
                                     "id" => Uuid::uuid7(),
                                     "name" => $value,
@@ -412,7 +549,7 @@ class WilayahController extends Controller
                 }
             } else if ($queryType == "Kelurahan" || $queryType == "kelurahan") {
                 $validator = Validator::make($request->all(), [
-                    "name" => "required|string|max:255",
+                    "names" => "required|array|min:1",
                     "kecamatan_id" => "required|string"
                 ]);
                 if ($validator->fails()) {
@@ -423,11 +560,22 @@ class WilayahController extends Controller
                     if ($data) {
                         $data->update($request->all());
                     } else {
-                        $data = $request->all();
-                        if (!$request->id) {
-                            $data["id"] = Uuid::uuid7();
+                        $data = [];
+                        foreach ($request->names as $value) {
+                            if ($value) {
+                                array_push($data, [
+                                    "id" => Uuid::uuid7(),
+                                    "name" => $value,
+                                    "kecamatan_id" => $request->kecamatan_id,
+                                ]);
+                            }
                         }
-                        Kelurahan::create($data);
+                        if ($data) {
+                            Kelurahan::insert($data);
+                            $message = "Data baru ditambahkan";
+                        } else {
+                            $responseCode = 500;
+                        }
                     }
                 }
             } else if ($queryType == "TPS" || $queryType == "tps") {
@@ -469,9 +617,34 @@ class WilayahController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function find(Request $request)
     {
-        //
+        try {
+            $data = null;
+            $typeQuery = $request->query("Type");
+            $idQuery = $request->query("Id");
+            if ($typeQuery == "Provinsi" || $typeQuery == "provinsi") {
+                $data = Provinsi::where("id", $idQuery)->get();
+            } else if ($typeQuery == "Kabkota" || $typeQuery == "kabkota"){
+                $data = KabKota::where("provinsi_id", $idQuery)->get();
+            } else if ($typeQuery == "Kecamatan" || $typeQuery == "kecamatan"){
+                $data = Kecamatan::where("kabkota_id", $idQuery)->get();
+            } else if ($typeQuery == "Kelurahan" || $typeQuery == "kelurahan"){
+                $data = Kelurahan::where("kecamatan_id", $idQuery)->get();
+            } else if ($typeQuery == "TPS" || $typeQuery == "tps"){
+                $data = TPS::where("kelurahan_id", $idQuery)->get();
+            }
+
+            return response()->json([
+                "data" => $data,
+            ], 200);
+        } catch (QueryException $e) {
+            $message = match($e->errorInfo[1]){
+                1062 => "Duplikasi Data",
+                default => $e->getMessage(),
+            };
+            return response()->json(["message" => $message], 500);
+        }
     }
 
     /**

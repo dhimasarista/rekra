@@ -16,7 +16,9 @@ class Kelurahan extends Model
     protected $keyType = 'string';
     protected $table = 'kelurahan';
     protected $fillable = [
+        "id",
         'name',
+        "kecamatan_id"
     ];
 
     protected static function boot()

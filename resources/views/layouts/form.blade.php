@@ -40,6 +40,10 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                        @elseif ($form['type'] == 'notification')
+                                            <div class="alert alert-success" role="alert">
+                                                {{ $form["name"] }}
+                                            </div>
                                         @elseif ($form['type'] == 'text')
                                             <div class="form-group">
                                                 <label>{{ $form['name'] }}</label>
@@ -51,9 +55,9 @@
                                         @elseif ($form['type'] == 'dynamic-input')
                                             <div id="{{ $form['container']['id'] }}">
                                                 <div class="form-group">
-                                                    <label for="{{ $form['id'] }}">{{ $form['name'] }} <button
-                                                            type="button" class="btn btn-sm btn-dark"
-                                                            id="{{ $form['button']['id'] }}">{{ $form['button']['name'] }}</button></label>
+                                                    <label for="{{ $form['id'] }}">{{ $form['name'] }}
+                                                        <a href="javascript:;" id="{{ $form['button']['id'] }}">{{ $form['button']['name'] }}</a>
+                                                        </label>
                                                     <input type="text" class="form-control" name="fields[]"
                                                         id="{{ $form['id'] }}"
                                                         placeholder="{{ $form['data']['placeholder'] ?? null }}">
@@ -83,7 +87,7 @@
                                                         type: "GET",
                                                         contentType: "application/json",
                                                         dataType: "json",
-                                                        url: `{{ url($form['fetch_data']['route']) }}${value}`,
+                                                        url: `{!! url($form['fetch_data']['route']) !!}${value}`,
                                                         success: function(response) {
                                                             const siblingSelect = $("#{{ $form['fetch_data']['sibling_form_id'] }}");
                                                             siblingSelect.empty();
