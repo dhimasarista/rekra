@@ -18,17 +18,60 @@ use Ramsey\Uuid\Uuid;
 
 class WilayahController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         try {
-            $data = KabKota::all();
-            return view("wilayah.index", [
+            $data = null;
+            $tableName = "Daftar Wilayah";
+            $view = "wilayah.index";
+            $typeQuery = $request->query("Type");
+            $idQuery = $request->query("Id");
+            if ($typeQuery == "Kecamatan" || $typeQuery == "kecamatan") {
+                $kecamatan = Kecamatan::with("kabkota")->where("kabkota_id", $idQuery)->get();
+                $tableName = $kecamatan->first()->kabkota->name ?? "Kocong🥺";
+                foreach ($kecamatan as $k) {
+                    $data[] = [
+                        "id" => $k->id,
+                        "name" => $k->name,
+                        "total" => 1000,
+                        "detail" => route("wilayah.index", [
+                            "Type" => "Kelurahan",
+                            "Id" =>  $k->id,
+                        ]),
+                        "edit" => route("wilayah.form", [
+                            "Type" => "Kecamatan",
+                            "Id" =>  $k->id,
+                        ]),
+                        "delete" => "#"
+                    ];
+                }
+            } else if (!$typeQuery || $typeQuery == "Kabkota" || $typeQuery == "kabkota") {
+                $kabkota = KabKota::all();
+                foreach ($kabkota as $k) {
+                    $data[] = [
+                        "id" => $k->id,
+                        "name" => $k->name,
+                        "total" => 1000,
+                        "detail" => route("wilayah.index", [
+                            "Type" => "Kecamatan",
+                            "Id" =>  $k->id,
+                        ]),
+                        "edit" => route("wilayah.form", [
+                            "Type" => "Kabkota",
+                            "Id" =>  $k->id,
+                        ]),
+                        "delete" => "#"
+                    ];
+                }
+            }
+            return view($view, [
+                "tableName" => $tableName,
                 "data"=> $data,
             ]);
         } catch (Exception $e) {
             $val = Formatting::formatUrl([
                 "code" => 500,
-                "title" => "Internal Server Error",
-                "message" => $e->getMessage(),
+                "title" => $e->getMessage(),
+                "message" => "Line: ".$e->getLine(),
             ]);
 
             return redirect("/error$val");

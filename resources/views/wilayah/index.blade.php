@@ -40,7 +40,7 @@
                 <!-- Export Datatable start -->
                 <div class="card-box mb-30">
                     <div class="pd-20">
-                        <h4 class="text-blue h4">Daftar Wilayah</h4>
+                        <h4 class="text-blue h4">{{ Formatting::capitalize($tableName) }}</h4>
                     </div>
                     <div class="pb-20">
                         <table id="wilayah-table" class="table hover stripe multiple-select-row data-table-export wrap">
@@ -52,10 +52,12 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {{-- @dd($data) --}}
+                                @if ($data)
                                 @foreach ($data as $d)
                                     <tr>
-                                        <td>{{ Formatting::capitalize($d->name) }}</td>
-                                        <td>3.986</td>
+                                        <td>{{ Formatting::capitalize($d["name"]) }}</td>
+                                        <td>{{ $d["total"] }}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
@@ -63,13 +65,12 @@
                                                     <i class="dw dw-more"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                                    <a class="dropdown-item" href="#"><i class="dw dw-eye"></i>
+                                                    <a class="dropdown-item" href="{{ $d["detail"] }}"><i class="dw dw-eye"></i>
                                                         Lihat</a>
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('wilayah.form', ['Type' => 'Kabkota', 'Id' => $d->id]) }}"><i
+                                                    <a class="dropdown-item" href="{{ $d["edit"] }}"><i
                                                             class="dw dw-edit2"></i>
                                                         Edit</a>
-                                                    <a class="dropdown-item" onclick="" href="#"><i
+                                                    <a class="dropdown-item"  href="{{ $d["delete"] }}"><i
                                                             class="dw dw-delete-3"></i>
                                                         Delete</a>
                                                 </div>
@@ -77,14 +78,14 @@
                                         </td>
                                     </tr>
                                 @endforeach
+                                @endif
                             </tbody>
                         </table>
-
                     </div>
+                    <script>
+                        $("#wilayah-table").DataTable({})
+                    </script>
                 </div>
-                <script>
-                    $("#wilayah-table").DataTable({})
-                </script>
                 <!-- Export Datatable End -->
             </div>
             <div class="col-md-4 mb-20">
