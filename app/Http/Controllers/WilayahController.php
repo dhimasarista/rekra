@@ -187,7 +187,7 @@ class WilayahController extends Controller
                             "placeholder" => "Wajib Diisi",
                         ],
                     ],
-                    2 => [
+                    3 => [
                         "id" => $formId3,
                         "type" => "select",
                         "name" => "Nama Provinsi",
@@ -197,6 +197,16 @@ class WilayahController extends Controller
                             "is_fetching" => false,
                         ],
                         "options" => $options,
+                    ],
+                    2 => [
+                        "id" => null,
+                        "type" => "notification",
+                        "name" => "ID: silahkan browsing di internet untuk melihat kode daerah setiap. Contoh 21 Kepri, 2171 Kota Batam.",
+                        "is_disabled" => false,
+                        "for_submit" => false,
+                        "fetch_data" => [
+                            "is_fetching" => false,
+                        ],
                     ],
                 ];
                 if($kabkota){
