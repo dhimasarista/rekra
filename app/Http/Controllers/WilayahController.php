@@ -71,7 +71,6 @@ class WilayahController extends Controller
                 $formId1 = Uuid::uuid7();
                 $formId2 = Uuid::uuid7();
                 $formId3 = Uuid::uuid7();
-                $formId4 = Uuid::uuid7();
             //
             $config = [
                 "name" => null,
@@ -161,6 +160,99 @@ class WilayahController extends Controller
                     $config["name"] = "Update: $kabkota->name";
                     $config["form"][2]["data"]["value"] = $kabkota->provinsi_id;
                 }
+            } else if($typeQuery == "Kecamatan"|| $typeQuery == "kecamatan") {
+                $provinsi = Provinsi::all();
+                $kecamatan = Kecamatan::find($idQuery);
+                $options[] = [
+                    "id" => null,
+                    "is_selected" => true,
+                    "name" => "Pilih"
+                ];
+                foreach ($provinsi as $p) {
+                    $options[] = [
+                        "id"=> $p->id,
+                        "is_selected" => false,
+                        "name" => $p->name,
+                    ];
+                }
+                $containerIdForm2 = Uuid::uuid7();
+                $config["submit"]["route"] = route("wilayah.post", ["Type" => "Kecamatan", "Id" => $idQuery]);
+                $config["submit"]["form_data"] = [
+                    [
+                        "id" => $formId2,
+                        "name" => "kabkota_id",
+                    ],
+                    [
+                        "id" => $containerIdForm2,
+                        "name" => "names",
+                        "type" => "array",
+                    ],
+                ];
+                $config["form"] = [
+                    0 => [
+                        "id" => $formId1,
+                        "type" => "select",
+                        "name" => "Nama Provinsi",
+                        "is_disabled" => false,
+                        "for_submit" => false,
+                        "fetch_data" => [
+                            "is_fetching" => true,
+                            "route" => "/rekapitulasi/wilayah/kabkota?Provinsi=",
+                            "sibling_form_id" => $formId2,
+                            "response" => "kabkota",
+                        ],
+                        "options" => $options,
+                    ],
+                    1 => [
+                        "id" => $formId2,
+                        "type" => "select",
+                        "name" => "Nama Kab/Kota",
+                        "is_disabled" => true,
+                        "for_submit" => false,
+                        "fetch_data" => [
+                            "is_fetching" => false,
+                        ],
+                        "options" => [
+                            [
+                                "id" => null,
+                                "is_selected" => true,
+                                "name" => ""
+                            ],
+                        ],
+                    ],
+                    // Form Dynamic Input
+                    2 => [
+                        "id" => $formId3,
+                        "type" => "dynamic-input",
+                        "button" => [
+                            "id" => Uuid::uuid7(),
+                            "name" => "Tambah"
+                        ],
+                        "container" => [
+                            "id" => $containerIdForm2,
+                        ],
+                        "data" => [
+                            "placeholder" => null
+                        ],
+                        "name" => "Nama Kecamatan",
+                        "is_disabled" => false,
+                        "for_submit" => false,
+                        "fetch_data" => [
+                            "is_fetching" => true,
+                            "route" => "/rekapitulasi/wilayah/kabkota?Provinsi=",
+                            "sibling_form_id" => $formId2,
+                            "response" => "kabkota",
+                        ],
+                    ],
+                ];
+                if($kecamatan){
+                    $config["name"] = "Update: $kecamatan->name";
+                    $config["form"][2]["data"]["value"] = $kecamatan->kabkota_id;
+                } else {
+                    $config["name"] = "Create Kecamatan";
+
+                }
+
             }
             return view($view, [
                 "config" => $config,
@@ -241,25 +333,27 @@ class WilayahController extends Controller
                     }
                 }
             } else if ($queryType == "Kecamatan" || $queryType == "kecamatan"){
-                $validator = Validator::make($request->all(), [
-                    "name" => "required|string|max:255",
-                    "kabkota_id" => "required|integer"
-                ]);
-                if ($validator->fails()) {
-                    $message = $validator->errors()->all();
-                    $responseCode = 500;
-                } else {
-                    $data = Kecamatan::withTrashed()->find($queryId);
-                    if ($data) {
-                        $data->update($request->all());
-                    } else {
-                        $data = $request->all();
-                        if (!$request->id) {
-                            $data["id"] = Uuid::uuid7();
-                        }
-                        Kecamatan::create($data);
-                    }
-                }
+                $data = $request->all();
+                $responseCode = 500;
+                // $validator = Validator::make($request->all(), [
+                //     "name" => "required|string|max:255",
+                //     "kabkota_id" => "required|integer"
+                // ]);
+                // if ($validator->fails()) {
+                //     $message = $validator->errors()->all();
+                //     $responseCode = 500;
+                // } else {
+                //     $data = Kecamatan::withTrashed()->find($queryId);
+                //     if ($data) {
+                //         $data->update($request->all());
+                //     } else {
+                //         $data = $request->all();
+                //         if (!$request->id) {
+                //             $data["id"] = Uuid::uuid7();
+                //         }
+                //         Kecamatan::create($data);
+                //     }
+                // }
             } else if ($queryType == "Kelurahan" || $queryType == "kelurahan") {
                 $validator = Validator::make($request->all(), [
                     "name" => "required|string|max:255",
@@ -304,6 +398,7 @@ class WilayahController extends Controller
 
             return response()->json([
                 "message" => $message,
+                "data" => $data,
             ], $responseCode);
         } catch (QueryException $e) {
             $responseCode = 500;

@@ -43,8 +43,28 @@
                                                     value="{{ $form['data']['value'] ?? null }}" type="text"
                                                     class="form-control">
                                             </div>
+                                        @elseif ($form['type'] == 'dynamic-input')
+                                            <div id="{{ $form['container']['id'] }}">
+                                                <div class="form-group">
+                                                    <label for="{{ $form['id'] }}">{{ $form['name'] }} <button
+                                                            type="button" class="btn btn-sm btn-dark"
+                                                            id="{{ $form['button']['id'] }}">{{ $form['button']['name'] }}</button></label>
+                                                    <input type="text" class="form-control" name="fields[]"
+                                                        id="{{ $form['id'] }}"
+                                                        placeholder="{{ $form['data']['placeholder'] ?? null }}">
+                                                </div>
+                                            </div>
+                                            <script>
+                                                $('#{{ $form['button']['id'] }}').click(function() {
+                                                    let fieldCount = $('#{{ $form['container']['id'] }} .form-group').length + 1;
+                                                    let formGroup = `
+                                                        <div class="form-group">
+                                                            <input type="text" name="fields[]" class="form-control" id="dynamicField${fieldCount}">
+                                                        </div>`;
+                                                    $('#{{ $form['container']['id'] }}').append(formGroup);
+                                                });
+                                            </script>
                                         @endif
-
                                         @if ($form['for_submit'])
                                             <script>
                                                 let idForm = "{{ $form['id'] }}"; // for submit
@@ -96,7 +116,14 @@
                                         const data = @json($config['submit']['form_data']);
                                         let formData = {};
                                         data.forEach((item) => {
-                                            formData[item.name] = $(`#${item.id}`).val()
+                                            if (item.type == "array") {
+                                                formData[item.name] = [];
+                                                $(`#${item.id} input[name="fields[]"]`).each(function() {
+                                                    formData[item.name].push($(this).val());
+                                                });
+                                            } else {
+                                                formData[item.name] = $(`#${item.id}`).val()
+                                            }
                                         });
                                         TopLoaderService.start()
                                         $.ajax({
