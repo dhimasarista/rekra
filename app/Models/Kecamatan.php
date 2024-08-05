@@ -16,7 +16,9 @@ class Kecamatan extends Model
     protected $keyType = 'string';
     protected $table = 'kecamatan';
     protected $fillable = [
+        "id",
         'name',
+        "kabkota_id"
     ];
 
     protected static function boot()
