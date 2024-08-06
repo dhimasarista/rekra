@@ -250,9 +250,14 @@ class WilayahController extends Controller
                 $containerIdForm2 = Uuid::uuid7();
                 $config["submit"]["route"] = route("wilayah.post", ["Type" => "Kecamatan", "Id" => $idQuery]);
                 $config["submit"]["form_data"] = [
-                    [
+                    0 => [
                         "id" => $formId2,
                         "name" => "kabkota_id",
+                    ],
+                    1 => [
+                        "id" => $containerIdForm2,
+                        "name" => "name",
+                        "type" => "array",
                     ],
                 ];
                 $config["form"] = [
@@ -334,7 +339,6 @@ class WilayahController extends Controller
                             "placeholder" => "Wajib Diisi",
                         ],
                     ];
-                    $config["submit"]["form_data"][1]["name"] = "name";
                     $config["submit"]["form_data"][1]["type"] = null;
                 } else {
                     $config["name"] = "Create Kecamatan";
@@ -510,7 +514,7 @@ class WilayahController extends Controller
                 } else {
                     $data = Kecamatan::withTrashed()->find($queryId);
                     if ($data) {
-                        $data->name = $request->name ?? "";
+                        $data->name = $request->name;
                         $data->save();
                         $message = "Data berhasil diperbarui";
                         $responseCode = 500;
@@ -531,7 +535,7 @@ class WilayahController extends Controller
                 }
             } else if ($queryType == "Kelurahan" || $queryType == "kelurahan") {
                 $validator = Validator::make($request->all(), [
-                    // "names" => "required|array|min:1",
+                    "name" => "required|string|array|min:1",
                     "kecamatan_id" => "required|string"
                 ]);
                 if ($validator->fails()) {
