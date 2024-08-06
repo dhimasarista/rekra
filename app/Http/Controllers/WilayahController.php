@@ -254,11 +254,6 @@ class WilayahController extends Controller
                         "id" => $formId2,
                         "name" => "kabkota_id",
                     ],
-                    [
-                        "id" => $containerIdForm2,
-                        "name" => "names",
-                        "type" => "array",
-                    ],
                 ];
                 $config["form"] = [
                     0 => [
@@ -271,6 +266,7 @@ class WilayahController extends Controller
                             "is_fetching" => true,
                             "route" => route("wilayah.find", [
                                 "Type" => "Kabkota",
+                                "Id" => ""
                             ]),
                             "sibling_form_id" => $formId2,
                             "response" => "data",
@@ -280,6 +276,10 @@ class WilayahController extends Controller
                     1 => [
                         "id" => $formId2,
                         "type" => "select",
+                        "data" => [
+                            "value" => $kecamatan->kabkota_id ?? null,
+                            "placeholder" => "Wajib Diisi",
+                        ],
                         "name" => "Nama Kab/Kota",
                         "is_disabled" => true,
                         "for_submit" => false,
@@ -319,9 +319,23 @@ class WilayahController extends Controller
                 // Todo: update form jika data edit, ganti dynamic/multiple input jadi input biasa
                 if($kecamatan){
                     $config["name"] = "Update: $kecamatan->name";
-                    $config["form"][0];
-                    $config["form"][1]["data"]["value"] = $kecamatan->kabkota_id;
-
+                    $config["form"][0]["data"]["value"] = 21; // hardcode
+                    $config["form"][2] = [
+                        "id" => $formId3,
+                        "type" => "text",
+                        "name" => "Nama Kecamatan",
+                        "is_disabled" => false,
+                        "for_submit" => false,
+                        "fetch_data" => [
+                            "is_fetching" => false,
+                        ],
+                        "data" => [
+                            "value" => $kecamatan->name ?? null,
+                            "placeholder" => "Wajib Diisi",
+                        ],
+                    ];
+                    $config["submit"]["form_data"][1]["name"] = "name";
+                    $config["submit"]["form_data"][1]["type"] = null;
                 } else {
                     $config["name"] = "Create Kecamatan";
                 }
@@ -487,7 +501,7 @@ class WilayahController extends Controller
                 }
             } else if ($queryType == "Kecamatan" || $queryType == "kecamatan"){
                 $validator = Validator::make($request->all(), [
-                    "names" => "required|array|min:1",
+                    // "names" => "required|array|min:1",
                     "kabkota_id" => "required|integer"
                 ]);
                 if ($validator->fails()) {
@@ -496,8 +510,10 @@ class WilayahController extends Controller
                 } else {
                     $data = Kecamatan::withTrashed()->find($queryId);
                     if ($data) {
-                        $data->update($request->all());
+                        $data->name = $request->name ?? "";
+                        $data->save();
                         $message = "Data berhasil diperbarui";
+                        $responseCode = 500;
                     } else {
                         $data = [];
                         foreach ($request->names as $value) {
@@ -515,7 +531,7 @@ class WilayahController extends Controller
                 }
             } else if ($queryType == "Kelurahan" || $queryType == "kelurahan") {
                 $validator = Validator::make($request->all(), [
-                    "names" => "required|array|min:1",
+                    // "names" => "required|array|min:1",
                     "kecamatan_id" => "required|string"
                 ]);
                 if ($validator->fails()) {
@@ -568,7 +584,7 @@ class WilayahController extends Controller
 
             return response()->json([
                 "message" => $message,
-                "data" => $data,
+                "data" => $request->all()
             ], $responseCode);
         } catch (QueryException $e) {
             $responseCode = 500;
