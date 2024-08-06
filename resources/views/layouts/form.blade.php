@@ -57,24 +57,29 @@
                                             <div id="{{ $form['container']['id'] }}">
                                                 <div class="form-group">
                                                     <label for="{{ $form['id'] }}">{{ $form['name'] }}
-                                                        <a href="javascript:;"
-                                                            id="{{ $form['button']['id'] }}">{{ $form['button']['name'] }}</a>
+                                                        @if ($form['button']['show'])
+                                                            <a href="javascript:;"
+                                                                id="{{ $form['button']['id'] }}">{{ $form['button']['name'] }}</a>
+                                                        @endif
                                                     </label>
                                                     <input type="text" class="form-control" name="fields[]"
                                                         id="{{ $form['id'] }}"
+                                                        value="{{ $form['data']['value'] ?? null }}"
                                                         placeholder="{{ $form['data']['placeholder'] ?? null }}">
                                                 </div>
                                             </div>
-                                            <script>
-                                                $('#{{ $form['button']['id'] }}').click(function() {
-                                                    let fieldCount = $('#{{ $form['container']['id'] }} .form-group').length + 1;
-                                                    let formGroup = `
-                                                        <div class="form-group">
-                                                            <input type="text" name="fields[]" class="form-control" id="dynamicField${fieldCount}">
-                                                        </div>`;
-                                                    $('#{{ $form['container']['id'] }}').append(formGroup);
-                                                });
-                                            </script>
+                                            @if ($form['button']['show'])
+                                                <script>
+                                                    $('#{{ $form['button']['id'] }}').click(function() {
+                                                        let fieldCount = $('#{{ $form['container']['id'] }} .form-group').length + 1;
+                                                        let formGroup = `
+                                                            <div class="form-group">
+                                                                <input type="text" name="fields[]" class="form-control" id="dynamicField${fieldCount}">
+                                                            </div>`;
+                                                        $('#{{ $form['container']['id'] }}').append(formGroup);
+                                                    });
+                                                </script>
+                                            @endif
                                         @endif
                                         @if ($form['for_submit'])
                                             <script>
