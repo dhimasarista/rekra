@@ -256,7 +256,7 @@ class WilayahController extends Controller
                     ],
                     1 => [
                         "id" => $containerIdForm2,
-                        "name" => "name",
+                        "name" => "names",
                         "type" => "array",
                     ],
                 ];
@@ -339,6 +339,7 @@ class WilayahController extends Controller
                             "placeholder" => "Wajib Diisi",
                         ],
                     ];
+                    $config["submit"]["form_data"][1]["name"] = "name";
                     $config["submit"]["form_data"][1]["type"] = null;
                 } else {
                     $config["name"] = "Create Kecamatan";
