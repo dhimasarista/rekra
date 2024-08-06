@@ -206,7 +206,7 @@ class WilayahController extends Controller
                             "placeholder" => "Wajib Diisi",
                         ],
                     ],
-                    3 => [
+                    2 => [
                         "id" => $formId3,
                         "type" => "select",
                         "name" => "Nama Provinsi",
@@ -217,10 +217,10 @@ class WilayahController extends Controller
                         ],
                         "options" => $optProvinsi,
                     ],
-                    2 => [
+                    3 => [
                         "id" => null,
                         "type" => "notification",
-                        "name" => "ID: silahkan browsing di internet untuk melihat kode daerah setiap. Contoh 21 Kepri, 2171 Kota Batam.",
+                        "name" => "ID: silahkan browsing di internet untuk melihat kode setiap daerah. Contoh 21 Kepri, 2171 Kota Batam.",
                         "is_disabled" => false,
                         "for_submit" => false,
                         "fetch_data" => [
@@ -230,7 +230,7 @@ class WilayahController extends Controller
                 ];
                 if($kabkota){
                     $config["name"] = "Update: $kabkota->name";
-                    $config["form"][2]["data"]["value"] = $kabkota->provinsi_id;
+                    $config["form"][2]["data"]["value"] = 21;
                 }
             } else if($typeQuery == "Kecamatan"|| $typeQuery == "kecamatan") {
                 $provinsi = Provinsi::all();
