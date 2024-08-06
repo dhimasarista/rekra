@@ -30,7 +30,8 @@
                                         @if ($form['type'] == 'select')
                                             <div class="form-group">
                                                 <label>{{ $form['name'] }}</label>
-                                                <select id="{{ $form['id'] }}" class="custom-select2 form-control"
+                                                <select data-id="{{ $form['data']['value'] ?? null }}"
+                                                    id="{{ $form['id'] }}" class="custom-select2 form-control"
                                                     name="state" style="width: 100%; height: 38px;"
                                                     {{ $form['is_disabled'] ? 'disabled' : '' }}>
                                                     @foreach ($form['options'] as $value)
@@ -42,7 +43,7 @@
                                             </div>
                                         @elseif ($form['type'] == 'notification')
                                             <div class="alert alert-success" role="alert">
-                                                {{ $form["name"] }}
+                                                {{ $form['name'] }}
                                             </div>
                                         @elseif ($form['type'] == 'text')
                                             <div class="form-group">
@@ -56,8 +57,9 @@
                                             <div id="{{ $form['container']['id'] }}">
                                                 <div class="form-group">
                                                     <label for="{{ $form['id'] }}">{{ $form['name'] }}
-                                                        <a href="javascript:;" id="{{ $form['button']['id'] }}">{{ $form['button']['name'] }}</a>
-                                                        </label>
+                                                        <a href="javascript:;"
+                                                            id="{{ $form['button']['id'] }}">{{ $form['button']['name'] }}</a>
+                                                    </label>
                                                     <input type="text" class="form-control" name="fields[]"
                                                         id="{{ $form['id'] }}"
                                                         placeholder="{{ $form['data']['placeholder'] ?? null }}">
@@ -81,26 +83,38 @@
                                         @endif
                                         @if ($form['fetch_data']['is_fetching'])
                                             <script>
-                                                $("#{{ $form['id'] }}").on("change", function(e) {
-                                                    let value = $(this).val();
-                                                    $.ajax({
-                                                        type: "GET",
-                                                        contentType: "application/json",
-                                                        dataType: "json",
-                                                        url: `{!! url($form['fetch_data']['route']) !!}${value}`,
-                                                        success: function(response) {
-                                                            const siblingSelect = $("#{{ $form['fetch_data']['sibling_form_id'] }}");
-                                                            siblingSelect.empty();
-                                                            siblingSelect.append('<option>Pilih</option>');
-                                                            response["{{ $form['fetch_data']['response'] }}"].forEach(val => {
-                                                                siblingSelect.append(
-                                                                    `<option value="${val.id}">${Formatting.capitalize(val.name)}</option>`
-                                                                );
-                                                            });
-                                                            siblingSelect.removeAttr("disabled");
-                                                        }
-                                                    });
-                                                });
+                                                window['{{ $form['id'] }}'] = function() {
+                                                    let value = $("#{{ $form['id'] }}").val();
+                                                    if (value) {
+                                                        $.ajax({
+                                                            type: "GET",
+                                                            contentType: "application/json",
+                                                            dataType: "json",
+                                                            url: `{!! url($form['fetch_data']['route']) !!}${value}`,
+                                                            success: function(response) {
+                                                                const siblingSelect = $("#{{ $form['fetch_data']['sibling_form_id'] }}");
+                                                                siblingSelect.empty();
+                                                                siblingSelect.append('<option>Pilih</option>');
+                                                                response["{{ $form['fetch_data']['response'] }}"].forEach(val => {
+                                                                    let dataId = $("#{{ $form['fetch_data']['sibling_form_id'] }}").attr(
+                                                                        "data-id");
+                                                                    if (parseInt(dataId) == val.id) {
+                                                                        option =
+                                                                            `<option value="${val.id}" selected>${Formatting.capitalize(val.name)}</option>`
+                                                                    } else {
+                                                                        option =
+                                                                            `<option value="${val.id}">${Formatting.capitalize(val.name)}</option>`
+                                                                    }
+                                                                    siblingSelect.append(option);
+                                                                });
+                                                                siblingSelect.removeAttr("disabled");
+                                                            }
+                                                        });
+                                                    }
+                                                }
+                                                $("#{{ $form['id'] }}").on("change", window['{{ $form['id'] }}']);
+                                                // Call the function on page load
+                                                window['{{ $form['id'] }}']();
                                             </script>
                                         @endif
                                     </div>
@@ -135,6 +149,7 @@
                                             }
                                         });
                                         TopLoaderService.start()
+                                        console.log(formData);
                                         $.ajax({
                                             url: `{!! url($config['submit']['route']) !!}`,
                                             type: "{{ $config['submit']['method'] }}",
@@ -144,6 +159,7 @@
                                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                             },
                                             success: function(response) {
+
                                                 Swal.fire({
                                                     icon: 'success',
                                                     title: 'Success',
