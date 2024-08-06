@@ -323,7 +323,6 @@ class WilayahController extends Controller
                         ],
                     ],
                 ];
-                // Todo: update form jika data edit, ganti dynamic/multiple input jadi input biasa
                 if($kecamatan){
                     $config["name"] = "Update: $kecamatan->name";
                     $config["form"][0]["data"]["value"] = 21; // hardcode
@@ -334,7 +333,7 @@ class WilayahController extends Controller
             }else if($typeQuery == "Kelurahan"|| $typeQuery == "kelurahan") {
                 $formId4 = Uuid::uuid7();
                 $provinsi = Provinsi::all();
-                $kelurahan = Kelurahan::find($idQuery);
+
                 $optProvinsi[] = [
                     "id" => null,
                     "is_selected" => true,
@@ -347,6 +346,10 @@ class WilayahController extends Controller
                         "name" => $p->name,
                     ];
                 }
+                $kelurahan = Kelurahan::find($idQuery);
+                $kecamatan = Kecamatan::find($kelurahan->kecamatan_id);
+                $kabkota = Kabkota::find($kecamatan->kabkota_id);
+                $provinsi = Provinsi::find($kabkota->provinsi_id);
                 $containerIdForm4 = Uuid::uuid7();
                 $config["submit"]["route"] = route("wilayah.post", ["Type" => "Kelurahan", "Id" => $idQuery]);
                 $config["submit"]["form_data"] = [
@@ -377,6 +380,10 @@ class WilayahController extends Controller
                             "response" => "data",
                         ],
                         "options" => $optProvinsi,
+                        "data" => [
+                            "value" => $provinsi->id ?? null,
+                            "placeholder" => null
+                        ],
                     ],
                     1 => [
                         "id" => $formId2,
@@ -400,6 +407,10 @@ class WilayahController extends Controller
                                 "name" => ""
                             ],
                         ],
+                        "data" => [
+                            "value" => $kabkota->id,
+                            "placeholder" => null
+                        ],
                     ],
                     2 => [
                         "id" => $formId3,
@@ -417,6 +428,10 @@ class WilayahController extends Controller
                                 "name" => ""
                             ],
                         ],
+                        "data" => [
+                            "value" => $kecamatan->id ?? null,
+                            "placeholder" => null
+                        ],
                     ],
                     // Form Dynamic Input
                     3 => [
@@ -424,12 +439,14 @@ class WilayahController extends Controller
                         "type" => "dynamic-input",
                         "button" => [
                             "id" => Uuid::uuid7(),
-                            "name" => "+Extend"
+                            "name" => "+ Tambah",
+                            "show" => true,
                         ],
                         "container" => [
                             "id" => $containerIdForm4,
                         ],
                         "data" => [
+                            "value" => $kelurahan->name,
                             "placeholder" => null
                         ],
                         "name" => "Nama Kecamatan",
@@ -438,17 +455,19 @@ class WilayahController extends Controller
                         "fetch_data" => [
                             "is_fetching" => false,
                         ],
+
                     ],
                 ];
                 // Todo: update form jika data edit, ganti dynamic/multiple input jadi input biasa
                 if($kelurahan){
                     $config["name"] = "Update: $kelurahan->name";
-                    $config["form"][1]["data"]["value"] = $kelurahan->kabkota_id;
+                    $config["form"][3]["button"]["show"] = false;
 
                 } else {
                     $config["name"] = "Create Kecamatan";
                 }
             }
+            // dd($config);
             return view($view, [
                 "config" => $config,
             ]);
