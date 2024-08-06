@@ -319,6 +319,7 @@ class WilayahController extends Controller
                 // Todo: update form jika data edit, ganti dynamic/multiple input jadi input biasa
                 if($kecamatan){
                     $config["name"] = "Update: $kecamatan->name";
+                    $config["form"][0];
                     $config["form"][1]["data"]["value"] = $kecamatan->kabkota_id;
 
                 } else {
