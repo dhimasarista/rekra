@@ -154,7 +154,6 @@
                                             }
                                         });
                                         TopLoaderService.start()
-                                        console.log(formData);
                                         $.ajax({
                                             url: `{!! url($config['submit']['route']) !!}`,
                                             type: "{{ $config['submit']['method'] }}",

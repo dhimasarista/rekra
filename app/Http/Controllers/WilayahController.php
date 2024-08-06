@@ -330,7 +330,7 @@ class WilayahController extends Controller
                 } else {
                     $config["name"] = "Create Kecamatan";
                 }
-            }else if($typeQuery == "Kelurahan"|| $typeQuery == "kelurahan") {
+            } else if($typeQuery == "Kelurahan"|| $typeQuery == "kelurahan") {
                 $formId4 = Uuid::uuid7();
                 $provinsi = Provinsi::all();
 
@@ -449,7 +449,7 @@ class WilayahController extends Controller
                             "value" => $kelurahan->name,
                             "placeholder" => null
                         ],
-                        "name" => "Nama Kecamatan",
+                        "name" => "Nama Kelurahan",
                         "is_disabled" => false,
                         "for_submit" => false,
                         "fetch_data" => [
