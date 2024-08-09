@@ -466,6 +466,9 @@ class WilayahController extends Controller
                 } else {
                     $config["name"] = "Create Kecamatan";
                 }
+            } else if($typeQuery == "TPS" || $typeQuery == "tps"){
+                $formQuery = $request->query("Form");
+                // todo: create TPS form
             }
             // dd($config);
             return view($view, [
