@@ -464,11 +464,146 @@ class WilayahController extends Controller
                     $config["form"][3]["button"]["show"] = false;
 
                 } else {
-                    $config["name"] = "Create Kecamatan";
+                    $config["name"] = "Create Kelurahan";
                 }
             } else if($typeQuery == "TPS" || $typeQuery == "tps"){
                 $formQuery = $request->query("Form");
-                // todo: create TPS form
+
+                $formId4 = Uuid::uuid7();
+                $provinsi = Provinsi::all();
+
+                $optProvinsi[] = [
+                    "id" => null,
+                    "is_selected" => true,
+                    "name" => "Pilih"
+                ];
+                foreach ($provinsi as $p) {
+                    $optProvinsi[] = [
+                        "id"=> $p->id,
+                        "is_selected" => false,
+                        "name" => $p->name,
+                    ];
+                }
+                $kelurahan = Kelurahan::find($idQuery);
+                $kecamatan = Kecamatan::find($kelurahan->kecamatan_id);
+                $kabkota = Kabkota::find($kecamatan->kabkota_id);
+                $provinsi = Provinsi::find($kabkota->provinsi_id);
+                $containerIdForm4 = Uuid::uuid7();
+                $config["submit"]["route"] = route("wilayah.post", ["Type" => "Kelurahan", "Id" => $idQuery]);
+                $config["submit"]["form_data"] = [
+                    [
+                        "id" => $formId3,
+                        "name" => "kecamatan_id",
+                    ],
+                    [
+                        "id" => $containerIdForm4,
+                        "name" => "names",
+                        "type" => "array",
+                    ],
+                ];
+                $config["form"] = [
+                    0 => [
+                        "id" => $formId1,
+                        "type" => "select",
+                        "name" => "Nama Provinsi",
+                        "is_disabled" => false,
+                        "for_submit" => false,
+                        "fetch_data" => [
+                            "is_fetching" => true,
+                            "route" => route("wilayah.find", [
+                                "Type" => "Kabkota",
+                                "Id" => ""
+                            ]),
+                            "sibling_form_id" => $formId2,
+                            "response" => "data",
+                        ],
+                        "options" => $optProvinsi,
+                        "data" => [
+                            "value" => $provinsi->id ?? null,
+                            "placeholder" => null
+                        ],
+                    ],
+                    1 => [
+                        "id" => $formId2,
+                        "type" => "select",
+                        "name" => "Nama Kab/Kota",
+                        "is_disabled" => true,
+                        "for_submit" => false,
+                        "fetch_data" => [
+                            "is_fetching" => true,
+                            "route" => route("wilayah.find", [
+                                "Type" => "Kecamatan",
+                                "Id" => ""
+                            ]),
+                            "sibling_form_id" => $formId3,
+                            "response" => "data",
+                        ],
+                        "options" => [
+                            [
+                                "id" => null,
+                                "is_selected" => true,
+                                "name" => ""
+                            ],
+                        ],
+                        "data" => [
+                            "value" => $kabkota->id,
+                            "placeholder" => null
+                        ],
+                    ],
+                    2 => [
+                        "id" => $formId3,
+                        "type" => "select",
+                        "name" => "Nama Kecamatan",
+                        "is_disabled" => true,
+                        "for_submit" => false,
+                        "fetch_data" => [
+                            "is_fetching" => false,
+                        ],
+                        "options" => [
+                            [
+                                "id" => null,
+                                "is_selected" => true,
+                                "name" => ""
+                            ],
+                        ],
+                        "data" => [
+                            "value" => $kecamatan->id ?? null,
+                            "placeholder" => null
+                        ],
+                    ],
+                    // Form Dynamic Input
+                    3 => [
+                        "id" => $formId4,
+                        "type" => "dynamic-input",
+                        "button" => [
+                            "id" => Uuid::uuid7(),
+                            "name" => "+ Tambah",
+                            "show" => true,
+                        ],
+                        "container" => [
+                            "id" => $containerIdForm4,
+                        ],
+                        "data" => [
+                            "value" => $kelurahan->name,
+                            "placeholder" => null
+                        ],
+                        "name" => "Nama Kelurahan",
+                        "is_disabled" => false,
+                        "for_submit" => false,
+                        "fetch_data" => [
+                            "is_fetching" => false,
+                        ],
+
+                    ],
+                ];
+                // Todo: update form jika data edit, ganti dynamic/multiple input jadi input biasa
+                if($kelurahan){
+                    $config["name"] = "Update: $kelurahan->name";
+                    $config["form"][3]["button"]["show"] = false;
+
+                } else {
+                    $config["name"] = "Create TPS";
+                }
             }
             // dd($config);
             return view($view, [
