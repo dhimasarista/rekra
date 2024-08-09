@@ -13,6 +13,7 @@ class KabKota extends Model
     protected $table = 'kabkota';
     public $incrementing = false;
     protected $fillable = [
+        "id",
         'name',
         'provinsi_id'
     ];

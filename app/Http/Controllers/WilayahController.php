@@ -508,7 +508,11 @@ class WilayahController extends Controller
                         $data->save();
                         $message = "Data berhasil diperbarui";
                     } else {
-                        // KabKota::create($request->all());
+                        KabKota::create([
+                            "id" => $request->id,
+                            "name" => $request->name,
+                            "provinsi_id" => $request->provinsi_id
+                        ]);
                         $message = "Saat ini belum bisa menambahkan data, hubungi developer";
                         $responseCode = 500;
                     }
