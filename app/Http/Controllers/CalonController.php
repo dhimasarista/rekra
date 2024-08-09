@@ -33,7 +33,8 @@ class CalonController extends Controller
     {
         $calon = null;
         $idQuery = $request->query("Id");
-        if ($idQuery) $calon = Calon::find($idQuery);
+        if ($idQuery)
+            $calon = Calon::find($idQuery);
         return view("calon.form", [
             "calon" => $calon,
         ]);
@@ -72,9 +73,12 @@ class CalonController extends Controller
             }
             return response()->json(["message" => $message], 200);
         } catch (QueryException $e) {
-            $message = match($e->errorInfo[1]){
+            $message = match ($e->errorInfo[1]) {
                 1062 => "Duplikasi Data",
-                default => $e->getMessage(),
+                1366 => "Periksa Kembali Data",
+                1452 => "Data Referensi Tidak Ditemukan", // Example of another error code
+                2002 => "Koneksi Database Gagal",
+                default => $e->getMessage()
             };
             return response()->json(["message" => $message], 500);
         }
@@ -86,7 +90,8 @@ class CalonController extends Controller
     public function show(string $id)
     {
         $calon = Calon::find($id);
-        if (!$calon) return response()->json(['message' => "not found"], 404);
+        if (!$calon)
+            return response()->json(['message' => "not found"], 404);
         return response()->json(["data" => $calon], 200);
     }
     /**
@@ -96,7 +101,8 @@ class CalonController extends Controller
     {
         try {
             $calon = Calon::find($id);
-            if (!$calon) return response()->json(['message' => "not found"], 404);
+            if (!$calon)
+                return response()->json(['message' => "not found"], 404);
             $calon->delete();
             return response()->json(["message" => "berhasil dihapus"], 200);
         } catch (Exception $exception) {
