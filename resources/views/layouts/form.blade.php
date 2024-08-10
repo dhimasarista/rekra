@@ -25,113 +25,115 @@
                     @if ($config)
                         <form>
                             <div class="row">
-                                @foreach ($config['form'] as $index => $form)
-                                    <div class="col-md-6">
-                                        @if ($form['type'] == 'select')
-                                            <div class="form-group">
-                                                <label>{{ $form['name'] }}</label>
-                                                <select data-id="{{ $form['data']['value'] ?? null }}"
-                                                    id="{{ $form['id'] }}" class="custom-select2 form-control"
-                                                    name="state" style="width: 100%; height: 38px;"
-                                                    {{ $form['is_disabled'] ? 'disabled' : '' }}>
-                                                    @foreach ($form['options'] as $value)
-                                                        <option value="{{ $value['id'] }}"
-                                                            {{ ($form['data']['value'] ?? null) == $value['id'] || $value['is_selected'] ? 'selected' : '' }}>
-                                                            {{ Formatting::capitalize($value['name']) }} </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        @elseif ($form['type'] == 'notification')
-                                            <div class="alert alert-success" role="alert">
-                                                {{ $form['name'] }}
-                                            </div>
-                                        @elseif ($form['type'] == 'text')
-                                            <div class="form-group">
-                                                <label>{{ $form['name'] }}</label>
-                                                <input id="{{ $form['id'] }}"
-                                                    placeholder="{{ $form['data']['placeholder'] ?? null }}"
-                                                    value="{{ $form['data']['value'] ?? null }}" type="text"
-                                                    class="form-control">
-                                            </div>
-                                        @elseif ($form['type'] == 'number')
-                                            <div class="form-group">
-                                                <label>{{ $form['name'] }}</label>
-                                                <input id="{{ $form['id'] }}"
-                                                    placeholder="{{ $form['data']['placeholder'] ?? null }}"
-                                                    value="{{ $form['data']['value'] ?? null }}" type="number"
-                                                    min="0" class="form-control">
-                                            </div>
-                                        @elseif ($form['type'] == 'dynamic-input')
-                                            <div id="{{ $form['container']['id'] }}">
+                                @if ($config['form'])
+                                    @foreach ($config['form'] as $index => $form)
+                                        <div class="col-md-6">
+                                            @if ($form['type'] == 'select')
                                                 <div class="form-group">
-                                                    <label for="{{ $form['id'] }}">{{ $form['name'] }}
-                                                        @if ($form['button']['show'])
-                                                            <a href="javascript:;"
-                                                                id="{{ $form['button']['id'] }}">{{ $form['button']['name'] }}</a>
-                                                        @endif
-                                                    </label>
-                                                    <input type="text" class="form-control" name="fields[]"
-                                                        id="{{ $form['id'] }}"
-                                                        value="{{ $form['data']['value'] ?? null }}"
-                                                        placeholder="{{ $form['data']['placeholder'] ?? null }}">
+                                                    <label>{{ $form['name'] }}</label>
+                                                    <select data-id="{{ $form['data']['value'] ?? null }}"
+                                                        id="{{ $form['id'] }}" class="custom-select2 form-control"
+                                                        name="state" style="width: 100%; height: 38px;"
+                                                        {{ $form['is_disabled'] ? 'disabled' : '' }}>
+                                                        @foreach ($form['options'] as $value)
+                                                            <option value="{{ $value['id'] }}"
+                                                                {{ ($form['data']['value'] ?? null) == $value['id'] || $value['is_selected'] ? 'selected' : '' }}>
+                                                                {{ Formatting::capitalize($value['name']) }} </option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
-                                            </div>
-                                            @if ($form['button']['show'])
-                                                <script>
-                                                    $('#{{ $form['button']['id'] }}').click(function() {
-                                                        let fieldCount = $('#{{ $form['container']['id'] }} .form-group').length + 1;
-                                                        let formGroup = `
+                                            @elseif ($form['type'] == 'notification')
+                                                <div class="alert alert-success" role="alert">
+                                                    {{ $form['name'] }}
+                                                </div>
+                                            @elseif ($form['type'] == 'text')
+                                                <div class="form-group">
+                                                    <label>{{ $form['name'] }}</label>
+                                                    <input id="{{ $form['id'] }}"
+                                                        placeholder="{{ $form['data']['placeholder'] ?? null }}"
+                                                        value="{{ $form['data']['value'] ?? null }}" type="text"
+                                                        class="form-control">
+                                                </div>
+                                            @elseif ($form['type'] == 'number')
+                                                <div class="form-group">
+                                                    <label>{{ $form['name'] }}</label>
+                                                    <input id="{{ $form['id'] }}"
+                                                        placeholder="{{ $form['data']['placeholder'] ?? null }}"
+                                                        value="{{ $form['data']['value'] ?? null }}" type="number"
+                                                        min="0" class="form-control">
+                                                </div>
+                                            @elseif ($form['type'] == 'dynamic-input')
+                                                <div id="{{ $form['container']['id'] }}">
+                                                    <div class="form-group">
+                                                        <label for="{{ $form['id'] }}">{{ $form['name'] }}
+                                                            @if ($form['button']['show'])
+                                                                <a href="javascript:;"
+                                                                    id="{{ $form['button']['id'] }}">{{ $form['button']['name'] }}</a>
+                                                            @endif
+                                                        </label>
+                                                        <input type="text" class="form-control" name="fields[]"
+                                                            id="{{ $form['id'] }}"
+                                                            value="{{ $form['data']['value'] ?? null }}"
+                                                            placeholder="{{ $form['data']['placeholder'] ?? null }}">
+                                                    </div>
+                                                </div>
+                                                @if ($form['button']['show'])
+                                                    <script>
+                                                        $('#{{ $form['button']['id'] }}').click(function() {
+                                                            let fieldCount = $('#{{ $form['container']['id'] }} .form-group').length + 1;
+                                                            let formGroup = `
                                                             <div class="form-group">
                                                                 <input type="text" name="fields[]" class="form-control" id="dynamicField${fieldCount}">
                                                             </div>`;
-                                                        $('#{{ $form['container']['id'] }}').append(formGroup);
-                                                    });
+                                                            $('#{{ $form['container']['id'] }}').append(formGroup);
+                                                        });
+                                                    </script>
+                                                @endif
+                                            @endif
+                                            @if ($form['for_submit'])
+                                                <script>
+                                                    let idForm = "{{ $form['id'] }}"; // for submit
                                                 </script>
                                             @endif
-                                        @endif
-                                        @if ($form['for_submit'])
-                                            <script>
-                                                let idForm = "{{ $form['id'] }}"; // for submit
-                                            </script>
-                                        @endif
-                                        @if ($form['fetch_data']['is_fetching'])
-                                            <script>
-                                                window['{{ $form['id'] }}'] = function() {
-                                                    let value = $("#{{ $form['id'] }}").val();
-                                                    if (value) {
-                                                        $.ajax({
-                                                            type: "GET",
-                                                            contentType: "application/json",
-                                                            dataType: "json",
-                                                            url: `{!! url($form['fetch_data']['route']) !!}${value}`,
-                                                            success: function(response) {
-                                                                const siblingSelect = $("#{{ $form['fetch_data']['sibling_form_id'] }}");
-                                                                siblingSelect.empty();
-                                                                siblingSelect.append('<option>Pilih</option>');
-                                                                response["{{ $form['fetch_data']['response'] }}"].forEach(val => {
-                                                                    let dataId = $("#{{ $form['fetch_data']['sibling_form_id'] }}").attr(
-                                                                        "data-id");
-                                                                    if (parseInt(dataId) == val.id) {
-                                                                        option =
-                                                                            `<option value="${val.id}" selected>${Formatting.capitalize(val.name)}</option>`
-                                                                    } else {
-                                                                        option =
-                                                                            `<option value="${val.id}">${Formatting.capitalize(val.name)}</option>`
-                                                                    }
-                                                                    siblingSelect.append(option);
-                                                                });
-                                                                siblingSelect.removeAttr("disabled");
-                                                            }
-                                                        });
+                                            @if ($form['fetch_data']['is_fetching'])
+                                                <script>
+                                                    window['{{ $form['id'] }}'] = function() {
+                                                        let value = $("#{{ $form['id'] }}").val();
+                                                        if (value) {
+                                                            $.ajax({
+                                                                type: "GET",
+                                                                contentType: "application/json",
+                                                                dataType: "json",
+                                                                url: `{!! url($form['fetch_data']['route']) !!}${value}`,
+                                                                success: function(response) {
+                                                                    const siblingSelect = $("#{{ $form['fetch_data']['sibling_form_id'] }}");
+                                                                    siblingSelect.empty();
+                                                                    siblingSelect.append('<option>Pilih</option>');
+                                                                    response["{{ $form['fetch_data']['response'] }}"].forEach(val => {
+                                                                        let dataId = $("#{{ $form['fetch_data']['sibling_form_id'] }}").attr(
+                                                                            "data-id");
+                                                                        if (parseInt(dataId) == val.id) {
+                                                                            option =
+                                                                                `<option value="${val.id}" selected>${Formatting.capitalize(val.name)}</option>`
+                                                                        } else {
+                                                                            option =
+                                                                                `<option value="${val.id}">${Formatting.capitalize(val.name)}</option>`
+                                                                        }
+                                                                        siblingSelect.append(option);
+                                                                    });
+                                                                    siblingSelect.removeAttr("disabled");
+                                                                }
+                                                            });
+                                                        }
                                                     }
-                                                }
-                                                $("#{{ $form['id'] }}").on("change", window['{{ $form['id'] }}']);
-                                                // Call the function on page load
-                                                window['{{ $form['id'] }}']();
-                                            </script>
-                                        @endif
-                                    </div>
-                                @endforeach
+                                                    $("#{{ $form['id'] }}").on("change", window['{{ $form['id'] }}']);
+                                                    // Call the function on page load
+                                                    window['{{ $form['id'] }}']();
+                                                </script>
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                @endif
                             </div>
                             <div class="form-group row text-right">
                                 <label class="col-sm-12 col-md-2 col-form-label"></label>

@@ -492,7 +492,10 @@ class WilayahController extends Controller
                 $formQuery = $request->query("Form");
                 $formId4 = Uuid::uuid7();
                 $formId5 = Uuid::uuid7();
-                $tps = TPS::find($idQuery);
+                $tps = TPS::where("tps.id", $idQuery)
+                ->join("kelurahan", "tps.kelurahan_id", "kelurahan.id")
+                ->select("tps.*", "kelurahan.name as kelurahan_name")
+                ->first();
                 $provinsi = Provinsi::all();
 
                 $optProvinsi[] = [
@@ -625,7 +628,7 @@ class WilayahController extends Controller
                 }
                 // if update change form name, or new keep create
                 if ($tps) {
-                    $config["name"] = "Update: $tps->name $tps->kelurahan_id";
+                    $config["name"] = "Update: $tps->name $tps->kelurahan_name";
                 } else {
                     $config["name"] = "Create TPS";
                 }
@@ -662,19 +665,17 @@ class WilayahController extends Controller
                 } else {
                     $data = KabKota::withTrashed()->find($queryId);
                     if ($data) {
-                        // $data->update($request->all());
                         $data->name = $request->name;
-                        $data->provinsi_id = (int)$request->provinsi_id;
+                        $data->provinsi_id = (int)$request->provinsi_id ?? $data->provinsi_id;
                         $data->save();
-                        $message = "Data berhasil diperbarui";
+                        $message = "Kabupaten/Kota berhasil diperbarui";
                     } else {
                         KabKota::create([
                             "id" => $request->id,
                             "name" => $request->name,
                             "provinsi_id" => $request->provinsi_id
                         ]);
-                        $message = "Saat ini belum bisa menambahkan data, hubungi developer";
-                        $responseCode = 500;
+                        $message = "Kabupaten/Kota berhasil ditambahkan";
                     }
                 }
             } else if ($queryType == "Kecamatan" || $queryType == "kecamatan"){
@@ -690,7 +691,7 @@ class WilayahController extends Controller
                     if ($data) {
                         $data->name = $request->names[0];
                         $data->save();
-                        $message = "Data berhasil diperbarui";
+                        $message = "Kecamatan berhasil diperbarui";
                     } else {
                         $data = [];
                         foreach ($request->names as $value) {
@@ -703,7 +704,7 @@ class WilayahController extends Controller
                             }
                         }
                         Kecamatan::insert($data);
-                        $message = "Data baru ditambahkan";
+                        $message = "Kecamatan Baru Ditambahkan";
                     }
                 }
             } else if ($queryType == "Kelurahan" || $queryType == "kelurahan") {
@@ -745,15 +746,18 @@ class WilayahController extends Controller
             } else if ($queryType == "TPS" || $queryType == "tps") {
                 $formQuery = $request->query("Form");
                 $validator = Validator::make($request->all(), [
-                    "name" => "required|string|integer",
-                    "kelurahan_id" => "required|string"
+                    "name" => "required",
                 ]);
                 if ($validator->fails()) {
                     $message = $validator->errors()->all();
+                    $responseCode = 500;
                 } else {
                     $data = Tps::withTrashed()->find($queryId);
                     if ($data) {
-                        $data->update($request->all());
+                        $data->name = $request->name;
+                        $data->kelurahan_id = $request->kelurahan_id ?? $data->kelurahan_id;
+                        $data->save();
+                        $message = "Berhasil memperbarui TPS";
                     } else {
                         if ($formQuery == "Multiple" || $formQuery == "multiple") {
                             $strToNumber = (int)$request->name;
