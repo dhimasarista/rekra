@@ -625,7 +625,7 @@ class WilayahController extends Controller
                 }
                 // if update change form name, or new keep create
                 if ($tps) {
-                    $config["name"] = "Update: $tps->name";
+                    $config["name"] = "Update: $tps->name $tps->kelurahan_id";
                 } else {
                     $config["name"] = "Create TPS";
                 }
