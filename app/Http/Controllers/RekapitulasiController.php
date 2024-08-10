@@ -168,17 +168,28 @@ class RekapitulasiController extends Controller
     }
     public function list(Request $request)
     {
+        $data = null;
         $view = "rekapitulasi.list"; // soon: change list to table
         $idQuery = $request->query("Id");
-        // $typeQuery = $request->query("Type");
+        $typeQuery = $request->query("Type");
         $chartQuery = $request->query("Chart");
         $checkQuery = !$idQuery || $idQuery == "null" || $idQuery == "Pilih";
         if ($checkQuery) {
             return redirect("/rekapitulasi");
         }
-        $data = Calon::where("code", $request->query("Id"))->get();
+        $wilayah = null;
+        if ($typeQuery == "Kabkota" || $typeQuery == "kabkota"){
+            $wilayah = Kabkota::with("kecamatan")->find($idQuery);
+        } else {
+            $wilayah = Provinsi::find($idQuery);
+        }
+        $calon = Calon::where("code", $request->query("Id"))->get();
         if ($chartQuery) {
-            $view = "rekapitulasi.chart";
+            $data = [
+                "calon" => $calon,
+                "wilayah" => $wilayah,
+            ];
+            $view = "layouts.chart";
         }
         return view($view, [
             "data" => $data

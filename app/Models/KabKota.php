@@ -17,7 +17,10 @@ class KabKota extends Model
         'name',
         'provinsi_id'
     ];
-
+    public function kecamatan()
+    {
+        return $this->hasMany(Kecamatan::class, 'kabkota_id');
+    }
     public function provinsi(): BelongsTo{
         return $this->belongsTo(Provinsi::class);
     }

@@ -31,8 +31,8 @@
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            let kecamatan = @json($kecamatan);
-            let seriesNames = @json($seriesNames);
+            let kecamatan = @json($data["wilayah"]->name);
+            let seriesNames = @json($data["calon"]->name);
 
             let categories = Object.keys(kecamatan);
 

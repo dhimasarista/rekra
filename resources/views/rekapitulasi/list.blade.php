@@ -9,7 +9,14 @@
                 </a>
             </div>
             <div class="text-right">
-                <a class="btn btn-sm btn-dark" href="{{ url()->previous() }}">
+                <a class="btn btn-sm btn-dark" href="{{
+                    route("rekap.list", [
+                        "Type" => request()->query("Type"),
+                        "Id" => request()->query("Id"),
+                        "Id" => request()->query("Id"),
+                        "Chart" => "true",
+                    ])
+                }}">
                     <i class="fa fa-pie-chart"></i> Chart
                 </a>
             </div>

@@ -39,7 +39,6 @@ class Kecamatan extends Model
             $model->updated_at = $model->freshTimestamp();
         });
     }
-
     public function kabkota(): BelongsTo{
         return $this->belongsTo(KabKota::class);
     }
