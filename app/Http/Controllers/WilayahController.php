@@ -12,6 +12,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
 
@@ -29,10 +30,14 @@ class WilayahController extends Controller
                 $kecamatan = Kecamatan::with("kabkota")->where("kabkota_id", $idQuery)->get();
                 $tableName = $kecamatan->first()->kabkota->name ?? "Kocong🥺";
                 foreach ($kecamatan as $k) {
+                    $total = DB::table('tps')
+                    ->join('kelurahan', 'tps.kelurahan_id', '=', 'kelurahan.id')
+                    ->where('kelurahan.kecamatan_id', $k->id)
+                    ->count();
                     $data[] = [
                         "id" => $k->id,
                         "name" => $k->name,
-                        "total" => 1000,
+                        "total" => $total,
                         "detail" => route("wilayah.index", [
                             "Type" => "Kelurahan",
                             "Id" =>  $k->id,
@@ -46,18 +51,26 @@ class WilayahController extends Controller
                 }
             } else if (!$typeQuery || $typeQuery == "Kabkota" || $typeQuery == "kabkota") {
                 $kabkota = KabKota::all();
+                $data = [];
+
                 foreach ($kabkota as $k) {
+                    $total = DB::table('tps')
+                    ->join('kelurahan', 'tps.kelurahan_id', '=', 'kelurahan.id')
+                    ->join('kecamatan', 'kelurahan.kecamatan_id', '=', 'kecamatan.id')
+                    ->where('kecamatan.kabkota_id', $k->id)
+                    ->count();
+
                     $data[] = [
                         "id" => $k->id,
                         "name" => $k->name,
-                        "total" => 1000,
+                        "total" => $total,
                         "detail" => route("wilayah.index", [
                             "Type" => "Kecamatan",
-                            "Id" =>  $k->id,
+                            "Id" => $k->id,
                         ]),
                         "edit" => route("wilayah.form", [
                             "Type" => "Kabkota",
-                            "Id" =>  $k->id,
+                            "Id" => $k->id,
                         ]),
                         "delete" => "#"
                     ];
@@ -66,10 +79,11 @@ class WilayahController extends Controller
                 $kelurahan = Kelurahan::with("kecamatan")->where("kecamatan_id", $idQuery)->get();
                 $tableName = $kelurahan->first()->kecamatan->name ?? "Kocong🥺";
                 foreach ($kelurahan as $k) {
+                    $total = Tps::where("kelurahan_id", $k->id)->count();
                     $data[] = [
                         "id" => $k->id,
                         "name" => $k->name,
-                        "total" => 1000,
+                        "total" => $total,
                         "detail" => route("wilayah.index", [
                             "Type" => "TPS",
                             "Id" =>  $k->id,
