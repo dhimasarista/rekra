@@ -81,6 +81,22 @@ class WilayahController extends Controller
                         "delete" => "#"
                     ];
                 }
+            } else if (!$typeQuery || $typeQuery == "TPS" || $typeQuery == "tps") {
+                $tps = TPS::with("kelurahan")->where("kelurahan_id", $idQuery)->get();
+                $tableName = $tps->first()->kelurahan->name ?? "Kocong🥺";
+                foreach ($tps as $t) {
+                    $data[] = [
+                        "id" => $t->id,
+                        "name" => $t->name,
+                        "total" => 1,
+                        "detail" => "javascript:;",
+                        "edit" => route("wilayah.form", [
+                            "Type" => "TPS",
+                            "Id" =>  $t->id,
+                        ]),
+                        "delete" => "#"
+                    ];
+                }
             }
             return view($view, [
                 "tableName" => $tableName,
@@ -469,7 +485,6 @@ class WilayahController extends Controller
                 $formQuery = $request->query("Form");
                 $formId4 = Uuid::uuid7();
                 $formId5 = Uuid::uuid7();
-                $containerIdForm5 = Uuid::uuid7();
                 $tps = TPS::find($idQuery);
                 $provinsi = Provinsi::all();
 
@@ -497,9 +512,8 @@ class WilayahController extends Controller
                         "name" => "kelurahan_id",
                     ],
                     [
-                        "id" => $containerIdForm5,
-                        "name" => "names",
-                        "type" => "array",
+                        "id" => $formId5,
+                        "name" => "name",
                     ],
                 ];
                 $config["form"] = [
@@ -583,7 +597,7 @@ class WilayahController extends Controller
                             ],
                         ],
                     ],
-                    5 => [
+                    4 => [
                         "id" => $formId5,
                         "type" => "text",
                         "name" => "Nama TPS",
@@ -592,9 +606,6 @@ class WilayahController extends Controller
                         "fetch_data" => [
                             "is_fetching" => false,
                         ],
-                        "container" => [
-                            "id" => $containerIdForm5
-                        ],
                         "data" => [
                             "value" => $tps->name ?? null,
                             "placeholder" => "Wajib Diisi",
@@ -602,8 +613,8 @@ class WilayahController extends Controller
                     ],
                 ];
                 if ($formQuery == "Multiple" || $formQuery == "multiple" && !$tps) {
-                    $config["form"][5]["type"] = "number";
-                    $config["form"][5]["name"] = "Jumlah TPS yang akan diinput";
+                    $config["form"][4]["type"] = "number";
+                    $config["form"][4]["name"] = "Jumlah TPS yang akan diinput";
                 }
                 // if update change form name, or new keep create
                 if ($tps) {
@@ -713,7 +724,7 @@ class WilayahController extends Controller
                         }
                         if ($data) {
                             Kelurahan::insert($data);
-                            $message = "Data baru ditambahkan";
+                            $message = "Berhasil Membuat Kelurahan";
                         } else {
                             $message = "Data Kosong";
                             $responseCode = 500;
@@ -723,7 +734,7 @@ class WilayahController extends Controller
             } else if ($queryType == "TPS" || $queryType == "tps") {
                 $formQuery = $request->query("Form");
                 $validator = Validator::make($request->all(), [
-                    "names" => "required|string|array",
+                    "name" => "required|string|integer",
                     "kelurahan_id" => "required|string"
                 ]);
                 if ($validator->fails()) {
@@ -735,22 +746,25 @@ class WilayahController extends Controller
                         $data->update($request->all());
                     } else {
                         if ($formQuery == "Multiple" || $formQuery == "multiple") {
+                            $strToNumber = (int)$request->name;
                             $data = [];
-                            foreach ($request->names as $value) {
+                            for ($i=1; $i <= $strToNumber; $i++) {
                                 array_push($data, [
                                     "id" => Uuid::uuid7(),
-                                    "name" => $value,
+                                    "name" => "TPS $i",
                                     "kelurahan_id" => $request->kelurahan_id,
                                 ]);
                             }
+                            Tps::insert($data);
+                            $message = "Berhasil membuat TPS";
                         } else {
-                            // Tps::create([
-                            //     "name" => $request->names,
-                            //     "kelurahan_id" => $request->kelurahan_id,
-                            // ]);
+                            Tps::create([
+                                "name" => "TPS $request->name",
+                                "kelurahan_id" => $request->kelurahan_id,
+                            ]);
+                            $message = "Berhasil membuat TPS";
                         }
                     }
-                    $responseCode = 500;
                 }
             }
 

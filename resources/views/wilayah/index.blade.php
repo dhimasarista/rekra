@@ -26,8 +26,8 @@
                     Swal.fire({
                         title: '<h1>Pilih Jenis Input Data</h1>',
                         html: `
-                            <a href="{{ route('wilayah.form', ['Type' => 'TPS', 'Form' => "Single"]) }}" class="btn btn-success">Satu</a>
-                            <a href="{{ route('wilayah.form', ['Type' => 'TPS', 'Form' => "Multiple"]) }}" class="btn btn-warning">Banyak</a>
+                            <a href="{{ route('wilayah.form', ['Type' => 'TPS', 'Form' => 'Single']) }}" class="btn btn-success">Satu</a>
+                            <a href="{{ route('wilayah.form', ['Type' => 'TPS', 'Form' => 'Multiple']) }}" class="btn btn-warning">Banyak</a>
                         `,
                         showConfirmButton: false,
                         showCancelButton: false
@@ -47,37 +47,42 @@
                             <thead>
                                 <tr>
                                     <th class="table-plus datatable-nosort">Nama</th>
-                                    <th>Jumlah TPS</th>
+                                    @if (request()->query('Type') == 'TPS' || request()->query('Type') != 'tps')
+                                        <th>Jumlah TPS</th>
+                                    @endif
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {{-- @dd($data) --}}
                                 @if ($data)
-                                @foreach ($data as $d)
-                                    <tr>
-                                        <td>{{ Formatting::capitalize($d["name"]) }}</td>
-                                        <td>{{ $d["total"] }}</td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
-                                                    href="#" role="button" data-toggle="dropdown">
-                                                    <i class="dw dw-more"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                                    <a class="dropdown-item" href="{{ $d["detail"] }}"><i class="dw dw-eye"></i>
-                                                        Lihat</a>
-                                                    <a class="dropdown-item" href="{{ $d["edit"] }}"><i
-                                                            class="dw dw-edit2"></i>
-                                                        Edit</a>
-                                                    <a class="dropdown-item"  href="{{ $d["delete"] }}"><i
-                                                            class="dw dw-delete-3"></i>
-                                                        Delete</a>
+                                    @foreach ($data as $d)
+                                        <tr>
+                                            <td>{{ Formatting::capitalize($d['name']) }}</td>
+                                            @if (request()->query('Type') != 'TPS' || request()->query('Type') != 'tps')
+                                                <td>{{ $d['total'] }}</td>
+                                            @endif
+                                            <td>
+                                                <div class="dropdown">
+                                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
+                                                        href="#" role="button" data-toggle="dropdown">
+                                                        <i class="dw dw-more"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                                        <a class="dropdown-item" href="{{ $d['detail'] }}"><i
+                                                                class="dw dw-eye"></i>
+                                                            Lihat</a>
+                                                        <a class="dropdown-item" href="{{ $d['edit'] }}"><i
+                                                                class="dw dw-edit2"></i>
+                                                            Edit</a>
+                                                        <a class="dropdown-item" href="{{ $d['delete'] }}"><i
+                                                                class="dw dw-delete-3"></i>
+                                                            Delete</a>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 @endif
                             </tbody>
                         </table>

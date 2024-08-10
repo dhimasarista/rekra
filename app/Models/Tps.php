@@ -17,6 +17,7 @@ class Tps extends Model
     protected $table = 'tps';
     protected $fillable = [
         'name',
+        "kelurahan_id"
     ];
 
     protected static function boot()
