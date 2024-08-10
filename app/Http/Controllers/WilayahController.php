@@ -377,9 +377,6 @@ class WilayahController extends Controller
                     ];
                 }
                 $kelurahan = Kelurahan::find($idQuery);
-                $kecamatan = Kecamatan::find($kelurahan->kecamatan_id);
-                $kabkota = Kabkota::find($kecamatan->kabkota_id);
-                $provinsi = Provinsi::find($kabkota->provinsi_id);
                 $containerIdForm4 = Uuid::uuid7();
                 $config["submit"]["route"] = route("wilayah.post", ["Type" => "Kelurahan", "Id" => $idQuery]);
                 $config["submit"]["form_data"] = [
@@ -411,7 +408,7 @@ class WilayahController extends Controller
                         ],
                         "options" => $optProvinsi,
                         "data" => [
-                            "value" => $provinsi->id ?? null,
+                            "value" => null,
                             "placeholder" => null
                         ],
                     ],
@@ -437,10 +434,6 @@ class WilayahController extends Controller
                                 "name" => ""
                             ],
                         ],
-                        "data" => [
-                            "value" => $kabkota->id,
-                            "placeholder" => null
-                        ],
                     ],
                     2 => [
                         "id" => $formId3,
@@ -459,7 +452,7 @@ class WilayahController extends Controller
                             ],
                         ],
                         "data" => [
-                            "value" => $kecamatan->id ?? null,
+                            "value" => null,
                             "placeholder" => null
                         ],
                     ],
@@ -476,7 +469,7 @@ class WilayahController extends Controller
                             "id" => $containerIdForm4,
                         ],
                         "data" => [
-                            "value" => $kelurahan->name,
+                            "value" => $kelurahan->name ?? null,
                             "placeholder" => null
                         ],
                         "name" => "Nama Kelurahan",
@@ -622,7 +615,7 @@ class WilayahController extends Controller
                         ],
                         "data" => [
                             "value" => $tps->name ?? null,
-                            "placeholder" => "Wajib Diisi",
+                            "placeholder" => "Contoh: 1",
                         ],
                     ],
                 ];
@@ -715,7 +708,7 @@ class WilayahController extends Controller
                 }
             } else if ($queryType == "Kelurahan" || $queryType == "kelurahan") {
                 $validator = Validator::make($request->all(), [
-                    "name" => "required|string|array|min:1",
+                    "names" => "required|array|min:1",
                     "kecamatan_id" => "required|string"
                 ]);
                 if ($validator->fails()) {
@@ -724,7 +717,11 @@ class WilayahController extends Controller
                 } else {
                     $data = Kelurahan::withTrashed()->find($queryId);
                     if ($data) {
-                        $data->update($request->all());
+                        $data->update([
+                            "name" => $request->names[0],
+                            "kecamatan_id" => $request->kecamatan_id,
+                        ]);
+                        $message = "Berhasil Memperbarui Kelurahan";
                     } else {
                         $data = [];
                         foreach ($request->names as $value) {
@@ -753,7 +750,6 @@ class WilayahController extends Controller
                 ]);
                 if ($validator->fails()) {
                     $message = $validator->errors()->all();
-                    $responseCode = 500;
                 } else {
                     $data = Tps::withTrashed()->find($queryId);
                     if ($data) {
