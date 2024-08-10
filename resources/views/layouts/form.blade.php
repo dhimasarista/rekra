@@ -53,6 +53,14 @@
                                                     value="{{ $form['data']['value'] ?? null }}" type="text"
                                                     class="form-control">
                                             </div>
+                                        @elseif ($form['type'] == 'number')
+                                            <div class="form-group">
+                                                <label>{{ $form['name'] }}</label>
+                                                <input id="{{ $form['id'] }}"
+                                                    placeholder="{{ $form['data']['placeholder'] ?? null }}"
+                                                    value="{{ $form['data']['value'] ?? null }}" type="number"
+                                                    min="0" class="form-control">
+                                            </div>
                                         @elseif ($form['type'] == 'dynamic-input')
                                             <div id="{{ $form['container']['id'] }}">
                                                 <div class="form-group">

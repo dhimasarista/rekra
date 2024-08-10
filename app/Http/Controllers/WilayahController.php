@@ -458,18 +458,19 @@ class WilayahController extends Controller
 
                     ],
                 ];
-                // Todo: update form jika data edit, ganti dynamic/multiple input jadi input biasa
+                // Todo: update form jika data edit, ganti dynamic/Multipleple input jadi input biasa
                 if($kelurahan){
                     $config["name"] = "Update: $kelurahan->name";
                     $config["form"][3]["button"]["show"] = false;
-
                 } else {
                     $config["name"] = "Create Kelurahan";
                 }
             } else if($typeQuery == "TPS" || $typeQuery == "tps"){
                 $formQuery = $request->query("Form");
-
                 $formId4 = Uuid::uuid7();
+                $formId5 = Uuid::uuid7();
+                $containerIdForm5 = Uuid::uuid7();
+                $tps = TPS::find($idQuery);
                 $provinsi = Provinsi::all();
 
                 $optProvinsi[] = [
@@ -484,19 +485,19 @@ class WilayahController extends Controller
                         "name" => $p->name,
                     ];
                 }
-                $kelurahan = Kelurahan::find($idQuery);
-                $kecamatan = Kecamatan::find($kelurahan->kecamatan_id);
-                $kabkota = Kabkota::find($kecamatan->kabkota_id);
-                $provinsi = Provinsi::find($kabkota->provinsi_id);
-                $containerIdForm4 = Uuid::uuid7();
-                $config["submit"]["route"] = route("wilayah.post", ["Type" => "Kelurahan", "Id" => $idQuery]);
+                $submitRoute = [
+                    "Type" => "TPS",
+                    "Form" => $formQuery,
+                    "Id" => $idQuery,
+                ];
+                $config["submit"]["route"] = route("wilayah.post", $submitRoute);
                 $config["submit"]["form_data"] = [
                     [
-                        "id" => $formId3,
-                        "name" => "kecamatan_id",
+                        "id" => $formId4,
+                        "name" => "kelurahan_id",
                     ],
                     [
-                        "id" => $containerIdForm4,
+                        "id" => $containerIdForm5,
                         "name" => "names",
                         "type" => "array",
                     ],
@@ -518,10 +519,6 @@ class WilayahController extends Controller
                             "response" => "data",
                         ],
                         "options" => $optProvinsi,
-                        "data" => [
-                            "value" => $provinsi->id ?? null,
-                            "placeholder" => null
-                        ],
                     ],
                     1 => [
                         "id" => $formId2,
@@ -533,7 +530,7 @@ class WilayahController extends Controller
                             "is_fetching" => true,
                             "route" => route("wilayah.find", [
                                 "Type" => "Kecamatan",
-                                "Id" => ""
+                                "Id" => "",
                             ]),
                             "sibling_form_id" => $formId3,
                             "response" => "data",
@@ -545,15 +542,34 @@ class WilayahController extends Controller
                                 "name" => ""
                             ],
                         ],
-                        "data" => [
-                            "value" => $kabkota->id,
-                            "placeholder" => null
-                        ],
                     ],
                     2 => [
                         "id" => $formId3,
                         "type" => "select",
                         "name" => "Nama Kecamatan",
+                        "is_disabled" => true,
+                        "for_submit" => false,
+                        "fetch_data" => [
+                            "is_fetching" => true,
+                            "route" => route("wilayah.find", [
+                                "Type" => "Kelurahan",
+                                "Id" => ""
+                            ]),
+                            "sibling_form_id" => $formId4,
+                            "response" => "data",
+                        ],
+                        "options" => [
+                            [
+                                "id" => null,
+                                "is_selected" => true,
+                                "name" => ""
+                            ],
+                        ],
+                    ],
+                    3 => [
+                        "id" => $formId4,
+                        "type" => "select",
+                        "name" => "Nama Kelurahan",
                         "is_disabled" => true,
                         "for_submit" => false,
                         "fetch_data" => [
@@ -566,41 +582,32 @@ class WilayahController extends Controller
                                 "name" => ""
                             ],
                         ],
-                        "data" => [
-                            "value" => $kecamatan->id ?? null,
-                            "placeholder" => null
-                        ],
                     ],
-                    // Form Dynamic Input
-                    3 => [
-                        "id" => $formId4,
-                        "type" => "dynamic-input",
-                        "button" => [
-                            "id" => Uuid::uuid7(),
-                            "name" => "+ Tambah",
-                            "show" => true,
-                        ],
-                        "container" => [
-                            "id" => $containerIdForm4,
-                        ],
-                        "data" => [
-                            "value" => $kelurahan->name,
-                            "placeholder" => null
-                        ],
-                        "name" => "Nama Kelurahan",
+                    5 => [
+                        "id" => $formId5,
+                        "type" => "text",
+                        "name" => "Nama TPS",
                         "is_disabled" => false,
                         "for_submit" => false,
                         "fetch_data" => [
                             "is_fetching" => false,
                         ],
-
+                        "container" => [
+                            "id" => $containerIdForm5
+                        ],
+                        "data" => [
+                            "value" => $tps->name ?? null,
+                            "placeholder" => "Wajib Diisi",
+                        ],
                     ],
                 ];
-                // Todo: update form jika data edit, ganti dynamic/multiple input jadi input biasa
-                if($kelurahan){
-                    $config["name"] = "Update: $kelurahan->name";
-                    $config["form"][3]["button"]["show"] = false;
-
+                if ($formQuery == "Multiple" || $formQuery == "multiple" && !$tps) {
+                    $config["form"][5]["type"] = "number";
+                    $config["form"][5]["name"] = "Jumlah TPS yang akan diinput";
+                }
+                // if update change form name, or new keep create
+                if ($tps) {
+                    $config["name"] = "Update: $tps->name";
                 } else {
                     $config["name"] = "Create TPS";
                 }
@@ -708,13 +715,15 @@ class WilayahController extends Controller
                             Kelurahan::insert($data);
                             $message = "Data baru ditambahkan";
                         } else {
+                            $message = "Data Kosong";
                             $responseCode = 500;
                         }
                     }
                 }
             } else if ($queryType == "TPS" || $queryType == "tps") {
+                $formQuery = $request->query("Form");
                 $validator = Validator::make($request->all(), [
-                    "name" => "required|string|max:255",
+                    "names" => "required|string|array",
                     "kelurahan_id" => "required|string"
                 ]);
                 if ($validator->fails()) {
@@ -725,12 +734,23 @@ class WilayahController extends Controller
                     if ($data) {
                         $data->update($request->all());
                     } else {
-                        $data = $request->all();
-                        if (!$request->id) {
-                            $data["id"] = Uuid::uuid7();
+                        if ($formQuery == "Multiple" || $formQuery == "multiple") {
+                            $data = [];
+                            foreach ($request->names as $value) {
+                                array_push($data, [
+                                    "id" => Uuid::uuid7(),
+                                    "name" => $value,
+                                    "kelurahan_id" => $request->kelurahan_id,
+                                ]);
+                            }
+                        } else {
+                            // Tps::create([
+                            //     "name" => $request->names,
+                            //     "kelurahan_id" => $request->kelurahan_id,
+                            // ]);
                         }
-                        Tps::create($data);
                     }
+                    $responseCode = 500;
                 }
             }
 
