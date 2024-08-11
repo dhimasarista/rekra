@@ -267,7 +267,7 @@ class WilayahController extends Controller
                     3 => [
                         "id" => null,
                         "type" => "notification",
-                        "name" => "ID: silahkan browsing di internet untuk melihat kode setiap daerah. Contoh 21 Kepri, 2171 Kota Batam.",
+                        "name" => "ID: silahkan browsing di internet untuk melihat kode setiap daerah. <b>Contoh 21 Kepri, 2171 Kota Batam</b>.",
                         "is_disabled" => false,
                         "for_submit" => false,
                         "fetch_data" => [
@@ -664,6 +664,7 @@ class WilayahController extends Controller
             return redirect("/error$val");
         }
     }
+    // create or update
     public function store(Request $request) {
         $message = null;
         $responseCode = 200;
@@ -671,29 +672,36 @@ class WilayahController extends Controller
             $queryType = $request->query("Type");
             $queryId = $request->query("Id");
             if ($queryType == "Kabkota" || $queryType == "kabkota") {
-                $validator = Validator::make($request->all(), [
-                    "id" => "required|integer",
-                    "name" => "required|string|max:255",
-                    "provinsi_id" => "required|integer"
-                ]);
-                if ($validator->fails()) {
-                    $message = $validator->errors()->all();
-                    $responseCode = 500;
-                } else {
-                    $data = KabKota::withTrashed()->find($queryId);
-                    if ($data) {
-                        $data->name = $request->name;
-                        $data->provinsi_id = (int)$request->provinsi_id ?? $data->provinsi_id;
-                        $data->save();
-                        $message = "Kabupaten/Kota berhasil diperbarui";
+                $maxKepri = 7; // 7 kabupaten/kota di kepri
+                $currentRow = Kabkota::where("provinsi_id", $request->provinsi_id)->count();
+                if ($currentRow < $maxKepri){
+                    $validator = Validator::make($request->all(), [
+                        "id" => "required|integer",
+                        "name" => "required|string|max:255",
+                        "provinsi_id" => "required|integer"
+                    ]);
+                    if ($validator->fails()) {
+                        $message = $validator->errors()->all();
+                        $responseCode = 500;
                     } else {
-                        KabKota::create([
-                            "id" => $request->id,
-                            "name" => $request->name,
-                            "provinsi_id" => $request->provinsi_id
-                        ]);
-                        $message = "Kabupaten/Kota berhasil ditambahkan";
+                        $data = KabKota::withTrashed()->find($queryId);
+                        if ($data) {
+                            $data->name = $request->name;
+                            $data->provinsi_id = (int)$request->provinsi_id ?? $data->provinsi_id;
+                            $data->save();
+                            $message = "Kabupaten/Kota berhasil diperbarui";
+                        } else {
+                            KabKota::create([
+                                "id" => $request->id,
+                                "name" => $request->name,
+                                "provinsi_id" => $request->provinsi_id
+                            ]);
+                            $message = "Kabupaten/Kota berhasil ditambahkan";
+                        }
                     }
+                } else {
+                    $message = "Jumlah data untuk provinsi ini sudah maksimun";
+                    $responseCode = 500;
                 }
             } else if ($queryType == "Kecamatan" || $queryType == "kecamatan"){
                 $validator = Validator::make($request->all(), [
@@ -817,10 +825,6 @@ class WilayahController extends Controller
             return response()->json(["message" => $message, "data" => $request->all()], $responseCode);
         }
     }
-
-    /**
-     * Display the specified resource.
-     */
     public function find(Request $request)
     {
         try {
@@ -849,14 +853,6 @@ class WilayahController extends Controller
             };
             return response()->json(["message" => $message], 500);
         }
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
     }
 
     /**
