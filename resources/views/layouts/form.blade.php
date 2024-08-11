@@ -173,13 +173,12 @@
                                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                                             },
                                             success: function(response) {
-
                                                 Swal.fire({
                                                     icon: 'success',
                                                     title: 'Success',
                                                     text: response.message
                                                 }).then(() => {
-                                                    window.location.replace("{{ $config['submit']['redirect'] }}");
+                                                    window.location.replace("{!! $config['submit']['redirect'] !!}");
                                                 });
                                             },
                                             error: function(xhr, status, error) {

@@ -22,7 +22,6 @@ Route::get("/404", function(){
 Route::middleware("auth")->group(function (){
     Route::prefix("rekapitulasi")->group(function(){
         Route::get("", [RekapitulasiController::class, "index"])->name("rekap.index");
-        Route::get("/sdui", [RekapitulasiController::class, "sdui"])->name("rekap.sdui");
         Route::get("/list", [RekapitulasiController::class, "list"])->name("rekap.list");
         Route::get("wilayah/kabkota", [RekapitulasiController::class, "kabkota"])->name("wilayah.kabkota");
     });
@@ -41,5 +40,6 @@ Route::middleware("auth")->group(function (){
         Route::get("/wilayah-pemilihan/find", [WilayahController::class,"find"])->name("wilayah.find");
         Route::get("/wilayah-pemilihan/list", [WilayahController::class,"findAllByType"])->name("wilayah.list");
         Route::get("/wilayah-pemilihan/form", [WilayahController::class,"form"])->name("wilayah.form");
+        Route::delete("/wilayah-pemilihan", [WilayahController::class,"destroy"])->name("wilayah.delete");
     });
 });

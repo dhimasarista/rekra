@@ -75,7 +75,7 @@
                                                         <a class="dropdown-item" href="{{ $d['edit'] }}"><i
                                                                 class="dw dw-edit2"></i>
                                                             Edit</a>
-                                                        <a class="dropdown-item" href="{{ $d['delete'] }}"><i
+                                                        <a class="dropdown-item" href="javascript:;" onclick="DeleteData('{!! $d['delete'] !!}')"><i
                                                                 class="dw dw-delete-3"></i>
                                                             Delete</a>
                                                     </div>
@@ -88,7 +88,42 @@
                         </table>
                     </div>
                     <script>
-                        $("#wilayah-table").DataTable({})
+                        $("#wilayah-table").DataTable({
+                            "order": []
+                        })
+                        const DeleteData = (url) => {
+                            TopLoaderService.start()
+                            $.ajax({
+                                type: "DELETE",
+                                url: url,
+                                data: "data",
+                                dataType: "json",
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                },
+                                success: function(response) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Success',
+                                        text: response.message
+                                    }).then(() => {
+                                        window.location.replace(`
+                                            {!! route("wilayah.index",["Type" => request()->query("Type"), "Id" => request()->query("Id")]) !!}
+                                        `);
+                                    });
+                                },
+                                error: function(xhr, status, error) {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Error',
+                                        text: xhr.responseJSON.message ?? error
+                                    });
+                                },
+                                complete: data => {
+                                    TopLoaderService.end()
+                                }
+                            });
+                        }
                     </script>
                 </div>
                 <!-- Export Datatable End -->
