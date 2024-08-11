@@ -16,7 +16,7 @@
         </div>
         <div class="row mb-30">
             <div class="col-md-6 mb-20">
-                <div class="pd-20 card-box height-100-p ">
+                <div class="pd-20 card-box height-100-p">
                     <h4 class="h4 text-blue">Pie Chart</h4>
                     <div id="chart8"></div>
                 </div>
@@ -31,16 +31,24 @@
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            let kecamatan = @json($data["wilayah"]->name);
-            let seriesNames = @json($data["calon"]->name);
+            let wilayah = @json($data['wilayah']);
+            let seriesNames = @json($data['calon']);
 
-            let categories = Object.keys(kecamatan);
+            let categories;
+            if (wilayah.kecamatan) {
+                categories = wilayah.kecamatan.map(k => Formatting.capitalize(k.name));
+            } else if (wilayah.kabkota) {
+                categories = wilayah.kabkota.map(k => Formatting.capitalize(k.name));
+            } else {
+                categories = [];
+            }
 
+            // Membuat data untuk masing-masing kandidat pada setiap kategori
             let seriesData = seriesNames.map(seriesName => ({
-                name: seriesName,
-                data: categories.map(category => kecamatan[category][seriesName])
+                name: `${Formatting.capitalize(seriesName.calon_name)} - ${Formatting.capitalize(seriesName.wakil_name)}`,
+                data: categories.map(() => Math.floor(Math.random() *
+                    10000)) // Ganti dengan data aktual jika tersedia
             }));
-
             let options4 = {
                 series: seriesData,
                 chart: {
@@ -91,7 +99,7 @@
 
             let options8 = {
                 series: seriesData.map(series => series.data.reduce((a, b) => a + b, 0)),
-                labels: seriesNames,
+                labels: seriesData.map(series => series.name),
                 dataLabels: {
                     enabled: true,
                 },

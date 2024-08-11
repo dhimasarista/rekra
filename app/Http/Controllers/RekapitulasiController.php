@@ -181,7 +181,7 @@ class RekapitulasiController extends Controller
         if ($typeQuery == "Kabkota" || $typeQuery == "kabkota"){
             $wilayah = Kabkota::with("kecamatan")->find($idQuery);
         } else {
-            $wilayah = Provinsi::find($idQuery);
+            $wilayah = Provinsi::with("kabkota")->find($idQuery);
         }
         $data = Calon::where("code", $request->query("Id"))->get();
         if ($chartQuery) {
