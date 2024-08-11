@@ -183,10 +183,10 @@ class RekapitulasiController extends Controller
         } else {
             $wilayah = Provinsi::find($idQuery);
         }
-        $calon = Calon::where("code", $request->query("Id"))->get();
+        $data = Calon::where("code", $request->query("Id"))->get();
         if ($chartQuery) {
             $data = [
-                "calon" => $calon,
+                "calon" => $data,
                 "wilayah" => $wilayah,
             ];
             $view = "layouts.chart";
