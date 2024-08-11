@@ -44,7 +44,7 @@
                                                 </div>
                                             @elseif ($form['type'] == 'notification')
                                                 <div class="alert alert-success" role="alert">
-                                                    {{ $form['name'] }}
+                                                    {!! $form['name'] !!}
                                                 </div>
                                             @elseif ($form['type'] == 'text')
                                                 <div class="form-group">
