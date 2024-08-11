@@ -8,16 +8,16 @@
         <div class="title pb-20 d-flex justify-content-between align-items-center">
             <h2 class="h2 mb-0">{{ Formatting::capitalize($segments[0]) }}</h2>
             <div class="text-right">
-                <a class="btn btn-sm btn-dark" href="{{ route('wilayah.form', ['Type' => 'Kabkota']) }}">
+                <a class="btn btn-sm btn-dark m-1" href="{{ route('wilayah.form', ['Type' => 'Kabkota']) }}">
                     <i class="fa fa-plus"></i> KabKota
                 </a>
-                <a class="btn btn-sm btn-dark" href="{{ route('wilayah.form', ['Type' => 'Kecamatan']) }}">
+                <a class="btn btn-sm btn-dark m-1" href="{{ route('wilayah.form', ['Type' => 'Kecamatan']) }}">
                     <i class="fa fa-plus"></i> Kecamatan
                 </a>
-                <a class="btn btn-sm btn-dark" href="{{ route('wilayah.form', ['Type' => 'Kelurahan']) }}">
+                <a class="btn btn-sm btn-dark m-1" href="{{ route('wilayah.form', ['Type' => 'Kelurahan']) }}">
                     <i class="fa fa-plus"></i> Kelurahan
                 </a>
-                <a id="tambah-tps" class="btn btn-sm btn-dark" href="javascript:;">
+                <a id="tambah-tps" class="btn btn-sm btn-dark m-1" href="javascript:;">
                     <i class="fa fa-plus"></i> TPS
                 </a>
             </div>
