@@ -37,16 +37,20 @@
                                         <td>{{ Formatting::capitalize($c->level) }}</td>
                                         <td>{{ Formatting::capitalize($c->calon_name) }} -
                                             {{ Formatting::capitalize($c->wakil_name) }}</td>
-                                        @foreach ($provinsi as $p)
-                                            @if ($p->id == $c->code)
-                                                <td>{{ Formatting::capitalize($p->name) }}</td>
-                                            @endif
-                                        @endforeach
-                                        @foreach ($kabkota as $k)
-                                            @if ($k->id == $c->code)
-                                                <td>{{ Formatting::capitalize($k->name) }}</td>
-                                            @endif
-                                        @endforeach
+                                        @if ($c->code)
+                                            @foreach ($provinsi as $p)
+                                                @if ($p->id == $c->code)
+                                                    <td>{{ Formatting::capitalize($p->name) }}</td>
+                                                @endif
+                                            @endforeach
+                                            @foreach ($kabkota as $k)
+                                                @if ($k->id == $c->code)
+                                                    <td>{{ Formatting::capitalize($k->name) }}</td>
+                                                @endif
+                                            @endforeach
+                                        @else
+                                            <td>{{ Formatting::capitalize("tampaknya data tidak ada") }}</td>
+                                        @endif
                                         <td>
                                             <div class="dropdown">
                                                 <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
