@@ -24,4 +24,8 @@ class Provinsi extends Model
             $model->updated_at = $model->freshTimestamp();
         });
     }
+    public function kabkota()
+    {
+        return $this->hasMany(KabKota::class, 'provinsi_id');
+    }
 }
