@@ -854,7 +854,6 @@ class WilayahController extends Controller
             return response()->json(["message" => $message], 500);
         }
     }
-
     /**
      * Remove the specified resource from storage.
      */
