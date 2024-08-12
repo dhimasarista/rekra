@@ -75,7 +75,7 @@
         <div class="header-left">
             <div class="menu-icon bi bi-list"></div>
             <div class="search-toggle-icon bi bi-search" data-toggle="header_search"></div>
-            <div class="header-search">
+            {{-- <div class="header-search">
                 <form>
                     <div class="form-group mb-0">
                         <i class="dw dw-search2 search-icon"></i>
@@ -110,7 +110,7 @@
                         </div>
                     </div>
                 </form>
-            </div>
+            </div> --}}
         </div>
         <div class="header-right">
             <div class="dashboard-setting user-notification">
@@ -130,8 +130,8 @@
                         <span class="user-name">Hai, {{ session()->get('name') }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                        <a class="dropdown-item" href="#"><i class="dw dw-user1"></i> Account</a>
-                        <a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a>
+                        {{-- <a class="dropdown-item" href="#"><i class="dw dw-user1"></i> Account</a>
+                        <a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a> --}}
                         <a class="dropdown-item" href="/logout"><i class="dw dw-logout"></i> Log Out</a>
                     </div>
                 </div>
@@ -165,14 +165,13 @@
                 <h4 class="weight-600 font-18 pb-10">Menu Dropdown Icon</h4>
                 <div class="sidebar-radio-group pb-10 mb-10">
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="sidebaricon-1" name="menu-dropdown-icon"
-                            class="custom-control-input" value="icon-style-1" checked="" />
-                        <label class="custom-control-label" for="sidebaricon-1"><i
-                                class="fa fa-angle-down"></i></label>
+                        <input type="radio" id="sidebaricon-1" name="menu-dropdown-icon" class="custom-control-input"
+                            value="icon-style-1" checked="" />
+                        <label class="custom-control-label" for="sidebaricon-1"><i class="fa fa-angle-down"></i></label>
                     </div>
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="sidebaricon-2" name="menu-dropdown-icon"
-                            class="custom-control-input" value="icon-style-2" />
+                        <input type="radio" id="sidebaricon-2" name="menu-dropdown-icon" class="custom-control-input"
+                            value="icon-style-2" />
                         <label class="custom-control-label" for="sidebaricon-2"><i
                                 class="ion-plus-round"></i></label>
                     </div>
