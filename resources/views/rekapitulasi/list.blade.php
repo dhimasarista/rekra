@@ -9,14 +9,13 @@
                 </a>
             </div>
             <div class="text-right">
-                <a class="btn btn-sm btn-dark" href="{{
-                    route("rekap.list", [
-                        "Type" => request()->query("Type"),
-                        "Id" => request()->query("Id"),
-                        "Id" => request()->query("Id"),
-                        "Chart" => "true",
-                    ])
-                }}">
+                <a class="btn btn-sm btn-dark"
+                    href="{{ route('rekap.list', [
+                        'Type' => request()->query('Type'),
+                        'Id' => request()->query('Id'),
+                        'Id' => request()->query('Id'),
+                        'Chart' => 'true',
+                    ]) }}">
                     <i class="fa fa-pie-chart"></i> Chart
                 </a>
             </div>
@@ -43,12 +42,11 @@
                                 @php
                                     $counter = 1;
                                 @endphp
-                                {{-- @dd($data) --}}
                                 @foreach ($data as $d)
                                     <tr>
                                         <td>{{ $counter++ }}</td>
-                                        <td>{{ Formatting::capitalize($d->calon_name . ' - ' . $d->wakil_name) }}</td>
-                                        <td>400.000</td>
+                                        <td>{{ Formatting::capitalize($d['calon']) }}</td>
+                                        <td>{{ $d['total'] }}</td>
                                         <td>
                                             <a href="#" style="text-decoration: underline">Detail</a>
                                         </td>
