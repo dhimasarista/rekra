@@ -4,7 +4,7 @@
         <div class="title pb-20 d-flex justify-content-between align-items-center">
             {{-- <h2 class="h2 mb-0">List</h2> --}}
             <div class="text-left">
-                <a class="btn btn-sm btn-dark" href="{{ url()->previous() }}">
+                <a class="btn btn-sm btn-dark" href="{{ route("rekap.index", ["Type" => "Kabkota"]) }}">
                     <i class="fa fa-arrow-left"></i> Kembali
                 </a>
             </div>

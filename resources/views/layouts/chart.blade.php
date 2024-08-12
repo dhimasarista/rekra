@@ -7,7 +7,12 @@
     <script src="../admin/src/plugins/apexcharts/apexcharts.min.js"></script>
     <div class="xs-pd-20-10 pd-ltr-20 ">
         <div class="title pb-20 d-flex justify-content-between align-items-center">
-            <h2 class="h2 mb-0">{{ Formatting::capitalize($segments[0]) }}</h2>
+            {{-- <h2 class="h2 mb-0">{{ Formatting::capitalize($segments[0]) }}</h2> --}}
+            <div class="text-left">
+                <a class="btn btn-sm btn-dark" href="{{ route("rekap.index", ["Type" => "Kabkota"]) }}">
+                    <i class="fa fa-arrow-left"></i> Kembali
+                </a>
+            </div>
             <div class="text-right">
                 <a class="btn btn-sm btn-dark" href="{{ url()->previous() }}">
                     <i class="fa fa-list"></i> List
