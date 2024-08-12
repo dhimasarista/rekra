@@ -38,4 +38,9 @@ class Calon extends Model
             $model->updated_at = $model->freshTimestamp();
         });
     }
+    // relationship
+    public function jumlahSuara()
+    {
+        return $this->hasMany(JumlahSuara::class, 'calon_id');
+    }
 }
