@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Formatting;
 use App\Models\Calon;
+use App\Models\JumlahSuara;
 use App\Models\KabKota;
 use App\Models\Provinsi;
 use App\Models\User;
@@ -169,20 +170,22 @@ class RekapitulasiController extends Controller
     public function list(Request $request)
     {
         $data = null;
+        $wilayah = null;
         $view = "rekapitulasi.list"; // soon: change list to table
+
         $idQuery = $request->query("Id");
         $typeQuery = $request->query("Type");
         $chartQuery = $request->query("Chart");
+
+        // Check id query
         $checkQuery = !$idQuery || $idQuery == "null" || $idQuery == "Pilih";
         if ($checkQuery) {
             return redirect("/rekapitulasi");
         }
-        $wilayah = null;
-        if ($typeQuery == "Kabkota" || $typeQuery == "kabkota"){
-            $wilayah = Kabkota::with("kecamatan")->find($idQuery);
-        } else {
-            $wilayah = Provinsi::with("kabkota")->find($idQuery);
-        }
+
+        if ($typeQuery == "Kabkota" || $typeQuery == "kabkota") $wilayah = Kabkota::with("kecamatan")->find($idQuery);
+        else $wilayah = Provinsi::with("kabkota")->find($idQuery);
+
         $data = Calon::where("code", $request->query("Id"))->get();
         if ($chartQuery) {
             $data = [
@@ -191,6 +194,16 @@ class RekapitulasiController extends Controller
             ];
             $view = "layouts.chart";
         }
+        $newData = [];
+        foreach ($data as $d) {
+            $total = JumlahSuara::where("calon_id", $d->id)->get();
+            $newData[] = [
+                "id" => $d->id,
+                "calon" => "$d->calon_name - $d->wakil_name",
+                "total" => $total ?? 0,
+            ];
+        }
+        $data = $newData;
         return view($view, [
             "data" => $data
         ]);
