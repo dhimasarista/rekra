@@ -10,6 +10,8 @@ use App\Models\Provinsi;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Ramsey\Uuid\Uuid;
 
 class RekapitulasiController extends Controller
@@ -172,6 +174,7 @@ class RekapitulasiController extends Controller
         $data = null;
         $wilayah = null;
         $view = "rekapitulasi.list"; // soon: change list to table
+        $cacheKey = 'calon_data_' . $request->query('Id'); // caching
 
         $idQuery = $request->query("Id");
         $typeQuery = $request->query("Type");
@@ -186,7 +189,14 @@ class RekapitulasiController extends Controller
         if ($typeQuery == "Kabkota" || $typeQuery == "kabkota") $wilayah = Kabkota::with("kecamatan")->find($idQuery);
         else $wilayah = Provinsi::with("kabkota")->find($idQuery);
 
-        $data = Calon::where("code", $request->query("Id"))->get();
+        // $data = Calon::where("code", $request->query("Id"))->with('jumlahSuara')->get();
+        $data = Cache::remember($cacheKey, 10, function() use ($request){
+            return Calon::select("calon.id", "calon.calon_name", "calon.wakil_name", DB::raw("COALESCE(SUM(jumlah_suara.amount), 0) as total"))
+                ->leftJoin("jumlah_suara", "calon.id", "=", "jumlah_suara.calon_id")
+                ->where("calon.code", $request->query("Id"))
+                ->groupBy("calon.id", "calon.calon_name", "calon.wakil_name")
+                ->get();
+        });
         if ($chartQuery) {
             $data = [
                 "calon" => $data,
@@ -194,20 +204,6 @@ class RekapitulasiController extends Controller
             ];
             $view = "layouts.chart";
         }
-        /* todo
-            * Optimization Query Database using Eager loading && Indexing
-            * Change to array using map not foreach
-        */
-        $newData = [];
-        foreach ($data as $d) {
-            $total = JumlahSuara::where("calon_id", $d->id)->count("amount");
-            $newData[] = [
-                "id" => $d->id,
-                "calon" => "$d->calon_name - $d->wakil_name",
-                "total" => $total ?? 0,
-            ];
-        }
-        $data = $newData;
         return view($view, [
             "data" => $data
         ]);

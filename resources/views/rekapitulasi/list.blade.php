@@ -29,7 +29,7 @@
                         <h4 class="text-blue h4">{{ Formatting::capitalize(request()->query('Type')) }}</h4>
                     </div>
                     <div class="pb-20">
-                        <table id="provinsi-table" class="table hover multiple-select-row data-table-export wrap">
+                        <table id="provinsi-table" class="table stripe multiple-select-row data-table-export wrap">
                             <thead>
                                 <tr>
                                     <th class="table-plus datatable-nosort">Nomor</th>
@@ -42,11 +42,12 @@
                                 @php
                                     $counter = 1;
                                 @endphp
+                                {{-- @dd($data) --}}
                                 @foreach ($data as $d)
                                     <tr>
                                         <td>{{ $counter++ }}</td>
-                                        <td>{{ Formatting::capitalize($d['calon']) }}</td>
-                                        <td>{{ $d['total'] }}</td>
+                                        <td>{{ Formatting::capitalize($d->calon_name . ' - ' . $d->wakil_name) }}</td>
+                                        <td>{{ $d->total }}</td>
                                         <td>
                                             <a href="#" style="text-decoration: underline">Detail</a>
                                         </td>
