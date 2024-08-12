@@ -194,6 +194,10 @@ class RekapitulasiController extends Controller
             ];
             $view = "layouts.chart";
         }
+        /* todo
+            * Optimization Query Database using Eager loading && Indexing
+            * Change to array using map not foreach
+        */
         $newData = [];
         foreach ($data as $d) {
             $total = JumlahSuara::where("calon_id", $d->id)->count("amount");
