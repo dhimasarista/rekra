@@ -13,6 +13,7 @@ class JumlahSuara extends Model
     use HasFactory, SoftDeletes;
     protected $primaryKey = "id";
     public $incrementing = false;
+    protected $table = 'jumlah_suara';
     protected $keyType = 'string';
 
     protected $fillable = [
