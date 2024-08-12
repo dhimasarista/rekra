@@ -196,7 +196,7 @@ class RekapitulasiController extends Controller
         }
         $newData = [];
         foreach ($data as $d) {
-            $total = JumlahSuara::where("calon_id", $d->id)->get();
+            $total = JumlahSuara::where("calon_id", $d->id)->count("amount");
             $newData[] = [
                 "id" => $d->id,
                 "calon" => "$d->calon_name - $d->wakil_name",
