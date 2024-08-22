@@ -243,12 +243,13 @@
         <div class="menu-block customscroll">
             <div class="sidebar-menu">
                 <ul id="accordion-menu">
-                    {{-- <li>
-                        <a href="/dashboard"
-                            class="dropdown-toggle no-arrow {{ request()->is('dashboard') ? 'active' : '' }}">
-                            <span class="micon dw dw-columns1"></span><span class="mtext">Dashboard</span>
+                    <li>
+                        <a href="#"
+                            class="dropdown-toggle no-arrow {{ request()->is('kabkota') ? 'active' : '' }}">
+                            <span class="micon dw dw-fast-forward"></span>
+                            <span class="mtext">Hitung Cepat (Soon)</span>
                         </a>
-                    </li> --}}
+                    </li>
                     <li>
                         <a href="{{ route('rekap.index', ['Type' => 'Provinsi']) }}"
                             class="dropdown-toggle no-arrow {{ request()->is('rekapitulasi') && request()->query('Type') == 'Provinsi' ? 'active' : '' }}">
@@ -262,14 +263,14 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="{{ route('input.index', ['Type' => 'Provinsi']) }}"
                             class="dropdown-toggle no-arrow {{ request()->is('provinsi') ? 'active' : '' }}">
                             <span class="micon dw dw-down-arrow-7"></span>
                             <span class="mtext">Input Provinsi</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="{{ route('input.index', ['Type' => 'Kabkota']) }}"
                             class="dropdown-toggle no-arrow {{ request()->is('kabkota') ? 'active' : '' }}">
                             <span class="micon dw dw-down-arrow-1"></span>
                             <span class="mtext">Input Kab/Kota</span>

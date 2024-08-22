@@ -22,7 +22,7 @@ Route::get("/404", function(){
 
 Route::middleware("auth")->group(function (){
     Route::prefix("rekapitulasi")->group(function(){
-        Route::get("", [RekapitulasiController::class, "index"])->name("rekap.index");
+        Route::get("", [RekapitulasiController::class, "index"])->name("rekap.index")->middleware("roleRedirect");
         Route::get("/list", [RekapitulasiController::class, "list"])->name("rekap.list");
         Route::get("wilayah/kabkota", [RekapitulasiController::class, "kabkota"])->name("wilayah.kabkota");
     });
@@ -45,6 +45,6 @@ Route::middleware("auth")->group(function (){
     });
 
     Route::prefix("input")->group(function(){
-        Route::get("", [JumlahSuaraController::class, "index"]);
+        Route::get("", [JumlahSuaraController::class, "index"])->name("input.index");
     });
 });
