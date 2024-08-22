@@ -74,6 +74,168 @@ class JumlahSuaraController extends Controller
                         ],
                     ],
                     2 => [
+                        "id" => $formId1,
+                        "type" => "number",
+                        "name" => "Pengguna Hak Pilih DPT",
+                        "is_disabled" => false,
+                        "for_submit" => false,
+                        "fetch_data" => [
+                            "is_fetching" => false,
+                        ],
+                        "data" => [
+                            "value" => null,
+                            "placeholder" => "Wajib Diisi",
+                        ],
+                    ],
+                    3 => [
+                        "id" => $formId1,
+                        "type" => "number",
+                        "name" => "Pengguna Hak Pilih DPTB",
+                        "is_disabled" => false,
+                        "for_submit" => false,
+                        "fetch_data" => [
+                            "is_fetching" => false,
+                        ],
+                        "data" => [
+                            "value" => null,
+                            "placeholder" => "Wajib Diisi",
+                        ],
+                    ],
+                    4 => [
+                        "id" => $formId1,
+                        "type" => "number",
+                        "name" => "Pengguna Hak Pilih DPTK",
+                        "is_disabled" => false,
+                        "for_submit" => false,
+                        "fetch_data" => [
+                            "is_fetching" => false,
+                        ],
+                        "data" => [
+                            "value" => null,
+                            "placeholder" => "Wajib Diisi",
+                        ],
+                    ],
+                    5 => [
+                        "id" => $formId1,
+                        "type" => "number",
+                        "name" => "Surat Suara Diterima",
+                        "is_disabled" => false,
+                        "for_submit" => false,
+                        "fetch_data" => [
+                            "is_fetching" => false,
+                        ],
+                        "data" => [
+                            "value" => null,
+                            "placeholder" => "Wajib Diisi",
+                        ],
+                    ],
+                    6 => [
+                        "id" => $formId1,
+                        "type" => "number",
+                        "name" => "Surat Suara Digunakan",
+                        "is_disabled" => false,
+                        "for_submit" => false,
+                        "fetch_data" => [
+                            "is_fetching" => false,
+                        ],
+                        "data" => [
+                            "value" => null,
+                            "placeholder" => "Wajib Diisi",
+                        ],
+                    ],
+                    7 => [
+                        "id" => $formId1,
+                        "type" => "number",
+                        "name" => "Surat Suara Tidak Digunakan Digunakan",
+                        "is_disabled" => false,
+                        "for_submit" => false,
+                        "fetch_data" => [
+                            "is_fetching" => false,
+                        ],
+                        "data" => [
+                            "value" => null,
+                            "placeholder" => "Wajib Diisi",
+                        ],
+                    ],
+                    8 => [
+                        "id" => $formId1,
+                        "type" => "number",
+                        "name" => "Surat Suara Rusak",
+                        "is_disabled" => false,
+                        "for_submit" => false,
+                        "fetch_data" => [
+                            "is_fetching" => false,
+                        ],
+                        "data" => [
+                            "value" => null,
+                            "placeholder" => "Wajib Diisi",
+                        ],
+                    ],
+                    9 => [
+                        "id" => $formId1,
+                        "type" => "number",
+                        "name" => "Total Suara Sah",
+                        "is_disabled" => false,
+                        "for_submit" => false,
+                        "fetch_data" => [
+                            "is_fetching" => false,
+                        ],
+                        "data" => [
+                            "value" => null,
+                            "placeholder" => "Wajib Diisi",
+                        ],
+                    ],
+                    10 => [
+                        "id" => $formId1,
+                        "type" => "number",
+                        "name" => "Total Suara Tidak Sah",
+                        "is_disabled" => false,
+                        "for_submit" => false,
+                        "fetch_data" => [
+                            "is_fetching" => false,
+                        ],
+                        "data" => [
+                            "value" => null,
+                            "placeholder" => "Wajib Diisi",
+                        ],
+                    ],
+                    11 => [
+                        "id" => $formId1,
+                        "type" => "number",
+                        "name" => "Total Suara Sah & Tidak Sah",
+                        "is_disabled" => false,
+                        "for_submit" => false,
+                        "fetch_data" => [
+                            "is_fetching" => false,
+                        ],
+                        "data" => [
+                            "value" => null,
+                            "placeholder" => "Wajib Diisi",
+                        ],
+                    ],
+                    12 => [
+                        "id" => 1,
+                        "type" => "select",
+                        "name" => "C Keberatan",
+                        "is_disabled" => false,
+                        "for_submit" => false,
+                        "fetch_data" => [
+                            "is_fetching" => false,
+                        ],
+                        "options" => [
+                            [
+                                "id"=> 0,
+                                "is_selected" => true,
+                                "name" => "Tidak Ada",
+                            ],
+                            [
+                                "id"=> 1,
+                                "is_selected" => false,
+                                "name" => "Ada",
+                            ],
+                        ],
+                    ],
+                    99 => [
                         "id" => $formId3,
                         "type" => "textarea",
                         "name" => "Catatan (Tidak Wajib)",
@@ -84,7 +246,7 @@ class JumlahSuaraController extends Controller
                             "value" => null,
                             "placeholder" => "Contoh: Terjadi kecurangan...",
                         ],
-                    ]
+                    ],
                 ],
             ];
 
