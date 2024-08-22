@@ -5,6 +5,16 @@ use Ramsey\Uuid\Uuid;
 // Konfigurasi utama SDUI
 $config = [
     "name" => "Form Input Data", // Nama form atau judul halaman
+    "button_helper" => [
+        "enable" => true, // menampilkan button jika true
+        "button_list" => [
+            [
+                "name" => "Kembali",
+                "icon" => "fa fa-arrow-left",
+                "route" => null, // route yang diarahkan ketika event klik
+            ]
+        ]
+    ],
     "submit" => [
         "id" => Uuid::uuid7(), // ID unik untuk tombol submit
         "type" => "input", // Tipe submit, bisa 'input' atau 'redirect'
