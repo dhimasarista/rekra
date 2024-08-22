@@ -58,7 +58,7 @@
                 series: seriesData,
                 chart: {
                     type: 'bar',
-                    height: 430,
+                    height: 500,
                     toolbar: {
                         show: false,
                     }
@@ -67,7 +67,7 @@
                     show: true,
                     padding: {
                         left: 10,
-                        right: 10
+                        right: 10,
                     }
                 },
                 plotOptions: {
@@ -83,7 +83,7 @@
                     offsetX: -6,
                     style: {
                         fontSize: '12px',
-                        colors: ['#fff']
+                        colors: ['#000']
                     },
                     name: {
                         show: true
