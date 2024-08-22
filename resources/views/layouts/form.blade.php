@@ -10,9 +10,13 @@
         <div class="title pb-20 d-flex justify-content-between align-items-center">
             <h2 class="h2 mb-0">{{ Formatting::capitalize($segments[0] ?? 'Default Title') }}</h2>
             <div class="text-right">
-                <a class="btn btn-sm btn-dark" href="{{ url()->previous() }}">
-                    <i class="fa fa-arrow-left"></i> Kembali
-                </a>
+                @if ($config["button_helper"]["enable"]  ?? false)
+                    @foreach ($config["button_helper"]["button_list"] as $button)
+                    <a class="btn btn-sm btn-dark m-1" href="{{ $button["route"] }}">
+                        <i class="{{ $button["icon"] }}"></i> {{ $button["name"] }}
+                    </a>
+                    @endforeach
+                @endif
             </div>
         </div>
         <div class="row">

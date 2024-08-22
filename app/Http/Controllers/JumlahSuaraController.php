@@ -20,6 +20,16 @@ class JumlahSuaraController extends Controller
             //
             $config = [
                 "name" => "TPS 001 Sadai, Bengkong, Kota Batam",
+                "button_helper" => [
+                    "enable" => true,
+                    "button_list" => [
+                        [
+                            "name" => "Kembali",
+                            "icon" => "fa fa-arrow-left",
+                            "route" => "#",
+                        ],
+                    ]
+                ],
                 "submit" => [
                     "id" => Uuid::uuid7(),
                     "type" => "input", // redirect, input

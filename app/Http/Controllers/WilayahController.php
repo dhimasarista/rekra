@@ -183,6 +183,16 @@ class WilayahController extends Controller
             //
             $config = [
                 "name" => null,
+                "button_helper" => [
+                    "enable" => true,
+                    "button_list" => [
+                        [
+                            "name" => "Kembali",
+                            "icon" => "fa fa-arrow-left",
+                            "route" => url()->previous(),
+                        ],
+                    ]
+                ],
                 "submit" => [
                     "type" => "input",
                     "id" => Uuid::uuid7(),
