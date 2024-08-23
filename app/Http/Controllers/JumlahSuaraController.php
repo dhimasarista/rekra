@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Formatting;
+use App\Models\Provinsi;
 use Exception;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Uuid;
@@ -37,12 +38,61 @@ class JumlahSuaraController extends Controller
             $queryType = $request->query("Type");
             if ($queryType == "Provinsi" || $queryType == "provinsi") {
                 $config["name"] = "Pilih Provinsi";
-                // $config["submit"]["route"] = route("input.list", [
-                //     "Type" => "Provinsi",
-                //     "Id" => 21,
-                // ]);
+                $config["submit"]["route"] = route("input.list", [
+                    "Type" => "Provinsi",
+                ]);
 
-                // lanjutin form
+                $provinsi = Provinsi::all();
+                $options[] = [
+                    "id" => null,
+                    "is_selected" => true,
+                    "name" => "Pilih",
+                ];
+
+                foreach ($provinsi as $p) {
+                    $options[] = [
+                        "id" => $p->id,
+                        "is_selected" => false,
+                        "name" => $p->name,
+                    ];
+                }
+
+                $config["form"] = [
+                    0 => [
+                        "id" => $formId1, // ID untuk elemen form
+                        "type" => "select", // Tipe elemen: select, text, number, notification, dynamic-input
+                        "name" => "Nama Negara", // Label untuk elemen form
+                        "is_disabled" => true, // Jika true, elemen akan disabled
+                        "for_submit" => false, // Jika true, elemen ini digunakan untuk submit
+                        "fetch_data" => [
+                            "is_fetching" => false, // Jika true, data akan diambil melalui AJAX
+                            "route" => null, // Rute untuk AJAX fetch
+                            "response" => null, // Key dalam respons untuk data yang diambil
+                            "sibling_form_id" => null // ID elemen lain yang akan diupdate berdasarkan fetch
+                        ],
+                        "options" => [ // Opsi untuk select
+                            [
+                                "id" => 1,
+                                "is_selected" => true, // Opsi yang dipilih secara default
+                                "name" => "Indonesia"
+                            ],
+                        ]
+                    ],
+                    1 => [
+                        "id" => $formId2, // ID untuk elemen form
+                        "type" => "select", // Tipe elemen: select, text, number, notification, dynamic-input
+                        "name" => "Nama Provinsi", // Label untuk elemen form
+                        "is_disabled" => false, // Jika true, elemen akan disabled
+                        "for_submit" => true, // Jika true, elemen ini digunakan untuk submit
+                        "fetch_data" => [
+                            "is_fetching" => false, // Jika true, data akan diambil melalui AJAX
+                            "route" => null, // Rute untuk AJAX fetch
+                            "response" => null, // Key dalam respons untuk data yang diambil
+                            "sibling_form_id" => null // ID elemen lain yang akan diupdate berdasarkan fetch
+                        ],
+                        "options" => $options
+                    ],
+                ];
             } else if ($queryType == "Kabkota" || $queryType == "kabkota") {
 
             }

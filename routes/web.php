@@ -46,5 +46,6 @@ Route::middleware("auth")->group(function (){
 
     Route::prefix("input")->group(function(){
         Route::get("", [JumlahSuaraController::class, "index"])->name("input.index");
+        Route::get("/list", [JumlahSuaraController::class, "index"])->name("input.list");
     });
 });
