@@ -19,20 +19,17 @@ class RoleRedirect
     {
         $username = $request->session()->get('username');
         $user = User::where("username", $username)->first();
-        $userLevel = $user->level == "provinsi" || $user->level == "kabkota";
-
         $queryType = $request->query("Type");
-        if ($userLevel && $queryType == "Provinsi") {
-            $kabkota = KabKota::find($user->code);
-            return redirect()->route("rekap.list", [
-                "Type" => "Provinsi",
-                "Id" => $kabkota->provinsi_id,
-            ]);
-        } else if ($userLevel && $queryType == "Kabkota") {
-            return redirect()->route("rekap.list", [
-                "Type" => "Kabkota",
-                "Id" => $user->code,
-            ]);
+
+        $queryId = $request->query("Id");
+        $queryParams = $request->query();
+        // mencegah user mengakses id lain jika bukan ranahnya
+        if ($user->level == "kabkota" && $queryType == "Kabkota") {
+            if ($user->code != $queryId) {
+                $queryParams["Id"] = $user->code;
+                $newUrl = $request->url()."?".http_build_query($queryParams);
+                return redirect($newUrl);
+            }
         }
         return $next($request);
     }

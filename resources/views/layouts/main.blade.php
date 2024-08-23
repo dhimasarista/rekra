@@ -55,8 +55,7 @@
     <script src="../admin/src/plugins/TopLoaderService/TopLoaderService.js"></script>
     <script src="../admin/vendors/scripts/core.js"></script>
     <script src="../admin/vendors/scripts/script.min.js"></script>
-    {{--
-    <script src="../admin/vendors/scripts/process.js"></script> --}}
+    <script src="../admin/vendors/scripts/process.js"></script>
     <script src="../admin/vendors/scripts/layout-settings.js"></script>
     <script src="../admin/src/plugins/datatables/js/jquery.dataTables.min.js"></script>
     <script src="../admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
@@ -113,13 +112,13 @@
             </div> --}}
         </div>
         <div class="header-right">
-            <div class="dashboard-setting user-notification">
+            {{-- <div class="dashboard-setting user-notification">
                 <div class="dropdown">
                     <a class="dropdown-toggle no-arrow" href="javascript:;" data-toggle="right-sidebar">
                         <i class="dw dw-settings2"></i>
                     </a>
                 </div>
-            </div>
+            </div> --}}
             <div class="user-info-dropdown">
                 <div class="dropdown">
                     <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
@@ -138,7 +137,8 @@
             </div>
         </div>
     </div>
-    <div class="right-sidebar">
+
+    {{-- <div class="right-sidebar">
         <div class="sidebar-title">
             <h3 class="weight-600 font-16 text-blue">
                 Layout Settings
@@ -230,8 +230,7 @@
                 </div>
             </div>
         </div>
-    </div>
-
+    </div> --}}
     <div class="left-side-bar">
         <div class="brand-logo pt-10">
             <a href="/">Rekra 2024
