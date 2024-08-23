@@ -19,6 +19,59 @@ class JumlahSuaraController extends Controller
                 $formId3 = Uuid::uuid7();
             //
             $config = [
+                "name" => null,
+                "button_helper" => [
+                    "enable" => false,
+                    "button_list" => []
+                ],
+                "submit" => [
+                    "id" => Uuid::uuid7(),
+                    "type" => "redirect",
+                    "route" => "#",
+                    "method" => null,
+                    "redirect" => null,
+                ],
+                "form_data" => null,
+                "form" => null,
+            ];
+            $queryType = $request->query("Type");
+            if ($queryType == "Provinsi" || $queryType == "provinsi") {
+                $config["name"] = "Pilih Provinsi";
+                // $config["submit"]["route"] = route("input.list", [
+                //     "Type" => "Provinsi",
+                //     "Id" => 21,
+                // ]);
+
+                // lanjutin form
+            } else if ($queryType == "Kabkota" || $queryType == "kabkota") {
+
+            }
+
+            return view($view, [
+                "config" => $config,
+                "data" => $data,
+            ]);
+
+        } catch (Exception $e) {
+            $val = Formatting::formatUrl([
+                "code" => 500,
+                "title" => $e->getLine(),
+                "message" => $e->getMessage(),
+            ]);
+
+            return redirect("/error$val");
+        }
+    }
+    public function form(Request $request){
+        try {
+            $data = null;
+            $view = "layouts.form";
+            //
+                $formId1 = Uuid::uuid7();
+                $formId2 = Uuid::uuid7();
+                $formId3 = Uuid::uuid7();
+            //
+            $config = [
                 "name" => "TPS 001 Sadai, Bengkong, Kota Batam",
                 "button_helper" => [
                     "enable" => true,
