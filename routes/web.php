@@ -33,6 +33,7 @@ Route::middleware("auth")->group(function (){
         // User
         Route::get("/user/form", [UserController::class, "form"])->name("user.form");
         Route::get("/user/status", [UserController::class, "activeDeactive"])->name("user.active");
+        Route::get("/user/login", [UserController::class, "loginHistories"])->name("user.login");
         Route::resource('user', UserController::class);
         // Wilayah
         Route::get("/wilayah-pemilihan", [WilayahController::class,"index"])->name("wilayah.index");

@@ -9,16 +9,22 @@ use App\Models\Kelurahan;
 use App\Models\Provinsi;
 use App\Models\Tps;
 use App\Models\User;
+use App\Services\UserServiceInterface;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
 
 
 class WilayahController extends Controller
 {
+    protected $userService;
+    public function __construct(UserServiceInterface $userServiceInterface){
+        $this->userService = $userServiceInterface;
+    }
     public function index(Request $request){
         try {
             $data = null;
@@ -843,10 +849,16 @@ class WilayahController extends Controller
             $data = null;
             $typeQuery = $request->query("Type");
             $idQuery = $request->query("Id");
+            $user = Session::all();
+
             if ($typeQuery == "Provinsi" || $typeQuery == "provinsi") {
                 $data = Provinsi::where("id", $idQuery)->get();
             } else if ($typeQuery == "Kabkota" || $typeQuery == "kabkota"){
-                $data = KabKota::where("provinsi_id", $idQuery)->get();
+                if ($user["level"] == "kabkota") {
+                    $data[] = Kabkota::find($user["code"]);
+                } else {
+                    $data = KabKota::where("provinsi_id", $idQuery)->get();
+                }
             } else if ($typeQuery == "Kecamatan" || $typeQuery == "kecamatan"){
                 $data = Kecamatan::where("kabkota_id", $idQuery)->get();
             } else if ($typeQuery == "Kelurahan" || $typeQuery == "kelurahan"){

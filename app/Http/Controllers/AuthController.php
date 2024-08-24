@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LoginHistory;
 use App\Models\User;
 use App\Services\UserServiceInterface;
 use Illuminate\Database\QueryException;
@@ -57,8 +58,16 @@ class AuthController extends Controller
                             $request->session()->put('user_id', $user->id);
                             $request->session()->put('name', $user->name);
                             $request->session()->put('level', $user->level);
+                            $request->session()->put('code', $user->code);
                             $request->session()->put("is_admin", $user->is_admin);
                             $message = "Autentikasi Berhasil";
+
+                            LoginHistory::create([
+                                "user_id" => $user->id,
+                                "username" => $user->username,
+                                "login_at" => now(),
+                                "ip_address" => $request->ip(),
+                            ]);
                         }
                     }
                 } else { // Jika tidak cocok

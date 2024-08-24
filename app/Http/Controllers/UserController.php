@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Formatting;
 use App\Http\Resources\UserResource;
 use App\Models\KabKota;
+use App\Models\LoginHistory;
 use App\Models\Provinsi;
 use App\Models\User;
 use App\Services\UserServiceInterface;
@@ -22,14 +23,41 @@ class UserController extends Controller
     }
     public function index()
     {
-        $users = $this->userService->findByLevel(["kabkota", "provinsi"]);
-        $provinsi = Provinsi::all();
-        $kabkota = KabKota::all();
-        return view("user.index", [
-            "users" => $users,
-            "provinsi" => $provinsi,
-            "kabkota" => $kabkota,
-        ]);
+        try {
+            $users = $this->userService->findByLevel(["kabkota", "provinsi"]);
+            $provinsi = Provinsi::all();
+            $kabkota = KabKota::all();
+            return view("user.index", [
+                "users" => $users,
+                "provinsi" => $provinsi,
+                "kabkota" => $kabkota,
+            ]);
+        } catch (Exception $e) {
+            $val = Formatting::formatUrl([
+                "code" => 500,
+                "title" => $e->getMessage(),
+                "message" => "Line: ".$e->getLine(),
+            ]);
+
+            return redirect("/error$val");
+        }
+    }
+    public function loginHistories(){
+        try {
+            $logins = LoginHistory::all();
+
+            return view("user.login_histories", [
+                "data" => $logins
+            ]);
+        } catch (Exception $e) {
+            $val = Formatting::formatUrl([
+                "code" => 500,
+                "title" => $e->getMessage(),
+                "message" => "Line: ".$e->getLine(),
+            ]);
+
+            return redirect("/error$val");
+        }
     }
     public function form(Request $request)
     {
@@ -54,7 +82,6 @@ class UserController extends Controller
                     "name" => $value->name
                 ];
             }
-            // Todo: tambahkan button helper: return
             $config = [
                 "name" => "Create User",
                 "button_helper" => [

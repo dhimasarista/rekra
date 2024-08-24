@@ -19,7 +19,6 @@ class JumlahSuaraController extends Controller
                 $formId2 = Uuid::uuid7();
                 $formId3 = Uuid::uuid7();
                 $formId4 = Uuid::uuid7();
-                $formId5 = Uuid::uuid7();
             //
             $provinsi = Provinsi::all();
             $options[] = [

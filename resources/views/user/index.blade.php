@@ -11,7 +11,7 @@
                 <a class="btn btn-sm btn-dark m-1" href="{{ route('user.form') }}">
                     <i class="fa fa-plus"></i> Tambah User
                 </a>
-                <a class="btn btn-sm btn-dark m-1" href="#">
+                <a class="btn btn-sm btn-dark m-1" href="{{ route('user.login') }}">
                     <i class="fa fa-history"></i> Login History
                 </a>
             </div>
