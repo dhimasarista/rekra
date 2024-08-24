@@ -42,6 +42,7 @@ class UserController extends Controller
             return redirect("/error$val");
         }
     }
+    // Todo: login_at tidak sesuai
     public function loginHistories(){
         try {
             $logins = LoginHistory::all();
