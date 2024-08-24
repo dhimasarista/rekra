@@ -263,14 +263,14 @@
                     </li>
                     <li>
                         <a href="{{ route('input.index', ['Type' => 'Provinsi']) }}"
-                            class="dropdown-toggle no-arrow {{ request()->is('provinsi') ? 'active' : '' }}">
+                            class="dropdown-toggle no-arrow {{ request()->is('input') && request()->query('Type') == 'Provinsi' ? 'active' : '' }}">
                             <span class="micon dw dw-down-arrow-7"></span>
                             <span class="mtext">Input Provinsi</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('input.index', ['Type' => 'Kabkota']) }}"
-                            class="dropdown-toggle no-arrow {{ request()->is('kabkota') ? 'active' : '' }}">
+                            class="dropdown-toggle no-arrow {{ request()->is('input') && request()->query('Type') == 'Kabkota' ? 'active' : '' }}">
                             <span class="micon dw dw-down-arrow-1"></span>
                             <span class="mtext">Input Kab/Kota</span>
                         </a>

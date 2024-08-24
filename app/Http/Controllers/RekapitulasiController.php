@@ -112,9 +112,12 @@ class RekapitulasiController extends Controller
                                 "for_submit" => false,
                                 "fetch_data" => [
                                     "is_fetching" => true,
-                                    "route" => "/rekapitulasi/wilayah/kabkota?Provinsi=",
+                                    "route" => route("wilayah.find", [
+                                        "Type" => "Kabkota",
+                                        "Id" => "",
+                                    ]),
                                     "sibling_form_id" => $formId2,
-                                    "response" => "kabkota",
+                                    "response" => "data",
                                 ],
                                 "options" => $options,
                             ],
@@ -154,20 +157,6 @@ class RekapitulasiController extends Controller
 
             return redirect("/error$val");
         }
-    }
-    public function kabkota(Request $request)
-    {
-        $kabkota = null;
-        $user = User::find($request->session()->get('user_id'));
-        $provinsi = $request->query("Provinsi");
-        if ($user->level == "kabkota") {
-            $kabkota = KabKota::where("id", $user->code)->get();
-        } else {
-            $kabkota = KabKota::where("provinsi_id", $provinsi)->get();
-        }
-        return response()->json([
-            "kabkota" => $kabkota,
-        ], 200);
     }
     public function list(Request $request)
     {

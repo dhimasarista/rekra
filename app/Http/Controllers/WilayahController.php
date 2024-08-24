@@ -835,6 +835,8 @@ class WilayahController extends Controller
             return response()->json(["message" => $message, "data" => $request->all()], $responseCode);
         }
     }
+
+    // Find By Hierarchy/Foreign Key
     public function find(Request $request)
     {
         try {

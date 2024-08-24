@@ -18,7 +18,23 @@ class JumlahSuaraController extends Controller
                 $formId1 = Uuid::uuid7();
                 $formId2 = Uuid::uuid7();
                 $formId3 = Uuid::uuid7();
+                $formId4 = Uuid::uuid7();
+                $formId5 = Uuid::uuid7();
             //
+            $provinsi = Provinsi::all();
+            $options[] = [
+                "id" => null,
+                "is_selected" => true,
+                "name" => "Pilih",
+            ];
+
+            foreach ($provinsi as $p) {
+                $options[] = [
+                    "id" => $p->id,
+                    "is_selected" => false,
+                    "name" => $p->name,
+                ];
+            }
             $config = [
                 "name" => null,
                 "button_helper" => [
@@ -34,56 +50,63 @@ class JumlahSuaraController extends Controller
                     "redirect" => null,
                 ],
                 "form_data" => null,
-                "form" => null,
-            ];
-            $queryType = $request->query("Type");
-            if ($queryType == "Provinsi" || $queryType == "provinsi") {
-                $config["name"] = "Pilih Provinsi";
-                $config["submit"]["route"] = route("input.list", [
-                    "Type" => "Provinsi",
-                ]);
-
-                $provinsi = Provinsi::all();
-                $options[] = [
-                    "id" => null,
-                    "is_selected" => true,
-                    "name" => "Pilih",
-                ];
-
-                foreach ($provinsi as $p) {
-                    $options[] = [
-                        "id" => $p->id,
-                        "is_selected" => false,
-                        "name" => $p->name,
-                    ];
-                }
-
-                $config["form"] = [
-                    0 => [
-                        "id" => $formId1, // ID untuk elemen form
-                        "type" => "select", // Tipe elemen: select, text, number, notification, dynamic-input
-                        "name" => "Nama Negara", // Label untuk elemen form
-                        "is_disabled" => true, // Jika true, elemen akan disabled
-                        "for_submit" => false, // Jika true, elemen ini digunakan untuk submit
-                        "fetch_data" => [
-                            "is_fetching" => false, // Jika true, data akan diambil melalui AJAX
-                            "route" => null, // Rute untuk AJAX fetch
-                            "response" => null, // Key dalam respons untuk data yang diambil
-                            "sibling_form_id" => null // ID elemen lain yang akan diupdate berdasarkan fetch
-                        ],
-                        "options" => [ // Opsi untuk select
-                            [
-                                "id" => 1,
-                                "is_selected" => true, // Opsi yang dipilih secara default
-                                "name" => "Indonesia"
-                            ],
-                        ]
-                    ],
+                "form" => [
                     1 => [
-                        "id" => $formId2, // ID untuk elemen form
+                        "id" => $formId1, // ID untuk elemen form
                         "type" => "select", // Tipe elemen: select, text, number, notification, dynamic-input
                         "name" => "Nama Provinsi", // Label untuk elemen form
                         "is_disabled" => false, // Jika true, elemen akan disabled
+                        "for_submit" => false, // Jika true, elemen ini digunakan untuk submit
+                        "fetch_data" => [
+                            "is_fetching" => true, // Jika true, data akan diambil melalui AJAX
+                            "route" => route("wilayah.find", [
+                                "Type" => "Kabkota",
+                                "Id" => "",
+                            ]), // Rute untuk AJAX fetch
+                            "response" => "data", // Key dalam respons untuk data yang diambil
+                            "sibling_form_id" => $formId2 // ID elemen lain yang akan diupdate berdasarkan fetch
+                        ],
+                        "options" => $options
+                    ],
+                    2 => [
+                        "id" => $formId2, // ID untuk elemen form
+                        "type" => "select", // Tipe elemen: select, text, number, notification, dynamic-input
+                        "name" => "Nama Kabupaten/Kota", // Label untuk elemen form
+                        "is_disabled" => true, // Jika true, elemen akan disabled
+                        "for_submit" => false, // Jika true, elemen ini digunakan untuk submit
+                        "fetch_data" => [
+                            "is_fetching" => true, // Jika true, data akan diambil melalui AJAX
+                            "route" => route("wilayah.find", [
+                                "Type" => "Kecamatan",
+                                "Id" => "",
+                            ]), // Rute untuk AJAX fetch
+                            "response" => "data", // Key dalam respons untuk data yang diambil
+                            "sibling_form_id" => $formId3 // ID elemen lain yang akan diupdate berdasarkan fetch
+                        ],
+                        "options" => []
+                    ],
+                    3 => [
+                        "id" => $formId3, // ID untuk elemen form
+                        "type" => "select", // Tipe elemen: select, text, number, notification, dynamic-input
+                        "name" => "Nama Kecamatan", // Label untuk elemen form
+                        "is_disabled" => true, // Jika true, elemen akan disabled
+                        "for_submit" => false, // Jika true, elemen ini digunakan untuk submit
+                        "fetch_data" => [
+                            "is_fetching" => true, // Jika true, data akan diambil melalui AJAX
+                            "route" => route("wilayah.find", [
+                                "Type" => "Kelurahan",
+                                "Id" => "",
+                            ]), // Rute untuk AJAX fetch
+                            "response" => "data", // Key dalam respons untuk data yang diambil
+                            "sibling_form_id" => $formId4 // ID elemen lain yang akan diupdate berdasarkan fetch
+                        ],
+                        "options" => []
+                    ],
+                    4 => [
+                        "id" => $formId4, // ID untuk elemen form
+                        "type" => "select", // Tipe elemen: select, text, number, notification, dynamic-input
+                        "name" => "Nama Kelurahan", // Label untuk elemen form
+                        "is_disabled" => true, // Jika true, elemen akan disabled
                         "for_submit" => true, // Jika true, elemen ini digunakan untuk submit
                         "fetch_data" => [
                             "is_fetching" => false, // Jika true, data akan diambil melalui AJAX
@@ -91,11 +114,21 @@ class JumlahSuaraController extends Controller
                             "response" => null, // Key dalam respons untuk data yang diambil
                             "sibling_form_id" => null // ID elemen lain yang akan diupdate berdasarkan fetch
                         ],
-                        "options" => $options
+                        "options" => []
                     ],
-                ];
+                ],
+            ];
+            $queryType = $request->query("Type");
+            if ($queryType == "Provinsi" || $queryType == "provinsi") {
+                $config["name"] = "Gubernur - Wakil Gubernur";
+                $config["submit"]["route"] = route("input.list", [
+                    "Type" => "Provinsi",
+                ]);
             } else if ($queryType == "Kabkota" || $queryType == "kabkota") {
-
+                $config["name"] = "Kabupaten - Kota";
+                $config["submit"]["route"] = route("input.list", [
+                    "Type" => "Kabkota",
+                ]);
             }
 
             return view($view, [

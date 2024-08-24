@@ -24,7 +24,6 @@ Route::middleware("auth")->group(function (){
     Route::prefix("rekapitulasi")->group(function(){
         Route::get("", [RekapitulasiController::class, "index"])->name("rekap.index")->middleware("pageRedirect");
         Route::get("/list", [RekapitulasiController::class, "list"])->name("rekap.list")->middleware("roleRedirect");
-        Route::get("wilayah/kabkota", [RekapitulasiController::class, "kabkota"])->name("wilayah.kabkota");
     });
     Route::get("/logout", [AuthController::class, "destroy"]);
     Route::middleware(["userRole"])->group(function (){
@@ -38,7 +37,7 @@ Route::middleware("auth")->group(function (){
         // Wilayah
         Route::get("/wilayah-pemilihan", [WilayahController::class,"index"])->name("wilayah.index");
         Route::post("/wilayah-pemilihan", [WilayahController::class,"store"])->name("wilayah.post");
-        Route::get("/wilayah-pemilihan/find", [WilayahController::class,"find"])->name("wilayah.find");
+        Route::get("/wilayah-pemilihan/find", [WilayahController::class,"find"])->name("wilayah.find")->withoutMiddleware("userRole");
         Route::get("/wilayah-pemilihan/list", [WilayahController::class,"findAllByType"])->name("wilayah.list");
         Route::get("/wilayah-pemilihan/form", [WilayahController::class,"form"])->name("wilayah.form");
         Route::delete("/wilayah-pemilihan", [WilayahController::class,"destroy"])->name("wilayah.delete");

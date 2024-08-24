@@ -19,12 +19,15 @@ class RoleRedirect
     {
         $username = $request->session()->get('username');
         $user = User::where("username", $username)->first();
+        // Query Parameters
         $queryType = $request->query("Type");
-
         $queryId = $request->query("Id");
         $queryParams = $request->query();
+
+        // user role
+        $userRole = $user->level == "kabkota" || $user->level == "provinsi";
         // mencegah user mengakses id lain jika bukan ranahnya
-        if ($user->level == "kabkota" && $queryType == "Kabkota") {
+        if ($userRole && $queryType == "Kabkota") {
             if ($user->code != $queryId) {
                 $queryParams["Id"] = $user->code;
                 $newUrl = $request->url()."?".http_build_query($queryParams);
