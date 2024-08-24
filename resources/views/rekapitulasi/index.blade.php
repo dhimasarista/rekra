@@ -25,12 +25,12 @@
                         $data = [
                             [
                                 'id' => 1,
-                                'nama' => 'provinsi',
+                                'nama' => 'Provinsi',
                                 'route' => route('rekap.index', ['Type' => 'Provinsi']),
                             ],
                             [
                                 'id' => 2,
-                                'nama' => 'kabkota',
+                                'nama' => 'Kabkota',
                                 'route' => route('rekap.index', ['Type' => 'Kabkota']),
                             ],
                         ];
