@@ -195,7 +195,7 @@
                                                 Swal.fire({
                                                     icon: 'error',
                                                     title: 'Error',
-                                                    text: 'An error occurred while processing your request.'
+                                                    text: xhr["responseJSON"]["message"]
                                                 });
                                             },
                                             complete: function() {
