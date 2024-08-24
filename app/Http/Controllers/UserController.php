@@ -7,6 +7,7 @@ use App\Http\Resources\UserResource;
 use App\Models\KabKota;
 use App\Models\Provinsi;
 use App\Models\User;
+use App\Services\UserServiceInterface;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -15,10 +16,13 @@ use Ramsey\Uuid\Uuid;
 
 class UserController extends Controller
 {
+    protected $userService;
+    public function __construct(UserServiceInterface $userServiceInterface){
+        $this->userService = $userServiceInterface;
+    }
     public function index()
     {
-        $users = User::whereNot("level", "master")->get();
-        $users = UserResource::collection($users);
+        $users = $this->userService->findByLevel(["kabkota", "provinsi"]);
         $provinsi = Provinsi::all();
         $kabkota = KabKota::all();
         return view("user.index", [
@@ -31,7 +35,7 @@ class UserController extends Controller
     {
         try {
             $view = "layouts.form";
-            $user = User::find($request->query("Id"));
+            $user = $this->userService->findById($request->query("Id") ?? "");
             $kabkota = KabKota::all();
             $formId1 = Uuid::uuid7();
             $formId2 = Uuid::uuid7();
@@ -50,6 +54,7 @@ class UserController extends Controller
                     "name" => $value->name
                 ];
             }
+            // Todo: tambahkan button helper: return
             $config = [
                 "name" => "Create User",
                 "submit" => [
@@ -176,7 +181,7 @@ class UserController extends Controller
             } else {
                 // regex: checking username pattern from user input
                 if (preg_match('/^[a-zA-Z0-9]+$/', $request->username)) {
-                    $user = User::find($request->query("Id"));
+                    $user = $this->userService->findById($request->query("Id") ?? "");
                     if ($user) { // if user finded, update user data
                         $userPassword = $request->password;
                         // password not updating, if password from body response null
@@ -188,16 +193,15 @@ class UserController extends Controller
                         $user->code = $request->code;
                         $user->save(); // save user
                         // set new message and response code
-                        $message = "User diperbarui";
+                        $message = "😊User diperbarui";
                     } else {
                         // creating new user
-                        User::create([
+                        $message = $this->userService->createUser([
                             "name" => $request->name,
                             "username" => $request->username,
                             "password" => $request->password,
                             "code" => $request->code,
                         ]);
-                        $message = "😊User baru dibuat";
                     }
                 } else { // else of regexp of username
                     $message = "username yang dibuat tidak diperbolehkan";
@@ -220,7 +224,7 @@ class UserController extends Controller
         try {
             $message = null;
             $responseCode = 200;
-            $user = User::find($id);
+            $user = $this->userService->findById($id);
             if ($user) {
                 $user->delete();
                 $message = "User berhasil dihapus";
@@ -238,7 +242,7 @@ class UserController extends Controller
     public function activeDeactive(Request $request)
     {
         try {
-            $user = User::find($request->query("Id"));
+            $user = $this->userService->findById($request->query("Id"));
             if ($user) {
                 $user->is_active = !$user->is_active;
                 $user->save();

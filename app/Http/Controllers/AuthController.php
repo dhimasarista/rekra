@@ -43,7 +43,7 @@ class AuthController extends Controller
             } else {
                 // Mencoba memeriksa kredensial
                 if ($this->userService->login($credentials)) {
-                    $user = $this->userService->getUser();
+                    $user = $this->userService->findUseAuth();
                     if ($user->deleted_at != null) {
                         $message = "Akun anda tidak ditemukan";
                         $responseCode = 400;
