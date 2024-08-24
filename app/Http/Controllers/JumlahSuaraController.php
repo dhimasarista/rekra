@@ -27,6 +27,7 @@ class JumlahSuaraController extends Controller
                 ],
                 "submit" => [
                     "id" => Uuid::uuid7(),
+                    "name" => "submit",
                     "type" => "redirect",
                     "route" => "#",
                     "method" => null,

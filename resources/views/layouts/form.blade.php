@@ -149,7 +149,7 @@
                                 <label class="col-sm-12 col-md-2 col-form-label"></label>
                                 <div id="container-button-submit-form" class="col-sm-12 col-md-10">
                                     <button id="{{ $config['submit']['id'] ?? 'submitForm' }}" type="button"
-                                        class="btn btn-dark btn-sm scroll-click">submit</button>
+                                        class="btn btn-dark btn-sm scroll-click">{{ $config['submit']['name'] ?? 'submit' }}</button>
                                 </div>
                             </div>
                             @if (($config['submit']['type'] ?? '') == 'redirect')

@@ -17,6 +17,7 @@ $config = [
     ],
     "submit" => [
         "id" => Uuid::uuid7(), // ID unik untuk tombol submit
+        "name" => "button name", // Penamaan nama button
         "type" => "input", // Tipe submit, bisa 'input' atau 'redirect'
         "route" => "/submit-data", // Rute yang akan diakses saat submit
         "method" => "POST", // Metode HTTP yang digunakan untuk submit
