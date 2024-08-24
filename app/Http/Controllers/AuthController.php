@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Services\UserServiceInterface;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +13,11 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+    protected $userService;
+
+    public function __construct(UserServiceInterface $userServiceInterface){
+        $this->userService = $userServiceInterface;
+    }
     public function index(){
         if (Auth::check()) {
             return redirect('/rekapitulasi');
@@ -36,8 +42,8 @@ class AuthController extends Controller
                 $responseCode = 401;
             } else {
                 // Mencoba memeriksa kredensial
-                if (Auth::attempt($credentials)) {
-                    $user = Auth::user();
+                if ($this->userService->login($credentials)) {
+                    $user = $this->userService->getUser();
                     if ($user->deleted_at != null) {
                         $message = "Akun anda tidak ditemukan";
                         $responseCode = 400;
