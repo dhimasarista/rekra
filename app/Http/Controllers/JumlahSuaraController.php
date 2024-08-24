@@ -16,26 +16,17 @@ class JumlahSuaraController extends Controller
     public function __construct(JumlahSuara $jumlahSuara){
         $this->jumlahSuara = $jumlahSuara;
     }
-    /*
-        Todo: perbaiki konflik dimana data provinsi tidak terhitung di kabkota
-    */
     public function list(Request $request){
         try {
-            $typeQuery = $request->query("Type");
             $idQuery = $request->query("Id");
-            $data = null;
-            $tps = Tps::where("kelurahan_id", $idQuery)->get();
-            foreach ($tps as $t) {
-                $total = $this->jumlahSuara::where("tps_id", $t->id)->count();
-                $data[] = [
-                    "id" => $t->id,
-                    "name" => $t->name,
-                    "kelurahan_id" => $t->kelurahan_id,
-                    "total" => $total,
-                ];
-            }
+            $tps =  Tps::select('tps.*', 'kelurahan.name as kelurahan_name', 'kecamatan.name as kecamatan_name', 'kabkota.name as kabkota_name')
+            ->join('kelurahan', 'tps.kelurahan_id', '=', 'kelurahan.id')
+            ->join('kecamatan', 'kelurahan.kecamatan_id', '=', 'kecamatan.id')
+            ->join('kabkota', 'kecamatan.kabkota_id', '=', 'kabkota.id')
+            ->where('kelurahan_id', $idQuery)
+            ->get();
             return view("input.table", [
-                "data" => $data,
+                "data" => $tps,
             ]);
         } catch (Exception $e) {
             $val = Formatting::formatUrl([
