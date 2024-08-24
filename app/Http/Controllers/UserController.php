@@ -57,6 +57,16 @@ class UserController extends Controller
             // Todo: tambahkan button helper: return
             $config = [
                 "name" => "Create User",
+                "button_helper" => [
+                    "enable" => true,
+                    "button_list" => [
+                        [
+                            "name" => "Kembali",
+                            "icon" => "fa fa-arrow-left",
+                            "route" => url()->previous(),
+                        ],
+                    ]
+                ],
                 "submit" => [
                     "type" => "input", // or "input"
                     "id" => Uuid::uuid7(),
@@ -213,7 +223,7 @@ class UserController extends Controller
             ], $responseCode);
         } catch (QueryException $e) {
             $message = match ($e->errorInfo[1]) {
-                1062 => "Duplikasi Data",
+                1062 => "Username sudah dipakai",
                 default => $e->getMessage(),
             };
             return response()->json(["message" => $message], 500);
