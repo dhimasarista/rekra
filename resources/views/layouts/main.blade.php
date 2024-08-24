@@ -122,11 +122,11 @@
             <div class="user-info-dropdown">
                 <div class="dropdown">
                     <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                        <span class="user-icon">
+                        <span class="user-icon" style="background-color: white; box-shadow: none">
                             {{-- <i class="bi bi-person"></i> --}}
                             {{ session()->get('avatar') }}
                         </span>
-                        <span class="user-name">Hai, {{ session()->get('name') }}</span>
+                        <span class="user-name d-inline">Hai, {{ session()->get('name') }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                         {{-- <a class="dropdown-item" href="#"><i class="dw dw-user1"></i> Account</a>
