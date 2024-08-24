@@ -3,13 +3,50 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Formatting;
+use App\Models\JumlahSuara;
 use App\Models\Provinsi;
+use App\Models\Tps;
 use Exception;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Uuid;
 
 class JumlahSuaraController extends Controller
 {
+    protected $jumlahSuara;
+    public function __construct(JumlahSuara $jumlahSuara){
+        $this->jumlahSuara = $jumlahSuara;
+    }
+    /*
+        Todo: perbaiki konflik dimana data provinsi tidak terhitung di kabkota
+    */
+    public function list(Request $request){
+        try {
+            $typeQuery = $request->query("Type");
+            $idQuery = $request->query("Id");
+            $data = null;
+            $tps = Tps::where("kelurahan_id", $idQuery)->get();
+            foreach ($tps as $t) {
+                $total = $this->jumlahSuara::where("tps_id", $t->id)->count();
+                $data[] = [
+                    "id" => $t->id,
+                    "name" => $t->name,
+                    "kelurahan_id" => $t->kelurahan_id,
+                    "total" => $total,
+                ];
+            }
+            return view("input.table", [
+                "data" => $data,
+            ]);
+        } catch (Exception $e) {
+            $val = Formatting::formatUrl([
+                "code" => 500,
+                "title" => $e->getLine(),
+                "message" => $e->getMessage(),
+            ]);
+
+            return redirect("/error$val");
+        }
+    }
     public function index(Request $request){
         try {
             $data = null;
