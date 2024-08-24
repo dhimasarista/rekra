@@ -245,39 +245,30 @@
                     <li>
                         <a href="#"
                             class="dropdown-toggle no-arrow {{ request()->is('kabkota') ? 'active' : '' }}">
-                            <span class="micon dw dw-fast-forward"></span>
+                            <span class="micon dw dw-flash"></span>
                             <span class="mtext">Hitung Cepat (Soon)</span>
                         </a>
                     </li>
                     <li>
+                        <a href="{{ route('input.index') }}"
+                            class="dropdown-toggle no-arrow {{ Str::contains(request()->route()->getName(), 'input') ? 'active' : '' }}">
+                            <span class="micon dw dw-folder"></span>
+                            <span class="mtext">Input Data</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('rekap.index', ['Type' => 'Provinsi']) }}"
-                            class="dropdown-toggle no-arrow {{ request()->is('rekapitulasi') && request()->query('Type') == 'Provinsi' ? 'active' : '' }}">
-                            <span class="micon dw dw-columns1"></span><span class="mtext">Rekap Provinsi</span>
+                            class="dropdown-toggle no-arrow {{ Str::contains(request()->query('Type'), 'Provinsi') ? 'active' : '' }}">
+                            <span class="micon dw dw-file"></span><span class="mtext">Rekap Provinsi</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('rekap.index', ['Type' => 'Kabkota']) }}"
-                            class="dropdown-toggle no-arrow {{ request()->is('rekapitulasi') && request()->query('Type') == 'Kabkota' ? 'active' : '' }}">
-                            <span class="micon dw dw-columns1"></span><span class="mtext">Rekap KabKota</span>
+                            class="dropdown-toggle no-arrow {{ Str::contains(request()->query('Type'), 'Kabkota') ? 'active' : '' }}">
+                            <span class="micon dw dw-file"></span><span class="mtext">Rekap KabKota</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ route('input.index', ['Type' => 'Provinsi']) }}"
-                            class="dropdown-toggle no-arrow {{ request()->is('input') && request()->query('Type') == 'Provinsi' ? 'active' : '' }}">
-                            <span class="micon dw dw-down-arrow-7"></span>
-                            <span class="mtext">Input Provinsi</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('input.index', ['Type' => 'Kabkota']) }}"
-                            class="dropdown-toggle no-arrow {{ request()->is('input') && request()->query('Type') == 'Kabkota' ? 'active' : '' }}">
-                            <span class="micon dw dw-down-arrow-1"></span>
-                            <span class="mtext">Input Kab/Kota</span>
-                        </a>
-                    </li>
-                    <li>
-                        <div class="dropdown-divider"></div>
-                    </li>
+                    <li><div class="dropdown-divider"></div></li>
                     @if (session()->get('level') == 'master')
                         <li>
                             <div class="sidebar-small-cap">System Administrator</div>

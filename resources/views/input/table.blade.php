@@ -21,7 +21,7 @@
                         <table id="init-table" class="table hover stripe multiple-select-row data-table-export wrap">
                             <thead>
                                 <tr>
-                                    <th>Nama TPS</th>
+                                    <th>Nama</th>
                                     <th>Wilayah</th>
                                     <th>Input</th>
                                 </tr>

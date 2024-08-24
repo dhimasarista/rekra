@@ -63,7 +63,7 @@ class JumlahSuaraController extends Controller
                 ];
             }
             $config = [
-                "name" => null,
+                "name" => 'Pilih Wilayah',
                 "button_helper" => [
                     "enable" => false,
                     "button_list" => []
@@ -72,7 +72,9 @@ class JumlahSuaraController extends Controller
                     "id" => Uuid::uuid7(),
                     "name" => "submit",
                     "type" => "redirect",
-                    "route" => "#",
+                    "route" => route("input.list", [
+                        "Type" => "General",
+                    ]),
                     "method" => null,
                     "redirect" => null,
                 ],
@@ -145,19 +147,6 @@ class JumlahSuaraController extends Controller
                     ],
                 ],
             ];
-            $queryType = $request->query("Type");
-            if ($queryType == "Provinsi" || $queryType == "provinsi") {
-                $config["name"] = "Gubernur - Wakil Gubernur";
-                $config["submit"]["route"] = route("input.list", [
-                    "Type" => "Provinsi",
-                ]);
-            } else if ($queryType == "Kabkota" || $queryType == "kabkota") {
-                $config["name"] = "Kabupaten - Kota";
-                $config["submit"]["route"] = route("input.list", [
-                    "Type" => "Kabkota",
-                ]);
-            }
-
             return view($view, [
                 "config" => $config,
                 "data" => $data,
