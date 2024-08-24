@@ -80,8 +80,7 @@ class AuthController extends Controller
 
     public function destroy()
     {
-        // $request->session()->forget('username');
-        Auth::logout(); // Logout user dari Auth
+        $this->userService->logout();
         return redirect('/login');
     }
 }

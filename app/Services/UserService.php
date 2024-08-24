@@ -20,4 +20,8 @@ class UserService implements UserServiceInterface
     {
         return Auth::user();
     }
+
+    public function logout(){
+        return Auth::logout();
+    }
 }
