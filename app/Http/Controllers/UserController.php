@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Formatting;
+use App\Http\Resources\UserResource;
 use App\Models\KabKota;
 use App\Models\Provinsi;
 use App\Models\User;
@@ -17,6 +18,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::whereNot("level", "master")->get();
+        $users = UserResource::collection($users);
         $provinsi = Provinsi::all();
         $kabkota = KabKota::all();
         return view("user.index", [
