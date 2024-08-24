@@ -199,7 +199,7 @@
                                                 });
                                             },
                                             complete: function() {
-                                                TopLoaderService.stop();
+                                                TopLoaderService.end();
                                             }
                                         });
                                     });
