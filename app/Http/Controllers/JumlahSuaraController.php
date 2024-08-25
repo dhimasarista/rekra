@@ -5,27 +5,33 @@ namespace App\Http\Controllers;
 use App\Helpers\Formatting;
 use App\Models\Calon;
 use App\Models\JumlahSuara;
+use App\Models\JumlahSuaraDetail;
 use App\Models\Provinsi;
 use App\Models\Tps;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Ramsey\Uuid\Uuid;
 
 class JumlahSuaraController extends Controller
 {
     protected $jumlahSuara;
+    protected $jumlahSuaraDetail;
     protected $tps;
-    public function __construct(JumlahSuara $jumlahSuara, Tps $tps){
+    public function __construct(JumlahSuara $jumlahSuara, Tps $tps, JumlahSuaraDetail $jumlahSuaraDetail)
+    {
         $this->jumlahSuara = $jumlahSuara;
+        $this->jumlahSuaraDetail = $jumlahSuaraDetail;
         $this->tps = $tps;
     }
-    public function list(Request $request){
+    public function list(Request $request)
+    {
         try {
             $idQuery = $request->query("Id");
-            $tps =  $this->tps->tpsWithDetail()
-            ->where('kelurahan_id', $idQuery)
-            ->get();
+            $tps = $this->tps->tpsWithDetail()
+                ->where('kelurahan_id', $idQuery)
+                ->get();
             $data = [];
             foreach ($tps as $t) {
                 $data[] = [
@@ -57,15 +63,16 @@ class JumlahSuaraController extends Controller
             return redirect("/error$val");
         }
     }
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         try {
             $data = null;
             $view = "layouts.form";
             //
-                $formId1 = Uuid::uuid7();
-                $formId2 = Uuid::uuid7();
-                $formId3 = Uuid::uuid7();
-                $formId4 = Uuid::uuid7();
+            $formId1 = Uuid::uuid7();
+            $formId2 = Uuid::uuid7();
+            $formId3 = Uuid::uuid7();
+            $formId4 = Uuid::uuid7();
             //
             $provinsi = Provinsi::all();
             $options[] = [
@@ -181,39 +188,71 @@ class JumlahSuaraController extends Controller
             return redirect("/error$val");
         }
     }
-    public function store(Request $request){
+    public function store(Request $request)
+    {
+        DB::beginTransaction(); // Memulai transaksi
+
         try {
             $body = $request->input();
+            $tpsId = $request->query("Tps");
+            $jumlahSuaraId = Uuid::uuid7();
             $data = [];
+
             foreach ($body as $key => $value) {
-                if ($key != "Tps") {
-                    $cok = $this->jumlahSuara::where("tps_id", $request->query("Tps"))->where("calon_id", $key)->first();
-                    if ($cok) {
-                       $cok->update(["amount" => $value]);
-                       $cok->save();
+                if ($key !== "Tps") {
+                    $jumlahSuaraDetail = $this->jumlahSuaraDetail
+                        ->where("tps_id", $tpsId)
+                        ->where("calon_id", $key)
+                        ->first();
+
+                    if ($jumlahSuaraDetail) {
+                        $jumlahSuaraId = $jumlahSuaraDetail->jumlah_suara_id;
+                        $jumlahSuaraDetail->update(["amount" => $value]);
                     } else {
                         $data[] = [
                             "id" => Uuid::uuid7(),
+                            "jumlah_suara_id" => $jumlahSuaraId,
                             "calon_id" => $key,
                             "amount" => $value,
-                            "tps_id" => $request->query("Tps")
+                            "tps_id" => $tpsId
                         ];
                     }
                 }
             }
-            $result = $this->jumlahSuara::insert($data);
+
+            // Jika tidak ada data, buat baru di tabel jumlah_suara
+            if (!empty($data)) {
+                $this->jumlahSuara->updateOrCreate(
+                    ["id" => $jumlahSuaraId],
+                    [
+                        "note" => "Development & Testing",
+                        "total_suara_sah" => rand(100, 5000),
+                        "total_suara_tidak_sah" => rand(100, 5000),
+                        "total_sah_tidak_sah" => rand(100, 5000),
+                    ]
+                );
+                $this->jumlahSuaraDetail->insert($data);
+            }
+
+            DB::commit(); // Menyimpan perubahan jika tidak ada error
+
             return response()->json([
-                "message" => $result,
-            ], 500);
+                "message" => "Data berhasil disimpan",
+            ], 200); // Menggunakan status 200 OK
         } catch (QueryException $e) {
+            DB::rollBack(); // Membatalkan transaksi jika ada error
+
             $message = match ($e->errorInfo[1]) {
                 1062 => "Data sudah ada",
                 default => $e->getMessage(),
             };
+
             return response()->json(["message" => $message], 500);
         }
     }
-    public function form(Request $request){
+
+    public function form(Request $request)
+    {
         try {
             $view = "layouts.form";
             $tpsQuery = $request->query("Tps");
@@ -221,8 +260,8 @@ class JumlahSuaraController extends Controller
             // $idQuery = $request->query("Id");
             // Ambil data TPS dengan detail
             $tps = $this->tps->tpsWithDetail()
-            ->where('tps.id', $tpsQuery)
-            ->first(); // Menggunakan first() jika hanya membutuhkan satu hasil
+                ->where('tps.id', $tpsQuery)
+                ->first(); // Menggunakan first() jika hanya membutuhkan satu hasil
             if (!$tps) {
                 // Tangani kasus jika TPS tidak ditemukan
                 abort(404, 'TPS not found');
@@ -231,22 +270,24 @@ class JumlahSuaraController extends Controller
             // Ambil data calon berdasarkan kabkota_id dari TPS
             $calon = Calon::where("code", $tps->kabkota_id)->get(['id', 'calon_name', 'wakil_name']); // Ambil hanya kolom yang diperlukan
 
-            // Ambil jumlah suara berdasarkan tps_id
-            $jumlahSuara = $this->jumlahSuara
-            ->select("calon_id", "tps_id", "amount")
-            ->where("tps_id", $tps->id)
-            ->get();
+            // Soon: JumlahSuara + JumlahSuaraDetail
+
+            // Ambil jumlah suara detail berdasarkan tps_id
+            $jumlahSuaraDetail = $this->jumlahSuaraDetail
+                ->select("calon_id", "tps_id", "amount", "jumlah_suara_id")
+                ->where("tps_id", $tps->id)
+                ->get();
 
             // Buat lookup untuk jumlah suara berdasarkan calon_id
-            $jumlahSuaraLookup = $jumlahSuara->keyBy('calon_id');
+            $jumlahSuaraLookup = $jumlahSuaraDetail->keyBy('calon_id');
             // Format data calon dengan jumlah suara
-            $newCalon = $calon->map(function($c) use ($jumlahSuaraLookup) {
-                $jumlahSuara = $jumlahSuaraLookup->get($c->id, (object) ['amount' => 0])->amount;
+            $newCalon = $calon->map(function ($c) use ($jumlahSuaraLookup) {
+                $jumlahSuaraDetail = $jumlahSuaraLookup->get($c->id, (object) ['amount' => 0])->amount;
                 return [
                     "id" => $c->id,
                     "calon_name" => $c->calon_name,
                     "wakil_name" => $c->wakil_name,
-                    "jumlah_suara" => $jumlahSuara,
+                    "jumlah_suara" => $jumlahSuaraDetail,
                 ];
             })->toArray();
             $calonForm = [];
@@ -257,7 +298,7 @@ class JumlahSuaraController extends Controller
                     "name" => $c["id"],
                     "type" => "string"
                 ];
-                $calonForm[] =  [
+                $calonForm[] = [
                     "id" => $c["id"],
                     "type" => "text",
                     "name" => sprintf("%s - %s", Formatting::capitalize($c["calon_name"]), Formatting::capitalize($c["wakil_name"])),
@@ -287,18 +328,18 @@ class JumlahSuaraController extends Controller
                 "calon" => $newCalon,
             ];
             //
-                $formId1 = Uuid::uuid7();
-                $formId2 = Uuid::uuid7();
-                $formId3 = Uuid::uuid7();
-                $formId4 = Uuid::uuid7();
-                $formId5 = Uuid::uuid7();
-                $formId6 = Uuid::uuid7();
-                $formId7 = Uuid::uuid7();
-                $formId8 = Uuid::uuid7();
-                $formId9 = Uuid::uuid7();
-                $formId10 = Uuid::uuid7();
-                $formId11 = Uuid::uuid7();
-                $formId12 = Uuid::uuid7();
+            $formId1 = Uuid::uuid7();
+            $formId2 = Uuid::uuid7();
+            $formId3 = Uuid::uuid7();
+            $formId4 = Uuid::uuid7();
+            $formId5 = Uuid::uuid7();
+            $formId6 = Uuid::uuid7();
+            $formId7 = Uuid::uuid7();
+            $formId8 = Uuid::uuid7();
+            $formId9 = Uuid::uuid7();
+            $formId10 = Uuid::uuid7();
+            $formId11 = Uuid::uuid7();
+            $formId12 = Uuid::uuid7();
             //
             $config = [
                 "name" => $data["tps_name"],
@@ -319,7 +360,7 @@ class JumlahSuaraController extends Controller
                         "Tps" => $tpsQuery,
                     ]),
                     "method" => "post",
-                    "redirect" =>  null,
+                    "redirect" => null,
                     "form_data" => [...$calonFormData],
                 ],
                 "form" => [
@@ -475,12 +516,12 @@ class JumlahSuaraController extends Controller
                         ],
                         "options" => [
                             [
-                                "id"=> 0,
+                                "id" => 0,
                                 "is_selected" => true,
                                 "name" => "Tidak Ada",
                             ],
                             [
-                                "id"=> 1,
+                                "id" => 1,
                                 "is_selected" => false,
                                 "name" => "Ada",
                             ],
