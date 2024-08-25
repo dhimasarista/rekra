@@ -65,7 +65,7 @@
                 },
                 theme: {
                     mode: 'light',
-                    palette: 'palette5',
+                    palette: 'palette7',
                     monochrome: {
                         enabled: false,
                         color: '#D7263D',
