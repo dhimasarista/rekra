@@ -44,7 +44,13 @@ class Tps extends Model
     }
     // Method untuk mengambil Tps beserta kelurahan, kecamatan dan kabkota nya.
     public function tpsWithDetail() {
-        return self::select('tps.*', 'kelurahan.name as kelurahan_name', 'kecamatan.name as kecamatan_name', 'kabkota.name as kabkota_name')
+        return self::select(
+            'tps.*',
+            'kelurahan.name as kelurahan_name',
+            'kecamatan.name as kecamatan_name',
+            'kabkota.name as kabkota_name',
+            'kabkota.id as kabkota_id',
+        )
         ->join('kelurahan', 'tps.kelurahan_id', '=', 'kelurahan.id')
         ->join('kecamatan', 'kelurahan.kecamatan_id', '=', 'kecamatan.id')
         ->join('kabkota', 'kecamatan.kabkota_id', '=', 'kabkota.id');

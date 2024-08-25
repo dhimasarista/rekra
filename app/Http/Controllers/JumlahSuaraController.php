@@ -186,13 +186,28 @@ class JumlahSuaraController extends Controller
             $tpsQuery = $request->query("Tps");
             $typeQuery = $request->query("Type");
             $tps =  $this->tps->tpsWithDetail()
-            ->select("calon.*")
-            ->leftJoin("calon", "calon.code", "=", "kabkota.id")
             ->where('tps.id', $tpsQuery)
-            ->whereNull("calon.deleted_at")
             ->get();
-            dd($tps);
-            $data = $tps[0];
+
+            $calon = Calon::where("code", $tps[0]->kabkota_id)
+            ->get(['id', 'calon_name', 'wakil_name']); // Ambil hanya kolom yang diperlukan
+            $newCalon = $calon->map(function($c) {
+                return [
+                    "id" => $c->id,
+                    "calon_name" => $c->calon_name,
+                    "wakil_name" => $c->wakil_name,
+                ];
+            })->toArray();
+
+            $jumlahSuara = $this->jumlahSuara->select("calon_id", "tps_id", "amount", "note")->where("tps_id", $tps->first()->id)->get();
+            $tps = $tps->first();
+            $data = [
+                "tps_id" => $tps->id,
+                "tps_name" => "$typeQuery - $tps->name, ".Formatting::capitalize("$tps->kelurahan_name, $tps->kecamatan_name, $tps->kabkota_name"),
+                "calon" => $newCalon,
+
+            ];
+            dd($data);
             $view = "layouts.form";
             //
                 $formId1 = Uuid::uuid7();
@@ -450,7 +465,7 @@ class JumlahSuaraController extends Controller
             $val = Formatting::formatUrl([
                 "code" => 500,
                 "title" => $e->getMessage(),
-                "message" => $e->getMessage(),
+                "message" => $e->getLine(),
             ]);
 
             return redirect("/error$val");
