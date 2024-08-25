@@ -24,10 +24,10 @@
     <link rel="stylesheet" type="text/css" href="../admin/src/plugins/TopLoaderService/TopLoaderService.css" />
 
     {{-- Global site tag (gtag.js) - Google Analytics --}}
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GBZ3SGGX85"></script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2973766580778258"
-        crossorigin="anonymous" async></script>
-    <script async>
+    <script src="https://www.googletagmanager.com/gtag/js?id=G-GBZ3SGGX85"></script>
+    <script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2973766580778258"
+        crossorigin="anonymous"></script>
+    <script>
         window.dataLayer = window.dataLayer || [];
 
         function gtag() {
@@ -53,17 +53,17 @@
             f.parentNode.insertBefore(j, f);
         })(window, document, "script", "dataLayer", "GTM-NXZMQSS");
     </script>
-    <script async src="../admin/src/plugins/TopLoaderService/TopLoaderService.js"></script>
-    <script async src="../admin/vendors/scripts/core.js"></script>
-    <script async src="../admin/vendors/scripts/script.min.js"></script>
-    <script async src="../admin/vendors/scripts/process.js"></script>
-    <script async src="../admin/vendors/scripts/layout-settings.js"></script>
-    <script async src="../admin/src/plugins/datatables/js/jquery.dataTables.min.js"></script>
-    <script async src="../admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
-    <script async src="../admin/src/plugins/datatables/js/dataTables.responsive.min.js"></script>
-    <script async src="../admin/src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
-    <script async src="../admin/src/plugins/sweetalert2/sweetalert2.js"></script>
-    <script async src="../admin/js/script.js"></script>
+    <script src="../admin/src/plugins/TopLoaderService/TopLoaderService.js"></script>
+    <script src="../admin/vendors/scripts/core.js"></script>
+    <script src="../admin/vendors/scripts/script.min.js"></script>
+    <script src="../admin/vendors/scripts/process.js"></script>
+    <script src="../admin/vendors/scripts/layout-settings.js"></script>
+    <script src="../admin/src/plugins/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="../admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="../admin/src/plugins/datatables/js/dataTables.responsive.min.js"></script>
+    <script src="../admin/src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+    <script src="../admin/src/plugins/sweetalert2/sweetalert2.js"></script>
+    <script src="../admin/js/script.js"></script>
 
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXZMQSS" height="0" width="0"
             style="display: none; visibility: hidden"></iframe></noscript>
