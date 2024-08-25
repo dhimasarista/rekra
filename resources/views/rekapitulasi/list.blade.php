@@ -13,7 +13,6 @@
                     href="{{ route('rekap.list', [
                         'Type' => request()->query('Type'),
                         'Id' => request()->query('Id'),
-                        'Id' => request()->query('Id'),
                         'Chart' => 'true',
                     ]) }}">
                     <i class="fa fa-pie-chart"></i> Chart
