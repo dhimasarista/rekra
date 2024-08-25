@@ -39,11 +39,8 @@ class JumlahSuara extends Model
             $model->updated_at = $model->freshTimestamp();
         });
     }
-
-    public function tps(): BelongsTo {
-        return $this->belongsTo(Tps::class);
-    }
-    public function calon(): BelongsTo {
-        return $this->belongsTo(Calon::class);
+    public function jumlahSuaraDetail()
+    {
+        return $this->hasMany(JumlahSuaraDetail::class, 'jumlah_suara_id');
     }
 }

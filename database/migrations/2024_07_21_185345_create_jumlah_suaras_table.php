@@ -13,12 +13,10 @@ return new class extends Migration
     {
         Schema::create('jumlah_suara', function (Blueprint $table) {
             $table->uuid("id")->primary();
-            $table->integer("amount");
-            // $table->text("note");
-            $table->uuid("tps_id");
-            $table->foreign("tps_id")->references("id")->on("tps");
-            $table->uuid("calon_id");
-            $table->foreign("calon_id")->references("id")->on("calon");
+            $table->text("note");
+            $table->integer("total_suara_sah");
+            $table->integer("total_suara_tidak_sah");
+            $table->integer("total_sah_tidak_sah");
             $table->string("updated_by")->nullable();
             $table->timestamps();
             $table->softDeletes();

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Ramsey\Uuid\Uuid;
 
 class JumlahSuaraDetail extends Model
@@ -41,5 +42,10 @@ class JumlahSuaraDetail extends Model
             $model->updated_at = $model->freshTimestamp();
         });
     }
-
+    public function tps(): BelongsTo {
+        return $this->belongsTo(Tps::class);
+    }
+    public function calon(): BelongsTo {
+        return $this->belongsTo(Calon::class);
+    }
 }
