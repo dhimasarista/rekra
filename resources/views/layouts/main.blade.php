@@ -5,6 +5,7 @@
     {{-- Basic Page Info --}}
     <meta charset="utf-8" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
     <title>Rekra</title>
     {{-- Site favicon --}}
     <link rel="icon" type="image/x-cion" sizes="16x16" href="./favicon.svg" />
