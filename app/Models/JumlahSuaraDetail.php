@@ -4,23 +4,25 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use \Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Ramsey\Uuid\Uuid;
 
-class JumlahSuara extends Model
+class JumlahSuaraDetail extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
     protected $primaryKey = "id";
     public $incrementing = false;
-    protected $table = 'jumlah_suara';
+    protected $table = 'jumlah_suara_details';
     protected $keyType = 'string';
 
     protected $fillable = [
-        "amount",
-        "tps_id",
-        "calon_id",
+        "id",
+        "note",
+        "total_suara_sah",
+        "total_suara_tidak_sah",
+        "total_sah_tidak_sah",
+        "jumlah_suara_id",
     ];
+
     protected static function boot()
     {
         parent::boot();
@@ -40,10 +42,4 @@ class JumlahSuara extends Model
         });
     }
 
-    public function tps(): BelongsTo {
-        return $this->belongsTo(Tps::class);
-    }
-    public function calon(): BelongsTo {
-        return $this->belongsTo(Calon::class);
-    }
 }

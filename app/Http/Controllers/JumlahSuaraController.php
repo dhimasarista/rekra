@@ -183,12 +183,28 @@ class JumlahSuaraController extends Controller
     }
     public function store(Request $request){
         try {
-            $data = $request->all();
-            return response()->json(
-                [
-                    "data" => $data,
-                ], 500
-            );
+            $body = $request->input();
+            $data = [];
+            foreach ($body as $key => $value) {
+                if ($key != "Tps") {
+                    $cok = $this->jumlahSuara::where("tps_id", $request->query("Tps"))->where("calon_id", $key)->first();
+                    if ($cok) {
+                       $cok->update(["amount" => $value]);
+                       $cok->save();
+                    } else {
+                        $data[] = [
+                            "id" => Uuid::uuid7(),
+                            "calon_id" => $key,
+                            "amount" => $value,
+                            "tps_id" => $request->query("Tps")
+                        ];
+                    }
+                }
+            }
+            $result = $this->jumlahSuara::insert($data);
+            return response()->json([
+                "message" => $result,
+            ], 500);
         } catch (QueryException $e) {
             $message = match ($e->errorInfo[1]) {
                 1062 => "Data sudah ada",
@@ -299,7 +315,9 @@ class JumlahSuaraController extends Controller
                 "submit" => [
                     "id" => Uuid::uuid7(),
                     "type" => "input", // redirect, input
-                    "route" => route("input.store"),
+                    "route" => route("input.store", [
+                        "Tps" => $tpsQuery,
+                    ]),
                     "method" => "post",
                     "redirect" =>  null,
                     "form_data" => [...$calonFormData],
