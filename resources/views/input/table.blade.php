@@ -29,14 +29,14 @@
                             <tbody>
                                 @foreach ($data as $d)
                                     <tr>
-                                        <td>{{ $d->name }}</td>
-                                        <td>{{ Formatting::capitalize("$d->kelurahan_name, $d->kecamatan_name, $d->kabkota_name") }}</td>
+                                        <td>{{ $d["name"] }}</td>
+                                        <td>{{ Formatting::capitalize($d["wilayah"]) }}</td>
                                         <td>
                                             <div class="m-10">
-                                                <a class="btn btn-sm btn-dark m-1" href="#">
+                                                <a class="btn btn-sm btn-dark m-1" href="{{ $d["provinsi"] }}">
                                                     <i class="fa fa-plus"></i> Provinsi
                                                 </a>
-                                                <a class="btn btn-sm btn-dark m-1" href="#">
+                                                <a class="btn btn-sm btn-dark m-1" href="{{ $d["kabkota"] }}">
                                                     <i class="fa fa-plus"></i> Kab/Kota
                                                 </a>
                                             </div>

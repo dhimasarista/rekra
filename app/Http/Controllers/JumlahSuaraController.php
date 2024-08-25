@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Formatting;
+use App\Models\Calon;
 use App\Models\JumlahSuara;
 use App\Models\Provinsi;
 use App\Models\Tps;
@@ -13,20 +14,40 @@ use Ramsey\Uuid\Uuid;
 class JumlahSuaraController extends Controller
 {
     protected $jumlahSuara;
-    public function __construct(JumlahSuara $jumlahSuara){
+    protected $tps;
+    public function __construct(JumlahSuara $jumlahSuara, Tps $tps){
         $this->jumlahSuara = $jumlahSuara;
+        $this->tps = $tps;
     }
     public function list(Request $request){
         try {
             $idQuery = $request->query("Id");
-            $tps =  Tps::select('tps.*', 'kelurahan.name as kelurahan_name', 'kecamatan.name as kecamatan_name', 'kabkota.name as kabkota_name')
+            $tps =  $this->tps->select('tps.*', 'kelurahan.name as kelurahan_name', 'kecamatan.name as kecamatan_name', 'kabkota.name as kabkota_name')
             ->join('kelurahan', 'tps.kelurahan_id', '=', 'kelurahan.id')
             ->join('kecamatan', 'kelurahan.kecamatan_id', '=', 'kecamatan.id')
             ->join('kabkota', 'kecamatan.kabkota_id', '=', 'kabkota.id')
             ->where('kelurahan_id', $idQuery)
             ->get();
+            $data = [];
+            foreach ($tps as $t) {
+                $data[] = [
+                    "id" => $t->id,
+                    "name" => $t->name,
+                    "wilayah" => "$t->kelurahan_name, $t->kecamatan_name, $t->kabkota_name",
+                    "provinsi" => route("input.form", [
+                        "Type" => "Provinsi",
+                        "Id" => "",
+                        "Tps" => $t->id,
+                    ]),
+                    "kabkota" => route("input.form", [
+                        "Type" => "Kabkota",
+                        "Id" => "",
+                        "Tps" => $t->id,
+                    ]),
+                ];
+            }
             return view("input.table", [
-                "data" => $tps,
+                "data" => $data,
             ]);
         } catch (Exception $e) {
             $val = Formatting::formatUrl([
@@ -164,12 +185,32 @@ class JumlahSuaraController extends Controller
     }
     public function form(Request $request){
         try {
+            $idQuery = $request->query("Id");
+            $tpsQuery = $request->query("Tps");
+            $typeQuery = $request->query("Type");
+            $tps =  $this->tps->select('tps.*', 'kelurahan.name as kelurahan_name', 'kecamatan.name as kecamatan_name', 'kabkota.name as kabkota_name')
+            ->join('kelurahan', 'tps.kelurahan_id', '=', 'kelurahan.id')
+            ->join('kecamatan', 'kelurahan.kecamatan_id', '=', 'kecamatan.id')
+            ->join('kabkota', 'kecamatan.kabkota_id', '=', 'kabkota.id')
+            ->where('kelurahan_id', $idQuery)
+            ->get();
             $data = null;
             $view = "layouts.form";
             //
                 $formId1 = Uuid::uuid7();
                 $formId2 = Uuid::uuid7();
                 $formId3 = Uuid::uuid7();
+                $formId4 = Uuid::uuid7();
+                $formId5 = Uuid::uuid7();
+                $formId6 = Uuid::uuid7();
+                $formId7 = Uuid::uuid7();
+                $formId8 = Uuid::uuid7();
+                $formId9 = Uuid::uuid7();
+                $formId10 = Uuid::uuid7();
+                $formId11 = Uuid::uuid7();
+                $formId12 = Uuid::uuid7();
+                $formId13 = Uuid::uuid7();
+                $formId14 = Uuid::uuid7();
             //
             $config = [
                 "name" => "TPS 001 Sadai, Bengkong, Kota Batam",
@@ -179,7 +220,7 @@ class JumlahSuaraController extends Controller
                         [
                             "name" => "Kembali",
                             "icon" => "fa fa-arrow-left",
-                            "route" => "#",
+                            "route" => url()->previous(),
                         ],
                     ]
                 ],
@@ -213,7 +254,7 @@ class JumlahSuaraController extends Controller
                         ],
                     ],
                     1 => [
-                        "id" => $formId1,
+                        "id" => $formId2,
                         "type" => "text",
                         "name" => "No. 2 - Yusuf & Alex",
                         "is_disabled" => false,
@@ -227,7 +268,7 @@ class JumlahSuaraController extends Controller
                         ],
                     ],
                     2 => [
-                        "id" => $formId1,
+                        "id" => $formId3,
                         "type" => "number",
                         "name" => "Pengguna Hak Pilih DPT",
                         "is_disabled" => false,
@@ -241,7 +282,7 @@ class JumlahSuaraController extends Controller
                         ],
                     ],
                     3 => [
-                        "id" => $formId1,
+                        "id" => $formId4,
                         "type" => "number",
                         "name" => "Pengguna Hak Pilih DPTB",
                         "is_disabled" => false,
@@ -255,7 +296,7 @@ class JumlahSuaraController extends Controller
                         ],
                     ],
                     4 => [
-                        "id" => $formId1,
+                        "id" => $formId5,
                         "type" => "number",
                         "name" => "Pengguna Hak Pilih DPTK",
                         "is_disabled" => false,
@@ -269,7 +310,7 @@ class JumlahSuaraController extends Controller
                         ],
                     ],
                     5 => [
-                        "id" => $formId1,
+                        "id" => $formId6,
                         "type" => "number",
                         "name" => "Surat Suara Diterima",
                         "is_disabled" => false,
@@ -283,7 +324,7 @@ class JumlahSuaraController extends Controller
                         ],
                     ],
                     6 => [
-                        "id" => $formId1,
+                        "id" => $formId7,
                         "type" => "number",
                         "name" => "Surat Suara Digunakan",
                         "is_disabled" => false,
@@ -297,7 +338,7 @@ class JumlahSuaraController extends Controller
                         ],
                     ],
                     7 => [
-                        "id" => $formId1,
+                        "id" => $formId8,
                         "type" => "number",
                         "name" => "Surat Suara Tidak Digunakan Digunakan",
                         "is_disabled" => false,
@@ -311,7 +352,7 @@ class JumlahSuaraController extends Controller
                         ],
                     ],
                     8 => [
-                        "id" => $formId1,
+                        "id" => $formId9,
                         "type" => "number",
                         "name" => "Surat Suara Rusak",
                         "is_disabled" => false,
@@ -325,7 +366,7 @@ class JumlahSuaraController extends Controller
                         ],
                     ],
                     9 => [
-                        "id" => $formId1,
+                        "id" => $formId10,
                         "type" => "number",
                         "name" => "Total Suara Sah",
                         "is_disabled" => false,
@@ -339,7 +380,7 @@ class JumlahSuaraController extends Controller
                         ],
                     ],
                     10 => [
-                        "id" => $formId1,
+                        "id" => $formId11,
                         "type" => "number",
                         "name" => "Total Suara Tidak Sah",
                         "is_disabled" => false,
@@ -353,7 +394,7 @@ class JumlahSuaraController extends Controller
                         ],
                     ],
                     11 => [
-                        "id" => $formId1,
+                        "id" => $formId12,
                         "type" => "number",
                         "name" => "Total Suara Sah & Tidak Sah",
                         "is_disabled" => false,
@@ -367,7 +408,7 @@ class JumlahSuaraController extends Controller
                         ],
                     ],
                     12 => [
-                        "id" => 1,
+                        "id" => $formId13,
                         "type" => "select",
                         "name" => "C Keberatan",
                         "is_disabled" => false,
@@ -388,8 +429,8 @@ class JumlahSuaraController extends Controller
                             ],
                         ],
                     ],
-                    99 => [
-                        "id" => $formId3,
+                    13 => [
+                        "id" => $formId14,
                         "type" => "textarea",
                         "name" => "Catatan (Tidak Wajib)",
                         "fetch_data" => [
