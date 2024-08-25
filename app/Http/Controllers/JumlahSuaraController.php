@@ -8,6 +8,7 @@ use App\Models\JumlahSuara;
 use App\Models\Provinsi;
 use App\Models\Tps;
 use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Uuid;
 
@@ -180,6 +181,22 @@ class JumlahSuaraController extends Controller
             return redirect("/error$val");
         }
     }
+    public function store(Request $request){
+        try {
+            $data = $request->all();
+            return response()->json(
+                [
+                    "data" => $data,
+                ], 500
+            );
+        } catch (QueryException $e) {
+            $message = match ($e->errorInfo[1]) {
+                1062 => "Data sudah ada",
+                default => $e->getMessage(),
+            };
+            return response()->json(["message" => $message], 500);
+        }
+    }
     public function form(Request $request){
         try {
             $view = "layouts.form";
@@ -217,11 +234,17 @@ class JumlahSuaraController extends Controller
                 ];
             })->toArray();
             $calonForm = [];
+            $calonFormData = [];
             foreach ($newCalon as $c) {
+                $calonFormData[] = [
+                    "id" => $c["id"],
+                    "name" => $c["id"],
+                    "type" => "string"
+                ];
                 $calonForm[] =  [
                     "id" => $c["id"],
                     "type" => "text",
-                    "name" => $c["calon_name"]." - ".$c["wakil_name"],
+                    "name" => sprintf("%s - %s", Formatting::capitalize($c["calon_name"]), Formatting::capitalize($c["wakil_name"])),
                     "is_disabled" => false,
                     "for_submit" => false,
                     "fetch_data" => [
@@ -260,8 +283,6 @@ class JumlahSuaraController extends Controller
                 $formId10 = Uuid::uuid7();
                 $formId11 = Uuid::uuid7();
                 $formId12 = Uuid::uuid7();
-                $formId13 = Uuid::uuid7();
-                $formId14 = Uuid::uuid7();
             //
             $config = [
                 "name" => $data["tps_name"],
@@ -278,24 +299,18 @@ class JumlahSuaraController extends Controller
                 "submit" => [
                     "id" => Uuid::uuid7(),
                     "type" => "input", // redirect, input
-                    "route" => null,
+                    "route" => route("input.store"),
                     "method" => "post",
                     "redirect" =>  null,
-                ],
-                "form_data" => [
-                    [
-                        "id" => $formId1,
-                        "name" => "Nama Calon",
-                        "type" => "string"
-                    ],
+                    "form_data" => [...$calonFormData],
                 ],
                 "form" => [
                     ...$calonForm,
-                    2 => [
-                        "id" => $formId3,
+                    [
+                        "id" => $formId1,
                         "type" => "number",
                         "name" => "Pengguna Hak Pilih DPT",
-                        "is_disabled" => false,
+                        "is_disabled" => true,
                         "for_submit" => false,
                         "fetch_data" => [
                             "is_fetching" => false,
@@ -305,11 +320,11 @@ class JumlahSuaraController extends Controller
                             "placeholder" => "Wajib Diisi",
                         ],
                     ],
-                    3 => [
-                        "id" => $formId4,
+                    [
+                        "id" => $formId2,
                         "type" => "number",
                         "name" => "Pengguna Hak Pilih DPTB",
-                        "is_disabled" => false,
+                        "is_disabled" => true,
                         "for_submit" => false,
                         "fetch_data" => [
                             "is_fetching" => false,
@@ -319,11 +334,11 @@ class JumlahSuaraController extends Controller
                             "placeholder" => "Wajib Diisi",
                         ],
                     ],
-                    4 => [
-                        "id" => $formId5,
+                    [
+                        "id" => $formId3,
                         "type" => "number",
                         "name" => "Pengguna Hak Pilih DPTK",
-                        "is_disabled" => false,
+                        "is_disabled" => true,
                         "for_submit" => false,
                         "fetch_data" => [
                             "is_fetching" => false,
@@ -333,11 +348,11 @@ class JumlahSuaraController extends Controller
                             "placeholder" => "Wajib Diisi",
                         ],
                     ],
-                    5 => [
-                        "id" => $formId6,
+                    [
+                        "id" => $formId4,
                         "type" => "number",
                         "name" => "Surat Suara Diterima",
-                        "is_disabled" => false,
+                        "is_disabled" => true,
                         "for_submit" => false,
                         "fetch_data" => [
                             "is_fetching" => false,
@@ -347,11 +362,11 @@ class JumlahSuaraController extends Controller
                             "placeholder" => "Wajib Diisi",
                         ],
                     ],
-                    6 => [
-                        "id" => $formId7,
+                    [
+                        "id" => $formId5,
                         "type" => "number",
                         "name" => "Surat Suara Digunakan",
-                        "is_disabled" => false,
+                        "is_disabled" => true,
                         "for_submit" => false,
                         "fetch_data" => [
                             "is_fetching" => false,
@@ -361,11 +376,11 @@ class JumlahSuaraController extends Controller
                             "placeholder" => "Wajib Diisi",
                         ],
                     ],
-                    7 => [
-                        "id" => $formId8,
+                    [
+                        "id" => $formId6,
                         "type" => "number",
                         "name" => "Surat Suara Tidak Digunakan Digunakan",
-                        "is_disabled" => false,
+                        "is_disabled" => true,
                         "for_submit" => false,
                         "fetch_data" => [
                             "is_fetching" => false,
@@ -375,11 +390,11 @@ class JumlahSuaraController extends Controller
                             "placeholder" => "Wajib Diisi",
                         ],
                     ],
-                    8 => [
-                        "id" => $formId9,
+                    [
+                        "id" => $formId7,
                         "type" => "number",
                         "name" => "Surat Suara Rusak",
-                        "is_disabled" => false,
+                        "is_disabled" => true,
                         "for_submit" => false,
                         "fetch_data" => [
                             "is_fetching" => false,
@@ -389,11 +404,11 @@ class JumlahSuaraController extends Controller
                             "placeholder" => "Wajib Diisi",
                         ],
                     ],
-                    9 => [
-                        "id" => $formId10,
+                    [
+                        "id" => $formId8,
                         "type" => "number",
                         "name" => "Total Suara Sah",
-                        "is_disabled" => false,
+                        "is_disabled" => true,
                         "for_submit" => false,
                         "fetch_data" => [
                             "is_fetching" => false,
@@ -403,11 +418,11 @@ class JumlahSuaraController extends Controller
                             "placeholder" => "Wajib Diisi",
                         ],
                     ],
-                    10 => [
-                        "id" => $formId11,
+                    [
+                        "id" => $formId9,
                         "type" => "number",
                         "name" => "Total Suara Tidak Sah",
-                        "is_disabled" => false,
+                        "is_disabled" => true,
                         "for_submit" => false,
                         "fetch_data" => [
                             "is_fetching" => false,
@@ -417,11 +432,11 @@ class JumlahSuaraController extends Controller
                             "placeholder" => "Wajib Diisi",
                         ],
                     ],
-                    11 => [
-                        "id" => $formId12,
+                    [
+                        "id" => $formId10,
                         "type" => "number",
                         "name" => "Total Suara Sah & Tidak Sah",
-                        "is_disabled" => false,
+                        "is_disabled" => true,
                         "for_submit" => false,
                         "fetch_data" => [
                             "is_fetching" => false,
@@ -431,11 +446,11 @@ class JumlahSuaraController extends Controller
                             "placeholder" => "Wajib Diisi",
                         ],
                     ],
-                    12 => [
-                        "id" => $formId13,
+                    [
+                        "id" => $formId11,
                         "type" => "select",
                         "name" => "C Keberatan",
-                        "is_disabled" => false,
+                        "is_disabled" => true,
                         "for_submit" => false,
                         "fetch_data" => [
                             "is_fetching" => false,
@@ -453,8 +468,8 @@ class JumlahSuaraController extends Controller
                             ],
                         ],
                     ],
-                    13 => [
-                        "id" => $formId14,
+                    [
+                        "id" => $formId12,
                         "type" => "textarea",
                         "name" => "Catatan (Tidak Wajib)",
                         "fetch_data" => [

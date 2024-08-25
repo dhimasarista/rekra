@@ -46,6 +46,7 @@ Route::middleware("auth")->group(function (){
 
     Route::prefix("input")->group(function(){
         Route::get("", [JumlahSuaraController::class, "index"])->name("input.index");
+        Route::post("", [JumlahSuaraController::class, "store"])->name("input.store");
         Route::get("/list", [JumlahSuaraController::class, "list"])->name("input.list");
         Route::get("/form", [JumlahSuaraController::class, "form"])->name("input.form");
     });
