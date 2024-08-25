@@ -38,7 +38,7 @@
         gtag("config", "G-GBZ3SGGX85");
     </script>
     {{-- Google Tag Manager --}}
-    <script async>
+    <script>
         (function(w, d, s, l, i) {
             w[l] = w[l] || [];
             w[l].push({
