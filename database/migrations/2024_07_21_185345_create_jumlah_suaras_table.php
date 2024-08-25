@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('jumlah_suara', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->integer("amount");
-            $table->text("note");
+            // $table->text("note");
             $table->uuid("tps_id");
             $table->foreign("tps_id")->references("id")->on("tps");
             $table->uuid("calon_id");
