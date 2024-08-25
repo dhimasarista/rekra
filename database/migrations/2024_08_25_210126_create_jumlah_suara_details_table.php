@@ -21,6 +21,7 @@ return new class extends Migration
             $table->uuid("jumlah_suara_id");
             $table->foreign("jumlah_suara_id")->references("id")->on("jumlah_suara");
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

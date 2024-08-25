@@ -17,7 +17,6 @@ return new class extends Migration
             $table->integer("total_suara_sah");
             $table->integer("total_suara_tidak_sah");
             $table->integer("total_sah_tidak_sah");
-            $table->string("updated_by")->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
