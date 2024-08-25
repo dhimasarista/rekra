@@ -58,7 +58,7 @@
                                                     <input id="{{ $form['id'] ?? 'textField' }}"
                                                         placeholder="{{ $form['data']['placeholder'] ?? 'Enter text' }}"
                                                         value="{{ $form['data']['value'] ?? null }}" type="text"
-                                                        class="form-control">
+                                                        class="form-control" {{ $form['is_disabled'] ? 'disabled' : '' }}>
                                                 </div>
                                             @elseif ($form['type'] == 'number')
                                                 <div class="form-group">
@@ -66,7 +66,7 @@
                                                     <input id="{{ $form['id'] ?? 'numberField' }}"
                                                         placeholder="{{ $form['data']['placeholder'] ?? 'Enter number' }}"
                                                         value="{{ $form['data']['value'] ?? null }}" type="number"
-                                                        min="0" class="form-control">
+                                                        min="0" class="form-control" {{ $form['is_disabled'] ? 'disabled' : '' }}>
                                                 </div>
                                             @elseif ($form['type'] == 'textarea')
                                                 <div class="form-group">
