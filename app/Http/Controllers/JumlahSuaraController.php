@@ -22,10 +22,7 @@ class JumlahSuaraController extends Controller
     public function list(Request $request){
         try {
             $idQuery = $request->query("Id");
-            $tps =  $this->tps->select('tps.*', 'kelurahan.name as kelurahan_name', 'kecamatan.name as kecamatan_name', 'kabkota.name as kabkota_name')
-            ->join('kelurahan', 'tps.kelurahan_id', '=', 'kelurahan.id')
-            ->join('kecamatan', 'kelurahan.kecamatan_id', '=', 'kecamatan.id')
-            ->join('kabkota', 'kecamatan.kabkota_id', '=', 'kabkota.id')
+            $tps =  $this->tps->tpsWithDetail()
             ->where('kelurahan_id', $idQuery)
             ->get();
             $data = [];
@@ -188,13 +185,14 @@ class JumlahSuaraController extends Controller
             $idQuery = $request->query("Id");
             $tpsQuery = $request->query("Tps");
             $typeQuery = $request->query("Type");
-            $tps =  $this->tps->select('tps.*', 'kelurahan.name as kelurahan_name', 'kecamatan.name as kecamatan_name', 'kabkota.name as kabkota_name')
-            ->join('kelurahan', 'tps.kelurahan_id', '=', 'kelurahan.id')
-            ->join('kecamatan', 'kelurahan.kecamatan_id', '=', 'kecamatan.id')
-            ->join('kabkota', 'kecamatan.kabkota_id', '=', 'kabkota.id')
-            ->where('kelurahan_id', $idQuery)
+            $tps =  $this->tps->tpsWithDetail()
+            ->select("calon.*")
+            ->leftJoin("calon", "calon.code", "=", "kabkota.id")
+            ->where('tps.id', $tpsQuery)
+            ->whereNull("calon.deleted_at")
             ->get();
-            $data = null;
+            dd($tps);
+            $data = $tps[0];
             $view = "layouts.form";
             //
                 $formId1 = Uuid::uuid7();
@@ -213,7 +211,7 @@ class JumlahSuaraController extends Controller
                 $formId14 = Uuid::uuid7();
             //
             $config = [
-                "name" => "TPS 001 Sadai, Bengkong, Kota Batam",
+                "name" => "$typeQuery - $data->name, ".Formatting::capitalize("$data->kelurahan_name, $data->kecamatan_name, $data->kabkota_name"),
                 "button_helper" => [
                     "enable" => true,
                     "button_list" => [
