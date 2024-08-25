@@ -182,33 +182,71 @@ class JumlahSuaraController extends Controller
     }
     public function form(Request $request){
         try {
-            $idQuery = $request->query("Id");
+            $view = "layouts.form";
             $tpsQuery = $request->query("Tps");
             $typeQuery = $request->query("Type");
-            $tps =  $this->tps->tpsWithDetail()
+            // $idQuery = $request->query("Id");
+            // Ambil data TPS dengan detail
+            $tps = $this->tps->tpsWithDetail()
             ->where('tps.id', $tpsQuery)
+            ->first(); // Menggunakan first() jika hanya membutuhkan satu hasil
+            if (!$tps) {
+                // Tangani kasus jika TPS tidak ditemukan
+                abort(404, 'TPS not found');
+            }
+
+            // Ambil data calon berdasarkan kabkota_id dari TPS
+            $calon = Calon::where("code", $tps->kabkota_id)->get(['id', 'calon_name', 'wakil_name']); // Ambil hanya kolom yang diperlukan
+
+            // Ambil jumlah suara berdasarkan tps_id
+            $jumlahSuara = $this->jumlahSuara
+            ->select("calon_id", "tps_id", "amount")
+            ->where("tps_id", $tps->id)
             ->get();
 
-            $calon = Calon::where("code", $tps[0]->kabkota_id)
-            ->get(['id', 'calon_name', 'wakil_name']); // Ambil hanya kolom yang diperlukan
-            $newCalon = $calon->map(function($c) {
+            // Buat lookup untuk jumlah suara berdasarkan calon_id
+            $jumlahSuaraLookup = $jumlahSuara->keyBy('calon_id');
+            // Format data calon dengan jumlah suara
+            $newCalon = $calon->map(function($c) use ($jumlahSuaraLookup) {
+                $jumlahSuara = $jumlahSuaraLookup->get($c->id, (object) ['amount' => 0])->amount;
                 return [
                     "id" => $c->id,
                     "calon_name" => $c->calon_name,
                     "wakil_name" => $c->wakil_name,
+                    "jumlah_suara" => $jumlahSuara,
                 ];
             })->toArray();
+            $calonForm = [];
+            foreach ($newCalon as $c) {
+                $calonForm[] =  [
+                    "id" => $c["id"],
+                    "type" => "text",
+                    "name" => $c["calon_name"]." - ".$c["wakil_name"],
+                    "is_disabled" => false,
+                    "for_submit" => false,
+                    "fetch_data" => [
+                        "is_fetching" => false,
+                    ],
+                    "data" => [
+                        "value" => $c["jumlah_suara"],
+                        "placeholder" => "Wajib Diisi",
+                    ],
+                ];
+            }
 
-            $jumlahSuara = $this->jumlahSuara->select("calon_id", "tps_id", "amount", "note")->where("tps_id", $tps->first()->id)->get();
-            $tps = $tps->first();
+            // Format data untuk respons
             $data = [
                 "tps_id" => $tps->id,
-                "tps_name" => "$typeQuery - $tps->name, ".Formatting::capitalize("$tps->kelurahan_name, $tps->kecamatan_name, $tps->kabkota_name"),
+                "tps_name" => sprintf(
+                    "%s - %s, %s, %s, %s",
+                    $typeQuery,
+                    $tps->name,
+                    Formatting::capitalize($tps->kelurahan_name),
+                    Formatting::capitalize($tps->kecamatan_name),
+                    Formatting::capitalize($tps->kabkota_name)
+                ),
                 "calon" => $newCalon,
-
             ];
-            dd($data);
-            $view = "layouts.form";
             //
                 $formId1 = Uuid::uuid7();
                 $formId2 = Uuid::uuid7();
@@ -226,7 +264,7 @@ class JumlahSuaraController extends Controller
                 $formId14 = Uuid::uuid7();
             //
             $config = [
-                "name" => "$typeQuery - $data->name, ".Formatting::capitalize("$data->kelurahan_name, $data->kecamatan_name, $data->kabkota_name"),
+                "name" => $data["tps_name"],
                 "button_helper" => [
                     "enable" => true,
                     "button_list" => [
@@ -252,34 +290,7 @@ class JumlahSuaraController extends Controller
                     ],
                 ],
                 "form" => [
-                    0 => [
-                        "id" => $formId1,
-                        "type" => "text",
-                        "name" => "No. 1 - Anto & Ujang",
-                        "is_disabled" => false,
-                        "for_submit" => false,
-                        "fetch_data" => [
-                            "is_fetching" => false,
-                        ],
-                        "data" => [
-                            "value" => 1000 ?? null,
-                            "placeholder" => "Wajib Diisi",
-                        ],
-                    ],
-                    1 => [
-                        "id" => $formId2,
-                        "type" => "text",
-                        "name" => "No. 2 - Yusuf & Alex",
-                        "is_disabled" => false,
-                        "for_submit" => false,
-                        "fetch_data" => [
-                            "is_fetching" => false,
-                        ],
-                        "data" => [
-                            "value" => 1000 ?? null,
-                            "placeholder" => "Wajib Diisi",
-                        ],
-                    ],
+                    ...$calonForm,
                     2 => [
                         "id" => $formId3,
                         "type" => "number",
