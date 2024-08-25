@@ -175,8 +175,9 @@ class RekapitulasiController extends Controller
             return redirect("/rekapitulasi");
         }
 
-        if ($typeQuery == "Kabkota" || $typeQuery == "kabkota") $wilayah = Kabkota::with("kecamatan")->find($idQuery);
-        else $wilayah = Provinsi::with("kabkota")->find($idQuery);
+        if ($typeQuery == "Kabkota" || $typeQuery == "kabkota") {
+            $wilayah = Kabkota::with("kecamatan")->find($idQuery);
+        } else $wilayah = Provinsi::with("kabkota")->find($idQuery);
 
         // $data = Calon::where("code", $request->query("Id"))->with('jumlahSuara')->get();
         $data = Cache::remember($cacheKey, 10, function() use ($request){
@@ -188,14 +189,11 @@ class RekapitulasiController extends Controller
                 ->get();
         });
         if ($chartQuery) {
-            $data = [
-                "calon" => $data,
-                "wilayah" => $wilayah,
-            ];
             $view = "layouts.chart";
         }
         return view($view, [
-            "data" => $data
+            "data" => $data,
+            "wilayah" => $wilayah,
         ]);
     }
     // public function selectType($Jenis)
