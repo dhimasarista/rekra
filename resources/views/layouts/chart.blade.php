@@ -63,6 +63,16 @@
                         show: false,
                     }
                 },
+                theme: {
+                    mode: 'light',
+                    palette: 'palette5',
+                    monochrome: {
+                        enabled: false,
+                        color: '#D7263D',
+                        shadeTo: 'light',
+                        shadeIntensity: 0.65
+                    },
+                },
                 grid: {
                     show: true,
                     padding: {
@@ -118,6 +128,16 @@
                             }
                         }
                     }
+                },
+                theme: {
+                    mode: 'light',
+                    palette: 'palette7',
+                    monochrome: {
+                        enabled: false,
+                        color: '#D7263D',
+                        shadeTo: 'light',
+                        shadeIntensity: 0.65
+                    },
                 },
                 chart: {
                     type: 'donut',

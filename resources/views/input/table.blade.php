@@ -18,7 +18,7 @@
                     </div>
                     @use('App\Helpers\Formatting')
                     <div class="pb-20">
-                        <table id="init-table" class="table hover stripe multiple-select-row data-table-export wrap responsive">
+                        <table id="init-table" class="table hover stripe multiple-select-row data-table-export wrap">
                             <thead>
                                 <tr>
                                     <th>Nama</th>
