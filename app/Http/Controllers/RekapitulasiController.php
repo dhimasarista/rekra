@@ -198,17 +198,17 @@ class RekapitulasiController extends Controller
             "data" => $data
         ]);
     }
-    public function selectType($Jenis)
-    {
-        $value = null;
-        if ($Jenis == "provinsi") {
-            $value = Provinsi::all();
-        }
+    // public function selectType($Jenis)
+    // {
+    //     $value = null;
+    //     if ($Jenis == "provinsi") {
+    //         $value = Provinsi::all();
+    //     }
 
-        return response()->json([
-            "value" => $value,
-        ], 200);
-    }
+    //     return response()->json([
+    //         "value" => $value,
+    //     ], 200);
+    // }
     /**
      * Show the form for creating a new resource.
      */
