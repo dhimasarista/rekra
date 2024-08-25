@@ -21,14 +21,14 @@
         </div>
         <div class="row mb-30">
             <div class="col-md-6 mb-20">
-                <div class="pd-20 card-box height-100-p">
-                    <h4 class="h4 text-blue">Pie Chart</h4>
+                <div class="bg-white pd-20 card-box height-100-p mb-30">
+                    <h4 class="h4 text-blue">Jumlah Keseluruhan</h4>
                     <div id="chart8"></div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="bg-white pd-20 card-box height-100-p mb-30">
-                    <h4 class="h4 text-blue">Bar Chart</h4>
+                    <h4 class="h4 text-blue">Jumlah Per Daerah</h4>
                     <div id="chart4"></div>
                 </div>
             </div>
@@ -126,10 +126,10 @@
                     breakpoint: 480,
                     options: {
                         chart: {
-                            width: 200
+                            width: 500,
                         },
                         legend: {
-                            position: 'bottom'
+                            position: 'top'
                         }
                     }
                 }]

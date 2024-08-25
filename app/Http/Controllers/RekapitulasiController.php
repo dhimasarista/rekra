@@ -180,14 +180,19 @@ class RekapitulasiController extends Controller
         } else $wilayah = Provinsi::with("kabkota")->find($idQuery);
 
         // $data = Calon::where("code", $request->query("Id"))->with('jumlahSuara')->get();
-        $data = Cache::remember($cacheKey, 10, function() use ($request){
-            $idQuery = $request->query("Id");
-            return Calon::select("calon.id", "calon.calon_name", "calon.wakil_name", DB::raw("COALESCE(SUM(jumlah_suara.amount), 0) as total"))
-                ->leftJoin("jumlah_suara", "calon.id", "=", "jumlah_suara.calon_id")
-                ->where("calon.code", $idQuery)
-                ->groupBy("calon.id", "calon.calon_name", "calon.wakil_name")
-                ->get();
-        });
+        // $data = Cache::remember($cacheKey, 1, function() use ($request){
+        //     $idQuery = $request->query("Id");
+        //     return Calon::select("calon.id", "calon.calon_name", "calon.wakil_name", DB::raw("COALESCE(SUM(jumlah_suara.amount), 0) as total"))
+        //         ->leftJoin("jumlah_suara", "calon.id", "=", "jumlah_suara.calon_id")
+        //         ->where("calon.code", $idQuery)
+        //         ->groupBy("calon.id", "calon.calon_name", "calon.wakil_name")
+        //         ->get();
+        // });
+        $data = Calon::select("calon.id", "calon.calon_name", "calon.wakil_name", DB::raw("COALESCE(SUM(jumlah_suara.amount), 0) as total"))
+        ->leftJoin("jumlah_suara", "calon.id", "=", "jumlah_suara.calon_id")
+        ->where("calon.code", $idQuery)
+        ->groupBy("calon.id", "calon.calon_name", "calon.wakil_name")
+        ->get();
         if ($chartQuery) {
             $view = "layouts.chart";
         }
