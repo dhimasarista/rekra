@@ -36,8 +36,8 @@
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            let wilayah = @json($data['wilayah']);
-            let seriesNames = @json($data['calon']);
+            let wilayah = @json($wilayah);
+            let seriesNames = @json($data);
 
             let categories;
             if (wilayah.kecamatan) {
