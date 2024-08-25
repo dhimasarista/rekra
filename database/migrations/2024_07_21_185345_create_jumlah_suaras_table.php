@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('jumlah_suara', function (Blueprint $table) {
             $table->uuid("id")->primary();
-            $table->text("note");
+            $table->text("note")->default("");
             $table->integer("total_suara_sah");
             $table->integer("total_suara_tidak_sah");
             $table->integer("total_sah_tidak_sah");
