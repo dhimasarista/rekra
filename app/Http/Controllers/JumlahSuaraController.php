@@ -231,7 +231,6 @@ class JumlahSuaraController extends Controller
             }
             // Jika tidak ada data, buat baru di tabel jumlah_suara
             if (empty($dataJS)) {
-                // todo: update or create tidak bekerja
                 $JS = $this->jumlahSuara->find($dataJS["id"]);
                 if ($JS) {
                     $JS->total_suara_sah = $dataJS["total_suara_sah"];
@@ -266,7 +265,7 @@ class JumlahSuaraController extends Controller
             return response()->json(["message" => $e->getMessage()], 500);
         }
     }
-
+    // todo: form provinsi belum di kondisikan
     public function form(Request $request)
     {
         try {
