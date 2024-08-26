@@ -195,7 +195,7 @@ class JumlahSuaraController extends Controller
         try {
             $body = $request->input();
             $tpsId = $request->query("Tps");
-            $jumlahSuaraId = Uuid::uuid7();
+            $jumlahSuaraId = "01918f49-643d-73b6-b025-e1d92e0b64e8";
             $data = [];
 
             foreach ($body as $key => $value) {
@@ -207,7 +207,8 @@ class JumlahSuaraController extends Controller
 
                     if ($jumlahSuaraDetail) {
                         $jumlahSuaraId = $jumlahSuaraDetail->jumlah_suara_id;
-                        $jumlahSuaraDetail->update(["amount" => $value]);
+                        $jumlahSuaraDetail->amount = $value;
+                        $jumlahSuaraDetail->save();
                     } else {
                         $data[] = [
                             "id" => Uuid::uuid7(),
@@ -219,9 +220,9 @@ class JumlahSuaraController extends Controller
                     }
                 }
             }
-
             // Jika tidak ada data, buat baru di tabel jumlah_suara
-            if (!empty($data)) {
+            if (empty($data)) {
+                // todo: update or create tidak bekerja
                 $this->jumlahSuara->updateOrCreate(
                     ["id" => $jumlahSuaraId],
                     [
@@ -231,6 +232,7 @@ class JumlahSuaraController extends Controller
                         "total_sah_tidak_sah" => rand(100, 5000),
                     ]
                 );
+            } else {
                 $this->jumlahSuaraDetail->insert($data);
             }
 
@@ -238,16 +240,18 @@ class JumlahSuaraController extends Controller
 
             return response()->json([
                 "message" => "Data berhasil disimpan",
-            ], 200); // Menggunakan status 200 OK
+            ], 200);
         } catch (QueryException $e) {
-            DB::rollBack(); // Membatalkan transaksi jika ada error
-
+            DB::rollBack();
             $message = match ($e->errorInfo[1]) {
                 1062 => "Data sudah ada",
                 default => $e->getMessage(),
             };
 
             return response()->json(["message" => $message], 500);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return response()->json(["message" => $e->getMessage()], 500);
         }
     }
 
