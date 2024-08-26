@@ -193,10 +193,19 @@ class JumlahSuaraController extends Controller
         DB::beginTransaction(); // Memulai transaksi
 
         try {
+            $message = "Data Berhasil Disimpan";
+            $responseCode = 200;
             $body = $request->input();
             $tpsId = $request->query("Tps");
-            $jumlahSuaraId = "01918f49-643d-73b6-b025-e1d92e0b64e8";
-            $data = [];
+            $jumlahSuaraId = Uuid::uuid7();
+            $dataJSD = []; // JSD: jumlah_suara_details
+            $dataJS = [
+                "id" => $jumlahSuaraId,
+                "note" => "Development & Testing",
+                "total_suara_sah" => rand(100, 5000),
+                "total_suara_tidak_sah" => rand(100, 5000),
+                "total_sah_tidak_sah" => rand(100, 5000),
+            ]; // JS: jumlah_suara
 
             foreach ($body as $key => $value) {
                 if ($key !== "Tps") {
@@ -210,7 +219,7 @@ class JumlahSuaraController extends Controller
                         $jumlahSuaraDetail->amount = $value;
                         $jumlahSuaraDetail->save();
                     } else {
-                        $data[] = [
+                        $dataJSD[] = [
                             "id" => Uuid::uuid7(),
                             "jumlah_suara_id" => $jumlahSuaraId,
                             "calon_id" => $key,
@@ -221,26 +230,29 @@ class JumlahSuaraController extends Controller
                 }
             }
             // Jika tidak ada data, buat baru di tabel jumlah_suara
-            if (empty($data)) {
+            if (empty($dataJS)) {
                 // todo: update or create tidak bekerja
-                $this->jumlahSuara->updateOrCreate(
-                    ["id" => $jumlahSuaraId],
-                    [
-                        "note" => "Development & Testing",
-                        "total_suara_sah" => rand(100, 5000),
-                        "total_suara_tidak_sah" => rand(100, 5000),
-                        "total_sah_tidak_sah" => rand(100, 5000),
-                    ]
-                );
+                $JS = $this->jumlahSuara->find($dataJS["id"]);
+                if ($JS) {
+                    $JS->total_suara_sah = $dataJS["total_suara_sah"];
+                    $JS->total_suara_tidak_sah = $dataJS["total_suara_tidak_sah"];
+                    $JS->total_sah_tidak_sah = $dataJS["total_sah_tidak_sah"];
+                    $JS->note = $dataJS["note"];
+                    $JS->save();
+                } else {
+                    $message = "Data Tidak Ditemukan. (Internal Server Error)";
+                    $responseCode = 500;
+                }
             } else {
-                $this->jumlahSuaraDetail->insert($data);
+                $this->jumlahSuara->insert($dataJS);
+                $this->jumlahSuaraDetail->insert($dataJSD);
             }
 
             DB::commit(); // Menyimpan perubahan jika tidak ada error
 
             return response()->json([
-                "message" => "Data berhasil disimpan",
-            ], 200);
+                "message" => $message,
+            ], $responseCode);
         } catch (QueryException $e) {
             DB::rollBack();
             $message = match ($e->errorInfo[1]) {
