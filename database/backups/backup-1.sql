@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `cache`
 --
 
-CREATE TABLE `cache` (
+CREATE TABLE IF NOT EXISTS `cache` (
   `key` varchar(255) NOT NULL,
   `value` mediumtext NOT NULL,
   `expiration` int(11) NOT NULL
@@ -36,7 +36,7 @@ CREATE TABLE `cache` (
 -- Table structure for table `cache_locks`
 --
 
-CREATE TABLE `cache_locks` (
+CREATE TABLE IF NOT EXISTS `cache_locks` (
   `key` varchar(255) NOT NULL,
   `owner` varchar(255) NOT NULL,
   `expiration` int(11) NOT NULL
@@ -48,7 +48,7 @@ CREATE TABLE `cache_locks` (
 -- Table structure for table `calon`
 --
 
-CREATE TABLE `calon` (
+CREATE TABLE IF NOT EXISTS `calon` (
   `id` char(36) NOT NULL,
   `code` int(11) NOT NULL,
   `calon_name` varchar(255) NOT NULL,
@@ -65,7 +65,7 @@ CREATE TABLE `calon` (
 -- Table structure for table `failed_jobs`
 --
 
-CREATE TABLE `failed_jobs` (
+CREATE TABLE IF NOT EXISTS `failed_jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `uuid` varchar(255) NOT NULL,
   `connection` text NOT NULL,
@@ -81,7 +81,7 @@ CREATE TABLE `failed_jobs` (
 -- Table structure for table `jobs`
 --
 
-CREATE TABLE `jobs` (
+CREATE TABLE IF NOT EXISTS `jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `queue` varchar(255) NOT NULL,
   `payload` longtext NOT NULL,
@@ -97,7 +97,7 @@ CREATE TABLE `jobs` (
 -- Table structure for table `job_batches`
 --
 
-CREATE TABLE `job_batches` (
+CREATE TABLE IF NOT EXISTS `job_batches` (
   `id` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `total_jobs` int(11) NOT NULL,
@@ -116,7 +116,7 @@ CREATE TABLE `job_batches` (
 -- Table structure for table `jumlah_suara`
 --
 
-CREATE TABLE `jumlah_suara` (
+CREATE TABLE IF NOT EXISTS `jumlah_suara` (
   `id` char(36) NOT NULL,
   `amount` int(11) NOT NULL,
   `note` text NOT NULL,
@@ -134,7 +134,7 @@ CREATE TABLE `jumlah_suara` (
 -- Table structure for table `kabkota`
 --
 
-CREATE TABLE `kabkota` (
+CREATE TABLE IF NOT EXISTS `kabkota` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(50) NOT NULL,
   `provinsi_id` bigint(20) UNSIGNED NOT NULL,
@@ -162,7 +162,7 @@ INSERT INTO `kabkota` (`id`, `name`, `provinsi_id`, `created_at`, `updated_at`, 
 -- Table structure for table `kecamatan`
 --
 
-CREATE TABLE `kecamatan` (
+CREATE TABLE IF NOT EXISTS `kecamatan` (
   `id` char(36) NOT NULL,
   `name` varchar(255) NOT NULL,
   `kabkota_id` bigint(20) UNSIGNED NOT NULL,
@@ -195,7 +195,7 @@ INSERT INTO `kecamatan` (`id`, `name`, `kabkota_id`, `created_at`, `updated_at`,
 -- Table structure for table `kelurahan`
 --
 
-CREATE TABLE `kelurahan` (
+CREATE TABLE IF NOT EXISTS `kelurahan` (
   `id` char(36) NOT NULL,
   `name` varchar(255) NOT NULL,
   `kecamatan_id` char(36) NOT NULL,
@@ -280,7 +280,7 @@ INSERT INTO `kelurahan` (`id`, `name`, `kecamatan_id`, `created_at`, `updated_at
 -- Table structure for table `login_histories`
 --
 
-CREATE TABLE `login_histories` (
+CREATE TABLE IF NOT EXISTS `login_histories` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` char(36) NOT NULL,
   `username` varchar(255) NOT NULL,
@@ -293,17 +293,13 @@ CREATE TABLE `login_histories` (
 --
 -- Dumping data for table `login_histories`
 --
-
-INSERT INTO `login_histories` (`id`, `user_id`, `username`, `login_at`, `ip_address`, `created_at`, `updated_at`) VALUES
-(1, '019122c9-7133-7388-89d2-885cf38e7ca3', 'masterdev', '2024-08-25 04:10:59', '127.0.0.1', '2024-08-25 04:10:59', '2024-08-25 04:10:59');
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `migrations`
 --
 
-CREATE TABLE `migrations` (
+CREATE TABLE IF NOT EXISTS `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
   `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL
@@ -313,26 +309,13 @@ CREATE TABLE `migrations` (
 -- Dumping data for table `migrations`
 --
 
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(81, '0001_01_01_000001_create_cache_table', 1),
-(82, '0001_01_01_000002_create_jobs_table', 1),
-(83, '2024_07_20_044213_create_provinsi_table', 1),
-(84, '2024_07_20_044611_create_kabkota_table', 1),
-(85, '2024_07_20_045056_create_users_table', 1),
-(86, '2024_07_21_180930_create_calons_table', 1),
-(87, '2024_07_21_184532_create_kecamatans_table', 1),
-(88, '2024_07_21_185306_create_kelurahans_table', 1),
-(89, '2024_07_21_185344_create_tps_table', 1),
-(90, '2024_07_21_185345_create_jumlah_suaras_table', 1),
-(91, '2024_08_24_150808_create_login_histories_table', 2);
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `provinsi`
 --
 
-CREATE TABLE `provinsi` (
+CREATE TABLE IF NOT EXISTS `provinsi` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(50) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -353,7 +336,7 @@ INSERT INTO `provinsi` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) 
 -- Table structure for table `sessions`
 --
 
-CREATE TABLE `sessions` (
+CREATE TABLE IF NOT EXISTS `sessions` (
   `id` varchar(255) NOT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
   `ip_address` varchar(45) DEFAULT NULL,
@@ -368,7 +351,7 @@ CREATE TABLE `sessions` (
 -- Table structure for table `tps`
 --
 
-CREATE TABLE `tps` (
+CREATE TABLE IF NOT EXISTS `tps` (
   `id` char(36) NOT NULL,
   `name` varchar(255) NOT NULL,
   `kelurahan_id` char(36) NOT NULL,
@@ -386,7 +369,7 @@ CREATE TABLE `tps` (
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `users` (
   `id` char(36) NOT NULL,
   `name` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
