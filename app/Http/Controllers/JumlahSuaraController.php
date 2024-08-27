@@ -230,8 +230,8 @@ class JumlahSuaraController extends Controller
                 }
             }
             // Jika tidak ada data, buat baru di tabel jumlah_suara
-            if (empty($dataJS)) {
-                $JS = $this->jumlahSuara->find($dataJS["id"]);
+            if (empty($dataJSD)) {
+                $JS = $this->jumlahSuara->find($jumlahSuaraId);
                 if ($JS) {
                     $JS->total_suara_sah = $dataJS["total_suara_sah"];
                     $JS->total_suara_tidak_sah = $dataJS["total_suara_tidak_sah"];
@@ -375,7 +375,7 @@ class JumlahSuaraController extends Controller
                         "Tps" => $tpsQuery,
                     ]),
                     "method" => "post",
-                    "redirect" => null,
+                    "redirect" => url()->previous(),
                     "form_data" => [...$calonFormData],
                 ],
                 "form" => [
