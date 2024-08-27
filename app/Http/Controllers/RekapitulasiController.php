@@ -183,21 +183,20 @@ class RekapitulasiController extends Controller
 
         if ($chartQuery) {
             $view = "layouts.chart";
-            $calonTotal = null;
             $dataPerwilayah = [];
+            $calonTotal = Calon::select(
+                "calon.id",
+                "calon.calon_name",
+                "calon.wakil_name",
+                DB::raw("COALESCE(SUM(jumlah_suara_details.amount), 0) as total")
+            )
+            ->leftJoin("jumlah_suara_details", "calon.id", "=", "jumlah_suara_details.calon_id")
+            ->where("calon.code", $idQuery)
+            ->groupBy("calon.id", "calon.calon_name", "calon.wakil_name")
+            ->get();
             if ($typeQuery == "Provinsi" || $typeQuery == "Provinsi") {
-                // do like Kabkota but kecamatan change with kabkota
+                // todo like Kabkota but kecamatan change with kabkota
             } else if ($typeQuery == "Kabkota" || $typeQuery == "kabkota") {
-                $calonTotal = Calon::select(
-                    "calon.id",
-                    "calon.calon_name",
-                    "calon.wakil_name",
-                    DB::raw("COALESCE(SUM(jumlah_suara_details.amount), 0) as total")
-                )
-                ->leftJoin("jumlah_suara_details", "calon.id", "=", "jumlah_suara_details.calon_id")
-                ->where("calon.code", $idQuery)
-                ->groupBy("calon.id", "calon.calon_name", "calon.wakil_name")
-                ->get();
                 foreach ($wilayah->kecamatan as $kecamatan) {
                     $totalSuaraPerKecamatan = Calon::select(
                         "calon.id",
