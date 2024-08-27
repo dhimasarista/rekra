@@ -19,6 +19,7 @@ return new class extends Migration
             $table->ipAddress('ip_address');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

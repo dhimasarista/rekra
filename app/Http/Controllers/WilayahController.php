@@ -804,7 +804,7 @@ class WilayahController extends Controller
                     if ($data) {
                         // note: optimisasi agar tidak overhead
                         $isChanged = false;
-                        if ($data->name === $request->name) {
+                        if ($data->name !== $request->name) {
                             $data->name = $request->name;
                             $isChanged = true;
                         }
@@ -821,11 +821,18 @@ class WilayahController extends Controller
                         }
                     } else {
                         if ($formQuery == "Multiple" || $formQuery == "multiple") {
-                            // Mengubah string number jadi integer untuk melakukan multi insert
-                            $strToNumber = (int)$request->name;
+                            // todo
+                            // data terakhir harusnya lanjut tapi malah ngulang
+                            $startLoop = 1; // Index awal untuk looping data
+                            $strToNumber = (int)$request->name; // Mengubah string number jadi integer untuk melakukan multi insert
                             $data = [];
+                            // $lastTPS = Tps::where("kelurahan_id", $request->kelurahan_id)->latest();
+                            // $lastNumber = preg_replace("/\D/", "", $lastTPS->name);
+                            // if ($lastTPS) {
+                            //     $startLoop = $lastNumber + 1;
+                            // }
                             // $strToNumber akan meloop sesuai jumlah inputan
-                            for ($i=1; $i <= $strToNumber; $i++) {
+                            for ($i=$startLoop; $i <= $strToNumber; $i++) {
                                 array_push($data, [
                                     "id" => Uuid::uuid7(),
                                     "name" => "TPS $i",
@@ -847,7 +854,6 @@ class WilayahController extends Controller
             DB::commit();
             return response()->json([
                 "message" => $message,
-                "data" => $request->all()
             ], $responseCode);
         } catch (QueryException $e) {
             DB::rollBack();
@@ -857,6 +863,10 @@ class WilayahController extends Controller
                 default => $e->errorInfo[2],
             };
             return response()->json(["message" => $message, "data" => $request->all()], $responseCode);
+        }
+        catch (Exception $e) {
+            DB::rollBack();
+            return response()->json(["message" => $e->getMessage()], 500);
         }
     }
 
