@@ -222,22 +222,12 @@ class DatabaseSeeder extends Seeder
 
             // Sekupang
             ["id" => Uuid::uuid7(), "name" => "patam lestari", "kecamatan_id" => $kecamatan["sekupang"]["id"]],
-            ["id" => Uuid::uuid7(), "name" => "puskesmas", "kecamatan_id" => $kecamatan["sekupang"]["id"]],
             ["id" => Uuid::uuid7(), "name" => "sungai harapan", "kecamatan_id" => $kecamatan["sekupang"]["id"]],
             ["id" => Uuid::uuid7(), "name" => "tanjung pinggir", "kecamatan_id" => $kecamatan["sekupang"]["id"]],
+            ["id" => Uuid::uuid7(), "name" => "tanjung riau", "kecamatan_id" => $kecamatan["sekupang"]["id"]],
             ["id" => Uuid::uuid7(), "name" => "tiban baru", "kecamatan_id" => $kecamatan["sekupang"]["id"]],
             ["id" => Uuid::uuid7(), "name" => "tiban indah", "kecamatan_id" => $kecamatan["sekupang"]["id"]],
             ["id" => Uuid::uuid7(), "name" => "tiban lama", "kecamatan_id" => $kecamatan["sekupang"]["id"]],
-            ["id" => Uuid::uuid7(), "name" => "tiban makmur", "kecamatan_id" => $kecamatan["sekupang"]["id"]],
-            ["id" => Uuid::uuid7(), "name" => "tiban sari", "kecamatan_id" => $kecamatan["sekupang"]["id"]],
-            ["id" => Uuid::uuid7(), "name" => "tiban kampung", "kecamatan_id" => $kecamatan["sekupang"]["id"]],
-            ["id" => Uuid::uuid7(), "name" => "tiban kampung baru", "kecamatan_id" => $kecamatan["sekupang"]["id"]],
-
-            // Bulang
-            ["id" => Uuid::uuid7(), "name" => "kampung bulang", "kecamatan_id" => $kecamatan["bulang"]["id"]],
-            ["id" => Uuid::uuid7(), "name" => "kampung pinang", "kecamatan_id" => $kecamatan["bulang"]["id"]],
-            ["id" => Uuid::uuid7(), "name" => "kampung panjang", "kecamatan_id" => $kecamatan["bulang"]["id"]],
-            ["id" => Uuid::uuid7(), "name" => "kampung pinang panjang", "kecamatan_id" => $kecamatan["bulang"]["id"]],
         ];
         Kelurahan::insert($kelurahan);
     }
