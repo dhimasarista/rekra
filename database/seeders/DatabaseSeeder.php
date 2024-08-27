@@ -70,7 +70,7 @@ class DatabaseSeeder extends Seeder
         ]);
         User::create([
             'name' => 'Kota Batam - Test (DEV)',
-            'username' => 'kotabatamdev',
+            'username' => 'batamdev',
             'password' => "123",
             "code" => 2171,
             "level" => "kabkota"
