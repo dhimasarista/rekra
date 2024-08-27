@@ -216,8 +216,12 @@ class RekapitulasiController extends Controller
                     if ($totalSuaraPerKecamatan->isEmpty()) {
                         // Jika tidak ada data suara per kecamatan, set total untuk setiap calon menjadi 0
                         $totalSuaraArray = $calonTotal->map(function ($calon) {
-                            // $calon->total = 0; // Set total menjadi 0
-                            return $calon;
+                            return (object) [
+                                'id' => $calon->id,
+                                'calon_name' => $calon->calon_name,
+                                'wakil_name' => $calon->wakil_name,
+                                'total' => 0 // Set total menjadi 0
+                            ];
                         });
                     } else {
                         $totalSuaraArray = $totalSuaraPerKecamatan;
