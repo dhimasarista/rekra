@@ -682,6 +682,7 @@ class WilayahController extends Controller
     }
     // create or update
     public function store(Request $request) {
+        DB::beginTransaction();
         $message = null;
         $responseCode = 200;
         try {
@@ -798,16 +799,32 @@ class WilayahController extends Controller
                     $message = $validator->errors()->all();
                     $responseCode = 500;
                 } else {
-                    $data = Tps::withTrashed()->find($queryId);
+                    // $data = Tps::withTrashed()->find($queryId);
+                    $data = Tps::find($queryId);
                     if ($data) {
-                        $data->name = $request->name;
-                        $data->kelurahan_id = $request->kelurahan_id ?? $data->kelurahan_id;
-                        $data->save();
-                        $message = "Berhasil memperbarui TPS";
+                        // note: optimisasi agar tidak overhead
+                        $isChanged = false;
+                        if ($data->name === $request->name) {
+                            $data->name = $request->name;
+                            $isChanged = true;
+                        }
+                        if ($request->filled('kelurahan_id') && $data->kelurahan_id !== $request->kelurahan_id) {
+                            $data->kelurahan_id = $request->kelurahan_id;
+                            $isChanged = true;
+                        }
+
+                        if ($isChanged) {
+                            $data->save();
+                            $message = "Berhasil memperbarui TPS";
+                        } else {
+                            $message = "Tidak ada perubahan pada data TPS";
+                        }
                     } else {
                         if ($formQuery == "Multiple" || $formQuery == "multiple") {
+                            // Mengubah string number jadi integer untuk melakukan multi insert
                             $strToNumber = (int)$request->name;
                             $data = [];
+                            // $strToNumber akan meloop sesuai jumlah inputan
                             for ($i=1; $i <= $strToNumber; $i++) {
                                 array_push($data, [
                                     "id" => Uuid::uuid7(),
@@ -827,12 +844,13 @@ class WilayahController extends Controller
                     }
                 }
             }
-
+            DB::commit();
             return response()->json([
                 "message" => $message,
                 "data" => $request->all()
             ], $responseCode);
         } catch (QueryException $e) {
+            DB::rollBack();
             $responseCode = 500;
             $message = match ($e->errorInfo[1]) {
                 1062 => "Data sudah ada",
