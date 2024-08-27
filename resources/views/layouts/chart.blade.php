@@ -9,12 +9,13 @@
         <div class="title pb-20 d-flex justify-content-between align-items-center">
             {{-- <h2 class="h2 mb-0">{{ Formatting::capitalize($segments[0]) }}</h2> --}}
             <div class="text-left">
-                <a class="btn btn-sm btn-dark" href="{{ route("rekap.index", ["Type" => "Kabkota"]) }}">
+                <a class="btn btn-sm btn-dark" href="{{ route('rekap.index', ['Type' => 'Kabkota']) }}">
                     <i class="fa fa-arrow-left"></i> Kembali
                 </a>
             </div>
             <div class="text-right">
-                <a class="btn btn-sm btn-dark" href="{{ route("rekap.list", ["Type" => request()->query("Type"), "Id" => request()->query("Id")]) }}">
+                <a class="btn btn-sm btn-dark"
+                    href="{{ route('rekap.list', ['Type' => request()->query('Type'), 'Id' => request()->query('Id')]) }}">
                     <i class="fa fa-list"></i> List
                 </a>
             </div>
@@ -47,13 +48,23 @@
             } else {
                 categories = [];
             }
+            console.log(seriesNames);
 
             // Membuat data untuk masing-masing kandidat pada setiap kategori
-            let seriesData = seriesNames.map(seriesName => ({
-                name: `${Formatting.capitalize(seriesName.calon_name)} - ${Formatting.capitalize(seriesName.wakil_name)}`,
-                data: categories.map(() => Math.floor(Math.random() *
-                    10000)) // Ganti dengan data aktual jika tersedia
-            }));
+            let seriesData = seriesNames.calon_total.map(calon => {
+                return {
+                    name: `${Formatting.capitalize(calon.calon_name)} - ${Formatting.capitalize(calon.wakil_name)}`,
+                    data: categories.map(category => {
+                        let wilayahData = seriesNames.data_perwilayah.find(w => Formatting
+                            .capitalize(w.name) === category);
+                        let calonData = wilayahData ? wilayahData.total_suara.find(c => c.id ===
+                            calon
+                            .id) : null;
+                        return calonData ? parseInt(calonData.total) : 0;
+                    })
+                };
+            });
+
             let options4 = {
                 series: seriesData,
                 chart: {
@@ -108,13 +119,12 @@
                     categories: categories,
                 },
             };
-
             let chart4 = new ApexCharts(document.querySelector("#chart4"), options4);
             chart4.render();
 
             let options8 = {
-                series: seriesData.map(series => series.data.reduce((a, b) => a + b, 0)),
-                labels: seriesData.map(series => series.name),
+                series: seriesNames.calon_total.map(calon => parseInt(calon.total)),
+                labels: seriesNames.calon_total.map(calon => calon.calon_name),
                 dataLabels: {
                     enabled: true,
                 },
@@ -145,9 +155,7 @@
                 responsive: [{
                     breakpoint: 480,
                     options: {
-                        chart: {
-
-                        },
+                        chart: {},
                         legend: {
                             position: 'top'
                         }

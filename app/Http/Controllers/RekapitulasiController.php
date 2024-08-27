@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Formatting;
 use App\Models\Calon;
 use App\Models\JumlahSuara;
+use App\Models\JumlahSuaraDetail;
 use App\Models\KabKota;
 use App\Models\Provinsi;
 use App\Models\User;
@@ -178,19 +179,73 @@ class RekapitulasiController extends Controller
         if ($typeQuery == "Kabkota" || $typeQuery == "kabkota") {
             $wilayah = Kabkota::with("kecamatan")->find($idQuery);
         } else $wilayah = Provinsi::with("kabkota")->find($idQuery);
+        // dd($wilayah);
 
-        // $data = Calon::where("code", $request->query("Id"))->with('jumlahSuara')->get();
-        $data = Cache::remember($cacheKey, 1, function() use ($request){
-            $idQuery = $request->query("Id");
-            return Calon::select("calon.id", "calon.calon_name", "calon.wakil_name", DB::raw("COALESCE(SUM(jumlah_suara_details.amount), 0) as total"))
-            ->leftJoin("jumlah_suara_details", "calon.id", "=", "jumlah_suara_details.calon_id")
-            ->where("calon.code", $idQuery)
-            ->groupBy("calon.id", "calon.calon_name", "calon.wakil_name")
-            ->get();
-        });
         if ($chartQuery) {
             $view = "layouts.chart";
+            $calonTotal = null;
+            $dataPerwilayah = [];
+            if ($typeQuery == "Provinsi" || $typeQuery == "Provinsi") {
+                // do like Kabkota but kecamatan change with kabkota
+            } else if ($typeQuery == "Kabkota" || $typeQuery == "kabkota") {
+                $calonTotal = Calon::select(
+                    "calon.id",
+                    "calon.calon_name",
+                    "calon.wakil_name",
+                    DB::raw("COALESCE(SUM(jumlah_suara_details.amount), 0) as total")
+                )
+                ->leftJoin("jumlah_suara_details", "calon.id", "=", "jumlah_suara_details.calon_id")
+                ->where("calon.code", $idQuery)
+                ->groupBy("calon.id", "calon.calon_name", "calon.wakil_name")
+                ->get();
+                foreach ($wilayah->kecamatan as $kecamatan) {
+                    $totalSuaraPerKecamatan = Calon::select(
+                        "calon.id",
+                        "calon.calon_name",
+                        "calon.wakil_name",
+                        DB::raw("COALESCE(SUM(jumlah_suara_details.amount), 0) as total")
+                    )
+                    ->leftJoin("jumlah_suara_details", "calon.id", "=", "jumlah_suara_details.calon_id")
+                    ->leftJoin("tps", "jumlah_suara_details.tps_id", "=", "tps.id")
+                    ->leftJoin("kelurahan", "tps.kelurahan_id", "=", "kelurahan.id")
+                    ->leftJoin("kecamatan", "kelurahan.kecamatan_id", "=", "kecamatan.id")
+                    ->where("kecamatan.id", $kecamatan->id)  // Menghubungkan TPS dengan kecamatan
+                    ->where("calon.code", $idQuery)
+                    ->groupBy("calon.id", "calon.calon_name", "calon.wakil_name")
+                    ->get();
+                    if ($totalSuaraPerKecamatan->isEmpty()) {
+                        // Jika tidak ada data suara per kecamatan, set total untuk setiap calon menjadi 0
+                        $totalSuaraArray = $calonTotal->map(function ($calon) {
+                            // $calon->total = 0; // Set total menjadi 0
+                            return $calon;
+                        });
+                    } else {
+                        $totalSuaraArray = $totalSuaraPerKecamatan;
+                    }
+                    $dataPerwilayah[] = [
+                        "id" => $kecamatan->id,
+                        "name" => $kecamatan->name,
+                        "total_suara" => $totalSuaraArray
+                    ];
+                }
+            }
+            $data = [
+                "calon_total" => $calonTotal,
+                "data_perwilayah" => $dataPerwilayah
+            ];
+            // dd($data);
+        } else {
+            // $data = Calon::where("code", $request->query("Id"))->with('jumlahSuara')->get();
+            $data = Cache::remember($cacheKey, 1, function() use ($request){
+                $idQuery = $request->query("Id");
+                return Calon::select("calon.id", "calon.calon_name", "calon.wakil_name", DB::raw("COALESCE(SUM(jumlah_suara_details.amount), 0) as total"))
+                ->leftJoin("jumlah_suara_details", "calon.id", "=", "jumlah_suara_details.calon_id")
+                ->where("calon.code", $idQuery)
+                ->groupBy("calon.id", "calon.calon_name", "calon.wakil_name")
+                ->get();
+            });
         }
+        // dd($data);
         return view($view, [
             "data" => $data,
             "wilayah" => $wilayah,
