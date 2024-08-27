@@ -37,34 +37,39 @@
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            let wilayah = @json($wilayah);
-            let seriesNames = @json($data);
+            // Mengambil data dari server yang sudah dikirim ke tampilan
+            let wilayah = @json($wilayah); // Data wilayah yang berisi kecamatan atau kabkota
+            let seriesNames = @json($data); // Data yang berisi total suara dan informasi calon
 
+            // Menentukan kategori berdasarkan jenis wilayah
             let categories;
             if (wilayah.kecamatan) {
+                // Jika data wilayah berisi kecamatan
                 categories = wilayah.kecamatan.map(k => Formatting.capitalize(k.name));
             } else if (wilayah.kabkota) {
+                // Jika data wilayah berisi kabkota
                 categories = wilayah.kabkota.map(k => Formatting.capitalize(k.name));
             } else {
+                // Jika tidak ada data kategori
                 categories = [];
             }
-            console.log(seriesNames);
 
             // Membuat data untuk masing-masing kandidat pada setiap kategori
             let seriesData = seriesNames.calon_total.map(calon => {
                 return {
                     name: `${Formatting.capitalize(calon.calon_name)} - ${Formatting.capitalize(calon.wakil_name)}`,
                     data: categories.map(category => {
+                        // Mencocokkan kategori dengan data wilayah
                         let wilayahData = seriesNames.data_perwilayah.find(w => Formatting
                             .capitalize(w.name) === category);
                         let calonData = wilayahData ? wilayahData.total_suara.find(c => c.id ===
-                            calon
-                            .id) : null;
+                            calon.id) : null;
                         return calonData ? parseInt(calonData.total) : 0;
                     })
                 };
             });
 
+            // Opsi konfigurasi untuk grafik bar
             let options4 = {
                 series: seriesData,
                 chart: {
@@ -119,9 +124,12 @@
                     categories: categories,
                 },
             };
+
+            // Membuat dan merender grafik bar menggunakan ApexCharts
             let chart4 = new ApexCharts(document.querySelector("#chart4"), options4);
             chart4.render();
 
+            // Opsi konfigurasi untuk grafik donut
             let options8 = {
                 series: seriesNames.calon_total.map(calon => parseInt(calon.total)),
                 labels: seriesNames.calon_total.map(calon => calon.calon_name),
@@ -163,6 +171,7 @@
                 }]
             };
 
+            // Membuat dan merender grafik donut menggunakan ApexCharts
             let chart8 = new ApexCharts(document.querySelector("#chart8"), options8);
             chart8.render();
         });
