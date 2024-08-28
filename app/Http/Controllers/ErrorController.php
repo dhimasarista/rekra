@@ -18,30 +18,10 @@ class ErrorController extends Controller
      * Show the form for creating a new resource.
      */
     public function test()
-{
-    $kecamatan = [
-        "bengkong" => [
-            "one" => 4000,
-            "two" => 8000,
-        ],
-        "batam kota" => [
-            "one" => 1000,
-            "two" => 1290,
-        ],
-        "lubuk baja" => [
-            "one" => 3901,
-            "two" => 5490,
-        ],
-    ];
-
-    // Extract series names dynamically
-    $seriesNames = array_keys(reset($kecamatan));
-
-    return view("layouts.chart", [
-        "kecamatan" => $kecamatan,
-        "seriesNames" => $seriesNames,
-    ]);
-}
+    {
+        return view("layouts.chart2", [
+        ]);
+    }
 
     /**
      * Store a newly created resource in storage.
