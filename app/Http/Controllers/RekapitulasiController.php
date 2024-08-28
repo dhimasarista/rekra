@@ -4,11 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Formatting;
 use App\Models\Calon;
-use App\Models\JumlahSuara;
-use App\Models\JumlahSuaraDetail;
 use App\Models\KabKota;
 use App\Models\Provinsi;
-use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -32,11 +29,11 @@ class RekapitulasiController extends Controller
                     $options[] = [
                         "id" => null,
                         "is_selected" => true,
-                        "name" => "Pilih"
+                        "name" => "Pilih",
                     ];
                     foreach ($data as $provinsi) {
                         $options[] = [
-                            "id"=> $provinsi->id,
+                            "id" => $provinsi->id,
                             "is_selected" => false,
                             "name" => $provinsi->name,
                         ];
@@ -46,7 +43,7 @@ class RekapitulasiController extends Controller
                         "submit" => [
                             "type" => "redirect", // or "input"
                             "id" => Uuid::uuid7(),
-                            "route" => route('rekap.list', ['Type' => 'Provinsi'])
+                            "route" => route('rekap.list', ['Type' => 'Provinsi']),
                         ],
                         "form" => [
                             0 => [
@@ -56,7 +53,7 @@ class RekapitulasiController extends Controller
                                 "is_disabled" => true,
                                 "for_submit" => false,
                                 "fetch_data" => [
-                                    "is_fetching" => false
+                                    "is_fetching" => false,
                                 ],
                                 "options" => [
                                     [
@@ -64,7 +61,7 @@ class RekapitulasiController extends Controller
                                         "is_selected" => true,
                                         "name" => "indonesia",
                                     ],
-                                ]
+                                ],
                             ],
                             1 => [
                                 "id" => $formId2,
@@ -77,7 +74,7 @@ class RekapitulasiController extends Controller
                                 ],
                                 "options" => $options,
                             ],
-                        ]
+                        ],
 
                     ];
                 } else if ($typeQuery == "Kabkota" || $typeQuery == "kabkota") {
@@ -85,13 +82,13 @@ class RekapitulasiController extends Controller
                     $options[] = [
                         "id" => null,
                         "is_selected" => true,
-                        "name" => "Pilih"
+                        "name" => "Pilih",
                     ];
                     foreach ($data as $p) {
                         $options[] = [
                             "id" => $p->id,
                             "is_selected" => false,
-                            "name" => $p->name
+                            "name" => $p->name,
                         ];
                     }
                     $formId1 = Uuid::uuid7();
@@ -102,7 +99,7 @@ class RekapitulasiController extends Controller
                         "submit" => [
                             "type" => "redirect", // or "input"
                             "id" => Uuid::uuid7(),
-                            "route" => route('rekap.list', ['Type' => 'Kabkota'])
+                            "route" => route('rekap.list', ['Type' => 'Kabkota']),
                         ],
                         "form" => [
                             0 => [
@@ -129,15 +126,15 @@ class RekapitulasiController extends Controller
                                 "is_disabled" => true,
                                 "for_submit" => true,
                                 "fetch_data" => [
-                                    "is_fetching" => false
+                                    "is_fetching" => false,
                                 ],
                                 "options" => [
                                     [
                                         "id" => null,
                                         "is_selected" => true,
-                                        "name" => ""
+                                        "name" => "",
                                     ],
-                                ]
+                                ],
                             ],
                         ],
                     ];
@@ -161,133 +158,111 @@ class RekapitulasiController extends Controller
     }
     public function list(Request $request)
     {
-        $data = null;
-        $view = "rekapitulasi.list"; // soon: change list to table
-        $cacheKey = 'calon_data_' . $request->query('Id'); // caching
+        $view = $request->query("Chart") ? "layouts.chart" : "rekapitulasi.list"; // Use chart view if needed
+        $cacheKey = 'calon_data_' . $request->query('Id'); // Caching
 
         $idQuery = $request->query("Id");
-        $typeQuery = $request->query("Type");
-        $chartQuery = $request->query("Chart");
+        $typeQuery = strtolower($request->query("Type"));
 
         // Check id query
-        $checkQuery = !$idQuery || $idQuery == "null" || $idQuery == "Pilih";
-        if ($checkQuery) {
+        if (!$idQuery || $idQuery == "null" || $idQuery == "Pilih") {
             return redirect("/rekapitulasi");
         }
 
-        $wilayah = match ($typeQuery) {
-            "Kabkota", "kabkota" => Kabkota::with("kecamatan")->find($idQuery),
-            "Provinsi", "provinsi" => Provinsi::with("kabkota")->find($idQuery),
-            default => null,
-        };
+        // Get Wilayah and Cache it
+        $wilayah = Cache::remember("wilayah_{$typeQuery}_{$idQuery}", 60, function () use ($typeQuery, $idQuery) {
+            return match ($typeQuery) {
+                "kabkota" => Kabkota::with("kecamatan")->find($idQuery),
+                "provinsi" => Provinsi::with("kabkota")->find($idQuery),
+                default => null,
+            };
+        });
 
-        if ($chartQuery) {
-            $view = "layouts.chart";
-            $dataPerwilayah = [];
-            $calonTotal = Calon::select(
-                "calon.id",
-                "calon.calon_name",
-                "calon.wakil_name",
-                DB::raw("COALESCE(SUM(jumlah_suara_details.amount), 0) as total")
-            )
-            ->leftJoin("jumlah_suara_details", "calon.id", "=", "jumlah_suara_details.calon_id")
-            ->where("calon.code", $idQuery)
-            ->groupBy("calon.id", "calon.calon_name", "calon.wakil_name")
-            ->get();
-            if ($typeQuery == "Provinsi" || $typeQuery == "Provinsi") {
-                // todo like Kabkota but kecamatan change with kabkota
-                foreach ($wilayah->kabkota as $kabkota) {
-                    $totalSuaraPerKabkota = Calon::select(
-                        "calon.id",
-                        "calon.calon_name",
-                        "calon.wakil_name",
-                        DB::raw("COALESCE(SUM(jumlah_suara_details.amount), 0) as total")
-                    )
-                    ->leftJoin("jumlah_suara_details", "calon.id", "=", "jumlah_suara_details.calon_id")
-                    ->leftJoin("tps", "jumlah_suara_details.tps_id", "=", "tps.id")
-                    ->leftJoin("kelurahan", "tps.kelurahan_id", "=", "kelurahan.id")
-                    ->leftJoin("kecamatan", "kelurahan.kecamatan_id", "=", "kecamatan.id")
-                    ->leftJoin("kabkota", "kecamatan.kabkota_id", "=", "kabkota.id")
-                    ->where("kabkota.id", $kabkota->id)  // Menghubungkan TPS dengan kecamatan
-                    ->where("calon.code", $idQuery)
-                    ->groupBy("calon.id", "calon.calon_name", "calon.wakil_name")
-                    ->get();
-                    if ($totalSuaraPerKabkota->isEmpty()) {
-                        // Jika tidak ada data suara per kecamatan, set total untuk setiap calon menjadi 0
-                        $totalSuaraArray = $calonTotal->map(function ($calon) {
-                            return (object) [
-                                'id' => $calon->id,
-                                'calon_name' => $calon->calon_name,
-                                'wakil_name' => $calon->wakil_name,
-                                'total' => 0 // Set total menjadi 0
-                            ];
-                        });
-                    } else {
-                        $totalSuaraArray = $totalSuaraPerKabkota;
-                    }
-                    $dataPerwilayah[] = [
-                        "id" => $kabkota->id,
-                        "name" => $kabkota->name,
-                        "total_suara" => $totalSuaraArray
-                    ];
-                }
-            } else if ($typeQuery == "Kabkota" || $typeQuery == "kabkota") {
-                foreach ($wilayah->kecamatan as $kecamatan) {
-                    $totalSuaraPerKecamatan = Calon::select(
-                        "calon.id",
-                        "calon.calon_name",
-                        "calon.wakil_name",
-                        DB::raw("COALESCE(SUM(jumlah_suara_details.amount), 0) as total")
-                    )
-                    ->leftJoin("jumlah_suara_details", "calon.id", "=", "jumlah_suara_details.calon_id")
-                    ->leftJoin("tps", "jumlah_suara_details.tps_id", "=", "tps.id")
-                    ->leftJoin("kelurahan", "tps.kelurahan_id", "=", "kelurahan.id")
-                    ->leftJoin("kecamatan", "kelurahan.kecamatan_id", "=", "kecamatan.id")
-                    ->where("kecamatan.id", $kecamatan->id)  // Menghubungkan TPS dengan kecamatan
-                    ->where("calon.code", $idQuery)
-                    ->groupBy("calon.id", "calon.calon_name", "calon.wakil_name")
-                    ->get();
-                    if ($totalSuaraPerKecamatan->isEmpty()) {
-                        // Jika tidak ada data suara per kecamatan, set total untuk setiap calon menjadi 0
-                        $totalSuaraArray = $calonTotal->map(function ($calon) {
-                            return (object) [
-                                'id' => $calon->id,
-                                'calon_name' => $calon->calon_name,
-                                'wakil_name' => $calon->wakil_name,
-                                'total' => 0 // Set total menjadi 0
-                            ];
-                        });
-                    } else {
-                        $totalSuaraArray = $totalSuaraPerKecamatan;
-                    }
-                    $dataPerwilayah[] = [
-                        "id" => $kecamatan->id,
-                        "name" => $kecamatan->name,
-                        "total_suara" => $totalSuaraArray
-                    ];
-                }
-            }
+        if ($request->query("Chart")) {
+            $dataPerwilayah = $this->getDataPerWilayah($wilayah, $idQuery, $typeQuery);
+            $calonTotal = $this->getCalonTotal($idQuery);
+
             $data = [
                 "calon_total" => $calonTotal,
-                "data_perwilayah" => $dataPerwilayah
+                "data_perwilayah" => $dataPerwilayah,
             ];
-            // dd($data);
         } else {
-            // $data = Calon::where("code", $request->query("Id"))->with('jumlahSuara')->get();
-            $data = Cache::remember($cacheKey, 1, function() use ($request){
-                $idQuery = $request->query("Id");
-                return Calon::select("calon.id", "calon.calon_name", "calon.wakil_name", DB::raw("COALESCE(SUM(jumlah_suara_details.amount), 0) as total"))
-                ->leftJoin("jumlah_suara_details", "calon.id", "=", "jumlah_suara_details.calon_id")
-                ->where("calon.code", $idQuery)
-                ->groupBy("calon.id", "calon.calon_name", "calon.wakil_name")
-                ->get();
+            $data = Cache::remember($cacheKey, 60, function () use ($idQuery) {
+                return $this->getCalonTotal($idQuery);
             });
         }
-        // dd($data);
+
         return view($view, [
             "data" => $data,
             "wilayah" => $wilayah,
         ]);
+    }
+
+    /**
+     * Get Total Suara Per Wilayah
+     */
+    private function getDataPerWilayah($wilayah, $idQuery, $typeQuery)
+    {
+        $dataPerwilayah = [];
+        $calonTotal = $this->getCalonTotal($idQuery);
+
+        foreach ($wilayah->{($typeQuery === "Provinsi" || $typeQuery === "provinsi") ? 'kabkota' : 'kecamatan'} as $region) {
+            $totalSuara = $this->getTotalSuaraPerWilayah($region->id, $idQuery, $typeQuery);
+
+            $totalSuaraArray = $totalSuara->isEmpty() ? $calonTotal->map(fn($calon) => (object) [
+                'id' => $calon->id,
+                'calon_name' => $calon->calon_name,
+                'wakil_name' => $calon->wakil_name,
+                'total' => 0,
+            ]) : $totalSuara;
+
+            $dataPerwilayah[] = [
+                "id" => $region->id,
+                "name" => $region->name,
+                "total_suara" => $totalSuaraArray,
+            ];
+        }
+
+        return $dataPerwilayah;
+    }
+
+    /**
+     * Get Total Suara per Wilayah (Kecamatan/Kabkota)
+     */
+    private function getTotalSuaraPerWilayah($regionId, $idQuery, $typeQuery)
+    {
+        return Calon::select(
+            "calon.id",
+            "calon.calon_name",
+            "calon.wakil_name",
+            DB::raw("COALESCE(SUM(jumlah_suara_details.amount), 0) as total")
+        )
+            ->leftJoin("jumlah_suara_details", "calon.id", "=", "jumlah_suara_details.calon_id")
+            ->leftJoin("tps", "jumlah_suara_details.tps_id", "=", "tps.id")
+            ->leftJoin("kelurahan", "tps.kelurahan_id", "=", "kelurahan.id")
+            ->leftJoin("kecamatan", "kelurahan.kecamatan_id", "=", "kecamatan.id")
+            ->leftJoin("kabkota", "kecamatan.kabkota_id", "=", "kabkota.id")
+            ->where(($typeQuery === "provinsi") ? "kabkota.id" : "kecamatan.id", $regionId)
+            ->where("calon.code", $idQuery)
+            ->groupBy("calon.id", "calon.calon_name", "calon.wakil_name")
+            ->get();
+    }
+
+    /**
+     * Get Calon Total
+     */
+    private function getCalonTotal($idQuery)
+    {
+        return Calon::select(
+            "calon.id",
+            "calon.calon_name",
+            "calon.wakil_name",
+            DB::raw("COALESCE(SUM(jumlah_suara_details.amount), 0) as total")
+        )
+            ->leftJoin("jumlah_suara_details", "calon.id", "=", "jumlah_suara_details.calon_id")
+            ->where("calon.code", $idQuery)
+            ->groupBy("calon.id", "calon.calon_name", "calon.wakil_name")
+            ->get();
     }
     public function create()
     {
