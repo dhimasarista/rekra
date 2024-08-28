@@ -4,7 +4,7 @@
         <div class="title pb-20 d-flex justify-content-between align-items-center">
             {{-- <h2 class="h2 mb-0">List</h2> --}}
             <div class="text-left">
-                <a class="btn btn-sm btn-dark" href="{{ route("rekap.index", ["Type" => "Kabkota"]) }}">
+                <a class="btn btn-sm btn-dark" href="{{ route('rekap.index', ['Type' => 'Kabkota']) }}">
                     <i class="fa fa-arrow-left"></i> Kembali
                 </a>
             </div>
@@ -47,7 +47,7 @@
                                     <tr>
                                         <td>{{ $counter++ }}</td>
                                         <td>{{ Formatting::capitalize($d->calon_name . ' - ' . $d->wakil_name) }}</td>
-                                        <td>{{ $d->total }}</td>
+                                        <td>{{ number_format($d->total) }}</td>
                                         <td>
                                             <a href="#" style="text-decoration: underline">Detail</a>
                                         </td>
