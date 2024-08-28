@@ -135,6 +135,6 @@
         setInterval(() => {
             updateBarChart();
             updateDonutChart();
-        }, 1000 j);
+        }, 1000);
     </script>
 @endsection
