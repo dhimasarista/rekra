@@ -162,7 +162,6 @@ class RekapitulasiController extends Controller
     public function list(Request $request)
     {
         $data = null;
-        $wilayah = null;
         $view = "rekapitulasi.list"; // soon: change list to table
         $cacheKey = 'calon_data_' . $request->query('Id'); // caching
 
@@ -176,10 +175,11 @@ class RekapitulasiController extends Controller
             return redirect("/rekapitulasi");
         }
 
-        if ($typeQuery == "Kabkota" || $typeQuery == "kabkota") {
-            $wilayah = Kabkota::with("kecamatan")->find($idQuery);
-        } else $wilayah = Provinsi::with("kabkota")->find($idQuery);
-        // dd($wilayah);
+        $wilayah = match ($typeQuery) {
+            "Kabkota", "kabkota" => Kabkota::with("kecamatan")->find($idQuery),
+            "Provinsi", "provinsi" => Provinsi::with("kabkota")->find($idQuery),
+            default => null,
+        };
 
         if ($chartQuery) {
             $view = "layouts.chart";
@@ -196,6 +196,41 @@ class RekapitulasiController extends Controller
             ->get();
             if ($typeQuery == "Provinsi" || $typeQuery == "Provinsi") {
                 // todo like Kabkota but kecamatan change with kabkota
+                foreach ($wilayah->kabkota as $kabkota) {
+                    $totalSuaraPerKabkota = Calon::select(
+                        "calon.id",
+                        "calon.calon_name",
+                        "calon.wakil_name",
+                        DB::raw("COALESCE(SUM(jumlah_suara_details.amount), 0) as total")
+                    )
+                    ->leftJoin("jumlah_suara_details", "calon.id", "=", "jumlah_suara_details.calon_id")
+                    ->leftJoin("tps", "jumlah_suara_details.tps_id", "=", "tps.id")
+                    ->leftJoin("kelurahan", "tps.kelurahan_id", "=", "kelurahan.id")
+                    ->leftJoin("kecamatan", "kelurahan.kecamatan_id", "=", "kecamatan.id")
+                    ->leftJoin("kabkota", "kecamatan.kabkota_id", "=", "kabkota.id")
+                    ->where("kabkota.id", $kabkota->id)  // Menghubungkan TPS dengan kecamatan
+                    ->where("calon.code", $idQuery)
+                    ->groupBy("calon.id", "calon.calon_name", "calon.wakil_name")
+                    ->get();
+                    if ($totalSuaraPerKabkota->isEmpty()) {
+                        // Jika tidak ada data suara per kecamatan, set total untuk setiap calon menjadi 0
+                        $totalSuaraArray = $calonTotal->map(function ($calon) {
+                            return (object) [
+                                'id' => $calon->id,
+                                'calon_name' => $calon->calon_name,
+                                'wakil_name' => $calon->wakil_name,
+                                'total' => 0 // Set total menjadi 0
+                            ];
+                        });
+                    } else {
+                        $totalSuaraArray = $totalSuaraPerKabkota;
+                    }
+                    $dataPerwilayah[] = [
+                        "id" => $kabkota->id,
+                        "name" => $kabkota->name,
+                        "total_suara" => $totalSuaraArray
+                    ];
+                }
             } else if ($typeQuery == "Kabkota" || $typeQuery == "kabkota") {
                 foreach ($wilayah->kecamatan as $kecamatan) {
                     $totalSuaraPerKecamatan = Calon::select(
