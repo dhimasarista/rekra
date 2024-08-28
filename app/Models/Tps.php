@@ -46,13 +46,18 @@ class Tps extends Model
     public function tpsWithDetail() {
         return self::select(
             'tps.*',
+            'kelurahan.id as kelurahan_id',
             'kelurahan.name as kelurahan_name',
+            'kecamatan.id as kecamatan_id',
             'kecamatan.name as kecamatan_name',
-            'kabkota.name as kabkota_name',
             'kabkota.id as kabkota_id',
+            'kabkota.name as kabkota_name',
+            'provinsi.id as provinsi_id',
+            'provinsi.name as provinsi_name',
         )
         ->join('kelurahan', 'tps.kelurahan_id', '=', 'kelurahan.id')
         ->join('kecamatan', 'kelurahan.kecamatan_id', '=', 'kecamatan.id')
-        ->join('kabkota', 'kecamatan.kabkota_id', '=', 'kabkota.id');
+        ->join('kabkota', 'kecamatan.kabkota_id', '=', 'kabkota.id')
+        ->join('provinsi', 'kabkota.provinsi_id', '=', 'provinsi.id');
     }
 }
