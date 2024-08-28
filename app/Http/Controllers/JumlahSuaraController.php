@@ -265,7 +265,6 @@ class JumlahSuaraController extends Controller
             return response()->json(["message" => $e->getMessage()], 500);
         }
     }
-    // todo: form provinsi belum di kondisikan
     public function form(Request $request)
     {
         try {
@@ -282,10 +281,12 @@ class JumlahSuaraController extends Controller
                 abort(404, 'TPS not found');
             }
 
-            // Ambil data calon berdasarkan kabkota_id dari TPS
-            $calon = Calon::where("code", $tps->kabkota_id)->get(['id', 'calon_name', 'wakil_name']); // Ambil hanya kolom yang diperlukan
-
-            // Soon: JumlahSuara + JumlahSuaraDetail
+            if($typeQuery === "Kabkota" || $typeQuery === "kabkota") {
+                // Ambil data calon berdasarkan kabkota_id dari TPS
+                $calon = Calon::where("code", $tps->kabkota_id)->get(['id', 'calon_name', 'wakil_name']); // Ambil hanya kolom yang diperlukan
+            } else if ($typeQuery === "Provinsi" || $typeQuery === "provinsi") {
+                $calon = Calon::where("code", $tps->provinsi_id)->get(['id', 'calon_name', 'wakil_name']); // Ambil hanya kolom yang diperlukan
+            }
 
             // Ambil jumlah suara detail berdasarkan tps_id
             $jumlahSuaraDetail = $this->jumlahSuaraDetail
