@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\LoginHistory;
-use App\Models\User;
 use App\Services\UserServiceInterface;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,10 +14,12 @@ class AuthController extends Controller
 {
     protected $userService;
 
-    public function __construct(UserServiceInterface $userServiceInterface){
+    public function __construct(UserServiceInterface $userServiceInterface)
+    {
         $this->userService = $userServiceInterface;
     }
-    public function index(){
+    public function index()
+    {
         if (Auth::check()) {
             return redirect('/rekapitulasi');
         }
@@ -49,7 +49,7 @@ class AuthController extends Controller
                         $message = "Akun anda tidak ditemukan";
                         $responseCode = 400;
                     } else {
-                        if (!$user->is_active){
+                        if (!$user->is_active) {
                             $message = "Akun anda tidak aktif";
                             $responseCode = 400;
                         } else {
@@ -66,7 +66,7 @@ class AuthController extends Controller
                                 "user_id" => $user->id,
                                 "username" => $user->username,
                                 "login_at" => now(),
-                                "ip_address" => $request->ip(),
+                                "ip_address" => $request->server->get('HTTP_X_FORWARDED_FOR') ?? $request->server->get('HTTP_X_REAL_IP') ?? $request->server->get('REMOTE_ADDR'),
                             ]);
                         }
                     }
@@ -79,7 +79,7 @@ class AuthController extends Controller
                 'message' => $message,
             ], $responseCode);
         } catch (QueryException $e) {
-            $message = match($e->errorInfo[1]){
+            $message = match ($e->errorInfo[1]) {
                 1062 => "Duplikasi Data",
                 default => $e->getMessage(),
             };
