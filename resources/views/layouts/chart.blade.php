@@ -132,7 +132,8 @@
             // Opsi konfigurasi untuk grafik donut
             let options8 = {
                 series: seriesNames.calon_total.map(calon => parseInt(calon.total)),
-                labels: seriesNames.calon_total.map((calon, index) => Formatting.capitalize(`${index+1} - ${calon.calon_name}`)),
+                labels: seriesNames.calon_total.map((calon, index) => Formatting.capitalize(
+                    `${index+1} - ${calon.calon_name}`)),
                 dataLabels: {
                     enabled: true,
                 },
