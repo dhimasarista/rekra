@@ -37,6 +37,13 @@
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            function adjustChart8Height() {
+                // Ambil tinggi dari #chart4
+                const chart4Height = $('#chart4').outerHeight();
+
+                // Set tinggi #chart8 sama dengan #chart4
+                $('#chart8').css('height', chart4Height);
+            }
             // Mengambil data dari server yang sudah dikirim ke tampilan
             let wilayah = @json($wilayah); // Data wilayah yang berisi kecamatan atau kabkota
             let seriesNames = @json($data); // Data yang berisi total suara dan informasi calon
@@ -161,13 +168,17 @@
                 chart: {
                     type: 'donut',
                 },
+                legend: {
+                    position: 'bottom',
+                    // fontSize: '24px',
+                    fontWeight: 600,
+                },
                 responsive: [{
                     breakpoint: 480,
                     options: {
-                        chart: {},
-                        legend: {
-                            position: 'top'
-                        }
+                        chart: {
+                            // width: 200
+                        },
                     }
                 }]
             };
@@ -175,6 +186,12 @@
             // Membuat dan merender grafik donut menggunakan ApexCharts
             let chart8 = new ApexCharts(document.querySelector("#chart8"), options8);
             chart8.render();
+
+            adjustChart8Height();
+            // Opsi: Jika Anda ingin memantau perubahan tinggi #chart4 secara dinamis
+            $(window).resize(function() {
+                adjustChart8Height();
+            });
         });
     </script>
 @endsection
