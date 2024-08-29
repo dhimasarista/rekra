@@ -297,6 +297,12 @@ class RekapitulasiController extends Controller
                     ->where('jumlah_suara_details.calon_id', $idCalon)
                     ->groupBy('kecamatan.id', 'kecamatan.name')
                     ->get();
+            } else if ($typeQuery == "Kecamatan") {
+
+            } else if ($typeQuery == "Kelurahan") {
+
+            } else if ($typeQuery == "TPS" || $typeQuery == "Tps" || $typeQuery == "tps") {
+
             }
 
             // dd($data);
