@@ -49,7 +49,7 @@
                                                 @endif
                                             @endforeach
                                         @else
-                                            <td>{{ Formatting::capitalize("tampaknya data tidak ada") }}</td>
+                                            <td>{{ Formatting::capitalize('tampaknya data tidak ada') }}</td>
                                         @endif
                                         <td>
                                             <div class="dropdown">
