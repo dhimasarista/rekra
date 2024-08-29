@@ -21,7 +21,7 @@
                 <!-- Export Datatable start -->
                 <div class="card-box mb-30">
                     <div class="pd-20">
-                        <h4 class="text-blue h4">Daftar User</h4>
+                        <h4 class="text-danger h4">Daftar User</h4>
                     </div>
                     <div class="pb-20">
                         <table id="provinsi-table"
