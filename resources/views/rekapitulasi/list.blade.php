@@ -49,7 +49,12 @@
                                         <td>{{ Formatting::capitalize($d->calon_name . ' - ' . $d->wakil_name) }}</td>
                                         <td>{{ number_format($d->total) }}</td>
                                         <td>
-                                            <a href="#" style="text-decoration: underline">Detail</a>
+                                            <a href="{{ route('rekap.detail', [
+                                                'Type' => request()->query('Type'),
+                                                'Code' => request()->query('Id'),
+                                                'Id' => $d->id,
+                                            ]) }}"
+                                                style="text-decoration: underline">Detail</a>
                                         </td>
                                     </tr>
                                 @endforeach

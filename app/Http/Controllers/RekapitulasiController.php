@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Helpers\Formatting;
 use App\Models\Calon;
 use App\Models\KabKota;
+use App\Models\Kecamatan;
 use App\Models\Provinsi;
+use App\Models\Tps;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -14,6 +16,11 @@ use Ramsey\Uuid\Uuid;
 
 class RekapitulasiController extends Controller
 {
+    protected $tps;
+    public function __construct(Tps $tps)
+    {
+        $this->tps = $tps;
+    }
     public function index(Request $request)
     {
         try {
@@ -264,48 +271,49 @@ class RekapitulasiController extends Controller
             ->groupBy("calon.id", "calon.calon_name", "calon.wakil_name")
             ->get();
     }
-    public function create()
+    public function detail(Request $request)
     {
-        //
-    }
+        try {
+            $data = null;
+            $wilayah = null;
+            $view = "rekapitulasi.detail";
+            $typeQuery = $request->query("Type");
+            $codeQuery = $request->query("Code");
+            $idCalon = $request->query("Id");
+            $calon = Calon::find($idCalon);
+            if ($typeQuery == "Provinsi" && $calon->level = "provinsi") {
+                // todo: untuk tingkat provinsi
+            } else if ($typeQuery == "Kabkota") {
+                $wilayah = "Kecamatan";
+                $data = Kecamatan::select(
+                    'kecamatan.id',
+                    'kecamatan.name',
+                    DB::raw('COALESCE(SUM(jumlah_suara_details.amount), 0) as total')
+                )
+                    ->leftJoin('kelurahan', 'kelurahan.kecamatan_id', '=', 'kecamatan.id')
+                    ->leftJoin('tps', 'tps.kelurahan_id', '=', 'kelurahan.id')
+                    ->leftJoin('jumlah_suara_details', 'jumlah_suara_details.tps_id', '=', 'tps.id')
+                    ->where('kecamatan.kabkota_id', $codeQuery)
+                    ->where('jumlah_suara_details.calon_id', $idCalon)
+                    ->groupBy('kecamatan.id', 'kecamatan.name')
+                    ->get();
+            }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+            // dd($data);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+            return view($view, [
+                "data" => $data,
+                "wilayah" => $wilayah,
+                "calon" => $idCalon,
+            ]);
+        } catch (Exception $e) {
+            $val = Formatting::formatUrl([
+                "code" => 500,
+                "title" => $e->getMessage(),
+                "message" => $e->getMessage(),
+            ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+            return redirect("/error$val");
+        }
     }
 }
