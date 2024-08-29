@@ -6,6 +6,7 @@ use App\Helpers\Formatting;
 use App\Models\Calon;
 use App\Models\KabKota;
 use App\Models\Kecamatan;
+use App\Models\Kelurahan;
 use App\Models\Provinsi;
 use App\Models\Tps;
 use Exception;
@@ -298,9 +299,33 @@ class RekapitulasiController extends Controller
                     ->groupBy('kecamatan.id', 'kecamatan.name')
                     ->get();
             } else if ($typeQuery == "Kecamatan") {
-
+                $wilayah = "Kelurahan";
+                $data = Kelurahan::select(
+                    'kelurahan.id',
+                    'kelurahan.name',
+                    DB::raw('COALESCE(SUM(jumlah_suara_details.amount), 0) as total')
+                )
+                ->leftJoin('kecamatan', 'kecamatan.id', '=', 'kelurahan.kecamatan_id')
+                ->leftJoin('tps', 'tps.kelurahan_id', '=', 'kelurahan.id')
+                ->leftJoin('jumlah_suara_details', 'jumlah_suara_details.tps_id', '=', 'tps.id')
+                ->where('kecamatan.kabkota_id', $codeQuery)
+                ->where('jumlah_suara_details.calon_id', $idCalon)
+                ->groupBy('kelurahan.id', 'kelurahan.name')
+                ->get();
             } else if ($typeQuery == "Kelurahan") {
-
+                $wilayah = "Kelurahan";
+                $data = Tps::select(
+                    'tps.id',
+                    'tps.name',
+                    DB::raw('COALESCE(SUM(jumlah_suara_details.amount), 0) as total')
+                )
+                ->leftJoin('kecamatan', 'kecamatan.id', '=', 'kelurahan.kecamatan_id')
+                ->leftJoin('tps', 'tps.kelurahan_id', '=', 'kelurahan.id')
+                ->leftJoin('jumlah_suara_details', 'jumlah_suara_details.tps_id', '=', 'tps.id')
+                ->where('kecamatan.kabkota_id', $codeQuery)
+                ->where('jumlah_suara_details.calon_id', $idCalon)
+                ->groupBy('tps.id', 'tps.name')
+                ->get();
             } else if ($typeQuery == "TPS" || $typeQuery == "Tps" || $typeQuery == "tps") {
 
             }
@@ -310,7 +335,7 @@ class RekapitulasiController extends Controller
             return view($view, [
                 "data" => $data,
                 "wilayah" => $wilayah,
-                "calon" => $idCalon,
+                "calon" => $calon,
             ]);
         } catch (Exception $e) {
             $val = Formatting::formatUrl([
