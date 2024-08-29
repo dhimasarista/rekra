@@ -33,20 +33,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($data as $d)
-                                    <tr>
-                                        <td>{{ Formatting::capitalize($d->name) }}</td>
-                                        <td>{{ $d->total }}</td>
-                                        <td>
-                                            <a href="{{ route('rekap.detail', [
-                                                'Type' => $wilayah,
-                                                'Code' => $d->id,
-                                                'Id' => $calon,
-                                            ]) }}"
-                                                style="text-decoration: underline">Detail</a>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                @if ($data)
+                                    @foreach ($data as $d)
+                                        <tr>
+                                            <td>{{ Formatting::capitalize($d->name) }}</td>
+                                            <td>{{ $d->total }}</td>
+                                            <td>
+                                                <a href="{{ route('rekap.detail', [
+                                                    'Type' => $wilayah,
+                                                    'Code' => $d->id,
+                                                    'Id' => $calon,
+                                                ]) }}"
+                                                    style="text-decoration: underline">Detail</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>
