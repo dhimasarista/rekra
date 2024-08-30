@@ -20,7 +20,9 @@
                 <div class="card-box mb-30">
                     <div class="pd-20">
                         @use('App\Helpers\Formatting')
-                        <h4 class="text-blue h4">{{ Formatting::capitalize(request()->query('Type')." - ".$calon->calon_name." & ".$calon->wakil_name) }}</h4>
+                        <h4 class="text-blue h4">
+                            {{ Formatting::capitalize(request()->query('Type') . ' - ' . $calon->calon_name . ' & ' . $calon->wakil_name) }}
+                        </h4>
                         {{-- <h4 class="text-blue h4">{{ Formatting::capitalize(request()->query('Type')) }}</h4> --}}
                     </div>
                     <div class="pb-20">
@@ -41,7 +43,7 @@
                                             <td>
                                                 <a href="{{ route('rekap.detail', [
                                                     'Type' => $wilayah,
-                                                    'Code' => request()->query("Code"),
+                                                    'Code' => $calon->code,
                                                     'Id' => $calon->id,
                                                 ]) }}"
                                                     style="text-decoration: underline">Detail</a>
