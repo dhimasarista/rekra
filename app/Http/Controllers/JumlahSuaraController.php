@@ -256,6 +256,7 @@ class JumlahSuaraController extends Controller
             DB::rollBack();
             $message = match ($e->errorInfo[1]) {
                 1062 => "Data sudah ada",
+                1264 => "Jumlah Melebih Batas",
                 default => $e->getMessage(),
             };
 
