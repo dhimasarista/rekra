@@ -43,7 +43,7 @@
                                             <td>
                                                 <a href="{{ route('rekap.detail', [
                                                     'Type' => $wilayah,
-                                                    'Code' => $calon->code,
+                                                    'Code' => request()->query('Code'),
                                                     'Id' => $calon->id,
                                                 ]) }}"
                                                     style="text-decoration: underline">Detail</a>
