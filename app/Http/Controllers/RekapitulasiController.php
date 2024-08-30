@@ -277,14 +277,15 @@ class RekapitulasiController extends Controller
         try {
             $data = null;
             $wilayah = null;
+            $isProvinsi = false;
             $view = "rekapitulasi.detail";
             $typeQuery = $request->query("Type");
             $codeQuery = $request->query("Code");
             $idCalon = $request->query("Id");
             $calon = Calon::find($idCalon);
-            if ($typeQuery == "Provinsi" && $calon->level = "provinsi") {
-                // todo: untuk tingkat provinsi
-                $wilayah == "Kabkota";
+            if ($typeQuery == "Provinsi") {
+                $isProvinsi = true;
+                $wilayah = "Kabkota";
                 $data = Kabkota::select(
                     "kabkota.id",
                     "kabkota.name",
@@ -327,22 +328,34 @@ class RekapitulasiController extends Controller
                     ->groupBy('kelurahan.id', 'kelurahan.name')
                     ->get();
             } else if ($typeQuery == "Kelurahan") {
-                $wilayah = "Kelurahan";
+                $wilayah = "TPS";
                 $data = Tps::select(
                     'tps.id',
-                    'tps.name',
+                    DB::raw("CONCAT(tps.name, ' ', kelurahan.name) as name"),
                     DB::raw('COALESCE(SUM(jumlah_suara_details.amount), 0) as total')
                 )
-                    ->leftJoin('kecamatan', 'kecamatan.id', '=', 'kelurahan.kecamatan_id')
-                    ->leftJoin('tps', 'tps.kelurahan_id', '=', 'kelurahan.id')
-                    ->leftJoin('jumlah_suara_details', 'jumlah_suara_details.tps_id', '=', 'tps.id')
-                    ->where('kecamatan.kabkota_id', $codeQuery)
-                    ->where('jumlah_suara_details.calon_id', $idCalon)
-                    ->groupBy('tps.id', 'tps.name')
-                    ->get();
-            } else if ($typeQuery == "TPS" || $typeQuery == "Tps" || $typeQuery == "tps") {
-
+                ->leftJoin('kelurahan', 'kelurahan.id', '=', 'tps.kelurahan_id')
+                ->leftJoin('kecamatan', 'kecamatan.id', '=', 'kelurahan.kecamatan_id')
+                ->leftJoin('jumlah_suara_details', 'jumlah_suara_details.tps_id', '=', 'tps.id')
+                ->where('kecamatan.kabkota_id', $codeQuery)
+                ->where('jumlah_suara_details.calon_id', $idCalon)
+                ->groupBy('tps.id', 'name')
+                ->get();
             }
+            // else if ($typeQuery == "TPS" || $typeQuery == "Tps" || $typeQuery == "tps") {
+            //     $data = Tps::select(
+            //         'tps.id',
+            //         'tps.name',
+            //         DB::raw('COALESCE(SUM(jumlah_suara_details.amount), 0) as total')
+            //     )
+            //         ->leftJoin('kecamatan', 'kecamatan.id', '=', 'kelurahan.kecamatan_id')
+            //         ->leftJoin('tps', 'tps.kelurahan_id', '=', 'kelurahan.id')
+            //         ->leftJoin('jumlah_suara_details', 'jumlah_suara_details.tps_id', '=', 'tps.id')
+            //         ->where('kecamatan.kabkota_id', $codeQuery)
+            //         ->where('jumlah_suara_details.calon_id', $idCalon)
+            //         ->groupBy('tps.id', 'tps.name')
+            //         ->get();
+            // }
 
             // dd($data);
 
@@ -350,6 +363,8 @@ class RekapitulasiController extends Controller
                 "data" => $data,
                 "wilayah" => $wilayah,
                 "calon" => $calon,
+                "code" => $codeQuery,
+                "isProvinsi" => $isProvinsi,
             ]);
         } catch (Exception $e) {
             $val = Formatting::formatUrl([

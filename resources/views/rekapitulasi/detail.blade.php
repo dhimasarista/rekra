@@ -21,7 +21,7 @@
                     <div class="pd-20">
                         @use('App\Helpers\Formatting')
                         <h4 class="text-blue h4">
-                            {{ Formatting::capitalize(request()->query('Type') . ' - ' . $calon->calon_name . ' & ' . $calon->wakil_name) }}
+                            {{ Formatting::capitalize($wilayah . ' - ' . $calon->calon_name . ' & ' . $calon->wakil_name) }}
                         </h4>
                         {{-- <h4 class="text-blue h4">{{ Formatting::capitalize(request()->query('Type')) }}</h4> --}}
                     </div>
@@ -31,7 +31,9 @@
                                 <tr>
                                     <th class="table-plus datatable-nosort">Nama</th>
                                     <th>Jumlah</th>
+                                    @if ($wilayah !== "TPS")
                                     <th>Action</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -40,14 +42,16 @@
                                         <tr>
                                             <td>{{ Formatting::capitalize($d->name) }}</td>
                                             <td>{{ $d->total }}</td>
+                                            @if ($wilayah !== "TPS")
                                             <td>
                                                 <a href="{{ route('rekap.detail', [
                                                     'Type' => $wilayah,
-                                                    'Code' => request()->query('Code'),
+                                                    'Code' => $isProvinsi ? $d->id : $code,
                                                     'Id' => $calon->id,
                                                 ]) }}"
                                                     style="text-decoration: underline">Detail</a>
                                             </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 @endif
