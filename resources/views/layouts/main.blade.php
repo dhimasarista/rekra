@@ -74,7 +74,7 @@
     <div class="header">
         <div class="header-left">
             <div class="menu-icon bi bi-list"></div>
-            <div class="search-toggle-icon bi bi-search" data-toggle="header_search"></div>
+            {{-- <div class="search-toggle-icon bi bi-search" data-toggle="header_search"></div> --}}
             {{-- <div class="header-search">
                 <form>
                     <div class="form-group mb-0">
@@ -111,6 +111,12 @@
                     </div>
                 </form>
             </div> --}}
+            {{-- <a class="btn btn-sm btn-dark m-1" href="#">
+                KabKota
+            </a>
+            <a class="btn btn-sm btn-dark m-1" href="#">
+                Provinsi
+            </a> --}}
         </div>
         <div class="header-right">
             {{-- <div class="dashboard-setting user-notification">
