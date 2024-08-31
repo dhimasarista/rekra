@@ -257,6 +257,7 @@ class JumlahSuaraController extends Controller
             $message = match ($e->errorInfo[1]) {
                 1062 => "Data sudah ada",
                 1264 => "Jumlah Melebih Batas",
+                1048 => "Data tidak boleh kosong, isi 0 jika kosong.",
                 default => $e->getMessage(),
             };
 
