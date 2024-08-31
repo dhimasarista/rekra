@@ -253,14 +253,21 @@
                         <a href="#"
                             class="dropdown-toggle no-arrow {{ request()->is('kabkota') ? 'active' : '' }}">
                             <span class="micon dw dw-flash"></span>
-                            <span class="mtext">Hitung Cepat (Soon)</span>
+                            <span class="mtext">Hitung Cepat (Saksi)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="dropdown-toggle no-arrow {{ request()->is('kabkota') ? 'active' : '' }}">
+                            <span class="micon dw dw-flash"></span>
+                            <span class="mtext">Hitung Cepat (Operator)</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('input.index') }}"
                             class="dropdown-toggle no-arrow {{ Str::contains(request()->route()->getName(), 'input') ? 'active' : '' }}">
                             <span class="micon dw dw-folder"></span>
-                            <span class="mtext">Input Data</span>
+                            <span class="mtext">Input C-Hasil</span>
                         </a>
                     </li>
                     <li>
