@@ -178,13 +178,18 @@ class RekapitulasiController extends Controller
         }
 
         // Get Wilayah and Cache it
-        $wilayah = Cache::remember("wilayah_{$typeQuery}_{$idQuery}", 60, function () use ($typeQuery, $idQuery) {
-            return match ($typeQuery) {
-                "kabkota" => Kabkota::with("kecamatan")->find($idQuery),
-                "provinsi" => Provinsi::with("kabkota")->find($idQuery),
-                default => null,
-            };
-        });
+        // $wilayah = Cache::remember("wilayah_{$typeQuery}_{$idQuery}", 60, function () use ($typeQuery, $idQuery) {
+        //     return match ($typeQuery) {
+        //         "kabkota" => Kabkota::with("kecamatan")->find($idQuery),
+        //         "provinsi" => Provinsi::with("kabkota")->find($idQuery),
+        //         default => null,
+        //     };
+        // });
+        $wilayah = match ($typeQuery) {
+            "kabkota" => Kabkota::with("kecamatan")->find($idQuery),
+            "provinsi" => Provinsi::with("kabkota")->find($idQuery),
+            default => null,
+        };
 
         if ($request->query("Chart")) {
             $dataPerwilayah = $this->getDataPerWilayah($wilayah, $idQuery, $typeQuery);
@@ -195,9 +200,10 @@ class RekapitulasiController extends Controller
                 "data_perwilayah" => $dataPerwilayah,
             ];
         } else {
-            $data = Cache::remember($cacheKey, 60, function () use ($idQuery) {
-                return $this->getCalonTotal($idQuery);
-            });
+            $data = $this->getCalonTotal($idQuery);
+            // $data = Cache::remember($cacheKey, 60, function () use ($idQuery) {
+            //     return $this->getCalonTotal($idQuery);
+            // });
         }
 
         return view($view, [
