@@ -195,13 +195,13 @@ class JumlahSuaraController extends Controller
         try {
             $message = "Data Berhasil Disimpan";
             $responseCode = 200;
-            $body = $request->input();
+            $body = $request->except(["note"]);
             $tpsId = $request->query("Tps");
             $jumlahSuaraId = Uuid::uuid7();
             $dataJSD = []; // JSD: jumlah_suara_details
             $dataJS = [
                 "id" => $jumlahSuaraId,
-                "note" => "Development & Testing",
+                "note" => $request->note,
                 "total_suara_sah" => rand(100, 5000),
                 "total_suara_tidak_sah" => rand(100, 5000),
                 "total_sah_tidak_sah" => rand(100, 5000),
@@ -295,6 +295,7 @@ class JumlahSuaraController extends Controller
                 ->select("calon_id", "tps_id", "amount", "jumlah_suara_id")
                 ->where("tps_id", $tps->id)
                 ->get();
+            $jumlahSuara = $this->jumlahSuara::find($jumlahSuaraDetail[1]->jumlah_suara_id);
 
             // Buat lookup untuk jumlah suara berdasarkan calon_id
             $jumlahSuaraLookup = $jumlahSuaraDetail->keyBy('calon_id');
@@ -379,7 +380,11 @@ class JumlahSuaraController extends Controller
                     ]),
                     "method" => "post",
                     "redirect" => url()->previous(),
-                    "form_data" => [...$calonFormData],
+                    "form_data" => [...$calonFormData, [
+                        "id" => $formId12,
+                        "name" => "note",
+                        "type" => "string"
+                    ]],
                 ],
                 "form" => [
                     ...$calonForm,
@@ -553,7 +558,7 @@ class JumlahSuaraController extends Controller
                             "is_fetching" => false,
                         ],
                         "data" => [
-                            "value" => null,
+                            "value" => $jumlahSuara->note ?? null,
                             "placeholder" => "Contoh: Terjadi kecurangan...",
                         ],
                     ],
