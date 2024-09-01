@@ -260,7 +260,7 @@
                         <a href="#"
                             class="dropdown-toggle no-arrow {{ request()->is('kabkota') ? 'active' : '' }}">
                             <span class="micon dw dw-flash"></span>
-                            <span class="mtext">Hitung Cepat (Operator)</span>
+                            <span class="mtext">Hitung Cepat (Admin)</span>
                         </a>
                     </li>
                     <li>
