@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('hitung_suara_cepat_admin', function (Blueprint $table) {
             $table->uuid("id")->primary();
-            $table->text("note")->default("");
+            $table->text("updated_by")->default("");
             $table->timestamps();
             $table->softDeletes();
         });
