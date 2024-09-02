@@ -92,7 +92,7 @@ class JumlahSuaraController extends Controller
                 "name" => 'Pilih Wilayah',
                 "button_helper" => [
                     "enable" => false,
-                    "button_list" => []
+                    "button_list" => [],
                 ],
                 "submit" => [
                     "id" => Uuid::uuid7(),
@@ -119,9 +119,9 @@ class JumlahSuaraController extends Controller
                                 "Id" => "",
                             ]), // Rute untuk AJAX fetch
                             "response" => "data", // Key dalam respons untuk data yang diambil
-                            "sibling_form_id" => $formId2 // ID elemen lain yang akan diupdate berdasarkan fetch
+                            "sibling_form_id" => $formId2, // ID elemen lain yang akan diupdate berdasarkan fetch
                         ],
-                        "options" => $options
+                        "options" => $options,
                     ],
                     2 => [
                         "id" => $formId2, // ID untuk elemen form
@@ -136,9 +136,9 @@ class JumlahSuaraController extends Controller
                                 "Id" => "",
                             ]), // Rute untuk AJAX fetch
                             "response" => "data", // Key dalam respons untuk data yang diambil
-                            "sibling_form_id" => $formId3 // ID elemen lain yang akan diupdate berdasarkan fetch
+                            "sibling_form_id" => $formId3, // ID elemen lain yang akan diupdate berdasarkan fetch
                         ],
-                        "options" => []
+                        "options" => [],
                     ],
                     3 => [
                         "id" => $formId3, // ID untuk elemen form
@@ -153,9 +153,9 @@ class JumlahSuaraController extends Controller
                                 "Id" => "",
                             ]), // Rute untuk AJAX fetch
                             "response" => "data", // Key dalam respons untuk data yang diambil
-                            "sibling_form_id" => $formId4 // ID elemen lain yang akan diupdate berdasarkan fetch
+                            "sibling_form_id" => $formId4, // ID elemen lain yang akan diupdate berdasarkan fetch
                         ],
-                        "options" => []
+                        "options" => [],
                     ],
                     4 => [
                         "id" => $formId4, // ID untuk elemen form
@@ -167,9 +167,9 @@ class JumlahSuaraController extends Controller
                             "is_fetching" => false, // Jika true, data akan diambil melalui AJAX
                             "route" => null, // Rute untuk AJAX fetch
                             "response" => null, // Key dalam respons untuk data yang diambil
-                            "sibling_form_id" => null // ID elemen lain yang akan diupdate berdasarkan fetch
+                            "sibling_form_id" => null, // ID elemen lain yang akan diupdate berdasarkan fetch
                         ],
-                        "options" => []
+                        "options" => [],
                     ],
                 ],
             ];
@@ -224,7 +224,7 @@ class JumlahSuaraController extends Controller
                             "jumlah_suara_id" => $jumlahSuaraId,
                             "calon_id" => $key,
                             "amount" => $value,
-                            "tps_id" => $tpsId
+                            "tps_id" => $tpsId,
                         ];
                     }
                 }
@@ -273,7 +273,6 @@ class JumlahSuaraController extends Controller
             $view = "layouts.form";
             $tpsQuery = $request->query("Tps");
             $typeQuery = $request->query("Type");
-            // $idQuery = $request->query("Id");
             // Ambil data TPS dengan detail
             $tps = $this->tps->tpsWithDetail()
                 ->where('tps.id', $tpsQuery)
@@ -283,7 +282,7 @@ class JumlahSuaraController extends Controller
                 abort(404, 'TPS not found');
             }
 
-            if($typeQuery === "Kabkota" || $typeQuery === "kabkota") {
+            if ($typeQuery === "Kabkota" || $typeQuery === "kabkota") {
                 // Ambil data calon berdasarkan kabkota_id dari TPS
                 $calon = Calon::where("code", $tps->kabkota_id)->get(['id', 'calon_name', 'wakil_name']); // Ambil hanya kolom yang diperlukan
             } else if ($typeQuery === "Provinsi" || $typeQuery === "provinsi") {
@@ -295,7 +294,7 @@ class JumlahSuaraController extends Controller
                 ->select("calon_id", "tps_id", "amount", "jumlah_suara_id")
                 ->where("tps_id", $tps->id)
                 ->get();
-            $jumlahSuara = $this->jumlahSuara::find($jumlahSuaraDetail[1]->jumlah_suara_id);
+            $jumlahSuara = $this->jumlahSuara::find($jumlahSuaraDetail[1]->jumlah_suara_id ?? null);
 
             // Buat lookup untuk jumlah suara berdasarkan calon_id
             $jumlahSuaraLookup = $jumlahSuaraDetail->keyBy('calon_id');
@@ -315,7 +314,7 @@ class JumlahSuaraController extends Controller
                 $calonFormData[] = [
                     "id" => $c["id"],
                     "name" => $c["id"],
-                    "type" => "string"
+                    "type" => "string",
                 ];
                 $calonForm[] = [
                     "id" => $c["id"],
@@ -370,7 +369,7 @@ class JumlahSuaraController extends Controller
                             "icon" => "fa fa-arrow-left",
                             "route" => url()->previous(),
                         ],
-                    ]
+                    ],
                 ],
                 "submit" => [
                     "id" => Uuid::uuid7(),
@@ -380,14 +379,14 @@ class JumlahSuaraController extends Controller
                     ]),
                     "method" => "post",
                     "redirect" => url()->previous(),
-                    "form_data" => [...$calonFormData, [
+                    "form_data" => [ ...$calonFormData, [
                         "id" => $formId12,
                         "name" => "note",
-                        "type" => "string"
+                        "type" => "string",
                     ]],
                 ],
                 "form" => [
-                    ...$calonForm,
+                     ...$calonForm,
                     [
                         "id" => $formId1,
                         "type" => "number",
