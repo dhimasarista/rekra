@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CalonController;
 use App\Http\Controllers\ErrorController;
+use App\Http\Controllers\HitungCepatController;
 use App\Http\Controllers\JumlahSuaraController;
 use App\Http\Controllers\RekapitulasiController;
 use App\Http\Controllers\UserController;
@@ -50,5 +51,8 @@ Route::middleware("auth")->group(function () {
         Route::post("", [JumlahSuaraController::class, "store"])->name("input.store");
         Route::get("/list", [JumlahSuaraController::class, "list"])->name("input.list");
         Route::get("/form", [JumlahSuaraController::class, "form"])->name("input.form");
+    });
+    Route::prefix("hitung-cepat")->group(function () {
+        Route::get("admin", [HitungCepatController::class, "byAdmin"])->name("hitung_cepat.admin");
     });
 });

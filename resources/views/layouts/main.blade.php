@@ -257,7 +257,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="{{ route('hitung_cepat.admin') }}"
                             class="dropdown-toggle no-arrow {{ request()->is('kabkota') ? 'active' : '' }}">
                             <span class="micon dw dw-flash"></span>
                             <span class="mtext">Hitung Cepat (Admin)</span>
@@ -282,7 +282,9 @@
                             <span class="micon dw dw-file"></span><span class="mtext">Rekap KabKota</span>
                         </a>
                     </li>
-                    <li><div class="dropdown-divider"></div></li>
+                    <li>
+                        <div class="dropdown-divider"></div>
+                    </li>
                     @if (session()->get('level') == 'master')
                         <li>
                             <div class="sidebar-small-cap">System Administrator</div>
