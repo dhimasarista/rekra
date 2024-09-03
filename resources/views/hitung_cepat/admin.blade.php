@@ -5,43 +5,24 @@
     @endphp
     @use('App\Helpers\Formatting')
     <div class="xs-pd-20-10 pd-ltr-20">
-        <div class="title pb-20 d-flex justify-content-between align-items-center">
-            <h2 class="h2 mb-0">{{ Formatting::capitalize($segments[0]) }}</h2>
-            <div class="text-right">
-                <a class="btn btn-sm btn-dark m-1" href="{{ route('wilayah.form', ['Type' => 'Kabkota']) }}">
-                    <i class="fa fa-plus"></i> KabKota
-                </a>
-                <a class="btn btn-sm btn-dark m-1" href="{{ route('wilayah.form', ['Type' => 'Kecamatan']) }}">
-                    <i class="fa fa-plus"></i> Kecamatan
-                </a>
-                <a class="btn btn-sm btn-dark m-1" href="{{ route('wilayah.form', ['Type' => 'Kelurahan']) }}">
-                    <i class="fa fa-plus"></i> Kelurahan
-                </a>
-                <a id="tambah-tps" class="btn btn-sm btn-dark m-1" href="javascript:;">
-                    <i class="fa fa-plus"></i> TPS
-                </a>
+        < class="title pb-20 d-flex justify-content-between align-items-center">
+            <div class="row">
+                <div class="col-md-6">
+                    <select class="custom-select form-control">
+                        <option disabled selected="">Tingkat</option>
+                        <option value="1">Provinsi</option>
+                        <option value="2">KabKota</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <select class="custom-select">
+                        <option disabled selected="">Kab/Kota</option>
+                        <option value="1">One</option>
+                    </select>
+                </div>
             </div>
-            <div class="title pb-20 d-flex justify-content-between align-items-center">
-                {{-- <h2 class="h2 mb-0">{{ Formatting::capitalize($segments[0]) }}</h2> --}}
-                <div class="text-left">
-                    <div class="row">
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                <select class="custom-select">
-                                    <option selected="">Tingkatan</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-right">
-                    {{-- <a class="btn btn-sm btn-dark m-1" href="{{ url()->previous() }}">
-                    <i class="fa fa-arrow-left"></i> Kembali
-                </a> --}}
-                </div>
+            <div class="text-right">
+
             </div>
             <div class="row pb-10">
                 <div class="col-md-12 mb-20">
