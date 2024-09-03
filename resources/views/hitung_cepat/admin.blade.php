@@ -1,33 +1,40 @@
 @extends('layouts/main')
 @section('body')
+    @use('Ramsey\Uuid\Uuid')
     @php
         $segments = request()->segments();
+        $idSelect1 = Uuid::uuid7();
     @endphp
-    @use('App\Helpers\Formatting')
+    {{-- @dd($idSelect1) --}}
     <div class="xs-pd-20-10 pd-ltr-20">
         <div class="title pb-20 d-flex justify-content-between align-items-center">
             {{-- <h2 class="h2 mb-0">{{ Formatting::capitalize($segments[0]) }}</h2> --}}
             <div class="text-left" style="width: 100%">
+                <select id="{{ $idSelect1 }}" class="custom-select col-md-2 m-1">
+                    <option disabled selected id="">Choose...</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <script>
+                    $("#{{ $idSelect1 }}").on("change", (e) => {
+
+                    })
+                </script>
                 <select class="custom-select col-md-2 m-1">
-                    <option selected="">Choose...</option>
+                    <option disabled selected id="">Choose...</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
                 <select class="custom-select col-md-2 m-1">
-                    <option selected="">Choose...</option>
+                    <option disabled selected id="">Choose...</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
                 <select class="custom-select col-md-2 m-1">
-                    <option selected="">Choose...</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-                <select class="custom-select col-md-2 m-1">
-                    <option selected="">Choose...</option>
+                    <option disabled selected id="">Choose...</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
