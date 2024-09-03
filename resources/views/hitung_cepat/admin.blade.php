@@ -6,9 +6,35 @@
     @use('App\Helpers\Formatting')
     <div class="xs-pd-20-10 pd-ltr-20">
         <div class="title pb-20 d-flex justify-content-between align-items-center">
-            <h2 class="h2 mb-0">{{ Formatting::capitalize($segments[0]) }}</h2>
+            {{-- <h2 class="h2 mb-0">{{ Formatting::capitalize($segments[0]) }}</h2> --}}
+            <div class="text-left" style="width: 100%">
+                <select class="custom-select col-md-2 m-1">
+                    <option selected="">Choose...</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <select class="custom-select col-md-2 m-1">
+                    <option selected="">Choose...</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <select class="custom-select col-md-2 m-1">
+                    <option selected="">Choose...</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <select class="custom-select col-md-2 m-1">
+                    <option selected="">Choose...</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
             <div class="text-right">
-                <a class="btn btn-sm btn-dark m-1" href="{{ route('wilayah.form', ['Type' => 'Kabkota']) }}">
+                {{-- <a class="btn btn-sm btn-dark m-1" href="{{ route('wilayah.form', ['Type' => 'Kabkota']) }}">
                     <i class="fa fa-plus"></i> KabKota
                 </a>
                 <a class="btn btn-sm btn-dark m-1" href="{{ route('wilayah.form', ['Type' => 'Kecamatan']) }}">
@@ -16,10 +42,7 @@
                 </a>
                 <a class="btn btn-sm btn-dark m-1" href="{{ route('wilayah.form', ['Type' => 'Kelurahan']) }}">
                     <i class="fa fa-plus"></i> Kelurahan
-                </a>
-                <a id="tambah-tps" class="btn btn-sm btn-dark m-1" href="javascript:;">
-                    <i class="fa fa-plus"></i> TPS
-                </a>
+                </a> --}}
             </div>
         </div>
         <div class="row pb-10">
