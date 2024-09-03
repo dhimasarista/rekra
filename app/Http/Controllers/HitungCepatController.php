@@ -23,4 +23,20 @@ class HitungCepatController extends Controller
             return redirect("/error$val");
         }
     }
+    public function listByAdmin(Request $request){
+        try {
+
+            return view("hitung_cepat.table");
+        } catch (Exception $e) {
+            $val = Formatting::formatUrl([
+                "code" => 500,
+                "title" => $e->getMessage(),
+                "message" => $e->getMessage(),
+            ]);
+
+            return response()->json([
+                "message" => $val
+            ]);
+        }
+    }
 }

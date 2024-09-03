@@ -4,6 +4,7 @@
     @php
         $segments = request()->segments();
         $idSelect1 = Uuid::uuid7();
+        $idButtonSubmit = Uuid::uuid7();
     @endphp
     {{-- @dd($idSelect1) --}}
     <div class="xs-pd-20-10 pd-ltr-20">
@@ -39,6 +40,34 @@
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
+                <a id="{{ $idButtonSubmit }}" class="btn btn-dark m-1" href="#">
+                    Submit
+                </a>
+                <script>
+                    $("#{{ $idButtonSubmit }}").on("click", (e) => {
+                        e.preventDefault();
+                        TopLoaderService.start()
+                        $.ajax({
+                            type: "get",
+                            url: "{{ route('hitung_cepat.admin.list') }}",
+                            success: function (response) {
+                                console.log(response);
+                                $("#table-card").html(response)
+                            },
+                            error: function(xhr, status, error) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: xhr["responseJSON"]["message"]
+                                });
+                            },
+                            complete: function (data){
+                                console.log(data);
+                                TopLoaderService.end()
+                            }
+                        });
+                    })
+                </script>
             </div>
             <div class="text-right">
                 {{-- <a class="btn btn-sm btn-dark m-1" href="{{ route('wilayah.form', ['Type' => 'Kabkota']) }}">
@@ -55,33 +84,18 @@
         <div class="row pb-10">
             <div class="col-md-12 mb-20">
                 <!-- Export Datatable start -->
-                <div class="card-box mb-30">
-                    <div class="pd-20">
-                        <h4 class="text-blue h4">Hello</h4>
+                <div id="table-card">
+                    <div class="card-box mb-30">
+                        <div class="error-page d-flex align-items-center flex-wrap justify-content-center pd-20">
+                            <div class="pd-10">
+                                <div class="error-page-wrap text-center">
+                                    <h2>Belum Ada Data</h2>
+                                    <h3>Pilih Data Terlebih Dahulu</h3>
+                                    <p>Pilih Tingkat (Provinsi/Kabkota) > Pilih KabKota > Pilih Kecamatan > Pilih Kelurahan > Submit</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="pb-20">
-                        <table id="datatable-table" class="table hover stripe multiple-select-row data-table-export wrap">
-                            <thead>
-                                <tr>
-                                    <th>Hello</th>
-                                    <th>Hello</th>
-                                    <th>Hello</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{-- <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr> --}}
-                            </tbody>
-                        </table>
-                    </div>
-                    <script>
-                        $("#datatable-table").DataTable({
-                            "order": []
-                        })
-                    </script>
                 </div>
                 <!-- Export Datatable End -->
             </div>
