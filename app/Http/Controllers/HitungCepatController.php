@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Formatting;
 use App\Models\Calon;
+use App\Models\HitungSuaraCepatAdmin;
+use App\Models\HitungSuaraCepatAdminDetail;
 use App\Models\Provinsi;
 use App\Models\Tps;
 use Exception;
@@ -15,9 +17,17 @@ use Ramsey\Uuid\Uuid;
 class HitungCepatController extends Controller
 {
     protected $tps;
-    public function __construct(Tps $tps)
+    protected $hitungCepatAdmin;
+    protected $hitungCepatAdminDetail;
+    public function __construct(
+        Tps $tps,
+        HitungSuaraCepatAdmin $hitungCepatAdmin,
+        HitungSuaraCepatAdminDetail $hitungCepatAdminDetail
+        )
     {
         $this->tps = $tps;
+        $this->hitungCepatAdmin = $hitungCepatAdmin;
+        $this->hitungCepatAdminDetail = $hitungCepatAdminDetail;
     }
     public function byAdmin(Request $request)
     {
@@ -66,7 +76,7 @@ class HitungCepatController extends Controller
 
             // Ambil data hitung suara cepat admin detail
             $hscadData = DB::table('hitung_suara_cepat_admin_detail as hscad')
-                ->select('tps.name as tps_name', 'calon.calon_name as calon_name', 'hscad.amount', 'hsca.note')
+                ->select('tps.name as tps_name', 'calon.calon_name as calon_name', 'hscad.amount', 'hsca.updated_by')
                 ->join('tps', 'hscad.tps_id', '=', 'tps.id')
                 ->join('calon', 'hscad.calon_id', '=', 'calon.id')
                 ->leftJoin('hitung_suara_cepat_admin as hsca', 'hscad.hs_cepat_admin_id', '=', 'hsca.id')
@@ -83,7 +93,7 @@ class HitungCepatController extends Controller
                     ];
                 });
 
-                $updatedBy = $hscadData->where('tps_name', $tps->name)->first()->note ?? 'Belum ada';
+                $updatedBy = $hscadData->where('tps_name', $tps->name)->first()->updated_by ?? 'Belum ada';
 
                 return [
                     'tps_name' => $tps->name,
@@ -110,13 +120,53 @@ class HitungCepatController extends Controller
             $message = "Data Berhasil Disimpan";
             $responseCode = 200;
             $body = $request->all();
+            $tpsId = $request->query("Tps");
             $hitungCepatId = Uuid::uuid7();
             $dataHSCD = []; // HSCD: hitung_suara_cepat_details
             $dataHSC = [
                 "id" => $hitungCepatId,
-                ""
+                "updated_by" => $request->session()->get("name"),
             ];
+
+            foreach ($body as $key => $value) {
+                if ($key !== "Tps") {
+                    $hitungCepatDetail = $this->hitungCepatAdminDetail
+                    ->where("tps_id", $tpsId)
+                    ->where("calon_id", $key)
+                    ->first();
+
+                    if ($hitungCepatDetail) {
+                        $hitungCepatId = $hitungCepatDetail->hs_cepat_admin_id;
+                        $hitungCepatDetail->amount = $value;
+                        $hitungCepatDetail->save();
+                    } else {
+                        $dataHSCD[] = [
+                            "id" => Uuid::uuid7(),
+                            "hs_cepat_admin_id" => $hitungCepatId,
+                            "calon_id" => $key,
+                            "amount" => $value,
+                            "tps_id" => $tpsId,
+                        ];
+                    }
+                }
+                if (empty($dataHSCD)) {
+                    $HC = $this->hitungCepatAdmin->find($hitungCepatId);
+                    if ($HC) {
+                        $HC->updated_by = $dataHSC["updated_by"];
+                        $HC->save();
+                    } else {
+                        $message = "Data Tidak Ditemukan. (Internal Server Error)";
+                        $responseCode = 500;
+                    }
+                } else {
+                    $this->hitungCepatAdmin->insert($dataHSC);
+                    $this->hitungCepatAdminDetail->insert($dataHSCD);
+                }
+            }
             DB::commit(); // Menyimpan perubahan jika tidak ada error
+            return response()->json([
+                "message" => $message,
+            ], $responseCode);
         } catch (QueryException $e) {
             DB::rollBack();
             $message = match ($e->errorInfo[1]) {
