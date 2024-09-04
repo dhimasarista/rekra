@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('hitung_suara_cepat_saksis');
+        Schema::dropIfExists('hitung_suara_cepat_saksi');
     }
 };
