@@ -173,7 +173,6 @@
                             type: "get",
                             url: url,
                             success: function(response) {
-                                console.log(response);
                                 $("#table-card").html(response)
                             },
                             error: function(xhr, status, error) {
