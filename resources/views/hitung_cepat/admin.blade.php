@@ -8,6 +8,7 @@
         $idSelect2 = Uuid::uuid7();
         $idSelect3 = Uuid::uuid7();
         $idSelect4 = Uuid::uuid7();
+        $idSelect5 = Uuid::uuid7();
         $idButtonSubmit = Uuid::uuid7();
     @endphp
     {{-- @dd($idSelect1) --}}
@@ -62,17 +63,97 @@
                 <select id="{{ $idSelect2 }}" class="custom-select col-md-2 m-1" disabled>
                     <option disabled selected></option>
                 </select>
-                <select class="custom-select col-md-2 m-1">
-                    <option disabled selected id="">Choose...</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                <script>
+                    $("#{{ $idSelect2 }}").on("change", function(e) {
+                        let selectedValue = $(this).val();
+                        let url = `{!! route('wilayah.find', ['Type' => 'Kecamatan', 'Id' => 'ID_PLACEHOLDER']) !!}`.replace(
+                            'ID_PLACEHOLDER', selectedValue);
+                        $.ajax({
+                            type: "get",
+                            url: url,
+                            success: function(response) {
+                                const siblingSelect = $("#{{ $idSelect3 }}");
+                                siblingSelect.empty();
+                                siblingSelect.append('<option>Pilih Kecamatan</option>');
+                                response["data"].forEach(val => {
+                                    let dataId = $(
+                                        "#{{ $form['fetch_data']['sibling_form_id'] ?? 'siblingSelect' }}"
+                                    ).attr("data-id");
+                                    if (parseInt(dataId) == val.id) {
+                                        option =
+                                            `<option value="${val.id}" selected>${Formatting.capitalize(val.name)}</option>`
+                                    } else {
+                                        option =
+                                            `<option value="${val.id}">${Formatting.capitalize(val.name)}</option>`
+                                    }
+                                    siblingSelect.append(option);
+                                });
+                                siblingSelect.removeAttr("disabled");
+                            },
+                            error: function(xhr, status, error) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: xhr["responseJSON"]["message"]
+                                });
+                            },
+                            complete: function(data) {}
+                        });
+                    })
+                </script>
+                <select id="{{ $idSelect3 }}" class="custom-select col-md-2 m-1" disabled>
+                    <option disabled selected></option>
                 </select>
-                <select class="custom-select col-md-2 m-1">
-                    <option disabled selected id="">Choose...</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                <script>
+                    $("#{{ $idSelect3 }}").on("change", function(e) {
+                        let selectedValue = $(this).val();
+                        let url = `{!! route('wilayah.find', ['Type' => 'Kelurahan', 'Id' => 'ID_PLACEHOLDER']) !!}`.replace(
+                            'ID_PLACEHOLDER', selectedValue);
+                        $.ajax({
+                            type: "get",
+                            url: url,
+                            success: function(response) {
+                                const siblingSelect = $("#{{ $idSelect4 }}");
+                                siblingSelect.empty();
+                                siblingSelect.append('<option>Pilih Kelurahan</option>');
+                                response["data"].forEach(val => {
+                                    let dataId = $(
+                                        "#{{ $form['fetch_data']['sibling_form_id'] ?? 'siblingSelect' }}"
+                                    ).attr("data-id");
+                                    if (parseInt(dataId) == val.id) {
+                                        option =
+                                            `<option value="${val.id}" selected>${Formatting.capitalize(val.name)}</option>`
+                                    } else {
+                                        option =
+                                            `<option value="${val.id}">${Formatting.capitalize(val.name)}</option>`
+                                    }
+                                    siblingSelect.append(option);
+                                });
+                                siblingSelect.removeAttr("disabled");
+                            },
+                            error: function(xhr, status, error) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: xhr["responseJSON"]["message"]
+                                });
+                            },
+                            complete: function(data) {}
+                        });
+                    })
+                </script>
+                <select id="{{ $idSelect4 }}" class="custom-select col-md-2 m-1" disabled>
+                    <option disabled selected></option>
+                </select>
+                <script>
+                    $("#{{ $idSelect3 }}").on("change", function(e) {
+                        $("#{{ $idSelect5 }}").removeAttr("disabled")
+                    })
+                </script>
+                <select id="{{ $idSelect5 }}" class="custom-select col-md-2 m-1" disabled>
+                    <option selected disabled value="0">Pilih Tingkatan</option>
+                    <option value="Provinsi">Cagub</option>
+                    <option value="Kabkota">Kabkota</option>
                 </select>
                 <a id="{{ $idButtonSubmit }}" class="btn btn-dark m-1" href="#">
                     Submit
