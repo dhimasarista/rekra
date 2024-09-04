@@ -32,7 +32,7 @@
                                         class="form-control" value="{{ $calon['amount'] }}">
                                 </td>
                             @endforeach
-                            <td>{{ $d['updated_by'] }}</td>
+                            <td id="updatedBy-{{ $d['id'] }}">{{ $d['updated_by'] }}</td>
                             <td>
                                 <button onclick="submitButton('{{ $d['id'] }}')"
                                     class="btn btn-sm btn-dark m-1">Submit</button>
@@ -42,47 +42,48 @@
                 </tbody>
             </table>
         </div>
-        <script>
-            $("#datatable-table").DataTable({
-                "order": []
+    @endif
+    <script>
+        $("#datatable-table").DataTable({
+            "order": []
+        });
+
+        const submitButton = (tpsId) => {
+            let calonData = {};
+
+            $(`#${tpsId} input[type=number]`).each(function() {
+                calonData[$(this).attr('id')] = $(this).val();
             });
 
-            const submitButton = (tpsId) => {
-                let calonData = {};
-
-                $(`#${tpsId} input[type=number]`).each(function() {
-                    calonData[$(this).attr('id')] = $(this).val();
-                });
-
-                let data = {
-                    "Tps": tpsId,
-                    ...calonData
-                };
-                let url = `{!! route('hitung_cepat.admin.post', ['Tps' => 'TPS_PLACEHOLDER']) !!}`.replace("TPS_PLACEHOLDER", tpsId);
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: JSON.stringify(data),
-                    contentType: "application/json",
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
-                        Toast.fire({
-                            icon: "success",
-                            title: response["message"]
-                        });
-                    },
-                    error: function(xhr, status, error) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: xhr["responseJSON"]["message"]
-                        });
-                    }
-                });
-            }
-        </script>
-    @endif
+            let data = {
+                "Tps": tpsId,
+                ...calonData
+            };
+            let url = `{!! route('hitung_cepat.admin.post', ['Tps' => 'TPS_PLACEHOLDER']) !!}`.replace("TPS_PLACEHOLDER", tpsId);
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    Toast.fire({
+                        icon: "success",
+                        title: response["message"]
+                    });
+                    $(`#updatedBy-${tpsId}`).html("{{ session()->get("name") }}")
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: xhr["responseJSON"]["message"]
+                    });
+                }
+            });
+        }
+    </script>
 </div>
 {{-- {{ $data }} --}}
