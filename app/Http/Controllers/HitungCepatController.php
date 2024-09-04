@@ -81,13 +81,17 @@ class HitungCepatController extends Controller
                 ->join('calon', 'hscad.calon_id', '=', 'calon.id')
                 ->leftJoin('hitung_suara_cepat_admin as hsca', 'hscad.hs_cepat_admin_id', '=', 'hsca.id')
                 ->whereIn('tps.id', $tpsData->pluck('id'))
+                ->whereIn('calon.id', $calon->pluck('id'))
                 ->get();
 
             // Buat data final untuk ditampilkan
             $results = $tpsData->map(function ($tps) use ($hscadData, $calon) {
                 $calonData = $calon->map(function ($c) use ($hscadData, $tps) {
-                    $hscadEntry = $hscadData->firstWhere('calon_name', $c->name);
+                    $hscadEntry = $hscadData->first(function ($entry) use ($c, $tps) {
+                        return $entry->calon_name === $c->calon_name && $entry->tps_name === $tps->name;
+                    });
                     return [
+                        "id" => $c->id,
                         'calon_name' => $c->calon_name,
                         'amount' => $hscadEntry ? $hscadEntry->amount : 0,
                     ];
@@ -96,6 +100,7 @@ class HitungCepatController extends Controller
                 $updatedBy = $hscadData->where('tps_name', $tps->name)->first()->updated_by ?? 'Belum ada';
 
                 return [
+                    "id" => $tps->id,
                     'tps_name' => $tps->name,
                     'calon_data' => $calonData,
                     'updated_by' => $updatedBy,
@@ -149,31 +154,32 @@ class HitungCepatController extends Controller
                         ];
                     }
                 }
-                if (empty($dataHSCD)) {
-                    $HC = $this->hitungCepatAdmin->find($hitungCepatId);
-                    if ($HC) {
-                        $HC->updated_by = $dataHSC["updated_by"];
-                        $HC->save();
-                    } else {
-                        $message = "Data Tidak Ditemukan. (Internal Server Error)";
-                        $responseCode = 500;
-                    }
+            }
+            if (empty($dataHSCD)) {
+                $HC = $this->hitungCepatAdmin->find($hitungCepatId);
+                if ($HC) {
+                    $HC->updated_by = $dataHSC["updated_by"];
+                    $HC->save();
                 } else {
-                    $this->hitungCepatAdmin->insert($dataHSC);
-                    $this->hitungCepatAdminDetail->insert($dataHSCD);
+                    $message = "Data Tidak Ditemukan. (Internal Server Error)";
+                    $responseCode = 500;
                 }
+            } else {
+                $this->hitungCepatAdmin->insert($dataHSC);
+                $this->hitungCepatAdminDetail->insert($dataHSCD);
             }
             DB::commit(); // Menyimpan perubahan jika tidak ada error
             return response()->json([
                 "message" => $message,
+                "data" => $request->all()
             ], $responseCode);
         } catch (QueryException $e) {
             DB::rollBack();
             $message = match ($e->errorInfo[1]) {
-                1062 => "Data sudah ada",
+                // 1062 => "Data sudah ada",
                 default => $e->getMessage(),
             };
-            return response()->json(["message" => $message], 500);
+            return response()->json(["message" => $message, "data" => $tpsId], 500);
         }
     }
 }

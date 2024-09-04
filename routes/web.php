@@ -54,6 +54,7 @@ Route::middleware("auth")->group(function () {
     });
     Route::prefix("hitung-cepat")->group(function () {
         Route::get("admin", [HitungCepatController::class, "byAdmin"])->name("hitung_cepat.admin");
+        Route::post("admin", [HitungCepatController::class, "storeByAdmin"])->name("hitung_cepat.admin.post");
         Route::get("admin/list", [HitungCepatController::class, "listByAdmin"])->name("hitung_cepat.admin.list");
     });
 });
