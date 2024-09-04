@@ -1,9 +1,13 @@
 @extends('layouts/main')
 @section('body')
     @use('Ramsey\Uuid\Uuid')
+    @use('App\Helpers\Formatting')
     @php
         $segments = request()->segments();
         $idSelect1 = Uuid::uuid7();
+        $idSelect2 = Uuid::uuid7();
+        $idSelect3 = Uuid::uuid7();
+        $idSelect4 = Uuid::uuid7();
         $idButtonSubmit = Uuid::uuid7();
     @endphp
     {{-- @dd($idSelect1) --}}
@@ -12,21 +16,51 @@
             {{-- <h2 class="h2 mb-0">{{ Formatting::capitalize($segments[0]) }}</h2> --}}
             <div class="text-left" style="width: 100%">
                 <select id="{{ $idSelect1 }}" class="custom-select col-md-2 m-1">
-                    <option disabled selected id="">Choose...</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <option disabled selected id="">Pilih Provinsi</option>
+                    @foreach ($provinsi as $p)
+                        <option value="{{ $p->id }}">{{ Formatting::capitalize($p->name) }}</option>
+                    @endforeach
                 </select>
                 <script>
-                    $("#{{ $idSelect1 }}").on("change", (e) => {
-
+                    $("#{{ $idSelect1 }}").on("change", function(e) {
+                        let selectedValue = $(this).val();
+                        let url = `{!! route('wilayah.find', ['Type' => 'Kabkota', 'Id' => 'ID_PLACEHOLDER']) !!}`.replace(
+                            'ID_PLACEHOLDER', selectedValue);
+                        $.ajax({
+                            type: "get",
+                            url: url,
+                            success: function(response) {
+                                const siblingSelect = $("#{{ $idSelect2 }}");
+                                siblingSelect.empty();
+                                siblingSelect.append('<option>Pilih Kabkota</option>');
+                                response["data"].forEach(val => {
+                                    let dataId = $(
+                                        "#{{ $form['fetch_data']['sibling_form_id'] ?? 'siblingSelect' }}"
+                                    ).attr("data-id");
+                                    if (parseInt(dataId) == val.id) {
+                                        option =
+                                            `<option value="${val.id}" selected>${Formatting.capitalize(val.name)}</option>`
+                                    } else {
+                                        option =
+                                            `<option value="${val.id}">${Formatting.capitalize(val.name)}</option>`
+                                    }
+                                    siblingSelect.append(option);
+                                });
+                                siblingSelect.removeAttr("disabled");
+                            },
+                            error: function(xhr, status, error) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: xhr["responseJSON"]["message"]
+                                });
+                            },
+                            complete: function(data) {}
+                        });
                     })
                 </script>
-                <select class="custom-select col-md-2 m-1">
-                    <option disabled selected id="">Choose...</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                <select id="{{ $idSelect2 }}" class="custom-select col-md-2 m-1" disabled>
+                    <option disabled selected></option>
                 </select>
                 <select class="custom-select col-md-2 m-1">
                     <option disabled selected id="">Choose...</option>
@@ -50,7 +84,7 @@
                         $.ajax({
                             type: "get",
                             url: "{{ route('hitung_cepat.admin.list') }}",
-                            success: function (response) {
+                            success: function(response) {
                                 console.log(response);
                                 $("#table-card").html(response)
                             },
@@ -61,7 +95,7 @@
                                     text: xhr["responseJSON"]["message"]
                                 });
                             },
-                            complete: function (data){
+                            complete: function(data) {
                                 console.log(data);
                                 TopLoaderService.end()
                             }
@@ -91,7 +125,8 @@
                                 <div class="error-page-wrap text-center">
                                     <h2>Belum Ada Data</h2>
                                     <h3>Pilih Data Terlebih Dahulu</h3>
-                                    <p>Pilih Tingkat (Provinsi/Kabkota) > Pilih KabKota > Pilih Kecamatan > Pilih Kelurahan > Submit</p>
+                                    <p>Pilih Tingkat (Provinsi/Kabkota) > Pilih KabKota > Pilih Kecamatan > Pilih Kelurahan
+                                        > Submit</p>
                                 </div>
                             </div>
                         </div>

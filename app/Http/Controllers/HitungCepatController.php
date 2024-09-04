@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Formatting;
+use App\Models\Provinsi;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -11,8 +12,10 @@ class HitungCepatController extends Controller
     public function byAdmin(Request $request)
     {
         try {
-
-            return view("hitung_cepat.admin");
+            $provinsi = Provinsi::all();
+            return view("hitung_cepat.admin", [
+                "provinsi" => $provinsi,
+            ]);
         } catch (Exception $e) {
             $val = Formatting::formatUrl([
                 "code" => 500,
@@ -23,7 +26,8 @@ class HitungCepatController extends Controller
             return redirect("/error$val");
         }
     }
-    public function listByAdmin(Request $request){
+    public function listByAdmin(Request $request)
+    {
         try {
 
             return view("hitung_cepat.table");
@@ -35,7 +39,7 @@ class HitungCepatController extends Controller
             ]);
 
             return response()->json([
-                "message" => $val
+                "message" => $val,
             ]);
         }
     }
