@@ -6,7 +6,7 @@
         <table id="datatable-table" class="table hover stripe multiple-select-row data-table-export wrap">
             <thead>
                 <tr>
-                    <th>Hello</th>
+                    <th>Nama TPS</th>
                     <th>Hello</th>
                     <th>Hello</th>
                 </tr>
@@ -17,6 +17,15 @@
                     <td></td>
                     <td></td>
                 </tr> --}}
+                @if ($data)
+                    @foreach ($data as $d)
+                        <tr>
+                            <td>{{ $d->name }}</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    @endforeach
+                @endif
             </tbody>
         </table>
     </div>

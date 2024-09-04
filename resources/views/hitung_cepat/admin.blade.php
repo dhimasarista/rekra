@@ -162,6 +162,7 @@
                     $("#{{ $idButtonSubmit }}").on("click", (e) => {
                         e.preventDefault();
                         TopLoaderService.start()
+                        let typeQuery = $("#{{ $idSelect5 }} ").val();
                         $.ajax({
                             type: "get",
                             url: "{{ route('hitung_cepat.admin.list') }}",
