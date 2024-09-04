@@ -162,10 +162,11 @@
                     $("#{{ $idButtonSubmit }}").on("click", (e) => {
                         e.preventDefault();
                         TopLoaderService.start()
+                        let idQuery = $("#{{ $idSelect4 }} ").val();
                         let typeQuery = $("#{{ $idSelect5 }} ").val();
                         $.ajax({
                             type: "get",
-                            url: "{{ route('hitung_cepat.admin.list') }}",
+                            url: `{{ route('hitung_cepat.admin.list') }}`,
                             success: function(response) {
                                 console.log(response);
                                 $("#table-card").html(response)
