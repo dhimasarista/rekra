@@ -146,13 +146,13 @@
                     <option disabled selected></option>
                 </select>
                 <script>
-                    $("#{{ $idSelect3 }}").on("change", function(e) {
+                    $("#{{ $idSelect4 }}").on("change", function(e) {
                         $("#{{ $idSelect5 }}").removeAttr("disabled")
                     })
                 </script>
                 <select id="{{ $idSelect5 }}" class="custom-select col-md-2 m-1" disabled>
                     <option selected disabled value="0">Pilih Tingkatan</option>
-                    <option value="Provinsi">Cagub</option>
+                    <option value="Provinsi">Provinsi</option>
                     <option value="Kabkota">Kabkota</option>
                 </select>
                 <a id="{{ $idButtonSubmit }}" class="btn btn-dark m-1" href="#">
@@ -206,8 +206,8 @@
                                 <div class="error-page-wrap text-center">
                                     <h2>Belum Ada Data</h2>
                                     <h3>Pilih Data Terlebih Dahulu</h3>
-                                    <p>Pilih Tingkat (Provinsi/Kabkota) > Pilih KabKota > Pilih Kecamatan > Pilih Kelurahan
-                                        > Submit</p>
+                                    <p>Pilih Provinsi > Pilih KabKota > Pilih Kecamatan > Pilih Kelurahan
+                                        > Pilih Tingkat Pemilihan (Provinsi/Kabkota) > Submit</p>
                                 </div>
                             </div>
                         </div>
