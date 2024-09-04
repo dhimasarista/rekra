@@ -18,11 +18,9 @@ class JumlahSuaraDetail extends Model
 
     protected $fillable = [
         "id",
-        "note",
-        "total_suara_sah",
-        "total_suara_tidak_sah",
-        "total_sah_tidak_sah",
-        "jumlah_suara_id",
+        "amount",
+        "tps_id",
+        "calon_id",
     ];
 
     protected static function boot()

@@ -17,9 +17,12 @@ class JumlahSuara extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        "amount",
-        "tps_id",
-        "calon_id",
+        "id",
+        "note",
+        "total_suara_sah",
+        "total_suara_tidak_sah",
+        "total_sah_tidak_sah",
+        "jumlah_suara_id",
     ];
     protected static function boot()
     {
