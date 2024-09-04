@@ -155,18 +155,23 @@
                     <option value="Provinsi">Provinsi</option>
                     <option value="Kabkota">Kabkota</option>
                 </select>
-                <a id="{{ $idButtonSubmit }}" class="btn btn-dark m-1" href="#">
-                    Submit
-                </a>
+                <script>
+                    $("#{{ $idSelect5 }}").on("change", function(e) {
+                        $("#{{ $idButtonSubmit }}").removeAttr("disabled")
+                    })
+                </script>
+                <button id="{{ $idButtonSubmit }}" class="btn btn-dark m-1" disabled>Submit</button>
                 <script>
                     $("#{{ $idButtonSubmit }}").on("click", (e) => {
                         e.preventDefault();
                         TopLoaderService.start()
                         let idQuery = $("#{{ $idSelect4 }} ").val();
                         let typeQuery = $("#{{ $idSelect5 }} ").val();
+                        let url = `{!! route('hitung_cepat.admin.list', ['Type' => 'TYPE_PLACEHOLDER', 'Id' => 'ID_PLACEHOLDER']) !!}`.replace("TYPE_PLACEHOLDER", typeQuery).replace(
+                            'ID_PLACEHOLDER', idQuery);
                         $.ajax({
                             type: "get",
-                            url: `{{ route('hitung_cepat.admin.list') }}`,
+                            url: url,
                             success: function(response) {
                                 console.log(response);
                                 $("#table-card").html(response)
@@ -179,7 +184,7 @@
                                 });
                             },
                             complete: function(data) {
-                                console.log(data);
+                                console.log(url);
                                 TopLoaderService.end()
                             }
                         });

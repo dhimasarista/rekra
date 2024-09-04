@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Formatting;
+use App\Models\Calon;
 use App\Models\Provinsi;
 use App\Models\Tps;
 use Exception;
@@ -10,6 +11,11 @@ use Illuminate\Http\Request;
 
 class HitungCepatController extends Controller
 {
+    protected $tps;
+    public function __construct(Tps $tps)
+    {
+        $this->tps = $tps;
+    }
     public function byAdmin(Request $request)
     {
         try {
@@ -30,17 +36,23 @@ class HitungCepatController extends Controller
     public function listByAdmin(Request $request)
     {
         try {
-            $data = null;
             $idQuery = $request->query("Id");
             $typeQuery = $request->query("Type");
+            $calon = null;
+            $data = $this->tps->tpsWithDetail()
+            ->where('kelurahan_id', $idQuery)
+            ->get();
             if ($typeQuery === "Provinsi" || $typeQuery === "provinsi") {
-                $data = Tps::where("kelurahan_id", $idQuery)->get();
+                $calonCode = $data == null ? null : $data->first()->provinsi_id;
+                $calon = Calon::where("code", $calonCode)->get();
             } else if ($typeQuery === "Kabkota" || $typeQuery === "kabkota") {
-
+                $calonCode = $data == null ? null : $data->first()->kabkota_id;
+                $calon = Calon::where("code", $calonCode)->get();
             }
             return view("hitung_cepat.table", [
-                "table" => "Hello, World",
+                "table" => $data == null ? "Kosong" : $data->first()->kelurahan->name,
                 "data" => $data,
+                "calon" => $calon,
             ]);
         } catch (Exception $e) {
             $val = Formatting::formatUrl([
