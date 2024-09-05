@@ -111,9 +111,20 @@
                     </div>
                 </form>
             </div> --}}
-            <button id="$" class="btn btn-sm btn-dark m-1">Rekap Hitung Cepat</button>
-            <button id="$" class="btn btn-sm btn-dark m-1">Rekap C-Hasil</button>
+            <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-dark dropdown-toggle" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Rekapitulasi
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Hitung Cepat (Saksi)</a>
+                    <a class="dropdown-item" href="#">Hitung Cepat (Admin)</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/">C-Hasil</a>
+                </div>
+            </div>
         </div>
+
         <div class="header-right">
             {{-- <div class="dashboard-setting user-notification">
                 <div class="dropdown">
@@ -258,6 +269,9 @@
                             <span class="micon dw dw-flash"></span>
                             <span class="mtext">Hitung Cepat (Admin)</span>
                         </a>
+                    </li>
+                    <li>
+                        <div class="dropdown-divider"></div>
                     </li>
                     <li>
                         <a href="{{ route('input.index') }}"
