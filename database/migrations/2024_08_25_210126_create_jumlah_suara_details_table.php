@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('jumlah_suara_details', function (Blueprint $table) {
             $table->uuid("id")->primary();
-            $table->integer("amount");
+            $table->unsignedInteger("amount");
             $table->uuid("calon_id");
             $table->foreign("calon_id")->references("id")->on("calon");
             $table->uuid("tps_id");
