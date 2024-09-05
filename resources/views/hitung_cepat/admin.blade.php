@@ -160,7 +160,7 @@
                         $("#{{ $idButtonSubmit }}").removeAttr("disabled")
                     })
                 </script>
-                <button id="{{ $idButtonSubmit }}" class="btn btn-dark m-1" disabled>Submit</button>
+                <button id="{{ $idButtonSubmit }}" class="btn btn-dark m-1" disabled>Input</button>
                 <script>
                     $("#{{ $idButtonSubmit }}").on("click", (e) => {
                         e.preventDefault();
