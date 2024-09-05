@@ -34,7 +34,7 @@
                             @endforeach
                             <td id="updatedBy-{{ $d['id'] }}">{{ $d['updated_by'] }}</td>
                             <td>
-                                <button onclick="submitButton('{{ $d['id'] }}')"
+                                <button id="submit-{{ $d['id'] }}" onclick="submitButton('{{ $d['id'] }}')"
                                     class="btn btn-sm btn-dark m-1">Submit</button>
                             </td>
                         </tr>
@@ -50,7 +50,8 @@
         <script>
             const submitButton = (tpsId) => {
                 let calonData = {};
-
+                let buttonSubmit = $(`#submit-${tpsId}`);
+                buttonSubmit.attr("disabled", true);
                 $(`#${tpsId} input[type=number]`).each(function() {
                     calonData[$(this).attr('id')] = $(this).val();
                 });
@@ -81,6 +82,9 @@
                             title: 'Error',
                             text: xhr["responseJSON"]["message"]
                         });
+                    },
+                    complete: function(data) {
+                        buttonSubmit.removeAttr("disabled");
                     }
                 });
             }
