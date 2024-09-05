@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Formatting;
 use App\Models\LoginHistory;
 use App\Services\UserServiceInterface;
 use Illuminate\Database\QueryException;
@@ -56,7 +57,7 @@ class AuthController extends Controller
                             $request->session()->put('avatar', $emotes[array_rand($emotes)]);
                             $request->session()->put('username', $user->username);
                             $request->session()->put('user_id', $user->id);
-                            $request->session()->put('name', $user->name);
+                            $request->session()->put('name', Formatting::capitalize($user->name));
                             $request->session()->put('level', $user->level);
                             $request->session()->put('code', $user->code);
                             $request->session()->put("is_admin", $user->is_admin);
