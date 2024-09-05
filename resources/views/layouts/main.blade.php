@@ -111,12 +111,8 @@
                     </div>
                 </form>
             </div> --}}
-            {{-- <a class="btn btn-sm btn-dark m-1" href="#">
-                KabKota
-            </a>
-            <a class="btn btn-sm btn-dark m-1" href="#">
-                Provinsi
-            </a> --}}
+            <button id="$" class="btn btn-sm btn-dark m-1">Rekap Hitung Cepat</button>
+            <button id="$" class="btn btn-sm btn-dark m-1">Rekap C-Hasil</button>
         </div>
         <div class="header-right">
             {{-- <div class="dashboard-setting user-notification">
