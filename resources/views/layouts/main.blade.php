@@ -111,7 +111,7 @@
                     </div>
                 </form>
             </div> --}}
-            <div class="btn-group">
+            {{-- <div class="btn-group">
                 <button type="button" class="btn btn-sm btn-dark dropdown-toggle" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                     Rekapitulasi
@@ -122,7 +122,7 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/">C-Hasil</a>
                 </div>
-            </div>
+            </div> --}}
         </div>
 
         <div class="header-right">
@@ -256,6 +256,11 @@
         <div class="menu-block customscroll">
             <div class="sidebar-menu">
                 <ul id="accordion-menu">
+                    <li>
+                        <a href="#" class="dropdown-toggle no-arrow">
+                            <span class="micon dw dw-file"></span><span class="mtext">Rekap Hitung Cepat</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="#"
                             class="dropdown-toggle no-arrow {{ request()->is('kabkota') ? 'active' : '' }}">
