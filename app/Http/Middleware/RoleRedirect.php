@@ -26,16 +26,16 @@ class RoleRedirect
         $queryParams = $request->query();
 
         // user role
-        $userRole = $userSession->level == "kabkota" || $userSession->level == "provinsi";
+        $userRole = $request->session()->get("level") == "kabkota" || $request->session()->get("level") == "provinsi";
         // mencegah user mengakses id lain jika bukan ranahnya
         if ($userRole && $typeQuery == "Kabkota") {
-            if ($userSession->code != $idQuery) {
-                $queryParams["Id"] = $userSession->code;
+            if ($request->session()->get("code") != $idQuery) {
+                $queryParams["Id"] = $request->session()->get("code");
                 $newUrl = $request->url()."?".http_build_query($queryParams);
                 return redirect($newUrl);
             }
         } else if ($userRole && $typeQuery == "Provinsi") {
-            $kabkota = Kabkota::where("id", $userSession->code)->first();
+            $kabkota = Kabkota::where("id", $request->session()->get("code"))->first();
             if ($kabkota->provinsi_id != $idQuery) {
                 $queryParams["Id"] = $kabkota->provinsi_id;
                 $newUrl = $request->url()."?".http_build_query($queryParams);

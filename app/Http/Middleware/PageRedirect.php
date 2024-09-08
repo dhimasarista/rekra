@@ -19,11 +19,11 @@ class PageRedirect
     {
         $userSession = $request->session()->get('username');
         // $user = User::where("username", $userSession)->first();
-        $notMasterUser = $userSession->level == "provinsi" || $userSession->level == "kabkota";
+        $notMasterUser = $request->session()->get("level") == "provinsi" || $request->session()->get("level") == "kabkota" || null;
         $queryType = $request->query("Type");
          // Mengarahkan langsung ke rekap list jika user != master
          if ($notMasterUser && $queryType == "Provinsi") {
-            $kabkota = KabKota::find($userSession->code);
+            $kabkota = KabKota::find($request->session()->get("code"));
             return redirect()->route("rekap.list", [
                 "Type" => "Provinsi",
                 "Id" => $kabkota->provinsi_id,
@@ -31,7 +31,7 @@ class PageRedirect
         } else if ($notMasterUser && $queryType == "Kabkota") {
             return redirect()->route("rekap.list", [
                 "Type" => "Kabkota",
-                "Id" => $userSession->code,
+                "Id" => $request->session()->get("code"),
             ]);
         }
         return $next($request);
