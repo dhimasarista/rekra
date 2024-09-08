@@ -16,6 +16,7 @@ class DataRestriction
      */
     public function handle(Request $request, Closure $next): Response
     {
+        // todo: middleware mencegah user mengakses data yang tidak diizinkan
         $username = $request->session()->get('username');
         $user = User::where("username", $username)->first();
         return $next($request);
