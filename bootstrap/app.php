@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\AuthMiddleware;
+use App\Http\Middleware\DataRestriction;
 use App\Http\Middleware\PageRedirect;
 use App\Http\Middleware\RoleRedirect;
 use App\Http\Middleware\UserRoleMiddleware;
@@ -15,11 +16,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        $middleware->append(DataRestriction::class);
         $middleware->alias([
             "auth" => AuthMiddleware::class,
             "userRole" => UserRoleMiddleware::class,
             "roleRedirect" => RoleRedirect::class,
             "pageRedirect" => PageRedirect::class,
+            "dataRestriction" => DataRestriction::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
