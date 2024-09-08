@@ -36,11 +36,11 @@
                         ];
                     @endphp
                     @foreach ($data as $d)
-                        <tr>
-                            <th scope="row">{{ $d['id'] }}</th>
-                            <td>{{ $d['nama'] }}</td>
-                            <td><a href="{{ $d['route'] }}" class="badge badge-dark text-light">Buka</span></td>
-                        </tr>
+                    <tr>
+                        <th scope="row">{{ $d['id'] }}</th>
+                        <td>{{ $d['nama'] }}</td>
+                        <td><a href="{{ $d['route'] }}" class="badge badge-dark text-light">Buka</span></td>
+                    </tr>
                     @endforeach
                 </tbody>
             </table>

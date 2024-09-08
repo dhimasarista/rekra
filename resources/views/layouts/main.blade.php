@@ -285,12 +285,14 @@
                             <span class="mtext">Input Suara</span>
                         </a>
                     </li>
+                    @if (session()->get('level') == 'master' || session()->get('level') == 'provinsi')
                     <li>
                         <a href="{{ route('rekap.index', ['Type' => 'Provinsi']) }}"
                             class="dropdown-toggle no-arrow {{ Str::contains(request()->route()->getName(), 'rekapitulasi') ? 'active' : '' }}">
                             <span class="micon dw dw-file"></span><span class="mtext">Rekap Provinsi</span>
                         </a>
                     </li>
+                    @endif
                     <li>
                         <a href="{{ route('rekap.index', ['Type' => 'Kabkota']) }}"
                             class="dropdown-toggle no-arrow {{ Str::contains(request()->route()->getName(), 'rekapitulasi') ? 'active' : '' }}">

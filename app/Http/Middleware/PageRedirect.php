@@ -17,7 +17,7 @@ class PageRedirect
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $userSession = $request->session()->get('username');
+        // $userSession = $request->session()->get('username');
         // $user = User::where("username", $userSession)->first();
         $notMasterUser = $request->session()->get("level") == "provinsi" || $request->session()->get("level") == "kabkota" || null;
         $queryType = $request->query("Type");

@@ -24,7 +24,7 @@ Route::get("/404", function () {
 Route::middleware("auth")->group(function () {
     Route::prefix("rekapitulasi")->group(function () {
         Route::get("", [RekapitulasiController::class, "index"])->name("rekap.index")->middleware("pageRedirect");
-        Route::get("/list", [RekapitulasiController::class, "list"])->name("rekap.list")->middleware("roleRedirect");
+        Route::get("/list", [RekapitulasiController::class, "list"])->name("rekap.list")->middleware("roleRedirect")->middleware("dataRestriction");
         Route::get("/detail", [RekapitulasiController::class, "detail"])->name("rekap.detail");
         Route::get("hitung-cepat", [HitungCepatController::class, "selectRekapHitungCepat"])->name("rekap.hitung-cepat.select");
     });
@@ -51,11 +51,11 @@ Route::middleware("auth")->group(function () {
         Route::get("", [JumlahSuaraController::class, "index"])->name("input.index");
         Route::post("", [JumlahSuaraController::class, "store"])->name("input.store");
         Route::get("/list", [JumlahSuaraController::class, "list"])->name("input.list");
-        Route::get("/form", [JumlahSuaraController::class, "form"])->name("input.form");
+        Route::get("/form", [JumlahSuaraController::class, "form"])->name("input.form")->middleware("dataRestriction");
     });
     Route::prefix("hitung-cepat")->group(function () {
         Route::get("admin", [HitungCepatController::class, "byAdmin"])->name("hitung_cepat.admin");
         Route::post("admin", [HitungCepatController::class, "storeByAdmin"])->name("hitung_cepat.admin.post");
-        Route::get("admin/list", [HitungCepatController::class, "listByAdmin"])->name("hitung_cepat.admin.list");
+        Route::get("admin/list", [HitungCepatController::class, "listByAdmin"])->name("hitung_cepat.admin.list")->middleware("dataRestriction");
     });
 });

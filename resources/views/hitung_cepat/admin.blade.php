@@ -152,7 +152,9 @@
                 </script>
                 <select id="{{ $idSelect5 }}" class="custom-select col-md-2 m-1" disabled>
                     <option selected disabled value="0">Pilih Tingkatan</option>
+                    @if (session()->get("level") === "provinsi" || session()->get("level") === "master")
                     <option value="Provinsi">Provinsi</option>
+                    @endif
                     <option value="Kabkota">Kabkota</option>
                 </select>
                 <script>

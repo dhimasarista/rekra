@@ -17,10 +17,10 @@ class DataRestriction
     public function handle(Request $request, Closure $next): Response
     {
         // todo: middleware mencegah user mengakses data yang tidak diizinkan
-        $user = session()->get('level');
+        $user = $request->session()->get('level');
         $queryParams = $request->query();
         // $user = User::where("username", $user)->first();
-        if ($user == "kabkota" && $queryParams["Type"] == "Provinsi") {
+        if ($user == "kabkota" && $request->query("Type") === "Provinsi") {
             $queryParams["Type"] = "Kabkota";
             $newUrl = $request->url()."?".http_build_query($queryParams);
             return redirect($newUrl);

@@ -33,9 +33,11 @@
                                         <td>{{ Formatting::capitalize($d["wilayah"]) }}</td>
                                         <td>
                                             <div class="m-10">
+                                                @if (session()->get("level") == "provinsi")
                                                 <a class="btn btn-sm btn-dark m-1" href="{{ $d["provinsi"] }}">
                                                     <i class="fa fa-plus"></i> Provinsi
                                                 </a>
+                                                @endif
                                                 <a class="btn btn-sm btn-dark m-1" href="{{ $d["kabkota"] }}">
                                                     <i class="fa fa-plus"></i> Kab/Kota
                                                 </a>
