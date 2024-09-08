@@ -182,4 +182,108 @@ class HitungCepatController extends Controller
             return response()->json(["message" => $message, "data" => $tpsId], 500);
         }
     }
+
+    public function selectRekapHitungCepat(Request $request){
+        try {
+            $view = "layouts.form";
+            //
+                $formId1 = Uuid::uuid7();
+                $formId2 = Uuid::uuid7();
+                $formId3 = Uuid::uuid7();
+                $formId4 = Uuid::uuid7();
+            //
+            $provinsi = Provinsi::all();
+            $options[] = [
+                "id" => null,
+                "is_selected" => true,
+                "name" => "Pilih",
+            ];
+            foreach ($provinsi as $p) {
+                $options[] = [
+                    "id" => $p->id,
+                    "is_selected" => false,
+                    "name" => Formatting::capitalize($p->name)
+                ];
+            }
+            $config = [
+                "name" => "Pilih Rekap & Tingkatan Hitung Cepat", // Nama form atau judul halaman
+                "button_helper" => [
+                    "enable" => false, // menampilkan button jika true
+                    "button_list" => [
+                        [
+                            "name" => "Kembali",
+                            "icon" => "fa fa-arrow-left",
+                            "route" => null, // route yang diarahkan ketika event klik
+                        ]
+                    ]
+                ],
+                "submit" => [
+                    "id" => Uuid::uuid7(), // ID unik untuk tombol submit
+                    "name" => "Submit", // Penamaan nama button
+                    "type" => "redirect", // Tipe submit, bisa 'input' atau 'redirect'
+                    "route" => "#", // Rute yang akan diakses saat submit
+                    "method" => "GET", // Metode HTTP yang digunakan untuk submit
+                    "redirect" => "/success-page", // Halaman redirect setelah submit sukses (jika ada)
+                    "form_data" => [ // Data yang akan dikirim pada saat submit
+                        [
+                            "id" => "inputText", // ID dari elemen input
+                            "name" => "nama", // Nama field yang dikirim
+                            "type" => "string" // Tipe data yang dikirim (string, array)
+                        ],
+                        [
+                            "id" => "dynamicContainer", // ID dari container elemen dynamic input
+                            "name" => "skills", // Nama field untuk array dynamic input
+                            "type" => "array" // Tipe data array karena ada banyak input
+                        ],
+                    ]
+                ],
+                "form" => [
+                    [
+                        "id" => $formId1, // ID untuk elemen form
+                        "type" => "select", // Tipe elemen: select, text, number, notification, dynamic-input
+                        "name" => "Nama Provinsi", // Label untuk elemen form
+                        "is_disabled" => false, // Jika true, elemen akan disabled
+                        "for_submit" => true, // Jika true, elemen ini digunakan untuk submit
+                        "fetch_data" => [
+                            "is_fetching" => true, // Jika true, data akan diambil melalui AJAX
+                            "route" => route("wilayah.find", [
+                                "Type" => "Kabkota",
+                                "Id" => "",
+                            ]), // Rute untuk AJAX fetch
+                            "response" => "data", // Key dalam respons untuk data yang diambil
+                            "sibling_form_id" => $formId2 // ID elemen lain yang akan diupdate berdasarkan fetch
+                        ],
+                        "options" => $options
+                    ], [
+                        "id" => $formId2,
+                        "type" => "select",
+                        "name" => "Nama Kab/Kota",
+                        "is_disabled" => true,
+                        "for_submit" => true,
+                        "fetch_data" => [
+                            "is_fetching" => false,
+                        ],
+                        "options" => [
+                            [
+                                "id" => null,
+                                "is_selected" => true,
+                                "name" => "",
+                            ],
+                        ],
+                    ]
+                ]
+            ];
+            return view($view, [
+                "config" => $config
+            ]);
+        } catch (Exception $e) {
+            $val = Formatting::formatUrl([
+                "code" => 500,
+                "title" => $e->getMessage(),
+                "message" => $e->getMessage(),
+            ]);
+
+            return redirect("/error$val");
+        }
+    }
 }
