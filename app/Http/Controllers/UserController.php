@@ -17,6 +17,7 @@ use Ramsey\Uuid\Uuid;
 
 class UserController extends Controller
 {
+    protected $master = "masterdev";
     protected $userService;
     public function __construct(UserServiceInterface $userServiceInterface){
         $this->userService = $userServiceInterface;
@@ -223,6 +224,9 @@ class UserController extends Controller
                 $config["form"][2]["data"]["placeholder"] = "Kosongkan jika tidak ingin diganti";
                 $config["form"][3]["data"]["value"] = $user->code;
                 $config["form"][4]["data"]["value"] = $user->level;
+                if ($request->session()->get("user_id") === $user->id) {
+                    $config["submit"]["redirect"] = "/";
+                }
             }
             return view($view, [
                 // "data" => $data,
@@ -266,14 +270,23 @@ class UserController extends Controller
                         // password not updating, if password from body response null
                         if (!$userPassword)
                             $userPassword = $user->password;
-                        $user->name = $request->name;
-                        $user->username = $request->username;
-                        $user->password = $userPassword;
-                        $user->code = $request->code;
-                        $user->level = $request->level;
-                        $user->save(); // save user
-                        // set new message and response code
-                        $message = "User diperbarui";
+                            $user->name = $request->name;
+                            $user->username = $request->username;
+                            $user->password = $userPassword;
+                            $user->code = $request->code;
+                            if ($user->username !== $this->master) {
+                                $user->level = $request->level;
+                            }
+                            $user->save(); // save user
+                            $message = "User diperbarui";
+
+                            // memperbarui session jika user tersebut memperbarui datanya sendiri
+                            if ($user->id === session()->get("user_id")) {
+                                $request->session()->put('username', $user->username);
+                                $request->session()->put('name', Formatting::capitalize($user->name));
+                                $request->session()->put('level', $user->level);
+                                $request->session()->put('code', $user->code);
+                            }
                     } else {
                         // creating new user
                         $message = $this->userService->createUser([
@@ -305,7 +318,7 @@ class UserController extends Controller
             $message = null;
             $responseCode = 200;
             $user = $this->userService->findById($id);
-            if ($user->level == "master") {
+            if ($user->level == "master" || $user->username == $this->master) {
                 $responseCode = 403;
                 $message = "User tidak dapat dihapus!";
             } else {
@@ -329,7 +342,9 @@ class UserController extends Controller
         try {
             $user = $this->userService->findById($request->query("Id"));
             if ($user) {
-                $user->is_active = !$user->is_active;
+                if ($user->username !== $this->master) {
+                    $user->is_active = !$user->is_active;
+                }
                 $user->save();
                 return response()->json(["message" => "status user diperbarui"], 200);
             } else {
