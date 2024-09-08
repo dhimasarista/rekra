@@ -25,7 +25,7 @@
                     </div>
                     <div class="pb-20">
                         <table id="provinsi-table"
-                            class="table hover stripe multiple-select-row data-table-export wrap responsive">
+                            class="table hover stripe multiple-select-row data-table-export wrap">
                             <thead>
                                 <tr>
                                     <th class="table-plus datatable-nosort">Nama</th>
@@ -133,7 +133,9 @@
                     </div>
                 </div>
                 <script>
-                    $("#provinsi-table").DataTable({})
+                    $("#provinsi-table").DataTable({
+                        scrollX:true,
+                    })
                 </script>
                 <!-- Export Datatable End -->
             </div>

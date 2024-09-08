@@ -43,7 +43,7 @@
                         <h4 class="text-blue h4">{{ Formatting::capitalize($tableName) }}</h4>
                     </div>
                     <div class="pb-20">
-                        <table id="wilayah-table" class="table hover stripe multiple-select-row data-table-export wrap">
+                        <table id="datatable-table" class="table hover stripe multiple-select-row data-table-export wrap">
                             <thead>
                                 <tr>
                                     <th class="table-plus datatable-nosort">Nama</th>
@@ -88,7 +88,7 @@
                         </table>
                     </div>
                     <script>
-                        $("#wilayah-table").DataTable({
+                        $("#datatable-table").DataTable({
                             "order": []
                         })
                         const DeleteData = (url) => {

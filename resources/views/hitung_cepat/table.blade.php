@@ -44,7 +44,8 @@
         </div>
         <script>
             $("#datatable-table").DataTable({
-                "order": []
+                "order": [],
+                "scrollX": true,
             });
         </script>
         <script>

@@ -18,7 +18,7 @@
                     </div>
                     @use('App\Helpers\Formatting')
                     <div class="pb-20">
-                        <table id="init-table" class="table hover stripe multiple-select-row data-table-export wrap">
+                        <table id="datatable-table" class="table hover stripe multiple-select-row data-table-export wrap">
                             <thead>
                                 <tr>
                                     <th>Nama</th>
@@ -51,8 +51,9 @@
                     </div>
                 </div>
                 <script>
-                    $("#init-table").DataTable({
-                        "order": []
+                    $("#datatable-table").DataTable({
+                        "order": [],
+                        "scrollX": true,
                     })
                 </script>
                 <!-- Export Datatable End -->
