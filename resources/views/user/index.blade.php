@@ -31,6 +31,7 @@
                                     <th class="table-plus datatable-nosort">Nama</th>
                                     <th>Username</th>
                                     <th>Hak Akses</th>
+                                    <th>Tingkat Akses</th>
                                     <th>Aktif</th>
                                     <th>Action</th>
                                 </tr>
@@ -57,6 +58,7 @@
                                                 <td>{{ Formatting::capitalize($k->name) }}</td>
                                             @endif
                                         @endforeach
+                                        <td>{{ Formatting::capitalize($u->level) }}</td>
                                         <td>
                                             <input id="input_isactive_{{ $u->id }}" onchange="updateIsActive(this)"
                                                 data-user-id="{{ $u->id }}" type="checkbox" class="switch-btn"

@@ -24,7 +24,7 @@ class UserController extends Controller
     public function index()
     {
         try {
-            $users = $this->userService->findByLevel(["kabkota", "provinsi"]);
+            $users = $this->userService->findByLevel(["master", "kabkota", "provinsi"]);
             $provinsi = Provinsi::all();
             $kabkota = KabKota::all();
             return view("user.index", [
@@ -70,11 +70,34 @@ class UserController extends Controller
             $formId2 = Uuid::uuid7();
             $formId3 = Uuid::uuid7();
             $formId4 = Uuid::uuid7();
+            $formId5 = Uuid::uuid7();
 
             $optionsKabkota[] = [
                 "id" => null,
                 "is_selected" => true,
-                "name" => "Pilih"
+                "name" => "Pilih Tingkatan"
+            ];
+            $optionsLevel = [
+                [
+                    "id" => null,
+                    "is_selected" => true,
+                    "name" => "Pilih Tingkatan"
+                ],
+                [
+                    "id" => "master",
+                    "is_selected" => false,
+                    "name" => "Master"
+                ],
+                [
+                    "id" => "provinsi",
+                    "is_selected" => false,
+                    "name" => "Provinsi"
+                ],
+                [
+                    "id" => "kabkota",
+                    "is_selected" => false,
+                    "name" => "Kabkota"
+                ]
             ];
             foreach ($kabkota as $value) {
                 $optionsKabkota[] = [
@@ -117,6 +140,10 @@ class UserController extends Controller
                         [
                             "id" => $formId4,
                             "name" => "code",
+                        ],
+                        [
+                            "id" => $formId5,
+                            "name" => "level",
                         ],
                     ],
                 ],
@@ -166,7 +193,7 @@ class UserController extends Controller
                     3 => [
                         "id" => $formId4,
                         "type" => "select",
-                        "name" => "Hak Akses",
+                        "name" => "Hak Akses Wilayah",
                         "is_disabled" => false,
                         "for_submit" => true,
                         "fetch_data" => [
@@ -174,8 +201,20 @@ class UserController extends Controller
                         ],
                         "options" => $optionsKabkota,
                     ],
+                    4 => [
+                        "id" => $formId5,
+                        "type" => "select",
+                        "name" => "Hak Akses Tingkatan",
+                        "is_disabled" => false,
+                        "for_submit" => true,
+                        "fetch_data" => [
+                            "is_fetching" => false,
+                        ],
+                        "options" => $optionsLevel
+                    ],
                 ],
             ];
+            // Jika user yang dicari dari query parameter ada, ubah form tersebut dengan mengisi sesuai data user yang akan diupdate
             if ($user) {
                 $config["name"] = "Update User: $user->name";
                 $config["submit"]["route"] = route("user.store", ['Id' => $user->id]);
@@ -183,6 +222,7 @@ class UserController extends Controller
                 $config["form"][1]["data"]["value"] = $user->username;
                 $config["form"][2]["data"]["placeholder"] = "Kosongkan jika tidak ingin diganti";
                 $config["form"][3]["data"]["value"] = $user->code;
+                $config["form"][4]["data"]["value"] = $user->level;
             }
             return view($view, [
                 // "data" => $data,
@@ -210,6 +250,7 @@ class UserController extends Controller
                 "username" => "required|string",
                 "password" => "string|nullable|min:6",
                 "code" => "required|integer",
+                "level" => "required|string",
 
             ]);
             // input user validation
@@ -229,9 +270,10 @@ class UserController extends Controller
                         $user->username = $request->username;
                         $user->password = $userPassword;
                         $user->code = $request->code;
+                        $user->level = $request->level;
                         $user->save(); // save user
                         // set new message and response code
-                        $message = "😊User diperbarui";
+                        $message = "User diperbarui";
                     } else {
                         // creating new user
                         $message = $this->userService->createUser([
@@ -263,9 +305,14 @@ class UserController extends Controller
             $message = null;
             $responseCode = 200;
             $user = $this->userService->findById($id);
-            if ($user) {
-                $user->delete();
-                $message = "User berhasil dihapus";
+            if ($user->level == "master") {
+                $responseCode = 403;
+                $message = "User tidak dapat dihapus!";
+            } else {
+                if ($user) {
+                    $user->delete();
+                    $message = "User berhasil dihapus";
+                }
             }
             return response()->json([
                 "message" => $message,
