@@ -26,6 +26,7 @@ Route::middleware("auth")->group(function () {
         Route::get("", [RekapitulasiController::class, "index"])->name("rekap.index")->middleware("pageRedirect");
         Route::get("/list", [RekapitulasiController::class, "list"])->name("rekap.list")->middleware("roleRedirect");
         Route::get("/detail", [RekapitulasiController::class, "detail"])->name("rekap.detail");
+        Route::get("hitung-cepat", [HitungCepatController::class, "selectRekapHitungCepat"])->name("rekap.hitung-cepat.select");
     });
     Route::get("/logout", [AuthController::class, "destroy"]);
     Route::middleware(["userRole"])->group(function () {

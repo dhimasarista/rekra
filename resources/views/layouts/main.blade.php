@@ -257,7 +257,7 @@
             <div class="sidebar-menu">
                 <ul id="accordion-menu">
                     <li>
-                        <a href="#" class="dropdown-toggle no-arrow">
+                        <a href="{{ route("rekap.hitung-cepat.select") }}" class="dropdown-toggle no-arrow">
                             <span class="micon dw dw-file"></span><span class="mtext">Rekap Hitung Cepat</span>
                         </a>
                     </li>
