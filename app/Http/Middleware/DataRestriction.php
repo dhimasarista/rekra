@@ -17,8 +17,15 @@ class DataRestriction
     public function handle(Request $request, Closure $next): Response
     {
         // todo: middleware mencegah user mengakses data yang tidak diizinkan
-        $username = $request->session()->get('username');
-        $user = User::where("username", $username)->first();
+        $user = $request->session()->get('level');
+        $typeQuery = $request->query("Type");
+        $queryParams = $request->query();
+        // $user = User::where("username", $user)->first();
+        if ($user == "Kabkota" && $typeQuery == "Provinsi") {
+            $queryParams["Type"] = "Kabkota";
+            $newUrl = $request->url()."?".http_build_query($queryParams);
+            return redirect($newUrl);
+        }
         return $next($request);
     }
 }
