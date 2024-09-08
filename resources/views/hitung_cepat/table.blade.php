@@ -11,7 +11,7 @@
     </div>
     @if ($data)
         <div class="pb-20">
-            <table id="datatable-table" class="table hover stripe multiple-select-row data-table-export">
+            <table width="100%" id="datatable-table" class="table hover stripe multiple-select-row data-table-export">
                 <thead class="text-center">
                     <tr>
                         <th>Nama TPS</th>
@@ -27,7 +27,7 @@
                         <tr id="{{ $d['id'] }}">
                             <td>{{ $d['tps_name'] }}</td>
                             @foreach ($d['calon_data'] as $calon)
-                                <td style="width: 15%">
+                                <td>
                                     <input id="{{ $calon['id'] }}" type="number" min="0" max="1000"
                                         class="form-control" value="{{ $calon['amount'] }}">
                                 </td>
@@ -45,7 +45,7 @@
         <script>
             $("#datatable-table").DataTable({
                 "order": [],
-                "scrollX": true,
+                "scrollX" : true,
             });
         </script>
         <script>

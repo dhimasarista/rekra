@@ -43,7 +43,7 @@
                         <h4 class="text-blue h4">{{ Formatting::capitalize($tableName) }}</h4>
                     </div>
                     <div class="pb-20">
-                        <table id="datatable-table" class="table hover stripe multiple-select-row data-table-export wrap">
+                        <table width="100%" id="datatable-table" class="table hover stripe multiple-select-row data-table-export wrap">
                             <thead>
                                 <tr>
                                     <th class="table-plus datatable-nosort">Nama</th>
@@ -89,7 +89,8 @@
                     </div>
                     <script>
                         $("#datatable-table").DataTable({
-                            "order": []
+                            "order": [],
+                            "scrollX": true,
                         })
                         const DeleteData = (url) => {
                             TopLoaderService.start()

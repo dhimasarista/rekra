@@ -24,7 +24,7 @@
                         <h4 class="text-danger h4">Daftar User</h4>
                     </div>
                     <div class="pb-20">
-                        <table id="provinsi-table"
+                        <table width="100%" id="provinsi-table"
                             class="table hover stripe multiple-select-row data-table-export wrap">
                             <thead>
                                 <tr>
