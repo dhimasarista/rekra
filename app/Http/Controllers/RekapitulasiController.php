@@ -347,9 +347,11 @@ class RekapitulasiController extends Controller
                 )
                     ->leftJoin('kelurahan', 'kelurahan.id', '=', 'tps.kelurahan_id')
                     ->leftJoin('kecamatan', 'kecamatan.id', '=', 'kelurahan.kecamatan_id')
-                    ->leftJoin('jumlah_suara_details', 'jumlah_suara_details.tps_id', '=', 'tps.id')
+                    ->leftJoin('jumlah_suara_details', function ($join) use ($idCalon) {
+                        $join->on('jumlah_suara_details.tps_id', '=', 'tps.id')
+                            ->where('jumlah_suara_details.calon_id', '=', $idCalon);
+                    })
                     ->where('kecamatan.kabkota_id', $codeQuery)
-                    ->where('jumlah_suara_details.calon_id', $idCalon)
                     ->groupBy('tps.id', 'name')
                     ->get();
             }
