@@ -11,7 +11,6 @@ use App\Models\Provinsi;
 use App\Models\Tps;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Ramsey\Uuid\Uuid;
 
@@ -300,9 +299,9 @@ class RekapitulasiController extends Controller
                     ->leftJoin('kecamatan', 'kecamatan.kabkota_id', '=', 'kabkota.id')
                     ->leftJoin('kelurahan', 'kelurahan.kecamatan_id', '=', 'kecamatan.id')
                     ->leftJoin('tps', 'tps.kelurahan_id', '=', 'kelurahan.id')
-                    ->leftJoin('jumlah_suara_details', function($join) use ($idCalon) {
+                    ->leftJoin('jumlah_suara_details', function ($join) use ($idCalon) {
                         $join->on('jumlah_suara_details.tps_id', '=', 'tps.id')
-                             ->where('jumlah_suara_details.calon_id', '=', $idCalon);
+                            ->where('jumlah_suara_details.calon_id', '=', $idCalon);
                     })
                     ->where('kabkota.provinsi_id', $codeQuery)
                     ->groupBy('kabkota.id', 'kabkota.name')
@@ -316,9 +315,9 @@ class RekapitulasiController extends Controller
                 )
                     ->leftJoin('kelurahan', 'kelurahan.kecamatan_id', '=', 'kecamatan.id')
                     ->leftJoin('tps', 'tps.kelurahan_id', '=', 'kelurahan.id')
-                    ->leftJoin('jumlah_suara_details', function($join) use ($idCalon) {
+                    ->leftJoin('jumlah_suara_details', function ($join) use ($idCalon) {
                         $join->on('jumlah_suara_details.tps_id', '=', 'tps.id')
-                             ->where('jumlah_suara_details.calon_id', '=', $idCalon);
+                            ->where('jumlah_suara_details.calon_id', '=', $idCalon);
                     })
                     ->where('kecamatan.kabkota_id', $codeQuery)
                     ->groupBy('kecamatan.id', 'kecamatan.name')
@@ -332,9 +331,11 @@ class RekapitulasiController extends Controller
                 )
                     ->leftJoin('kecamatan', 'kecamatan.id', '=', 'kelurahan.kecamatan_id')
                     ->leftJoin('tps', 'tps.kelurahan_id', '=', 'kelurahan.id')
-                    ->leftJoin('jumlah_suara_details', 'jumlah_suara_details.tps_id', '=', 'tps.id')
+                    ->leftJoin('jumlah_suara_details', function ($join) use ($idCalon) {
+                        $join->on('jumlah_suara_details.tps_id', '=', 'tps.id')
+                            ->where('jumlah_suara_details.calon_id', '=', $idCalon);
+                    })
                     ->where('kecamatan.kabkota_id', $codeQuery)
-                    ->where('jumlah_suara_details.calon_id', $idCalon)
                     ->groupBy('kelurahan.id', 'kelurahan.name')
                     ->get();
             } else if ($typeQuery == "Kelurahan") {
@@ -344,13 +345,13 @@ class RekapitulasiController extends Controller
                     DB::raw("CONCAT(tps.name, ' ', kelurahan.name) as name"),
                     DB::raw('COALESCE(SUM(jumlah_suara_details.amount), 0) as total')
                 )
-                ->leftJoin('kelurahan', 'kelurahan.id', '=', 'tps.kelurahan_id')
-                ->leftJoin('kecamatan', 'kecamatan.id', '=', 'kelurahan.kecamatan_id')
-                ->leftJoin('jumlah_suara_details', 'jumlah_suara_details.tps_id', '=', 'tps.id')
-                ->where('kecamatan.kabkota_id', $codeQuery)
-                ->where('jumlah_suara_details.calon_id', $idCalon)
-                ->groupBy('tps.id', 'name')
-                ->get();
+                    ->leftJoin('kelurahan', 'kelurahan.id', '=', 'tps.kelurahan_id')
+                    ->leftJoin('kecamatan', 'kecamatan.id', '=', 'kelurahan.kecamatan_id')
+                    ->leftJoin('jumlah_suara_details', 'jumlah_suara_details.tps_id', '=', 'tps.id')
+                    ->where('kecamatan.kabkota_id', $codeQuery)
+                    ->where('jumlah_suara_details.calon_id', $idCalon)
+                    ->groupBy('tps.id', 'name')
+                    ->get();
             }
             // else if ($typeQuery == "TPS" || $typeQuery == "Tps" || $typeQuery == "tps") {
             //     $data = Tps::select(
