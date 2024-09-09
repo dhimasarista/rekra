@@ -4,7 +4,7 @@
         <div class="title pb-20 d-flex justify-content-between align-items-center">
             <h2 class="h2 mb-0">List</h2>
             <div class="text-right">
-                <a class="btn btn-sm btn-dark" href="{{ route("input.index") }}">
+                <a class="btn btn-sm btn-dark" href="{{ route('input.index') }}">
                     <i class="fa fa-arrow-left"></i> Kembali
                 </a>
             </div>
@@ -18,7 +18,8 @@
                     </div>
                     @use('App\Helpers\Formatting')
                     <div class="pb-20">
-                        <table width="100%" id="datatable-table" class="table hover stripe multiple-select-row data-table-export wrap">
+                        <table width="100%" id="datatable-table"
+                            class="table hover stripe multiple-select-row data-table-export wrap">
                             <thead>
                                 <tr>
                                     <th>Nama</th>
@@ -29,16 +30,16 @@
                             <tbody>
                                 @foreach ($data as $d)
                                     <tr>
-                                        <td>{{ $d["name"] }}</td>
-                                        <td>{{ Formatting::capitalize($d["wilayah"]) }}</td>
+                                        <td>{{ $d['name'] }}</td>
+                                        <td>{{ Formatting::capitalize($d['wilayah']) }}</td>
                                         <td>
                                             <div class="m-10">
-                                                @if (session()->get("level") == "provinsi")
-                                                <a class="btn btn-sm btn-dark m-1" href="{{ $d["provinsi"] }}">
-                                                    <i class="fa fa-plus"></i> Provinsi
-                                                </a>
+                                                @if (session()->get('level') == 'provinsi' || session()->get('level') == 'master')
+                                                    <a class="btn btn-sm btn-dark m-1" href="{{ $d['provinsi'] }}">
+                                                        <i class="fa fa-plus"></i> Provinsi
+                                                    </a>
                                                 @endif
-                                                <a class="btn btn-sm btn-dark m-1" href="{{ $d["kabkota"] }}">
+                                                <a class="btn btn-sm btn-dark m-1" href="{{ $d['kabkota'] }}">
                                                     <i class="fa fa-plus"></i> Kab/Kota
                                                 </a>
                                             </div>
@@ -47,9 +48,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <script>
-
-                        </script>
+                        <script></script>
                     </div>
                 </div>
                 <script>
