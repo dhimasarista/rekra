@@ -38,6 +38,10 @@
                             </thead>
                             <tbody>
                                 @if ($data)
+                                    @php
+                                        $code = null;
+                                        $typeQuery = request()->query("Type");
+                                    @endphp
                                     @foreach ($data as $d)
                                         <tr>
                                             <td>{{ Formatting::capitalize($d->name) }}</td>
@@ -46,7 +50,7 @@
                                             <td>
                                                 <a href="{{ route('rekap.detail', [
                                                     'Type' => $wilayah,
-                                                    'Code' => $isProvinsi ? $d->id : $code,
+                                                    'Code' => $d->id,
                                                     'Id' => $calon->id,
                                                 ]) }}"
                                                     style="text-decoration: underline">Detail</a>

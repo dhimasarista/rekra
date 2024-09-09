@@ -335,7 +335,7 @@ class RekapitulasiController extends Controller
                         $join->on('jumlah_suara_details.tps_id', '=', 'tps.id')
                             ->where('jumlah_suara_details.calon_id', '=', $idCalon);
                     })
-                    ->where('kecamatan.kabkota_id', $codeQuery)
+                    ->where('kelurahan.kecamatan_id', $codeQuery)
                     ->groupBy('kelurahan.id', 'kelurahan.name')
                     ->get();
             } else if ($typeQuery == "Kelurahan") {
@@ -347,9 +347,11 @@ class RekapitulasiController extends Controller
                 )
                     ->leftJoin('kelurahan', 'kelurahan.id', '=', 'tps.kelurahan_id')
                     ->leftJoin('kecamatan', 'kecamatan.id', '=', 'kelurahan.kecamatan_id')
-                    ->leftJoin('jumlah_suara_details', 'jumlah_suara_details.tps_id', '=', 'tps.id')
-                    ->where('kecamatan.kabkota_id', $codeQuery)
-                    ->where('jumlah_suara_details.calon_id', $idCalon)
+                    ->leftJoin('jumlah_suara_details', function ($join) use ($idCalon) {
+                        $join->on('jumlah_suara_details.tps_id', '=', 'tps.id')
+                            ->where('jumlah_suara_details.calon_id', '=', $idCalon);
+                    })
+                    ->where('tps.kelurahan_id', $codeQuery)
                     ->groupBy('tps.id', 'name')
                     ->get();
             }
