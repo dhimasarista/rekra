@@ -267,6 +267,7 @@ class JumlahSuaraController extends Controller
             return response()->json(["message" => $e->getMessage()], 500);
         }
     }
+    // todo: anomali
     public function form(Request $request)
     {
         try {
