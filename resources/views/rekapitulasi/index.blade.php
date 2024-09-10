@@ -25,15 +25,17 @@
                         $data = [
                             [
                                 'id' => 1,
-                                'nama' => 'Provinsi',
-                                'route' => route('rekap.index', ['Type' => 'Provinsi']),
-                            ],
-                            [
-                                'id' => 2,
                                 'nama' => 'Kabkota',
                                 'route' => route('rekap.index', ['Type' => 'Kabkota']),
-                            ],
+                            ]
                         ];
+                        if (request()->session()->get("level") !== "kabkota") {
+                            array_push($data, [
+                                'id' => 2,
+                                'nama' => 'Provinsi',
+                                'route' => route('rekap.index', ['Type' => 'Provinsi']),
+                            ]);
+                        }
                     @endphp
                     @foreach ($data as $d)
                     <tr>
