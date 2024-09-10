@@ -25,7 +25,7 @@ Route::middleware("auth")->group(function () {
     Route::prefix("rekapitulasi")->group(function () {
         Route::get("", [RekapitulasiController::class, "index"])->name("rekap.index")->middleware("pageRedirect");
         Route::get("/list", [RekapitulasiController::class, "list"])->name("rekap.list")->middleware("roleRedirect")->middleware("dataRestriction");
-        Route::get("/detail", [RekapitulasiController::class, "detail"])->name("rekap.detail");
+        Route::get("/detail", [RekapitulasiController::class, "detail"])->name("rekap.detail")->middleware("dataRestriction");
         Route::get("hitung-cepat", [HitungCepatController::class, "selectRekapHitungCepat"])->name("rekap.hitung-cepat.select");
     });
     Route::get("/logout", [AuthController::class, "destroy"]);
