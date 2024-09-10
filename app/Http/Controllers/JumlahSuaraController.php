@@ -208,16 +208,16 @@ class JumlahSuaraController extends Controller
         try {
             $message = "Data Berhasil Disimpan";
             $responseCode = 200;
-            $body = $request->except(["note"]);
+            $body = $request->except(["note", "total_suara_sah", "total_sah_tidak_sah", "total_suara_tidak_sah"]);
             $tpsId = $request->query("Tps");
             $jumlahSuaraId = Uuid::uuid7();
             $dataJSD = []; // JSD: jumlah_suara_details
             $dataJS = [
                 "id" => $jumlahSuaraId,
                 "note" => $request->note,
-                "total_suara_sah" => rand(100, 5000),
-                "total_suara_tidak_sah" => rand(100, 5000),
-                "total_sah_tidak_sah" => rand(100, 5000),
+                "total_suara_sah" => $request->total_suara_sah,
+                "total_suara_tidak_sah" => $request->total_suara_tidak_sah,
+                "total_sah_tidak_sah" => $request->total_sah_tidak_sah,
             ]; // JS: jumlah_suara
 
             foreach ($body as $key => $value) {
@@ -264,7 +264,6 @@ class JumlahSuaraController extends Controller
 
             return response()->json([
                 "message" => $message,
-                "data" => $dataJS
             ], $responseCode);
         } catch (QueryException $e) {
             DB::rollBack();
@@ -399,11 +398,29 @@ class JumlahSuaraController extends Controller
                     ]),
                     "method" => "post",
                     "redirect" => url()->previous(),
-                    "form_data" => [ ...$calonFormData, [
-                        "id" => $formId12,
-                        "name" => "note",
-                        "type" => "string",
-                    ]],
+                    "form_data" => [
+                        ...$calonFormData,
+                        [
+                            "id" => $formId12,
+                            "name" => "note",
+                            "type" => "string",
+                        ],
+                        [
+                            "id" => $formId8,
+                            "name" => "total_suara_sah",
+                            "type" => "string",
+                        ],
+                        [
+                            "id" => $formId9,
+                            "name" => "total_suara_tidak_sah",
+                            "type" => "string",
+                        ],
+                        [
+                            "id" => $formId10,
+                            "name" => "total_sah_tidak_sah",
+                            "type" => "string",
+                        ],
+                    ],
                 ],
                 "form" => [
                      ...$calonForm,
