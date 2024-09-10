@@ -33,6 +33,19 @@ class JumlahSuaraController extends Controller
                 ->where('kelurahan_id', $idQuery)
                 ->get();
             $data = [];
+            // dd($tps);
+            // $JSD = $this->jumlahSuaraDetail->select(
+            //     "jumlah_suara_details.*",
+            //     "jumlah_suara.*",
+            //     "tps.*",
+            //     "kelurahan.*"
+            // )
+            // ->join("tps", "tps.id", "=", "jumlah_suara_details.tps_id")
+            // ->join("kelurahan", "kelurahan.id", "=", "tps.kelurahan_id")
+            // ->join("jumlah_suara", "jumlah_suara.id", "=", "jumlah_suara_details.jumlah_suara_id")
+            // ->where("kelurahan.id", $tps[0]->kelurahan_id)
+            // ->get();
+            // dd($JSD);
             foreach ($tps as $t) {
                 $data[] = [
                     "id" => $t->id,
@@ -251,6 +264,7 @@ class JumlahSuaraController extends Controller
 
             return response()->json([
                 "message" => $message,
+                "data" => $dataJS
             ], $responseCode);
         } catch (QueryException $e) {
             DB::rollBack();
@@ -289,13 +303,18 @@ class JumlahSuaraController extends Controller
             } else if ($typeQuery === "Provinsi" || $typeQuery === "provinsi") {
                 $calon = Calon::where("code", $tps->provinsi_id)->get(['id', 'calon_name', 'wakil_name']); // Ambil hanya kolom yang diperlukan
             }
-
             // Ambil jumlah suara detail berdasarkan tps_id
             $jumlahSuaraDetail = $this->jumlahSuaraDetail
                 ->select("calon_id", "tps_id", "amount", "jumlah_suara_id")
                 ->where("tps_id", $tps->id)
                 ->get();
-            $jumlahSuara = $this->jumlahSuara::find($jumlahSuaraDetail[1]->jumlah_suara_id ?? null);
+            $jumlahSuaraId = null;
+            foreach ($jumlahSuaraDetail as $value) {
+                if ($value->calon_id == $calon[0]->id) {
+                    $jumlahSuaraId = $value->jumlah_suara_id;
+                }
+            }
+            $jumlahSuara = $this->jumlahSuara::find($jumlahSuaraId);
 
             // Buat lookup untuk jumlah suara berdasarkan calon_id
             $jumlahSuaraLookup = $jumlahSuaraDetail->keyBy('calon_id');
@@ -490,13 +509,13 @@ class JumlahSuaraController extends Controller
                         "id" => $formId8,
                         "type" => "number",
                         "name" => "Total Suara Sah",
-                        "is_disabled" => true,
+                        "is_disabled" => false,
                         "for_submit" => false,
                         "fetch_data" => [
                             "is_fetching" => false,
                         ],
                         "data" => [
-                            "value" => null,
+                            "value" => $jumlahSuara->total_suara_sah ?? null,
                             "placeholder" => "Wajib Diisi",
                         ],
                     ],
@@ -504,13 +523,13 @@ class JumlahSuaraController extends Controller
                         "id" => $formId9,
                         "type" => "number",
                         "name" => "Total Suara Tidak Sah",
-                        "is_disabled" => true,
+                        "is_disabled" => false,
                         "for_submit" => false,
                         "fetch_data" => [
                             "is_fetching" => false,
                         ],
                         "data" => [
-                            "value" => null,
+                            "value" => $jumlahSuara->total_suara_tidak_sah ?? null,
                             "placeholder" => "Wajib Diisi",
                         ],
                     ],
@@ -518,13 +537,13 @@ class JumlahSuaraController extends Controller
                         "id" => $formId10,
                         "type" => "number",
                         "name" => "Total Suara Sah & Tidak Sah",
-                        "is_disabled" => true,
+                        "is_disabled" => false,
                         "for_submit" => false,
                         "fetch_data" => [
                             "is_fetching" => false,
                         ],
                         "data" => [
-                            "value" => null,
+                            "value" => $jumlahSuara->total_sah_tidak_sah ?? null,
                             "placeholder" => "Wajib Diisi",
                         ],
                     ],
@@ -558,7 +577,7 @@ class JumlahSuaraController extends Controller
                             "is_fetching" => false,
                         ],
                         "data" => [
-                            "value" => $jumlahSuara->note ?? null,
+                            "value" => $jumlahSuara->note,
                             "placeholder" => "Contoh: Terjadi kecurangan...",
                         ],
                     ],
