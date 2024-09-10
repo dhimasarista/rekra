@@ -6,6 +6,7 @@ use App\Helpers\Formatting;
 use App\Models\Calon;
 use App\Models\HitungSuaraCepatAdmin;
 use App\Models\HitungSuaraCepatAdminDetail;
+use App\Models\KabKota;
 use App\Models\Provinsi;
 use App\Models\Tps;
 use Exception;
@@ -241,9 +242,69 @@ class HitungCepatController extends Controller
                     [
                         "id" => $formId1, // ID untuk elemen form
                         "type" => "select", // Tipe elemen: select, text, number, notification, dynamic-input
-                        "name" => "Nama Provinsi", // Label untuk elemen form
+                        "name" => "Jenis Hitung Cepat", // Label untuk elemen form
                         "is_disabled" => false, // Jika true, elemen akan disabled
                         "for_submit" => true, // Jika true, elemen ini digunakan untuk submit
+                        "fetch_data" => [
+                            "is_fetching" => false, // Jika true, data akan diambil melalui AJAX
+                            "route" => "#", // Rute untuk AJAX fetch
+                            "response" => null, // Key dalam respons untuk data yang diambil
+                            "sibling_form_id" => $formId2 // ID elemen lain yang akan diupdate berdasarkan fetch
+                        ],
+                        "options" => [
+                            [
+                                "id" => "null",
+                                "is_selected" => true,
+                                "name" => "Pilih Cok"
+                            ],
+                            [
+                                "id" => "saksi",
+                                "is_selected" => false,
+                                "name" => "Hitung Cepat Saksi"
+                            ],
+                            [
+                                "id" => "admin",
+                                "is_selected" => false,
+                                "name" => "Hitung Cepat Admin"
+                            ],
+                        ]
+                    ],
+                    [
+                        "id" => $formId2, // ID untuk elemen form
+                        "type" => "select", // Tipe elemen: select, text, number, notification, dynamic-input
+                        "name" => "Tingkatan Pemilihan", // Label untuk elemen form
+                        "is_disabled" => false, // Jika true, elemen akan disabled
+                        "for_submit" => true, // Jika true, elemen ini digunakan untuk submit
+                        "fetch_data" => [
+                            "is_fetching" => false, // Jika true, data akan diambil melalui AJAX
+                            "route" => "#",
+                            "response" => "data", // Key dalam respons untuk data yang diambil
+                            "sibling_form_id" => $formId3 // ID elemen lain yang akan diupdate berdasarkan fetch
+                        ],
+                        "options" => [
+                            [
+                                "id" => "null",
+                                "is_selected" => true,
+                                "name" => "Pilih Tingkatan"
+                            ],
+                            [
+                                "id" => "provinsi",
+                                "is_selected" => false,
+                                "name" => "Provinsi"
+                            ],
+                            [
+                                "id" => "kabkota",
+                                "is_selected" => false,
+                                "name" => "Kabkota"
+                            ],
+                        ]
+                    ],
+                    [
+                        "id" => $formId3,
+                        "type" => "select",
+                        "name" => "Nama Provinsi",
+                        "is_disabled" => false,
+                        "for_submit" => true,
                         "fetch_data" => [
                             "is_fetching" => true, // Jika true, data akan diambil melalui AJAX
                             "route" => route("wilayah.find", [
@@ -251,13 +312,14 @@ class HitungCepatController extends Controller
                                 "Id" => "",
                             ]), // Rute untuk AJAX fetch
                             "response" => "data", // Key dalam respons untuk data yang diambil
-                            "sibling_form_id" => $formId2 // ID elemen lain yang akan diupdate berdasarkan fetch
+                            "sibling_form_id" => $formId4 // ID elemen lain yang akan diupdate berdasarkan fetch
                         ],
                         "options" => $options
-                    ], [
-                        "id" => $formId2,
+                    ],
+                    [
+                        "id" => $formId4,
                         "type" => "select",
-                        "name" => "Nama Kab/Kota",
+                        "name" => "Nama Kabkota",
                         "is_disabled" => true,
                         "for_submit" => true,
                         "fetch_data" => [
@@ -270,7 +332,7 @@ class HitungCepatController extends Controller
                                 "name" => "",
                             ],
                         ],
-                    ]
+                    ],
                 ]
             ];
             return view($view, [
@@ -285,5 +347,94 @@ class HitungCepatController extends Controller
 
             return redirect("/error$val");
         }
+    }
+    private function getDataPerWilayah($wilayah, $idQuery, $typeQuery)
+    {
+        $dataPerwilayah = [];
+        $calonTotal = $this->getCalonTotal($idQuery);
+
+        foreach ($wilayah->{($typeQuery === "Provinsi" || $typeQuery === "provinsi") ? 'kabkota' : 'kecamatan'} as $region) {
+            $totalSuara = $this->getTotalSuaraPerWilayah($region->id, $idQuery, $typeQuery);
+
+            $totalSuaraArray = $totalSuara->isEmpty() ? $calonTotal->map(fn($calon) => (object) [
+                'id' => $calon->id,
+                'calon_name' => $calon->calon_name,
+                'wakil_name' => $calon->wakil_name,
+                'total' => 0,
+            ]) : $totalSuara;
+
+            $dataPerwilayah[] = [
+                "id" => $region->id,
+                "name" => $region->name,
+                "total_suara" => $totalSuaraArray,
+            ];
+        }
+
+        return $dataPerwilayah;
+    }
+
+    /**
+     * Get Total Suara per Wilayah (Kecamatan/Kabkota)
+     */
+    private function getTotalSuaraPerWilayah($regionId, $idQuery, $typeQuery)
+    {
+        return Calon::select(
+            "calon.id",
+            "calon.calon_name",
+            "calon.wakil_name",
+            DB::raw("COALESCE(SUM(hitung_suara_cepat_admin_detail.amount), 0) as total")
+        )
+            ->leftJoin("hitung_suara_cepat_admin_detail", "calon.id", "=", "hitung_suara_cepat_admin_detail.calon_id")
+            ->leftJoin("tps", "hitung_suara_cepat_admin_detail.tps_id", "=", "tps.id")
+            ->leftJoin("kelurahan", "tps.kelurahan_id", "=", "kelurahan.id")
+            ->leftJoin("kecamatan", "kelurahan.kecamatan_id", "=", "kecamatan.id")
+            ->leftJoin("kabkota", "kecamatan.kabkota_id", "=", "kabkota.id")
+            ->where(($typeQuery === "Provinsi") ? "kabkota.id" : "kecamatan.id", $regionId)
+            ->where("calon.code", $idQuery)
+            ->groupBy("calon.id", "calon.calon_name", "calon.wakil_name")
+            ->get();
+    }
+
+    /**
+     * Get Calon Total
+     */
+    private function getCalonTotal($idQuery)
+    {
+        return Calon::select(
+            "calon.id",
+            "calon.calon_name",
+            "calon.wakil_name",
+            DB::raw("COALESCE(SUM(hitung_suara_cepat_admin_detail.amount), 0) as total")
+        )
+            ->leftJoin("hitung_suara_cepat_admin_detail", "calon.id", "=", "hitung_suara_cepat_admin_detail.calon_id")
+            ->where("calon.code", $idQuery)
+            ->groupBy("calon.id", "calon.calon_name", "calon.wakil_name")
+            ->get();
+    }
+
+    public function rekapHitungCepatAdmin(Request $request){
+        $view = "hitung_cepat.chart";
+        $idQuery = $request->query("Id");
+        $typeQuery = $request->query("Type");
+        if (!$idQuery || $idQuery == "null" || $idQuery == "Pilih") {
+            return redirect("/");
+        }
+        $wilayah = match ($typeQuery) {
+            "Kabkota" => Kabkota::with("kecamatan")->find($idQuery),
+            "Provinsi" => Provinsi::with("kabkota")->find($idQuery),
+            default => null,
+        };
+
+        $dataPerwilayah = $this->getDataPerWilayah($wilayah, $idQuery, $typeQuery);
+        $calonTotal = $this->getCalonTotal($idQuery);
+
+        $data = [
+            "calon_total" => $calonTotal,
+            "data_perwilayah" => $dataPerwilayah,
+        ];
+        return view($view, [
+            "data" => $data,
+            "wilayah" => $wilayah,
+        ]);
     }
 }
