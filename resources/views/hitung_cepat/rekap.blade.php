@@ -6,11 +6,9 @@
         $segments = request()->segments();
         $idSelect1 = Uuid::uuid7();
         $idSelect2 = Uuid::uuid7();
-        // $idSelect3 = Uuid::uuid7();
         $idContainerSelect3 = Uuid::uuid7();
         $idButtonSubmit = Uuid::uuid7();
     @endphp
-    {{-- @dd($idSelect1) --}}
     <div class="xs-pd-20-10 pd-ltr-20">
         <div class="title pb-20 d-flex justify-content-between align-items-center">
             <div class="text-left" style="width: 100%">
@@ -27,13 +25,13 @@
                 <script>
                     $("#{{ $idSelect2 }}").on("change", (e) => {
                         e.preventDefault();
-                        let typeQuery = $("#{{ $idSelect2 }} ").val();
+                        let typeQuery = $("#{{ $idSelect2 }}").val();
                         let url = `{!! route('hitung_cepat.select_tingkat', ['Type' => 'TYPE_PLACEHOLDER']) !!}`.replace("TYPE_PLACEHOLDER", typeQuery);
                         $.ajax({
                             type: "get",
                             url: url,
                             success: function(response) {
-                                $("#{{ $idContainerSelect3 }}").html(response)
+                                $("#{{ $idContainerSelect3 }}").html(response);
                             },
                             error: function(xhr, status, error) {
                                 Swal.fire({
@@ -44,29 +42,94 @@
                             },
                             complete: function(data) {}
                         });
-                    })
+                    });
                 </script>
-                <span id="{{ $idContainerSelect3 }}">
-
-                </span>
+                <span id="{{ $idContainerSelect3 }}"></span>
                 <button id="{{ $idButtonSubmit }}" class="btn btn-dark m-1">Submit</button>
                 <script>
-                    var data = null;
-                    $("#{{ $idButtonSubmit }}").on("click", function(e){
-                        TopLoaderService.start()
-                        let typeQuickCount = $("#{{ $idSelect1 }} ").val();
-                        let tingkat = $("#{{ $idSelect2 }} ").val();
+                    $("#{{ $idButtonSubmit }}").on("click", function(e) {
+                        e.preventDefault();
+                        TopLoaderService.start();
+                        let typeQuickCount = $("#{{ $idSelect1 }}").val();
+                        let tingkat = $("#{{ $idSelect2 }}").val();
                         let lastId = $("#{{ $idContainerSelect3 }} .custom-select:last").val();
-                        let url = `{!! route('hitung_cepat.chart', ['Type' => 'TYPE_PLACEHOLDER', 'Tingkat' => 'TINGKAT_PLACEHOLDER', 'Id' => 'ID_PLACEHOLDER']) !!}`
-                        .replace("TYPE_PLACEHOLDER", typeQuickCount)
-                        .replace("TINGKAT_PLACEHOLDER", tingkat)
-                        .replace('ID_PLACEHOLDER', lastId);
+                        let url = `{!! route('hitung_cepat.chart', [
+                            'Type' => 'TYPE_PLACEHOLDER',
+                            'Tingkat' => 'TINGKAT_PLACEHOLDER',
+                            'Id' => 'ID_PLACEHOLDER',
+                        ]) !!}`
+                            .replace("TYPE_PLACEHOLDER", typeQuickCount)
+                            .replace("TINGKAT_PLACEHOLDER", tingkat)
+                            .replace('ID_PLACEHOLDER', lastId);
+
+                        loadChartData(url, {
+                            Id: lastId,
+                            Tingkat: tingkat,
+                            Type: typeQuickCount
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+        <div class="row pb-10">
+            <div class="col-md-12 mb-20">
+                <script src="../admin/src/plugins/apexcharts/apexcharts.min.js"></script>
+                <div class="row mb-30" id="chart-container">
+                    <div class="col-md-6 mb-20">
+                        <div class="bg-white pd-20 card-box mb-30">
+                            <h4 class="h4 text-blue">Jumlah Keseluruhan</h4>
+                            <div id="chart8"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="bg-white pd-20 card-box mb-30">
+                            <h4 class="h4 text-blue">Jumlah Per Daerah</h4>
+                            <div id="chart4"></div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    let wilayah = null;
+                    let seriesNames = null;
+                    let categories = [];
+                    let seriesData = [];
+
+                    function loadChartData(url, data) {
                         $.ajax({
-                            type: "get",
                             url: url,
+                            method: 'GET',
+                            data: data,
                             success: function(response) {
-                                $("#container-card").html(null)
-                                $("#container-card").html(response)
+                                wilayah = response["wilayah"];
+                                seriesNames = response["data"];
+                                if (wilayah.kecamatan) {
+                                    categories = wilayah.kecamatan.map(k => Formatting.capitalize(k.name));
+                                } else if (wilayah.kabkota) {
+                                    categories = wilayah.kabkota.map(k => Formatting.capitalize(k.name));
+                                } else {
+                                    categories = [];
+                                }
+                                seriesData = seriesNames.calon_total.map(calon => {
+                                    return {
+                                        name: `${Formatting.capitalize(calon.calon_name)} - ${Formatting.capitalize(calon.wakil_name)}`,
+                                        data: categories.map(category => {
+                                            let wilayahData = seriesNames.data_perwilayah.find(w => Formatting.capitalize(w.name) === category);
+                                            let calonData = wilayahData ? wilayahData.total_suara.find(c => c.id === calon.id) : null;
+                                            return calonData ? parseInt(calonData.total) : 0;
+                                        })
+                                    };
+                                });
+                                const newLabels = seriesNames.calon_total.map(calon => Formatting.capitalize(calon.calon_name));
+                                chart4.updateOptions({
+                                    xaxis: {
+                                        categories: categories
+                                    }
+                                });
+                                chart4.updateSeries(seriesData);
+                                chart8.updateSeries(seriesNames.calon_total.map(calon => parseInt(calon.total)));
+                                chart8.updateOptions({
+                                    labels: newLabels,
+                                });
                             },
                             error: function(xhr, status, error) {
                                 Swal.fire({
@@ -76,35 +139,125 @@
                                 });
                             },
                             complete: function(data) {
-                                console.log(url);
-                                TopLoaderService.end()
+                                TopLoaderService.end();
                             }
                         });
+                    }
+
+                    function adjustChart8Height() {
+                        const chart4Height = $('#chart4').outerHeight();
+                        $('#chart8').css('height', chart4Height);
+                    }
+
+                    let options4 = {
+                        series: [],
+                        chart: {
+                            type: 'bar',
+                            height: 500,
+                            toolbar: {
+                                show: false,
+                            }
+                        },
+                        theme: {
+                            mode: 'light',
+                            palette: 'palette7',
+                            monochrome: {
+                                enabled: false,
+                                color: '#D7263D',
+                                shadeTo: 'light',
+                                shadeIntensity: 0.65
+                            },
+                        },
+                        grid: {
+                            show: true,
+                            padding: {
+                                left: 10,
+                                right: 10,
+                            }
+                        },
+                        plotOptions: {
+                            bar: {
+                                horizontal: true,
+                                dataLabels: {
+                                    position: 'top',
+                                },
+                            }
+                        },
+                        dataLabels: {
+                            enabled: true,
+                            offsetX: -6,
+                            style: {
+                                fontSize: '12px',
+                                colors: ['#000']
+                            },
+                            name: {
+                                show: true
+                            },
+                        },
+                        stroke: {
+                            show: true,
+                            width: 1,
+                            colors: ['#fff']
+                        },
+                        xaxis: {
+                            categories: categories,
+                        },
+                    };
+
+                    var chart4 = new ApexCharts(document.querySelector("#chart4"), options4);
+
+                    let options8 = {
+                        series: [],
+                        labels: [],
+                        dataLabels: {
+                            enabled: true,
+                        },
+                        plotOptions: {
+                            pie: {
+                                donut: {
+                                    labels: {
+                                        show: true,
+                                        name: {},
+                                        value: {}
+                                    }
+                                }
+                            }
+                        },
+                        theme: {
+                            mode: 'light',
+                            palette: 'palette7',
+                            monochrome: {
+                                enabled: false,
+                                color: '#D7263D',
+                                shadeTo: 'light',
+                                shadeIntensity: 0.65
+                            },
+                        },
+                        chart: {
+                            type: 'donut',
+                        },
+                        legend: {
+                            position: 'bottom',
+                            fontWeight: 600,
+                        },
+                        responsive: [{
+                            breakpoint: 480,
+                            options: {
+                                chart: {},
+                            }
+                        }]
+                    };
+
+                    var chart8 = new ApexCharts(document.querySelector("#chart8"), options8);
+
+                    chart4.render();
+                    chart8.render();
+
+                    adjustChart8Height();
+                    $(window).resize(function() {
+                        adjustChart8Height();
                     });
                 </script>
-            </div>
-        </div>
-        <div class="row pb-10">
-            <div class="col-md-12 mb-20">
-                {{-- <!-- Export Datatable start --> --}}
-                <div id="container-card">
-                    <div class="card-box mb-30">
-                        <div class="error-page d-flex align-items-center flex-wrap justify-content-center pd-20">
-                            <div class="pd-10">
-                                <div class="error-page-wrap text-center">
-                                    <h2>Belum Ada Data</h2>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 512 512"><defs><clipPath id="meteoconsWindOffshore0"><path fill="none" d="M245.7 256.9H74.8v139.6h110.9l27.2-52.9l32.8-36.8v-49.9z"/></clipPath><symbol id="meteoconsWindOffshore1" viewBox="0 0 138 96"><path fill="none" stroke="#e2e8f0" stroke-dasharray="58" stroke-linecap="round" stroke-miterlimit="10" stroke-width="12" d="M105.2 10.8A15.6 15.6 0 1 1 116.4 37H6"><animate attributeName="stroke-dashoffset" dur="6s" repeatCount="indefinite" values="0; 1274"/></path><path fill="none" stroke="#e2e8f0" stroke-dasharray="43" stroke-linecap="round" stroke-miterlimit="10" stroke-width="12" d="M60.7 85.2A15.6 15.6 0 1 0 71.9 59H6.6"><animate attributeName="stroke-dashoffset" dur="6s" repeatCount="indefinite" values="0; 857"/></path></symbol></defs><path fill="#744e2d" d="M353.4 158.3c-.8-5.8-2.9-10.2-4.6-10l-1.4.2c-1.7.3-2.6 5-1.8 10.9l14 113.5c.8 6 2.9 10.8 4.7 10.6l3.6-.5c1.8-.2 2.6-5.4 1.7-11.5Z"/><path fill="#40c057" d="M403 153.2c-3.2-23.4-26-39.7-50.8-36.4a46 46 0 0 0-36.3 26.7h-2.2c-18.7 2.5-32 18.8-29.6 36.4a32.4 32.4 0 0 0 28.5 27.1a20.3 20.3 0 0 0-.7 8.7a22 22 0 0 0 25.3 18.3a23.4 23.4 0 0 0 14-7.3a34.7 34.7 0 0 0 28.3 8.8c18.6-2.5 31.9-18.7 29.5-36.3a30.8 30.8 0 0 0-11.4-20a41 41 0 0 0 5.3-26Z"><animateTransform additive="sum" attributeName="transform" calcMode="spline" dur="3s" keySplines=".42, 0, .58, 1; .42, 0, .58, 1; .42, 0, .58, 1; .42, 0, .58, 1" repeatCount="indefinite" type="rotate" values="3 366 200; -3 366 200; 3 366 200; -3 366 200; 3 366 200"/></path><g clip-path="url(#meteoconsWindOffshore0)"><path fill="none" stroke="#2885c7" stroke-linecap="round" stroke-linejoin="round" stroke-width="9" d="M245.7 309.6c-13.8 0-26.3-14.7-32.8-27a2.9 2.9 0 0 0-5.2 0c-6.4 12.3-19 27-32.7 27s-26.4-14.7-32.9-27a2.9 2.9 0 0 0-5 0c-6.6 12.3-19 27-32.9 27h-10v62a20.4 20.4 0 0 0 20 20.6h131.5Z"><animate attributeName="d" calcMode="spline" dur="3s" keySplines=".42, 0, .58, 1; .42, 0, .58, 1" repeatCount="indefinite" values="M245.68,309.62c-13.79,0-26.33-14.73-32.8-27a2.88,2.88,0,0,0-5.13,0c-6.47,12.29-19,27-32.8,27s-26.33-14.73-32.81-27a2.87,2.87,0,0,0-5.12,0c-6.48,12.29-19,27-32.81,27H94.11v62a20.38,20.38,0,0,0,20.16,20.59H245.68Z; M245.68,333.62c-13.79,0-26.33-14.73-32.8-27a2.88,2.88,0,0,0-5.13,0c-6.47,12.29-19,27-32.8,27s-26.33-14.73-32.81-27a2.87,2.87,0,0,0-5.12,0c-6.48,12.29-19,27-32.81,27H94.11v38a20.38,20.38,0,0,0,20.16,20.59H245.68Z; M245.68,309.62c-13.79,0-26.33-14.73-32.8-27a2.88,2.88,0,0,0-5.13,0c-6.47,12.29-19,27-32.8,27s-26.33-14.73-32.81-27a2.87,2.87,0,0,0-5.12,0c-6.48,12.29-19,27-32.81,27H94.11v62a20.38,20.38,0,0,0,20.16,20.59H245.68Z"/></path></g><path fill="none" stroke="#f8af18" stroke-miterlimit="10" stroke-width="9" d="M402.3 369.8v-66.4c0-12.3-8.9-22.4-19.8-22.4h-62.6c-49.2 0-94.2 31.4-116.4 81.1l-13.4 30h192.4c11 0 19.8-10 19.8-22.4Z"/><use width="138" height="96" href="#meteoconsWindOffshore1" transform="matrix(-1 0 0 1 237 146)"/></svg>
-                                    <p>Pilih Jenis Rekap > Pilih Tingkat (Provinsi/Kabkota)</p>
-                                    <p>Jika Tingkat Provinsi > Pilih Nama Provinsi > Submit</p>
-                                    <p>Jika Tingkat Kabkota > Pilih Nama Provinsi > Pilih Kabkota > Submit</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {{-- <!-- Export Datatable End --> --}}
-            </div>
-            <div class="col-md-4 mb-20">
             </div>
         </div>
     </div>

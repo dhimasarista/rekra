@@ -207,23 +207,33 @@ class HitungCepatController extends Controller
         if (!$idQuery || $idQuery == "null" || $idQuery == "Pilih") {
             return redirect("/");
         }
-        $wilayah = match ($tingkatQuery) {
-            "Kabkota" => Kabkota::with("kecamatan")->find($idQuery),
-            "Provinsi" => Provinsi::with("kabkota")->find($idQuery),
-            default => null,
-        };
+        if ($typeQuery == "null") {
+            return response()->json([
+                "message" => "Pilih Jenis Rekap Terlebih Dahulu!!!"
+            ], 500);
+        } else if($typeQuery == "admin") {
+            $wilayah = match ($tingkatQuery) {
+                "Kabkota" => Kabkota::with("kecamatan")->find($idQuery),
+                "Provinsi" => Provinsi::with("kabkota")->find($idQuery),
+                default => null,
+            };
 
-        $dataPerwilayah = $this->getDataPerWilayah($wilayah, $idQuery, $tingkatQuery);
-        $calonTotal = $this->getCalonTotal($idQuery);
+            $dataPerwilayah = $this->getDataPerWilayah($wilayah, $idQuery, $tingkatQuery);
+            $calonTotal = $this->getCalonTotal($idQuery);
 
-        $data = [
-            "calon_total" => $calonTotal,
-            "data_perwilayah" => $dataPerwilayah,
-        ];
-        return view($view, [
-            "data" => $data,
-            "wilayah" => $wilayah,
-        ]);
+            $data = [
+                "calon_total" => $calonTotal,
+                "data_perwilayah" => $dataPerwilayah,
+            ];
+            return response()->json([
+                "data" => $data,
+                "wilayah" => $wilayah,
+            ], 200);
+        } else {
+            return response()->json([
+                "message" => "Internal Server Error!"
+            ], 500);
+        }
     }
     public function selectTingkatPemilihan(Request $request){
         $typeQuery = $request->query("Type");
