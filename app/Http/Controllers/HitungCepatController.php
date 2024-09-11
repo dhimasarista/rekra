@@ -183,7 +183,57 @@ class HitungCepatController extends Controller
             return response()->json(["message" => $message, "data" => $tpsId], 500);
         }
     }
+    public function rekapHitungCepat(Request $request){
+        try {
+            $view = "hitung_cepat.rekap";
+            return view($view, [
 
+            ]);
+        } catch (Exception $e) {
+            $val = Formatting::formatUrl([
+                "code" => 500,
+                "title" => $e->getMessage(),
+                "message" => $e->getMessage(),
+            ]);
+
+            return redirect("/error$val");
+        }
+    }
+    public function chart(Request $request){
+        $view = "hitung_cepat.chart";
+        $idQuery = $request->query("Id");
+        $tingkatQuery = $request->query("Tingkat");
+        $typeQuery = $request->query("Type");
+        if (!$idQuery || $idQuery == "null" || $idQuery == "Pilih") {
+            return redirect("/");
+        }
+        $wilayah = match ($tingkatQuery) {
+            "Kabkota" => Kabkota::with("kecamatan")->find($idQuery),
+            "Provinsi" => Provinsi::with("kabkota")->find($idQuery),
+            default => null,
+        };
+
+        $dataPerwilayah = $this->getDataPerWilayah($wilayah, $idQuery, $tingkatQuery);
+        $calonTotal = $this->getCalonTotal($idQuery);
+
+        $data = [
+            "calon_total" => $calonTotal,
+            "data_perwilayah" => $dataPerwilayah,
+        ];
+        return view($view, [
+            "data" => $data,
+            "wilayah" => $wilayah,
+        ]);
+    }
+    public function selectTingkatPemilihan(Request $request){
+        $typeQuery = $request->query("Type");
+        $provinsi = Provinsi::all();
+
+        return view("hitung_cepat.select_tingkat", [
+            "provinsi" => $provinsi,
+            "type" => $typeQuery,
+        ]);
+    }
     public function selectRekapHitungCepat(Request $request){
         try {
             $view = "layouts.form";
@@ -255,7 +305,7 @@ class HitungCepatController extends Controller
                             [
                                 "id" => "null",
                                 "is_selected" => true,
-                                "name" => "Pilih Cok"
+                                "name" => "Pilih"
                             ],
                             [
                                 "id" => "saksi",
@@ -285,7 +335,7 @@ class HitungCepatController extends Controller
                             [
                                 "id" => "null",
                                 "is_selected" => true,
-                                "name" => "Pilih Tingkatan"
+                                "name" => "Pilih"
                             ],
                             [
                                 "id" => "provinsi",
@@ -329,7 +379,7 @@ class HitungCepatController extends Controller
                             [
                                 "id" => null,
                                 "is_selected" => true,
-                                "name" => "",
+                                "name" => "Pilih",
                             ],
                         ],
                     ],
@@ -410,31 +460,5 @@ class HitungCepatController extends Controller
             ->where("calon.code", $idQuery)
             ->groupBy("calon.id", "calon.calon_name", "calon.wakil_name")
             ->get();
-    }
-
-    public function rekapHitungCepatAdmin(Request $request){
-        $view = "hitung_cepat.chart";
-        $idQuery = $request->query("Id");
-        $typeQuery = $request->query("Type");
-        if (!$idQuery || $idQuery == "null" || $idQuery == "Pilih") {
-            return redirect("/");
-        }
-        $wilayah = match ($typeQuery) {
-            "Kabkota" => Kabkota::with("kecamatan")->find($idQuery),
-            "Provinsi" => Provinsi::with("kabkota")->find($idQuery),
-            default => null,
-        };
-
-        $dataPerwilayah = $this->getDataPerWilayah($wilayah, $idQuery, $typeQuery);
-        $calonTotal = $this->getCalonTotal($idQuery);
-
-        $data = [
-            "calon_total" => $calonTotal,
-            "data_perwilayah" => $dataPerwilayah,
-        ];
-        return view($view, [
-            "data" => $data,
-            "wilayah" => $wilayah,
-        ]);
     }
 }

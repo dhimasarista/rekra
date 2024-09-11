@@ -26,7 +26,6 @@ Route::middleware("auth")->group(function () {
         Route::get("", [RekapitulasiController::class, "index"])->name("rekap.index")->middleware("pageRedirect");
         Route::get("/list", [RekapitulasiController::class, "list"])->name("rekap.list")->middleware("roleRedirect")->middleware("dataRestriction");
         Route::get("/detail", [RekapitulasiController::class, "detail"])->name("rekap.detail")->middleware("dataRestriction");
-        Route::get("hitung-cepat", [HitungCepatController::class, "selectRekapHitungCepat"])->name("rekap.hitung-cepat.select");
     });
     Route::get("/logout", [AuthController::class, "destroy"]);
     Route::middleware(["userRole"])->group(function () {
@@ -57,6 +56,9 @@ Route::middleware("auth")->group(function () {
         Route::get("admin", [HitungCepatController::class, "byAdmin"])->name("hitung_cepat.admin");
         Route::post("admin", [HitungCepatController::class, "storeByAdmin"])->name("hitung_cepat.admin.post");
         Route::get("admin/list", [HitungCepatController::class, "listByAdmin"])->name("hitung_cepat.admin.list")->middleware("dataRestriction");
-        Route::get("rekap", [HitungCepatController::class, "rekapHitungCepatAdmin"])->name("rekap.hitung-cepat.admin");
+        // Route::get("rekap", [HitungCepatController::class, "rekapHitungCepatAdmin"])->name("rekap.hitung-cepat.admin");
+        Route::get("rekap", [HitungCepatController::class, "rekapHitungCepat"])->name("hitung_cepat.rekap");
+        Route::get("chart", [HitungCepatController::class, "chart"])->name("hitung_cepat.chart");
+        Route::get("pilih-tingkat", [HitungCepatController::class, "selectTingkatPemilihan"])->name("hitung_cepat.select_tingkat");
     });
 });
