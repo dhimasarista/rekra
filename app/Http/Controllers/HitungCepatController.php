@@ -200,39 +200,44 @@ class HitungCepatController extends Controller
         }
     }
     public function chart(Request $request){
-        $view = "hitung_cepat.chart";
         $idQuery = $request->query("Id");
         $tingkatQuery = $request->query("Tingkat");
         $typeQuery = $request->query("Type");
-        if (!$idQuery || $idQuery == "null" || $idQuery == "Pilih") {
-            return redirect("/");
-        }
-        if ($typeQuery == "null") {
+        if ($request->session()->get("level") === "kabkota" && $tingkatQuery !== "Kabkota") {
             return response()->json([
-                "message" => "Pilih Jenis Rekap Terlebih Dahulu!!!"
+                "message" => "Tidak diizinkan!"
             ], 500);
-        } else if($typeQuery == "admin") {
-            $wilayah = match ($tingkatQuery) {
-                "Kabkota" => Kabkota::with("kecamatan")->find($idQuery),
-                "Provinsi" => Provinsi::with("kabkota")->find($idQuery),
-                default => null,
-            };
-
-            $dataPerwilayah = $this->getDataPerWilayah($wilayah, $idQuery, $tingkatQuery);
-            $calonTotal = $this->getCalonTotal($idQuery);
-
-            $data = [
-                "calon_total" => $calonTotal,
-                "data_perwilayah" => $dataPerwilayah,
-            ];
-            return response()->json([
-                "data" => $data,
-                "wilayah" => $wilayah,
-            ], 200);
         } else {
-            return response()->json([
-                "message" => "Internal Server Error!"
-            ], 500);
+            if (!$idQuery || $idQuery == "null" || $idQuery == "Pilih") {
+                return redirect("/");
+            }
+            if ($typeQuery == "null") {
+                return response()->json([
+                    "message" => "Pilih Jenis Rekap Terlebih Dahulu!!!"
+                ], 500);
+            } else if($typeQuery == "admin") {
+                $wilayah = match ($tingkatQuery) {
+                    "Kabkota" => Kabkota::with("kecamatan")->find($idQuery),
+                    "Provinsi" => Provinsi::with("kabkota")->find($idQuery),
+                    default => null,
+                };
+
+                $dataPerwilayah = $this->getDataPerWilayah($wilayah, $idQuery, $tingkatQuery);
+                $calonTotal = $this->getCalonTotal($idQuery);
+
+                $data = [
+                    "calon_total" => $calonTotal,
+                    "data_perwilayah" => $dataPerwilayah,
+                ];
+                return response()->json([
+                    "data" => $data,
+                    "wilayah" => $wilayah,
+                ], 200);
+            } else {
+                return response()->json([
+                    "message" => "Internal Server Error!"
+                ], 500);
+            }
         }
     }
     public function selectTingkatPemilihan(Request $request){

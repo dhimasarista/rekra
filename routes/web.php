@@ -58,7 +58,7 @@ Route::middleware("auth")->group(function () {
         Route::get("admin/list", [HitungCepatController::class, "listByAdmin"])->name("hitung_cepat.admin.list")->middleware("dataRestriction");
         // Route::get("rekap", [HitungCepatController::class, "rekapHitungCepatAdmin"])->name("rekap.hitung-cepat.admin");
         Route::get("rekap", [HitungCepatController::class, "rekapHitungCepat"])->name("hitung_cepat.rekap");
-        Route::get("chart", [HitungCepatController::class, "chart"])->name("hitung_cepat.chart");
+        Route::get("chart", [HitungCepatController::class, "chart"])->name("hitung_cepat.chart")->middleware("dataRestriction");
         Route::get("pilih-tingkat", [HitungCepatController::class, "selectTingkatPemilihan"])->name("hitung_cepat.select_tingkat");
     });
 });

@@ -19,7 +19,9 @@
                 </select>
                 <select id="{{ $idSelect2 }}" class="custom-select col-md-2 m-1">
                     <option disabled selected>Pilih Tingkatan</option>
-                    <option value="Provinsi">Provinsi</option>
+                    @if (session()->get("level") !== "kabkota")
+                        <option value="Provinsi">Provinsi</option>
+                    @endif
                     <option value="Kabkota">Kabkota</option>
                 </select>
                 <script>
