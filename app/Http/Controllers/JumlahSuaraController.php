@@ -594,7 +594,7 @@ class JumlahSuaraController extends Controller
                             "is_fetching" => false,
                         ],
                         "data" => [
-                            "value" => $jumlahSuara->note,
+                            "value" => $jumlahSuara->note ?? "",
                             "placeholder" => "Contoh: Terjadi kecurangan...",
                         ],
                     ],
