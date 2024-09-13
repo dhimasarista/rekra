@@ -172,7 +172,6 @@ class HitungCepatController extends Controller
             DB::commit(); // Menyimpan perubahan jika tidak ada error
             return response()->json([
                 "message" => $message,
-                "data" => $request->all()
             ], $responseCode);
         } catch (QueryException $e) {
             DB::rollBack();

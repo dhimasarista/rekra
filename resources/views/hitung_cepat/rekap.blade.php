@@ -25,6 +25,7 @@
                     <option value="Kabkota">Kabkota</option>
                 </select>
                 <script>
+                    let init = false;
                     $("#{{ $idSelect2 }}").on("change", (e) => {
                         e.preventDefault();
                         let typeQuery = $("#{{ $idSelect2 }}").val();
@@ -33,6 +34,7 @@
                             type: "get",
                             url: url,
                             success: function(response) {
+                                init = true;
                                 $("#{{ $idContainerSelect3 }}").html(response);
                             },
                             error: function(xhr, status, error) {
@@ -74,8 +76,9 @@
                         });
                     }
                     socket.on('hc-admin', function(message) {
-                        fetchData()
-                        console.log('hc-admin event received:', message);
+                        if (init) {
+                            fetchData()
+                        }
                     });
                 </script>
             </div>

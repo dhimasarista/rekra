@@ -79,15 +79,16 @@
                         });
                         $(`#updatedBy-${tpsId}`).html("{{ session()->get('name') }}")
                         $.ajax({
-                            type: "GET",
+                            type: "POST",
+                            data: JSON.stringify({
+                                "id": response,
+                            }),
                             url: "http://localhost:2002/api/hitung-cepat/admin",
                             contentType: "application/json",
                             headers: {
                                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
                             },
-                            success: function(response) {
-                                console.log(response);
-                            },
+                            success: function(response) {},
                             error: function(xhr, status, error) {},
                             complete: function(data) {}
                         });
