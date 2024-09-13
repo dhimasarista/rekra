@@ -64,15 +64,15 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::create([
-            'name' => 'Master - Test (DEV)',
-            'username' => 'masterdev',
+            'name' => 'Master',
+            'username' => 'master',
             'password' => "123",
             "level" => "master",
             "code" => 1,
         ]);
         User::create([
-            'name' => 'Kota Batam - Test (DEV)',
-            'username' => 'batamdev',
+            'name' => 'Kota Batam',
+            'username' => 'batam',
             'password' => "123",
             "code" => 2171,
             "level" => "kabkota"
@@ -218,7 +218,7 @@ class DatabaseSeeder extends Seeder
             ["id" => Uuid::uuid7(), "name" => "duriangkang", "kecamatan_id" => $kecamatan["sei beduk"]["id"]],
             ["id" => Uuid::uuid7(), "name" => "mangsang", "kecamatan_id" => $kecamatan["sei beduk"]["id"]],
             ["id" => Uuid::uuid7(), "name" => "mukakuning", "kecamatan_id" => $kecamatan["sei beduk"]["id"]],
-            ["id" => Uuid::uuid7(), "name" => "seipanas", "kecamatan_id" => $kecamatan["sei beduk"]["id"]],
+            ["id" => Uuid::uuid7(), "name" => "tanjung piayu", "kecamatan_id" => $kecamatan["sei beduk"]["id"]],
 
             // Sekupang
             ["id" => Uuid::uuid7(), "name" => "patam lestari", "kecamatan_id" => $kecamatan["sekupang"]["id"]],
