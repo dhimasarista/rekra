@@ -19,7 +19,7 @@
                 </select>
                 <select id="{{ $idSelect2 }}" class="custom-select col-md-2 m-1">
                     <option disabled selected>Pilih Tingkatan</option>
-                    @if (session()->get("level") !== "kabkota")
+                    @if (session()->get('level') !== 'kabkota')
                         <option value="Provinsi">Provinsi</option>
                     @endif
                     <option value="Kabkota">Kabkota</option>
@@ -52,6 +52,9 @@
                     $("#{{ $idButtonSubmit }}").on("click", function(e) {
                         e.preventDefault();
                         TopLoaderService.start();
+                        fetchData();
+                    });
+                    const fetchData = () => {
                         let typeQuickCount = $("#{{ $idSelect1 }}").val();
                         let tingkat = $("#{{ $idSelect2 }}").val();
                         let lastId = $("#{{ $idContainerSelect3 }} .custom-select:last").val();
@@ -69,6 +72,10 @@
                             Tingkat: tingkat,
                             Type: typeQuickCount
                         });
+                    }
+                    socket.on('hc-admin', function(message) {
+                        fetchData()
+                        console.log('hc-admin event received:', message);
                     });
                 </script>
             </div>
@@ -115,13 +122,16 @@
                                     return {
                                         name: `${Formatting.capitalize(calon.calon_name)} - ${Formatting.capitalize(calon.wakil_name)}`,
                                         data: categories.map(category => {
-                                            let wilayahData = seriesNames.data_perwilayah.find(w => Formatting.capitalize(w.name) === category);
-                                            let calonData = wilayahData ? wilayahData.total_suara.find(c => c.id === calon.id) : null;
+                                            let wilayahData = seriesNames.data_perwilayah.find(w =>
+                                                Formatting.capitalize(w.name) === category);
+                                            let calonData = wilayahData ? wilayahData.total_suara.find(c =>
+                                                c.id === calon.id) : null;
                                             return calonData ? parseInt(calonData.total) : 0;
                                         })
                                     };
                                 });
-                                const newLabels = seriesNames.calon_total.map(calon => Formatting.capitalize(calon.calon_name));
+                                const newLabels = seriesNames.calon_total.map(calon => Formatting.capitalize(calon
+                                    .calon_name));
                                 chart4.updateOptions({
                                     xaxis: {
                                         categories: categories

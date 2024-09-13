@@ -64,7 +64,12 @@
     <script src="../admin/src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
     <script src="../admin/src/plugins/sweetalert2/sweetalert2.js"></script>
     <script src="../admin/js/script.js"></script>
-
+    {{-- <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script>
+                            window.socketIOUrl = "http://localhost:2002";
+                            const socket = io(window.socketIOUrl);
+    </script>
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXZMQSS" height="0" width="0"
             style="display: none; visibility: hidden"></iframe></noscript>
 </head>

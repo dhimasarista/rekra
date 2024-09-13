@@ -17,7 +17,7 @@ use Ramsey\Uuid\Uuid;
 
 class UserController extends Controller
 {
-    protected $master = "masterdev";
+    protected $master = "master";
     protected $userService;
     public function __construct(UserServiceInterface $userServiceInterface){
         $this->userService = $userServiceInterface;

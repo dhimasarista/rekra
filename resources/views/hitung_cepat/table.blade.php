@@ -11,7 +11,8 @@
     </div>
     @if ($data)
         <div class="pb-20">
-            <table width="100%" id="datatable-table" class="table hover stripe multiple-select-row data-table-export wrap">
+            <table width="100%" id="datatable-table"
+                class="table hover stripe multiple-select-row data-table-export wrap">
                 <thead class="text-center">
                     <tr>
                         <th>Nama TPS</th>
@@ -45,7 +46,7 @@
         <script>
             $("#datatable-table").DataTable({
                 "order": [],
-                "scrollX" : true,
+                "scrollX": true,
 
             });
         </script>
@@ -77,6 +78,19 @@
                             title: response["message"]
                         });
                         $(`#updatedBy-${tpsId}`).html("{{ session()->get('name') }}")
+                        $.ajax({
+                            type: "GET",
+                            url: "http://localhost:2002/api/hitung-cepat/admin",
+                            contentType: "application/json",
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            success: function(response) {
+                                console.log(response);
+                            },
+                            error: function(xhr, status, error) {},
+                            complete: function(data) {}
+                        });
                     },
                     error: function(xhr, status, error) {
                         Swal.fire({
