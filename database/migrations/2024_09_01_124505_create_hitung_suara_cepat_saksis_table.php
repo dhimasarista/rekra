@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,6 +12,7 @@ return new class extends Migration
     {
         Schema::create('hitung_suara_cepat_saksi', function (Blueprint $table) {
             $table->uuid("id")->primary();
+            $table->char("nik", 16)->unique();
             $table->text("updated_by")->default("");
             $table->timestamps();
             $table->softDeletes();
