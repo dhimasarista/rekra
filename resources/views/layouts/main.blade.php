@@ -67,8 +67,8 @@
     {{-- <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
     <script>
-                            window.socketIOUrl = "http://localhost:2002";
-                            const socket = io(window.socketIOUrl);
+        window.socketIOUrl = "http://localhost:2002";
+        const socket = io(window.socketIOUrl);
     </script>
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXZMQSS" height="0" width="0"
             style="display: none; visibility: hidden"></iframe></noscript>
@@ -141,9 +141,10 @@
             <div class="user-info-dropdown">
                 <div class="dropdown">
                     <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                        <span class="user-icon" style="background-color: white; box-shadow: none">
-                            {{-- <i class="bi bi-person"></i> --}}
-                            {{ session()->get('avatar') }}
+                        {{-- <span class="user-icon" style="background-color: white; box-shadow: none"> --}}
+                        <span class="user-icon">
+                            <i class="bi bi-person"></i>
+                            {{-- {{ session()->get('avatar') }} --}}
                         </span>
                         <span class="user-name d-inline">Hai, {{ session()->get('name') }}</span>
                     </a>
@@ -262,7 +263,7 @@
             <div class="sidebar-menu">
                 <ul id="accordion-menu">
                     <li>
-                        <a href="{{ route("hitung_cepat.rekap") }}" class="dropdown-toggle no-arrow">
+                        <a href="{{ route('hitung_cepat.rekap') }}" class="dropdown-toggle no-arrow">
                             <span class="micon dw dw-file"></span><span class="mtext">Rekap Hitung Cepat</span>
                         </a>
                     </li>
@@ -291,12 +292,12 @@
                         </a>
                     </li>
                     @if (session()->get('level') == 'master' || session()->get('level') == 'provinsi')
-                    <li>
-                        <a href="{{ route('rekap.index', ['Type' => 'Provinsi']) }}"
-                            class="dropdown-toggle no-arrow {{ Str::contains(request()->route()->getName(), 'rekapitulasi') ? 'active' : '' }}">
-                            <span class="micon dw dw-file"></span><span class="mtext">Rekap Provinsi</span>
-                        </a>
-                    </li>
+                        <li>
+                            <a href="{{ route('rekap.index', ['Type' => 'Provinsi']) }}"
+                                class="dropdown-toggle no-arrow {{ Str::contains(request()->route()->getName(), 'rekapitulasi') ? 'active' : '' }}">
+                                <span class="micon dw dw-file"></span><span class="mtext">Rekap Provinsi</span>
+                            </a>
+                        </li>
                     @endif
                     <li>
                         <a href="{{ route('rekap.index', ['Type' => 'Kabkota']) }}"
