@@ -29,7 +29,7 @@ class AuthController extends Controller
     }
     public function post(Request $request)
     {
-        $emotes = ["😁", "😊", "😇", "🫡", "😻"];
+        // $emotes = ["😁", "😊", "😇", "🫡", "😻"];
         try {
             // Menerima username dan password dari request body
             $credentials = $request->only('username', 'password');
@@ -54,7 +54,7 @@ class AuthController extends Controller
                             $message = "Akun anda tidak aktif";
                             $responseCode = 400;
                         } else {
-                            $request->session()->put('avatar', $emotes[array_rand($emotes)]);
+                            // $request->session()->put('avatar', $emotes[array_rand($emotes)]);
                             $request->session()->put('username', $user->username);
                             $request->session()->put('user_id', $user->id);
                             $request->session()->put('name', Formatting::capitalize($user->name));
