@@ -268,15 +268,15 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#"
-                            class="dropdown-toggle no-arrow {{ request()->is('kabkota') ? 'active' : '' }}">
+                        <a href="{{ route('hitung_cepat.saksi') }}"
+                            class="dropdown-toggle no-arrow {{ request()->path() == "hitung-cepat/saksi" ? 'active' : '' }}">
                             <span class="micon dw dw-flash"></span>
                             <span class="mtext">Hitung Cepat (Saksi)</span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('hitung_cepat.admin') }}"
-                            class="dropdown-toggle no-arrow {{ request()->is('kabkota') ? 'active' : '' }}">
+                            class="dropdown-toggle no-arrow {{ request()->path() == "hitung-cepat/admin" ? 'active' : '' }}">
                             <span class="micon dw dw-flash"></span>
                             <span class="mtext">Hitung Cepat (Admin)</span>
                         </a>

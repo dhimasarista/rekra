@@ -8,6 +8,7 @@
         $idSelect2 = Uuid::uuid7();
         $idSelect3 = Uuid::uuid7();
         $idSelect4 = Uuid::uuid7();
+        $idSelect5 = Uuid::uuid7();
         $idButtonSubmit = Uuid::uuid7();
     @endphp
     {{-- @dd($idSelect1) --}}
@@ -146,18 +147,6 @@
                 </select>
                 <script>
                     $("#{{ $idSelect4 }}").on("change", function(e) {
-                        $("#{{ $idSelect5 }}").removeAttr("disabled")
-                    })
-                </script>
-                <select id="{{ $idSelect5 }}" class="custom-select col-md-2 m-1" disabled>
-                    <option selected disabled value="0">Pilih Tingkatan</option>
-                    @if (session()->get("level") === "provinsi" || session()->get("level") === "master")
-                    <option value="Provinsi">Provinsi</option>
-                    @endif
-                    <option value="Kabkota">Kabkota</option>
-                </select>
-                <script>
-                    $("#{{ $idSelect5 }}").on("change", function(e) {
                         $("#{{ $idButtonSubmit }}").removeAttr("disabled")
                     })
                 </script>
@@ -167,7 +156,6 @@
                         e.preventDefault();
                         TopLoaderService.start()
                         let idQuery = $("#{{ $idSelect4 }} ").val();
-                        let typeQuery = $("#{{ $idSelect5 }} ").val();
                         let url = `{!! $urlSubmit !!}`.replace("TYPE_PLACEHOLDER", typeQuery).replace(
                             'ID_PLACEHOLDER', idQuery);
                         $.ajax({
@@ -192,15 +180,6 @@
                 </script>
             </div>
             <div class="text-right">
-                {{-- <a class="btn btn-sm btn-dark m-1" href="{{ route('wilayah.form', ['Type' => 'Kabkota']) }}">
-                    <i class="fa fa-plus"></i> KabKota
-                </a>
-                <a class="btn btn-sm btn-dark m-1" href="{{ route('wilayah.form', ['Type' => 'Kecamatan']) }}">
-                    <i class="fa fa-plus"></i> Kecamatan
-                </a>
-                <a class="btn btn-sm btn-dark m-1" href="{{ route('wilayah.form', ['Type' => 'Kelurahan']) }}">
-                    <i class="fa fa-plus"></i> Kelurahan
-                </a> --}}
             </div>
         </div>
         <div class="row pb-10">
@@ -213,8 +192,7 @@
                                 <div class="error-page-wrap text-center">
                                     <h2>Belum Ada Data</h2>
                                     <h3>Pilih Data Terlebih Dahulu</h3>
-                                    <p>Pilih Provinsi > Pilih KabKota > Pilih Kecamatan > Pilih Kelurahan
-                                        > Pilih Tingkat Pemilihan (Provinsi/Kabkota) > Submit</p>
+                                    <p>Pilih Provinsi > Pilih KabKota > Pilih Kecamatan > Pilih Kelurahan > Submit</p>
                                 </div>
                             </div>
                         </div>
@@ -226,6 +204,4 @@
             </div>
         </div>
     </div>
-    {{-- <script src="../admin/src/plugins/apexcharts/apexcharts.min.js"></script> --}}
-    {{-- <script src="../admin/vendors/scripts/dashboard3.js"></script> --}}
 @endsection

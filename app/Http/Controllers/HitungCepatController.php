@@ -34,7 +34,28 @@ class HitungCepatController extends Controller
     {
         try {
             $provinsi = Provinsi::all();
+            $urlSubmit = route('hitung_cepat.admin.list', ['Type' => 'TYPE_PLACEHOLDER', 'Id' => 'ID_PLACEHOLDER']);
             return view("hitung_cepat.admin", [
+                "urlSubmit" => $urlSubmit,
+                "provinsi" => $provinsi,
+            ]);
+        } catch (Exception $e) {
+            $val = Formatting::formatUrl([
+                "code" => 500,
+                "title" => $e->getMessage(),
+                "message" => $e->getMessage(),
+            ]);
+
+            return redirect("/error$val");
+        }
+    }
+    public function bySaksi(Request $request)
+    {
+        try {
+            $provinsi = Provinsi::all();
+            $urlSubmit = route('wilayah.find', ['Type' => 'Kabkota', 'Id' => 'ID_PLACEHOLDER']);
+            return view("hitung_cepat.saksi", [
+                "urlSubmit" => $urlSubmit,
                 "provinsi" => $provinsi,
             ]);
         } catch (Exception $e) {
@@ -59,7 +80,7 @@ class HitungCepatController extends Controller
                 ->get();
 
             if ($tpsData->isEmpty()) {
-                return view('hitung_cepat.table', [
+                return view('hitung_cepat.admin_table', [
                     'table' => 'Kosong',
                     'data' => [],
                     'calon' => [],
@@ -108,7 +129,7 @@ class HitungCepatController extends Controller
                 ];
             });
 
-            return view('hitung_cepat.table', [
+            return view('hitung_cepat.admin_table', [
                 'table' => $tpsData->first()->kelurahan->name,
                 'data' => $results,
                 'calon' => $calon,
