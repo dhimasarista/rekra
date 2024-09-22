@@ -277,7 +277,7 @@
                                     <path fill="currentColor"
                                         d="M19.11 7.25L14.16 2.3a.975.975 0 0 0-1.4-.01L6.39 8.66a.996.996 0 0 0 0 1.41l4.95 4.95c.39.39 1.02.39 1.41 0l6.36-6.36a.996.996 0 0 0 0-1.41m-7.06 5.65L8.51 9.36l4.95-4.95L17 7.95z" />
                                 </svg>
-                            </i>Rekra 2024</h1>
+                            </i>Pangkalan Data, IT & Survei</h1>
                         <br>
                     </div>
                     <header class="header">Masuk</header>
@@ -320,10 +320,11 @@
                             <span id="error-message"></span>
                         </div>
                         <br>
+                        {{-- todo: buat simpan kredensial, dimana ketika tercentang, maka akan menyimpan ke local storage --}}
                         <div class="OptionsContainer">
                             <div class="checkboxContainer">
                                 <input type="checkbox" id="RememberMe" class="checkbox" name="remember"> <label
-                                    for="RememberMe">Remember Me</label>
+                                    for="RememberMe">Simpan Kredensial</label>
                             </div>
                             <a class="ForgotPasswordLink">Forgot Password?</a>
                         </div>
