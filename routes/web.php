@@ -10,10 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\WilayahController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return redirect("/login");
-});
-Route::get("/chart", [ErrorController::class, "test"]);
+// Route::get("/chart", [ErrorController::class, "test"]);
 Route::get("/login", [AuthController::class, "index"]);
 Route::post('/login', [AuthController::class, 'post']);
 Route::get("/error", [ErrorController::class, "index"]);
@@ -22,6 +19,9 @@ Route::get("/404", function () {
 });
 
 Route::middleware("auth")->group(function () {
+    Route::get('/', function () {
+        return view("index");
+    });
     Route::prefix("rekapitulasi")->group(function () {
         Route::get("", [RekapitulasiController::class, "index"])->name("rekap.index")->middleware("pageRedirect");
         Route::get("/list", [RekapitulasiController::class, "list"])->name("rekap.list")->middleware("roleRedirect")->middleware("dataRestriction");
