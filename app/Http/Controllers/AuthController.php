@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Ramsey\Uuid\Uuid;
 
 class AuthController extends Controller
 {
@@ -63,12 +64,13 @@ class AuthController extends Controller
                             $request->session()->put("is_admin", $user->is_admin);
                             $message = "Autentikasi Berhasil";
 
-                            LoginHistory::create([
-                                "user_id" => $user->id,
-                                "username" => $user->username,
-                                "login_at" => now(),
-                                "ip_address" => $request->server->get('HTTP_X_FORWARDED_FOR') ?? $request->server->get('HTTP_X_REAL_IP') ?? $request->server->get('REMOTE_ADDR'),
-                            ]);
+                            // LoginHistory::create([
+                            //     "id" => Uuid::uuid7(),
+                            //     "user_id" => $user->id,
+                            //     "username" => $user->username,
+                            //     "login_at" => now(),
+                            //     "ip_address" => $request->server->get('HTTP_X_FORWARDED_FOR') ?? $request->server->get('HTTP_X_REAL_IP') ?? $request->server->get('REMOTE_ADDR'),
+                            // ]);
                         }
                     }
                 } else { // Jika tidak cocok
