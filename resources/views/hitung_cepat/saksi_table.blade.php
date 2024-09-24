@@ -14,7 +14,7 @@
             <thead class="text-center">
                 <tr>
                     <th>Nama TPS</th>
-                    <th>NIK</th>
+                    <th>Nomor Induk Kependudukan (NIK)</th>
                     <th>Status Input</th>
                     <th>Action</th>
                 </tr>
@@ -22,16 +22,16 @@
             <tbody class="text-center">
                 @for ($i = 0; $i < 20; $i++)
                     <tr id="{{ $i }}">
-                        <td>{{ $i + 1 }}</td>
-                        <td class="d-flex justify-content-start">
-                            <input id="1" type="number" min="0" max="1000" class="form-control"
+                        <td>TPS{{ $i+1 }}</td>
+                        <td class="d-flex justify-content-center">
+                            <input id="1" type="number" min="0" class="form-control w-50"
                                 value="1404100105020001">
+                                <button id="submit-123" class="btn btn-sm btn-dark m-1">Perbarui</button>
                         </td>
                         <td>
                             <input type="checkbox" checked>
                         </td>
                         <td>
-                            <button id="submit-123" class="btn btn-sm btn-dark m-1">Perbarui</button>
                             <button id="submit-123" class="btn btn-sm btn-dark m-1" data-toggle="modal"
                                 data-target="#Medium-modal">Edit</button>
                         </td>
