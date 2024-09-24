@@ -13,6 +13,7 @@ return new class extends Migration
         Schema::create('hitung_suara_cepat_saksi', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->char("nik", 16)->unique();
+            $table->boolean("input_status")->default(false);
             $table->text("updated_by")->default("");
             $table->timestamps();
             $table->softDeletes();
