@@ -30,31 +30,13 @@ class HitungCepatController extends Controller
         $this->hitungCepatAdmin = $hitungCepatAdmin;
         $this->hitungCepatAdminDetail = $hitungCepatAdminDetail;
     }
+    // Hitung Cepat By Admin
     public function byAdmin(Request $request)
     {
         try {
             $provinsi = Provinsi::all();
             $urlSubmit = route('hitung_cepat.admin.list', ['Type' => 'TYPE_PLACEHOLDER', 'Id' => 'ID_PLACEHOLDER']);
             return view("hitung_cepat.admin", [
-                "urlSubmit" => $urlSubmit,
-                "provinsi" => $provinsi,
-            ]);
-        } catch (Exception $e) {
-            $val = Formatting::formatUrl([
-                "code" => 500,
-                "title" => $e->getMessage(),
-                "message" => $e->getMessage(),
-            ]);
-
-            return redirect("/error$val");
-        }
-    }
-    public function bySaksi(Request $request)
-    {
-        try {
-            $provinsi = Provinsi::all();
-            $urlSubmit = route('wilayah.find', ['Type' => 'Kabkota', 'Id' => 'ID_PLACEHOLDER']);
-            return view("hitung_cepat.saksi", [
                 "urlSubmit" => $urlSubmit,
                 "provinsi" => $provinsi,
             ]);
@@ -243,7 +225,7 @@ class HitungCepatController extends Controller
                 };
 
                 $dataPerwilayah = $this->getDataPerWilayah($wilayah, $idQuery, $tingkatQuery);
-                $calonTotal = $this->getCalonTotal($idQuery);
+                $calonTotal = $this->getCalonTotalAdmin($idQuery);
 
                 $data = [
                     "calon_total" => $calonTotal,
@@ -436,10 +418,10 @@ class HitungCepatController extends Controller
     private function getDataPerWilayah($wilayah, $idQuery, $typeQuery)
     {
         $dataPerwilayah = [];
-        $calonTotal = $this->getCalonTotal($idQuery);
+        $calonTotal = $this->getCalonTotalAdmin($idQuery);
 
         foreach ($wilayah->{($typeQuery === "Provinsi" || $typeQuery === "provinsi") ? 'kabkota' : 'kecamatan'} as $region) {
-            $totalSuara = $this->getTotalSuaraPerWilayah($region->id, $idQuery, $typeQuery);
+            $totalSuara = $this->getTotalSuaraPerWilayahAdmin($region->id, $idQuery, $typeQuery);
 
             $totalSuaraArray = $totalSuara->isEmpty() ? $calonTotal->map(fn($calon) => (object) [
                 'id' => $calon->id,
@@ -461,7 +443,7 @@ class HitungCepatController extends Controller
     /**
      * Get Total Suara per Wilayah (Kecamatan/Kabkota)
      */
-    private function getTotalSuaraPerWilayah($regionId, $idQuery, $typeQuery)
+    private function getTotalSuaraPerWilayahAdmin($regionId, $idQuery, $typeQuery)
     {
         return Calon::select(
             "calon.id",
@@ -483,7 +465,7 @@ class HitungCepatController extends Controller
     /**
      * Get Calon Total
      */
-    private function getCalonTotal($idQuery)
+    private function getCalonTotalAdmin($idQuery)
     {
         return Calon::select(
             "calon.id",
@@ -495,5 +477,37 @@ class HitungCepatController extends Controller
             ->where("calon.code", $idQuery)
             ->groupBy("calon.id", "calon.calon_name", "calon.wakil_name")
             ->get();
+    }
+
+    // Hitung Cepat By Saksi
+    public function bySaksi(Request $request)
+    {
+        try {
+            $provinsi = Provinsi::all();
+            $urlSubmit = route('hitung_cepat.saksi.list', ['Type' => 'TYPE_PLACEHOLDER', 'Id' => 'ID_PLACEHOLDER']);
+            return view("hitung_cepat.saksi", [
+                "urlSubmit" => $urlSubmit,
+                "provinsi" => $provinsi,
+            ]);
+        } catch (Exception $e) {
+            $val = Formatting::formatUrl([
+                "code" => 500,
+                "title" => $e->getMessage(),
+                "message" => $e->getMessage(),
+            ]);
+            return redirect("/error$val");
+        }
+    }
+    public function listBySaksi(Request $request) {
+        try {
+            $table = "Test Saksi";
+            return view("hitung_cepat.saksi_table", [
+                "table" => $table,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ]);
+        }
     }
 }

@@ -155,6 +155,7 @@
                         e.preventDefault();
                         TopLoaderService.start()
                         let idQuery = $("#{{ $idSelect4 }} ").val();
+                        let typeQuery = "Kelurahan";
                         let url = `{!! $urlSubmit !!}`.replace("TYPE_PLACEHOLDER", typeQuery).replace(
                             'ID_PLACEHOLDER', idQuery);
                         $.ajax({
@@ -171,7 +172,6 @@
                                 });
                             },
                             complete: function(data) {
-                                console.log(url);
                                 TopLoaderService.end()
                             }
                         });
