@@ -8,6 +8,7 @@ use App\Http\Controllers\JumlahSuaraController;
 use App\Http\Controllers\RekapitulasiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WilayahController;
+use App\Models\Calon;
 use Illuminate\Support\Facades\Route;
 
 // Route::get("/chart", [ErrorController::class, "test"]);
@@ -20,10 +21,14 @@ Route::get("/404", function () {
 
 Route::middleware("auth")->group(function () {
     Route::get('/', function () {
-        return view("index");
-    });
+        $calon = Calon::all();
+        return view("index", [
+            "calon" => $calon,
+        ]);
+        // return redirect(route("rekap.index"));
+    })->name("index");
     Route::prefix("rekapitulasi")->group(function () {
-        Route::get("", [RekapitulasiController::class, "index"])->name("rekap.index")->middleware("pageRedirect");
+        Route::get("", action: [RekapitulasiController::class, "index"])->name("rekap.index")->middleware("pageRedirect");
         Route::get("/list", [RekapitulasiController::class, "list"])->name("rekap.list")->middleware("roleRedirect")->middleware("dataRestriction");
         Route::get("/detail", [RekapitulasiController::class, "detail"])->name("rekap.detail")->middleware("dataRestriction");
     });
