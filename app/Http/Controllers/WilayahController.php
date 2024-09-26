@@ -65,7 +65,7 @@ class WilayahController extends Controller
                 }
             } else if ($typeQuery == "Kecamatan" || $typeQuery == "kecamatan") {
                 $kecamatan = Kecamatan::with("kabkota")->where("kabkota_id", $idQuery)->get();
-                $tableName = $kecamatan->first()->kabkota->name ?? "Kocong🥺";
+                $tableName = $kecamatan->first()->kabkota->name ?? "Belum Ada Data";
                 foreach ($kecamatan as $k) {
                     $total = Tps::join('kelurahan', 'tps.kelurahan_id', '=', 'kelurahan.id')
                     ->where('kelurahan.kecamatan_id', $k->id)
@@ -92,7 +92,7 @@ class WilayahController extends Controller
                 }
             } else if (!$typeQuery || $typeQuery == "Kelurahan" || $typeQuery == "kelurahan") {
                 $kelurahan = Kelurahan::with("kecamatan")->where("kecamatan_id", $idQuery)->get();
-                $tableName = $kelurahan->first()->kecamatan->name ?? "Kocong🥺";
+                $tableName = $kelurahan->first()->kecamatan->name ?? "Belum Ada Data";
                 foreach ($kelurahan as $k) {
                     $total = Tps::where("kelurahan_id", $k->id)
                     ->whereNull('tps.deleted_at')
@@ -117,7 +117,7 @@ class WilayahController extends Controller
                 }
             } else if (!$typeQuery || $typeQuery == "TPS" || $typeQuery == "tps") {
                 $tps = TPS::with("kelurahan")->where("kelurahan_id", $idQuery)->get();
-                $tableName = $tps->first()->kelurahan->name ?? "Kocong🥺";
+                $tableName = $tps->first()->kelurahan->name ?? "Belum Ada Data";
                 foreach ($tps as $t) {
                     $data[] = [
                         "id" => $t->id,
@@ -785,7 +785,7 @@ class WilayahController extends Controller
                             Kelurahan::insert($data);
                             $message = "Berhasil Membuat Kelurahan";
                         } else {
-                            $message = "Data Kosong";
+                            $message = "Data Belum Ada Data";
                             $responseCode = 500;
                         }
                     }
