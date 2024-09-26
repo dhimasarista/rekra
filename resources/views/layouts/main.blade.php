@@ -12,8 +12,8 @@
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     {{-- Google Font --}}
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet" />
+    {{-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" /> --}}
     {{-- CSS --}}
     <link rel="stylesheet" type="text/css" href="../admin/vendors/styles/core.css" />
     <link rel="stylesheet" type="text/css" href="../admin/vendors/styles/icon-font.min.css" />
@@ -24,10 +24,10 @@
     <link rel="stylesheet" type="text/css" href="../admin/src/plugins/TopLoaderService/TopLoaderService.css" />
 
     {{-- Global site tag (gtag.js) - Google Analytics --}}
-    <script src="https://www.googletagmanager.com/gtag/js?id=G-GBZ3SGGX85"></script>
+    {{-- <script src="https://www.googletagmanager.com/gtag/js?id=G-GBZ3SGGX85"></script>
     <script src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2973766580778258"
-        crossorigin="anonymous"></script>
-    <script>
+        crossorigin="anonymous"></script> --}}
+    {{-- <script>
         window.dataLayer = window.dataLayer || [];
 
         function gtag() {
@@ -36,9 +36,9 @@
         gtag("js", new Date());
 
         gtag("config", "G-GBZ3SGGX85");
-    </script>
+    </script> --}}
     {{-- Google Tag Manager --}}
-    <script>
+    {{-- <script>
         (function(w, d, s, l, i) {
             w[l] = w[l] || [];
             w[l].push({
@@ -51,7 +51,7 @@
             j.async = true;
             j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
             f.parentNode.insertBefore(j, f);
-        })(window, document, "script", "dataLayer", "GTM-NXZMQSS");
+        })(window, document, "script", "dataLayer", "GTM-NXZMQSS"); --}}
     </script>
     <script src="../admin/src/plugins/TopLoaderService/TopLoaderService.js"></script>
     <script src="../admin/vendors/scripts/core.js"></script>
