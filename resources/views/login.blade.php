@@ -66,7 +66,7 @@
         .LoginPageInnerContainer .ImageContianer {
             width: 50%;
             /* background-image: url('https://images.prismic.io/turing/652ec7adfbd9a45bcec81a41_Laravel_1f3f0a9d0c.webp?auto=format%2Ccompress&fit=max&w=3840'); */
-            background-image: url("../admin/src/images/bg.png");
+            background-image: url("../admin/src/images/bg.jpg");
             background-size: cover;
             background-position: center;
             min-height: 100%;
