@@ -63,6 +63,7 @@ Route::middleware("auth")->group(function () {
         Route::get("admin/list", [HitungCepatController::class, "listByAdmin"])->name("hitung_cepat.admin.list")->middleware("dataRestriction");
         Route::get("saksi", [HitungCepatController::class, "bySaksi"])->name("hitung_cepat.saksi");
         Route::get("saksi/list", [HitungCepatController::class, "listBySaksi"])->name("hitung_cepat.saksi.list")->middleware("dataRestriction");
+        Route::get("saksi/edit", [HitungCepatController::class, "editHitungCepatSaksi"])->name("hitung_cepat.saksi.edit.list");
         // Route::get("rekap", [HitungCepatController::class, "rekapHitungCepatAdmin"])->name("rekap.hitung-cepat.admin");
         Route::get("rekap", [HitungCepatController::class, "rekapHitungCepat"])->name("hitung_cepat.rekap");
         Route::get("chart", [HitungCepatController::class, "chart"])->name("hitung_cepat.chart")->middleware("dataRestriction");

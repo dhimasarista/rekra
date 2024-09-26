@@ -50,44 +50,6 @@ class HitungCepatController extends Controller
             return redirect("/error$val");
         }
     }
-    public function listBySaksi(Request $request)
-    {
-        try {
-            $table = "Test Saksi";
-            $idQuery = $request->query("Id");
-            $tpsData = $this->tps->tpsWithDetail()
-                ->where("kelurahan_id", $idQuery)
-                ->get();
-
-            if ($tpsData->isEmpty()) {
-                return view('hitung_cepat.saksi_table', [
-                    'table' => 'Kosong',
-                    'data' => [],
-                    'calon' => [],
-                ]);
-            }
-
-            $results = $tpsData->map(function($tps){
-                $hsca = HitungSuaraCepatSaksi::where("tps_id", $tps->id)->first();
-                return [
-                    "id" => $tps->id,
-                    'tps_name' => $tps->name,
-                    'nik' => $hsca ? $hsca->nik : 0,
-                    "input_status" => $hsca ? $hsca->input_status : true,
-
-                ];
-            });
-
-            return view("hitung_cepat.saksi_table", [
-                "table" => $table,
-                "data" => $results
-            ]);
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-            ]);
-        }
-    }
     public function listByAdmin(Request $request)
     {
         try {
@@ -554,6 +516,58 @@ class HitungCepatController extends Controller
                 "message" => $e->getMessage(),
             ]);
             return redirect("/error$val");
+        }
+    }
+    public function listBySaksi(Request $request)
+    {
+        try {
+            $table = "Test Saksi";
+            $idQuery = $request->query("Id");
+            $tpsData = $this->tps->tpsWithDetail()
+                ->where("kelurahan_id", $idQuery)
+                ->get();
+
+            if ($tpsData->isEmpty()) {
+                return view('hitung_cepat.saksi_table', [
+                    'table' => 'Kosong',
+                    'data' => [],
+                    'calon' => [],
+                ]);
+            }
+
+            $results = $tpsData->map(function($tps){
+                $hsca = HitungSuaraCepatSaksi::where("tps_id", $tps->id)->first();
+                return [
+                    "id" => $tps->id,
+                    'tps_name' => $tps->name,
+                    'nik' => $hsca ? $hsca->nik : 0,
+                    "input_status" => $hsca ? $hsca->input_status : false,
+                ];
+            });
+
+            return view("hitung_cepat.saksi_table", [
+                "table" => $table,
+                "data" => $results
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ]);
+        }
+    }
+    public function editHitungCepatSaksi(Request $request){
+        try {
+            $idQuery = $request->query("Id");
+            $tps = $this->tps->tpsWithDetail()
+            ->where("tps.id", $idQuery)
+            ->first();
+            return view("hitung_cepat/edit_saksi",[
+                "tps" => $tps,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ]);
         }
     }
 }

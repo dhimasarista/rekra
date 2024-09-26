@@ -33,8 +33,7 @@
                                 <input type="checkbox" {{ $d["input_status"] ? "checked" : "" }}>
                             </td>
                             <td>
-                                <button id="submit-123" class="btn btn-sm btn-dark m-1" data-toggle="modal"
-                                    data-target="#Medium-modal">Edit</button>
+                                <button id="submit-123" class="btn btn-sm btn-dark m-1" onclick="showEditSaksiModal('{{ $d['id'] }}')">Edit</button>
                             </td>
                         </tr>
                     @endforeach
@@ -48,7 +47,27 @@
             "scrollX": true,
         });
     </script>
-    <div class="modal fade" id="Medium-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    <script>
+        function showEditSaksiModal(id) {
+            $.ajax({
+                type: "get",
+                url: '{{ route("hitung_cepat.saksi.edit.list", ["Id" => "ID_PLACEHOLDER"]) }}'.replace("ID_PLACEHOLDER", id),
+                success: function(response) {
+                    $("#edit-saksi-modal").modal('show');
+                    $("#edit-saksi-modal .modal-dialog .modal-body p").html(response);
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: xhr["responseJSON"]["message"]
+                    });
+                },
+                complete: function(data) {}
+            });
+        }
+    </script>
+    <div class="modal fade" id="edit-saksi-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -57,16 +76,11 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <p></p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary">Simpan</button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-dark">Simpan</button>
                 </div>
             </div>
         </div>
