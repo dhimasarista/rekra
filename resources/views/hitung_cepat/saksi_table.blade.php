@@ -20,23 +20,25 @@
                 </tr>
             </thead>
             <tbody class="text-center">
-                @for ($i = 0; $i < 20; $i++)
-                    <tr id="{{ $i }}">
-                        <td>TPS{{ $i+1 }}</td>
-                        <td class="d-flex justify-content-center">
-                            <input id="1" type="number" min="0" class="form-control w-50"
-                                value="1404100105020001">
-                                <button id="submit-123" class="btn btn-sm btn-dark m-1">Perbarui</button>
-                        </td>
-                        <td>
-                            <input type="checkbox" checked>
-                        </td>
-                        <td>
-                            <button id="submit-123" class="btn btn-sm btn-dark m-1" data-toggle="modal"
-                                data-target="#Medium-modal">Edit</button>
-                        </td>
-                    </tr>
-                @endfor
+                @if ($data)
+                    @foreach ($data as $d)
+                        <tr id="{{ $d["id"] }}">
+                            <td>{{ $d["tps_name"] }}</td>
+                            <td class="d-flex justify-content-center">
+                                <input id="1" type="number" min="0" class="form-control w-50"
+                                    value="{{ $d["nik"] }}">
+                                    <button id="submit-123" class="btn btn-sm btn-dark m-1">Perbarui</button>
+                            </td>
+                            <td>
+                                <input type="checkbox" {{ $d["input_status"] ? "checked" : "" }}>
+                            </td>
+                            <td>
+                                <button id="submit-123" class="btn btn-sm btn-dark m-1" data-toggle="modal"
+                                    data-target="#Medium-modal">Edit</button>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
             </tbody>
         </table>
     </div>

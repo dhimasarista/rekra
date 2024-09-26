@@ -14,7 +14,8 @@ return new class extends Migration
             $table->uuid("id")->primary();
             $table->char("nik", 16)->unique();
             $table->boolean("input_status")->default(false);
-            $table->text("updated_by")->default("");
+            $table->uuid("tps_id");
+            $table->foreign("tps_id")->references("id")->on("tps");
             $table->timestamps();
             $table->softDeletes();
         });

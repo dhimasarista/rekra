@@ -6,6 +6,7 @@ use App\Helpers\Formatting;
 use App\Models\Calon;
 use App\Models\HitungSuaraCepatAdmin;
 use App\Models\HitungSuaraCepatAdminDetail;
+use App\Models\HitungSuaraCepatSaksi;
 use App\Models\KabKota;
 use App\Models\Provinsi;
 use App\Models\Tps;
@@ -24,8 +25,7 @@ class HitungCepatController extends Controller
         Tps $tps,
         HitungSuaraCepatAdmin $hitungCepatAdmin,
         HitungSuaraCepatAdminDetail $hitungCepatAdminDetail
-        )
-    {
+    ) {
         $this->tps = $tps;
         $this->hitungCepatAdmin = $hitungCepatAdmin;
         $this->hitungCepatAdminDetail = $hitungCepatAdminDetail;
@@ -48,6 +48,44 @@ class HitungCepatController extends Controller
             ]);
 
             return redirect("/error$val");
+        }
+    }
+    public function listBySaksi(Request $request)
+    {
+        try {
+            $table = "Test Saksi";
+            $idQuery = $request->query("Id");
+            $tpsData = $this->tps->tpsWithDetail()
+                ->where("kelurahan_id", $idQuery)
+                ->get();
+
+            if ($tpsData->isEmpty()) {
+                return view('hitung_cepat.saksi_table', [
+                    'table' => 'Kosong',
+                    'data' => [],
+                    'calon' => [],
+                ]);
+            }
+
+            $results = $tpsData->map(function($tps){
+                $hsca = HitungSuaraCepatSaksi::where("tps_id", $tps->id)->first();
+                return [
+                    "id" => $tps->id,
+                    'tps_name' => $tps->name,
+                    'nik' => $hsca ? $hsca->nik : 0,
+                    "input_status" => $hsca ? $hsca->input_status : true,
+
+                ];
+            });
+
+            return view("hitung_cepat.saksi_table", [
+                "table" => $table,
+                "data" => $results
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ]);
         }
     }
     public function listByAdmin(Request $request)
@@ -90,26 +128,36 @@ class HitungCepatController extends Controller
 
             // Buat data final untuk ditampilkan
             $results = $tpsData->map(function ($tps) use ($hscadData, $calon) {
+
+                // Looping untuk setiap calon pada TPS tertentu
                 $calonData = $calon->map(function ($c) use ($hscadData, $tps) {
+
+                    // Mencari data HSCAD yang cocok dengan calon dan TPS
                     $hscadEntry = $hscadData->first(function ($entry) use ($c, $tps) {
+                        // Membandingkan nama calon dan nama TPS untuk menemukan entry yang sesuai
                         return $entry->calon_name === $c->calon_name && $entry->tps_name === $tps->name;
                     });
+
+                    // Mengembalikan data calon dengan jumlah suara, jika tidak ada data hscadEntry maka jumlahnya 0
                     return [
-                        "id" => $c->id,
-                        'calon_name' => $c->calon_name,
-                        'amount' => $hscadEntry ? $hscadEntry->amount : 0,
+                        "id" => $c->id,  // ID calon
+                        'calon_name' => $c->calon_name,  // Nama calon
+                        'amount' => $hscadEntry ? $hscadEntry->amount : 0,  // Jumlah suara, 0 jika tidak ada data
                     ];
                 });
 
+                // Mencari siapa yang terakhir mengupdate data TPS, default 'Belum ada' jika tidak ditemukan
                 $updatedBy = $hscadData->where('tps_name', $tps->name)->first()->updated_by ?? 'Belum ada';
 
+                // Mengembalikan data TPS dengan informasi calon, jumlah suara, dan siapa yang terakhir mengupdate
                 return [
-                    "id" => $tps->id,
-                    'tps_name' => $tps->name,
-                    'calon_data' => $calonData,
-                    'updated_by' => $updatedBy,
+                    "id" => $tps->id,  // ID TPS
+                    'tps_name' => $tps->name,  // Nama TPS
+                    'calon_data' => $calonData,  // Data calon di TPS ini
+                    'updated_by' => $updatedBy,  // Siapa yang terakhir kali mengupdate
                 ];
             });
+
 
             return view('hitung_cepat.admin_table', [
                 'table' => $tpsData->first()->kelurahan->name,
@@ -123,7 +171,8 @@ class HitungCepatController extends Controller
         }
     }
 
-    public function storeByAdmin(Request $request){
+    public function storeByAdmin(Request $request)
+    {
         DB::beginTransaction(); // Memulai transaksi
         try {
             $message = "Data Berhasil Disimpan";
@@ -140,9 +189,9 @@ class HitungCepatController extends Controller
             foreach ($body as $key => $value) {
                 if ($key !== "Tps") {
                     $hitungCepatDetail = $this->hitungCepatAdminDetail
-                    ->where("tps_id", $tpsId)
-                    ->where("calon_id", $key)
-                    ->first();
+                        ->where("tps_id", $tpsId)
+                        ->where("calon_id", $key)
+                        ->first();
 
                     if ($hitungCepatDetail) {
                         $hitungCepatId = $hitungCepatDetail->hs_cepat_admin_id;
@@ -185,7 +234,8 @@ class HitungCepatController extends Controller
             return response()->json(["message" => $message, "data" => $tpsId], 500);
         }
     }
-    public function rekapHitungCepat(Request $request){
+    public function rekapHitungCepat(Request $request)
+    {
         try {
             $view = "hitung_cepat.rekap";
             return view($view, [
@@ -201,7 +251,8 @@ class HitungCepatController extends Controller
             return redirect("/error$val");
         }
     }
-    public function chart(Request $request){
+    public function chart(Request $request)
+    {
         $idQuery = $request->query("Id");
         $tingkatQuery = $request->query("Tingkat");
         $typeQuery = $request->query("Type");
@@ -222,7 +273,7 @@ class HitungCepatController extends Controller
                 return response()->json([
                     "message" => "Pilih Jenis Rekap Terlebih Dahulu!!!"
                 ], 500);
-            } else if($typeQuery == "admin") {
+            } else if ($typeQuery == "admin") {
                 $wilayah = match ($tingkatQuery) {
                     "Kabkota" => Kabkota::with("kecamatan")->find($idQuery),
                     "Provinsi" => Provinsi::with("kabkota")->find($idQuery),
@@ -247,7 +298,8 @@ class HitungCepatController extends Controller
             }
         }
     }
-    public function selectTingkatPemilihan(Request $request){
+    public function selectTingkatPemilihan(Request $request)
+    {
         $typeQuery = $request->query("Type");
         $provinsi = Provinsi::all();
 
@@ -256,14 +308,15 @@ class HitungCepatController extends Controller
             "type" => $typeQuery,
         ]);
     }
-    public function selectRekapHitungCepat(Request $request){
+    public function selectRekapHitungCepat(Request $request)
+    {
         try {
             $view = "layouts.form";
             //
-                $formId1 = Uuid::uuid7();
-                $formId2 = Uuid::uuid7();
-                $formId3 = Uuid::uuid7();
-                $formId4 = Uuid::uuid7();
+            $formId1 = Uuid::uuid7();
+            $formId2 = Uuid::uuid7();
+            $formId3 = Uuid::uuid7();
+            $formId4 = Uuid::uuid7();
             //
             $provinsi = Provinsi::all();
             $options[] = [
@@ -501,18 +554,6 @@ class HitungCepatController extends Controller
                 "message" => $e->getMessage(),
             ]);
             return redirect("/error$val");
-        }
-    }
-    public function listBySaksi(Request $request) {
-        try {
-            $table = "Test Saksi";
-            return view("hitung_cepat.saksi_table", [
-                "table" => $table,
-            ]);
-        } catch (Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage(),
-            ]);
         }
     }
 }
