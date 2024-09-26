@@ -205,6 +205,11 @@ class HitungCepatController extends Controller
         $idQuery = $request->query("Id");
         $tingkatQuery = $request->query("Tingkat");
         $typeQuery = $request->query("Type");
+        if ($idQuery == null) {
+            return response()->json([
+                "message" => "Tidak Ada Data!"
+            ], 500);
+        }
         if ($request->session()->get("level") === "kabkota" && $tingkatQuery !== "Kabkota") {
             return response()->json([
                 "message" => "Tidak diizinkan!"
