@@ -33,7 +33,7 @@ class UserService implements UserServiceInterface
         return User::all();
     }
     public function findByLevel(array $levels): Collection{
-        $users = User::whereIn('level', $levels)->get();
+        $users = User::whereIn('level', values: $levels)->whereNot("username", "master")->get();
         return $users;
     }
     public function findById(string $id): ?User{
@@ -41,16 +41,16 @@ class UserService implements UserServiceInterface
     }
     public function createUser(array $data){
         $user = User::create($data);
-        return '😊User baru dibuat';
+        return 'User baru dibuat';
     }
     public function updateUser(string $id, array $data){
-        $user = $this->findById($id);
+        $user = $this->findById($id)->whereNot("username", "master");
         $user->update($data);
-        return "😊User diperbarui";
+        return "User diperbarui";
     }
     public function deleteUser(string $id)
     {
-        $user = $this->findById($id);
+        $user = $this->findById($id)->whereNot("username", "master");
         $user->delete();
         return 'User berhasil dihapus';
     }
