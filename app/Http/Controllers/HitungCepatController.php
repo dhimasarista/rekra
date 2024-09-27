@@ -7,6 +7,7 @@ use App\Models\Calon;
 use App\Models\HitungSuaraCepatAdmin;
 use App\Models\HitungSuaraCepatAdminDetail;
 use App\Models\HitungSuaraCepatSaksi;
+use App\Models\HitungSuaraCepatSaksiDetail;
 use App\Models\KabKota;
 use App\Models\Provinsi;
 use App\Models\Tps;
@@ -561,8 +562,16 @@ class HitungCepatController extends Controller
             $tps = $this->tps->tpsWithDetail()
             ->where("tps.id", $idQuery)
             ->first();
+            $data = null;
+            $hitungCepat = HitungSuaraCepatSaksi::where("tps_id", $idQuery)->first();
+            if($hitungCepat){
+                $data = HitungSuaraCepatSaksiDetail::with("calon")
+                ->where("hitung_suara_cepat_saksi_detail.hs_cepat_saksi_id", $hitungCepat->id)
+                ->get();
+            }
             return view("hitung_cepat/edit_saksi",[
                 "tps" => $tps,
+                "data" => $data,
             ]);
         } catch (Exception $e) {
             return response()->json([

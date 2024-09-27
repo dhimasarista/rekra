@@ -13,12 +13,11 @@ class HitungSuaraCepatSaksiDetail extends Model
     use HasFactory, SoftDeletes;
     protected $primaryKey = "id";
     public $incrementing = false;
-    protected $table = 'hitung_suara_cepat_saksi_details';
+    protected $table = 'hitung_suara_cepat_saksi_detail';
     protected $keyType = 'string';
 
     protected $fillable = [
         "id",
-        "tps_id",
         "calon_id",
         "hs_cepat_saksi_id"
     ];
