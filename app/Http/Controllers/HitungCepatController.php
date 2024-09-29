@@ -15,6 +15,7 @@ use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
 
 class HitungCepatController extends Controller
@@ -577,6 +578,51 @@ class HitungCepatController extends Controller
             return response()->json([
                 'message' => $e->getMessage(),
             ]);
+        }
+    }
+
+    public function storeNIK(Request $request){
+        try {
+            DB::beginTransaction();
+            $responseCode = 200;
+            $message = null;
+            $validator = Validator::make($request->all(), [
+                "nik" => "required|string|min:16",
+                "tps_id" => "required|string|uuid"
+            ]);
+            if ($validator->fails()) {
+                $message = $validator->errors()->all();
+                $responseCode = 500;
+            } else {
+                $hscs = HitungSuaraCepatSaksi::where("tps_id", $request->tps_id)->first();
+                if ($hscs) {
+                    $hscs->nik = $request->nik;
+                    $hscs->update();
+                    $message = "Berhasil Memperbarui NIK";
+                } else {
+                    HitungSuaraCepatSaksi::create([
+                        "nik" => $request->nik,
+                        "tps_id" => $request->tps_id,
+                    ]);
+                }
+            }
+            DB::commit();
+            return response()->json([
+                "message" => $message,
+            ], $responseCode);
+        } catch (QueryException $e) {
+            // DB::rollBack();
+            $message = match ($e->errorInfo[1]) {
+                1062 => "Data sudah ada",
+                1264 => "Jumlah Melebih Batas",
+                1048 => "Data tidak boleh kosong, isi 0 jika kosong.",
+                default => $e->getMessage(),
+            };
+
+            return response()->json(["message" => $message], 500);
+        } catch (Exception $e) {
+            // DB::rollBack();
+            return response()->json(["message" => $e->getMessage()], 500);
         }
     }
 }

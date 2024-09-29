@@ -25,9 +25,9 @@
                         <tr id="{{ $d["id"] }}">
                             <td>{{ $d["tps_name"] }}</td>
                             <td class="d-flex justify-content-center">
-                                <input id="1" type="number" min="0" class="form-control w-50"
+                                <input id="form-{{ $d["id"] }}" type="number" min="0" class="form-control w-50"
                                     value="{{ $d["nik"] }}">
-                                    <button id="submit-123" class="btn btn-sm btn-dark m-1">Perbarui</button>
+                                <button id="submit-123" class="btn btn-sm btn-dark m-1" onclick='storeNIK("{{ $d["id"] }}")'>Perbarui</button>
                             </td>
                             <td>
                                 <input type="checkbox" {{ $d["input_status"] ? "checked" : "" }}>
@@ -64,6 +64,40 @@
                     });
                 },
                 complete: function(data) {}
+            });
+        }
+
+        function storeNIK(id) {
+            TopLoaderService.start();
+            const nik = $(`#form-${id}`).val();
+            const url = "{{ route('hitung_cepat.saksi.nik') }}";
+            $.ajax({
+                type: "POST",
+                data: {
+                    "nik": nik,
+                    "tps_id": id,
+                },
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: url,
+                success: function (response) {
+                    Toast.fire({
+                        icon: "success",
+                        title: response["message"]
+                    });
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: xhr["responseJSON"]["message"]
+                    });
+                },
+                complete: function(data) {
+                    TopLoaderService.end();
+                }
             });
         }
     </script>

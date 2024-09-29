@@ -12,7 +12,7 @@ return new class extends Migration
     {
         Schema::create('hitung_suara_cepat_saksi', function (Blueprint $table) {
             $table->uuid("id")->primary();
-            $table->char("nik", 16)->unique();
+            $table->char("nik", length: 16)->unique();
             $table->boolean("input_status")->default(false);
             $table->uuid("tps_id");
             $table->foreign("tps_id")->references("id")->on("tps");
