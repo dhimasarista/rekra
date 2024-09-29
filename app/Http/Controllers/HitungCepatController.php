@@ -600,10 +600,24 @@ class HitungCepatController extends Controller
                     $hscs->update();
                     $message = "Berhasil Memperbarui NIK";
                 } else {
+                    $tps = $this->tps->tpsWithDetail()
+                    ->where("tps.id", $request->tps_id)
+                    ->first();
+                    $calon = Calon::whereIn('code', [$tps->kabkota_id, $tps->provinsi_id])->get();
+                    $uuid = Uuid::uuid7();
                     HitungSuaraCepatSaksi::create([
+                        "id" => $uuid,
                         "nik" => $request->nik,
                         "tps_id" => $request->tps_id,
                     ]);
+                    foreach ($calon as $c) {
+                        HitungSuaraCepatSaksiDetail::create([
+                            "amount" => "0",
+                            "calon_id" => $c->id,
+                            "hs_cepat_saksi_id" => $uuid,
+                        ]);
+                    }
+                    $message = "Saksi Baru Sukses";
                 }
             }
             DB::commit();
