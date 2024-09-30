@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\AuthMiddleware;
+use App\Http\Middleware\CheckingSession;
 use App\Http\Middleware\DataRestriction;
 use App\Http\Middleware\PageRedirect;
 use App\Http\Middleware\RoleRedirect;
@@ -23,6 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
             "roleRedirect" => RoleRedirect::class,
             "pageRedirect" => PageRedirect::class,
             "dataRestriction" => DataRestriction::class,
+            "checkingSession" => CheckingSession::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
