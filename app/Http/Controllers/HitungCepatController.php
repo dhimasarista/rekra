@@ -589,6 +589,8 @@ class HitungCepatController extends Controller
             $validator = Validator::make($request->all(), [
                 "nik" => "required|string|min:16",
                 "tps_id" => "required|string|uuid"
+            ], [
+                "nik.min" => "NIK harus 16 karakter!"
             ]);
             if ($validator->fails()) {
                 $message = $validator->errors()->all();
@@ -597,7 +599,7 @@ class HitungCepatController extends Controller
                 $hscs = HitungSuaraCepatSaksi::where("tps_id", $request->tps_id)->first();
                 if ($hscs) {
                     $hscs->nik = $request->nik;
-                    $hscs->update();
+                    $hscs->save();
                     $message = "Berhasil Memperbarui NIK";
                 } else {
                     $tps = $this->tps->tpsWithDetail()
@@ -625,17 +627,46 @@ class HitungCepatController extends Controller
                 "message" => $message,
             ], $responseCode);
         } catch (QueryException $e) {
-            // DB::rollBack();
+            DB::rollBack();
             $message = match ($e->errorInfo[1]) {
                 1062 => "Data sudah ada",
                 1264 => "Jumlah Melebih Batas",
                 1048 => "Data tidak boleh kosong, isi 0 jika kosong.",
+                1406 => "NIK Lebih dari 16 Karakter",
                 default => $e->getMessage(),
             };
 
             return response()->json(["message" => $message], 500);
         } catch (Exception $e) {
-            // DB::rollBack();
+            DB::rollBack();
+            return response()->json(["message" => $e->getMessage()], 500);
+        }
+    }
+
+    public function inputStatus(Request $request){
+        try {
+            DB::beginTransaction();
+            $tpsQuery = $request->query("Tps");
+            $message = null;
+            $responseCode = 200;
+            $data = HitungSuaraCepatSaksi::where("tps_id", $tpsQuery)->first();
+            if ($data) {
+                $data->input_status = !$data->input_status;
+                $data->save();
+                $message = "Berhasil Memperbarui Status";
+            } else {
+                $message = "Data Belum Ada";
+                $responseCode = 500;
+            }
+            return response()->json(["message" => $message], $responseCode);
+        } catch (QueryException $e) {
+            DB::rollBack();
+            $message = match ($e->errorInfo[1]) {
+                default => $e->getMessage(),
+            };
+            return response()->json(["message" => $message], 500);
+        } catch (Exception $e) {
+            DB::rollBack();
             return response()->json(["message" => $e->getMessage()], 500);
         }
     }
