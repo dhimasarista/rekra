@@ -30,7 +30,7 @@
                                 <button id="submit-123" class="btn btn-sm btn-dark m-1" onclick='storeNIK("{{ $d["id"] }}")'>Perbarui</button>
                             </td>
                             <td>
-                                <input type="checkbox" {{ $d["input_status"] ? "checked" : "" }}>
+                                <input type="checkbox" {{ $d["input_status"] ? "checked" : "" }} onclick="updateStatusInputSuara(this, '{{ $d['id'] }}')">
                             </td>
                             <td>
                                 <button id="submit-123" class="btn btn-sm btn-dark m-1" onclick="showEditSaksiModal('{{ $d['id'] }}')">Edit</button>
@@ -57,6 +57,29 @@
                     $("#edit-saksi-modal .modal-dialog .modal-body p").html(response);
                 },
                 error: function(xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: xhr["responseJSON"]["message"]
+                    });
+                },
+                complete: function(data) {}
+            });
+        }
+        function updateStatusInputSuara(e, id) {
+            const isChecked = e.checked;
+
+            $.ajax({
+                type: "get",
+                url: '{{ route("hitung_cepat.saksi.status", ["Tps" => "ID_PLACEHOLDER"]) }}'.replace("ID_PLACEHOLDER", id),
+                success: function(response) {
+                    Toast.fire({
+                        icon: "success",
+                        title: response["message"]
+                    });
+                },
+                error: function(xhr, status, error) {
+                    e.checked = !isChecked;
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
