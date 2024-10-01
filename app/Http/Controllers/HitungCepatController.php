@@ -658,7 +658,11 @@ class HitungCepatController extends Controller
                 $message = "Data Belum Ada";
                 $responseCode = 500;
             }
-            return response()->json(["message" => $message], $responseCode);
+            DB::commit();
+            return response()->json([
+                "message" => $message,
+                "data" => $data,
+            ], $responseCode);
         } catch (QueryException $e) {
             DB::rollBack();
             $message = match ($e->errorInfo[1]) {
