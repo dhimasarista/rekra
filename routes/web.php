@@ -9,6 +9,8 @@ use App\Http\Controllers\RekapitulasiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WilayahController;
 use App\Models\Calon;
+use App\Models\Tps;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
 // Route::get("/chart", [ErrorController::class, "test"]);
@@ -17,6 +19,16 @@ Route::post('/login', [AuthController::class, 'post']);
 Route::get("/error", [ErrorController::class, "index"]);
 Route::get("/404", function () {
     return redirect("/error?code=404&title=Page+Not+Found&message=It+looks+like+you+found+a+glitch+in+the+matrix...");
+});
+Route::get('/test', function (Request $request) {
+    try {
+        $data = Tps::all();
+        return response()->json([
+            'data' => $data,
+        ]);
+    } catch (Exception $e) {
+        return response()->json(['message' => $e->getMessage()], 500);
+    }
 });
 
 Route::middleware("auth")->middleware("checkingSession")->group(function () {
