@@ -2,5 +2,5 @@
 
 return [
     App\Providers\AppServiceProvider::class,
-    App\Providers\MySQLServiceProvider::class,
+    // App\Providers\MySQLServiceProvider::class,
 ];
