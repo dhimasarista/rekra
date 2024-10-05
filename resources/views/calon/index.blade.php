@@ -21,6 +21,7 @@
                             <thead>
                                 <tr>
                                     <th class="table-plus datatable-nosort">Tingkat</th>
+                                    <th>Kode Wilayah</th>
                                     <th>Nama Calon</th>
                                     <th>Daerah Pemilihan</th>
                                     <th>Action</th>
@@ -35,6 +36,7 @@
                                 @foreach ($calon as $c)
                                     <tr>
                                         <td>{{ Formatting::capitalize($c->level) }}</td>
+                                        <td>{{ Formatting::capitalize($c->code) }}</td>
                                         <td>{{ Formatting::capitalize($c->calon_name) }} -
                                             {{ Formatting::capitalize($c->wakil_name) }}</td>
                                         @if ($c->code)
