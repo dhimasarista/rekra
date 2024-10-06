@@ -537,7 +537,7 @@ class HitungCepatController extends Controller
                 ]);
             }
 
-            $results = $tpsData->map(function ($tps) {
+            $results = $tpsData->map(function($tps){
                 $hsca = HitungSuaraCepatSaksi::where("tps_id", $tps->id)->first();
                 return [
                     "id" => $tps->id,
@@ -557,21 +557,20 @@ class HitungCepatController extends Controller
             ]);
         }
     }
-    public function editHitungCepatSaksi(Request $request)
-    {
+    public function editHitungCepatSaksi(Request $request){
         try {
             $idQuery = $request->query("Id");
             $tps = $this->tps->tpsWithDetail()
-                ->where("tps.id", $idQuery)
-                ->first();
+            ->where("tps.id", $idQuery)
+            ->first();
             $data = null;
             $hitungCepat = HitungSuaraCepatSaksi::where("tps_id", $idQuery)->first();
-            if ($hitungCepat) {
+            if($hitungCepat){
                 $data = HitungSuaraCepatSaksiDetail::with("calon")
-                    ->where("hitung_suara_cepat_saksi_detail.hs_cepat_saksi_id", $hitungCepat->id)
-                    ->get();
+                ->where("hitung_suara_cepat_saksi_detail.hs_cepat_saksi_id", $hitungCepat->id)
+                ->get();
             }
-            return view("hitung_cepat/edit_saksi", [
+            return view("hitung_cepat/edit_saksi",[
                 "tps" => $tps,
                 "data" => $data,
             ]);
@@ -582,8 +581,7 @@ class HitungCepatController extends Controller
         }
     }
 
-    public function storeNIK(Request $request)
-    {
+    public function storeNIK(Request $request){
         try {
             DB::beginTransaction();
             $responseCode = 200;
@@ -605,8 +603,8 @@ class HitungCepatController extends Controller
                     $message = "Berhasil Memperbarui NIK";
                 } else {
                     $tps = $this->tps->tpsWithDetail()
-                        ->where("tps.id", $request->tps_id)
-                        ->first();
+                    ->where("tps.id", $request->tps_id)
+                    ->first();
                     $calon = Calon::whereIn('code', [$tps->kabkota_id, $tps->provinsi_id])->get();
                     $uuid = Uuid::uuid7();
                     HitungSuaraCepatSaksi::create([
@@ -645,8 +643,7 @@ class HitungCepatController extends Controller
         }
     }
 
-    public function inputStatus(Request $request)
-    {
+    public function inputStatus(Request $request){
         try {
             DB::beginTransaction();
             $tpsQuery = $request->query("Tps");
@@ -678,8 +675,7 @@ class HitungCepatController extends Controller
         }
     }
 
-    public function submitEditHitungCepatSaksi(Request $request)
-    {
+    public function submitEditHitungCepatSaksi(Request $request) {
         try {
             DB::beginTransaction();
             $responseStatus = 500;
@@ -687,37 +683,31 @@ class HitungCepatController extends Controller
 
             $tpsQuery = $request->query("Tps");
             $body = $request->data;
-
-            if ($body && !empty($body)) {
-                $hcs = HitungSuaraCepatSaksi::where("tps_id", $tpsQuery)->first();
-                if ($hcs) {
-                    $bodyIds = array_column($body, 'id');
-                    $data = HitungSuaraCepatSaksiDetail::where("hs_cepat_saksi_id", $hcs->id)
-                        ->whereIn('calon_id', $bodyIds)
-                        ->get();
-
-                    foreach ($data as $d) {
-                        $b = collect($body)->firstWhere('id', $d->calon_id);
-                        if ($b) {
-                            // $d->amount = (int)$b['value'];
+            $hcs = HitungSuaraCepatSaksi::where("tps_id", $tpsQuery)->first();
+            if($hcs){
+                $data = HitungSuaraCepatSaksiDetail::where("hs_cepat_saksi_id", $hcs->id)->get();
+                foreach ($data as $d) {
+                    foreach ($body as $b) {
+                        if ($b["id"] == $d->calon_id) {
+                            // $d->amount = $b["value"];
                             // $d->save();
-                            DB::update('UPDATE hitung_suara_cepat_saksi_detail SET amount = ? WHERE id = ?', [$b["value"], $d->id]);
+                            DB::update('UPDATE hitung_suara_cepat_saksi_detail SET amount = ? WHERE id = ?', [(int)$b["value"], $d->id]);
+                            $message = "Berhasil Memperbarui Data!";
+                            $responseStatus = 200;
+                        } else {
+                            $message = "Data Tidak Valid!";
+                            $responseStatus = 400;
                         }
                     }
-                    $message = "Berhasil Memperbarui Data!";
-                    $responseStatus = 200;
-                } else {
-                    $message = "Data TPS tidak ditemukan!";
-                    $responseStatus = 404;
                 }
             } else {
-                $message = "Data tidak valid atau kosong!";
-                $responseStatus = 400;
+                $message = "Data Tidak Ditemukan!";
+                $responseStatus = 404;
             }
-
             DB::commit();
             return response()->json([
                 "message" => $message,
+                "data" => $data
             ], $responseStatus);
         } catch (QueryException $e) {
             DB::rollBack();
