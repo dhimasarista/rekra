@@ -76,6 +76,7 @@ Route::middleware("auth")->middleware("checkingSession")->group(function () {
         Route::get("saksi", [HitungCepatController::class, "bySaksi"])->name("hitung_cepat.saksi");
         Route::get("saksi/list", [HitungCepatController::class, "listBySaksi"])->name("hitung_cepat.saksi.list")->middleware("dataRestriction");
         Route::get("saksi/edit", [HitungCepatController::class, "editHitungCepatSaksi"])->name("hitung_cepat.saksi.edit.list");
+        Route::post("saksi/edit", [HitungCepatController::class, "submitEditHitungCepatSaksi"])->name("hitung_cepat.saksi.edit.post");
         Route::get("saksi/status", [HitungCepatController::class, "inputStatus"])->name("hitung_cepat.saksi.status");
         Route::post("saksi/nik", [HitungCepatController::class, "storeNIK"])->name("hitung_cepat.saksi.nik");
         // Route::get("rekap", [HitungCepatController::class, "rekapHitungCepatAdmin"])->name("rekap.hitung-cepat.admin");

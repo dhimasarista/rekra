@@ -1,4 +1,10 @@
 @use('App\Helpers\Formatting')
+@use('Ramsey\Uuid\Uuid')
+@php
+    $editSaksiModal = Uuid::uuid7();
+    $modalBodyEditSaksi = Uuid::uuid7();
+    $submitEditSaksi = Uuid::uuid7();
+@endphp
 <div class="card-box mb-30">
     <div class="pd-20">
         <h4 class="text-blue h4">
@@ -53,8 +59,9 @@
                 type: "get",
                 url: '{{ route("hitung_cepat.saksi.edit.list", ["Id" => "ID_PLACEHOLDER"]) }}'.replace("ID_PLACEHOLDER", id),
                 success: function(response) {
-                    $("#edit-saksi-modal").modal('show');
-                    $("#edit-saksi-modal .modal-dialog .modal-body p").html(response);
+                    $("#{{ $editSaksiModal }}").modal('show');
+                    $("#{{ $editSaksiModal }}").attr('data-tps',id);
+                    $("#{{ $editSaksiModal }} .modal-dialog .modal-body p").html(response);
                 },
                 error: function(xhr, status, error) {
                     Swal.fire({
@@ -124,7 +131,7 @@
             });
         }
     </script>
-    <div class="modal fade" id="edit-saksi-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    <div class="modal fade" id="{{ $editSaksiModal }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -132,13 +139,55 @@
                     <h4 class="modal-title" id="myLargeModalLabel">Edit Saksi TPS</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
-                <div class="modal-body">
+                <div id="{{ $modalBodyEditSaksi }}" class="modal-body">
                     <p></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-dark">Simpan</button>
+                    <button type="button" class="btn btn-dark" id="{{$submitEditSaksi}}">Simpan</button>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        $("#{{ $submitEditSaksi }}").on("click", function(e){
+            let data = [];
+            $("#{{ $modalBodyEditSaksi }} p input").each(function(){
+                let value = $(this).val()
+                data.push({
+                    id: $(this).attr("data-id"),
+                    value: value
+                });
+            });
+            TopLoaderService.start();
+            const url = "{{ route('hitung_cepat.saksi.edit.post', ['Tps' => 'TPS_PLACEHOLDER']) }}".replace("TPS_PLACEHOLDER", $("#{{ $editSaksiModal }}").attr('data-tps'))
+            $.ajax({
+                type: "POST",
+                data: {
+                    data
+                },
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: url,
+                success: function (response) {
+                    Toast.fire({
+                        icon: "success",
+                        title: response["message"]
+                    });
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: xhr["responseJSON"]["message"]
+                    });
+                },
+                complete: function(data) {
+                    $('#{{ $editSaksiModal }}').modal('hide');
+                    TopLoaderService.end();
+                }
+            });
+        });
+    </script>
