@@ -155,7 +155,7 @@
             $("#{{ $modalBodyEditSaksi }} p input").each(function(){
                 let value = $(this).val()
                 data.push({
-                    id: $(this).attr("data-id"),
+                    id: $(this).attr("data-calon"),
                     value: value
                 });
             });

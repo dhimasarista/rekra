@@ -707,7 +707,6 @@ class HitungCepatController extends Controller
             DB::commit();
             return response()->json([
                 "message" => $message,
-                "data" => $data
             ], $responseStatus);
         } catch (QueryException $e) {
             DB::rollBack();
