@@ -48,8 +48,8 @@ Route::middleware("auth")->middleware("checkingSession")->group(function () {
     Route::middleware(["userRole"])->group(function () {
         // Calon
         Route::get("/calon/form", [CalonController::class, "form"])->name("calon.form");
-        Route::get("/calon/test", [CalonController::class, "index2"])->name("calon.test");
-        Route::get("/calon/all", [CalonController::class, "all"])->name("calon.all");
+        // Route::get("/calon/test", [CalonController::class, "index2"])->name("calon.test");
+        Route::get("/calon/all", action: [CalonController::class, "all"])->name("calon.all");
         Route::resource("calon", CalonController::class);
         // User
         Route::get("/user/form", [UserController::class, "form"])->name("user.form");

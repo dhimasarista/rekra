@@ -86,10 +86,22 @@
                                 type: "GET"
                             },
                             columns: [
-                                { data: 'level', name: 'level' },
+                                { 
+                                    data: 'level', render: function (data, type, row) {
+                                        return Formatting.capitalize(row.level)
+                                    }
+                                },
                                 { data: 'code', name: 'code' },
-                                { data: 'calon_name', name: 'calon_name' },
-                                { data: 'wakil_name', name: 'wakil_name' },
+                                { 
+                                    data: 'calon_name', render: function (data, type, row) {
+                                        return Formatting.capitalize(row.calon_name)
+                                    }
+                                },
+                                { 
+                                    data: 'wakil_name', render: function (data, type, row) {
+                                        return Formatting.capitalize(row.wakil_name)
+                                    }
+                                },
                                 {
                                     data: 'id',
                                     render: function(data, type, row) {
@@ -109,7 +121,10 @@
                                     orderable: false,
                                     searchable: false
                                 }
-                            ]
+                            ],
+                            language: {
+                                processing: "Mohon tunggu, data sedang diambil..." // Ganti teks di sini
+                            }
                         });
                     });
                 </script>

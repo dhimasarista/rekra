@@ -16,18 +16,18 @@ class CalonController extends Controller
     /**
      * Display a listing of the resource.
      */
+    // public function index()
+    // {
+    //     $calon = Calon::all();
+    //     $provinsi = Provinsi::all();
+    //     $kabkota = KabKota::all();
+    //     return view("calon.index", [
+    //         "calon" => $calon,
+    //         "provinsi" => $provinsi,
+    //         "kabkota" => $kabkota,
+    //     ]);
+    // }
     public function index()
-    {
-        $calon = Calon::all();
-        $provinsi = Provinsi::all();
-        $kabkota = KabKota::all();
-        return view("calon.index", [
-            "calon" => $calon,
-            "provinsi" => $provinsi,
-            "kabkota" => $kabkota,
-        ]);
-    }
-    public function index2()
     {
         return view("calon.index2", []);
     }
