@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Formatting;
 use App\Models\Calon;
 use App\Models\KabKota;
 use App\Models\Provinsi;
@@ -26,6 +27,52 @@ class CalonController extends Controller
             "kabkota" => $kabkota,
         ]);
     }
+    public function index2()
+    {
+        return view("calon.index2", []);
+    }
+
+    public function all(Request $request) {
+        try {
+            // Ambil parameter dari request
+            $limit = $request->input('length', 10); // default 10
+            $start = $request->input('start', 0); // default 0
+            $search = $request->input('search.value', '');
+
+            // Query untuk mengambil data dengan pagination dan pencarian
+            $query = Calon::whereNull('deleted_at');
+
+            // Filter berdasarkan pencarian
+            if ($search) {
+                $query->where(function($q) use ($search) {
+                    $q->where('calon_name', 'LIKE', "%$search%")
+                      ->orWhere('wakil_name', 'LIKE', "%$search%");
+                });
+            }
+
+            // Hitung total data
+            $totalData = $query->count();
+
+            // Ambil data dengan limit dan offset
+            $data = $query->limit($limit)->offset($start)->get();
+
+            return response()->json([
+                "draw" => $request->input('draw'),
+                "recordsTotal" => $totalData,
+                "recordsFiltered" => $totalData,
+                "data" => $data,
+            ], 200);
+        } catch (Exception $e) {
+            $val = Formatting::formatUrl([
+                "code" => 500,
+                "title" => $e->getMessage(),
+                "message" => $e->getMessage(),
+            ]);
+
+            return redirect("/error$val");
+        }
+    }
+    
     /**
      * Show the form for creating a new resource.
      */
