@@ -79,6 +79,7 @@
                 <script>
                     $(document).ready(function() {
                         $('#datatable-table').DataTable({
+                            scrollX: true,
                             processing: true,
                             serverSide: true,
                             ajax: {

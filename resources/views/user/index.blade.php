@@ -136,6 +136,7 @@
                 </div>
                 <script>
                     $("#datatable-table").DataTable({
+                        "scrollX": true,
                     })
                 </script>
                 <!-- Export Datatable End -->
