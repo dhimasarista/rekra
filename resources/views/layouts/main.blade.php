@@ -281,7 +281,7 @@
             <div class="sidebar-menu">
                 <ul id="accordion-menu">
                     <li>
-                        <a href="{{ route('hitung_cepat.rekap') }}" class="dropdown-toggle no-arrow">
+                        <a href="{{ route('hitung_cepat.rekap') }}" class="dropdown-toggle no-arrow {{ request()->url() == route('hitung_cepat.rekap') ? 'active' : '' }}">
                             <span class="micon dw dw-file"></span><span class="mtext">Rekap Hitung Cepat</span>
                         </a>
                     </li>
@@ -312,14 +312,14 @@
                     @if (session()->get('level') == 'master' || session()->get('level') == 'provinsi')
                         <li>
                             <a href="{{ route('rekap.index', ['Type' => 'Provinsi']) }}"
-                                class="dropdown-toggle no-arrow {{ Str::contains(request()->route()->getName(), 'rekapitulasi') ? 'active' : '' }}">
+                                class="dropdown-toggle no-arrow {{ request()->fullUrl() == route('rekap.index', ['Type' => 'Provinsi']) ? 'active' : '' }}">
                                 <span class="micon dw dw-file"></span><span class="mtext">Rekap Provinsi</span>
                             </a>
                         </li>
                     @endif
                     <li>
                         <a href="{{ route('rekap.index', ['Type' => 'Kabkota']) }}"
-                            class="dropdown-toggle no-arrow {{ Str::contains(request()->route()->getName(), 'rekapitulasi') ? 'active' : '' }}">
+                            class="dropdown-toggle no-arrow {{ request()->fullUrl() == route('rekap.index', ['Type' => 'Kabkota']) ? 'active' : '' }}">
                             <span class="micon dw dw-file"></span><span class="mtext">Rekap KabKota</span>
                         </a>
                     </li>
