@@ -105,6 +105,7 @@
                                 {
                                     data: 'id',
                                     render: function(data, type, row) {
+                                        const editUrl = "{{ route('calon.form', ['Id' => 'ID_PLACEHOLDER']) }}".replace("ID_PLACEHOLDER", data)
                                         return `
                                             <div class="dropdown">
                                                 <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
@@ -112,7 +113,7 @@
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                                                     <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> Lihat</a>
-                                                    <a class="dropdown-item" href="/calon/${data}/edit"><i class="dw dw-edit2"></i> Edit</a>
+                                                    <a class="dropdown-item" href="${editUrl}"><i class="dw dw-edit2"></i> Edit</a>
                                                     <a class="dropdown-item" onclick="buttonDelete('${data}')" href="#"><i class="dw dw-delete-3"></i> Delete</a>
                                                 </div>
                                             </div>
