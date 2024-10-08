@@ -556,6 +556,35 @@ class HitungCepatController extends Controller
             ]);
         }
     }
+
+    public function searchSaksiTps(Request $request){
+        $responseCode = 200;
+        try {
+            $nikQuery = $request->query('NIK');
+            $hc = HitungSuaraCepatSaksi::where('nik', $nikQuery)->first();
+            $tps = null;
+            $data = null;
+            if ($hc) {
+                $data = HitungSuaraCepatSaksiDetail::where('hs_cepat_saksi_id', $hc->id)->get();
+                $tps = $this->tps->tpsWithDetail()
+                ->where("tps.id", $hc->tps_id)
+                ->first();
+            } else {
+                $responseCode = 404;
+                throw new Exception("Saksi Tidak Ditemukan", 404);
+            }
+
+            return view("hitung_cepat.saksi_form", [
+                "data" => $data,
+                "tps" => $tps,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], $responseCode);
+        }
+    }
+
     public function editHitungCepatSaksi(Request $request)
     {
         try {

@@ -58,7 +58,7 @@
 </head>
 
 <body>
-
+    @use('Ramsey\Uuid\Uuid')
     <div class="container mt-5">
         <div style="padding-bottom: 40px; text-align: center">
             <svg width="350" viewBox="0 0 709 98" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -96,12 +96,15 @@
                                         Hubungi Admin</a>
                                 </div>
                             </div>
+                            @php
+                                $nikForm = Uuid::uuid7();
+                            @endphp
                             <form>
                                 <div class="form-group">
                                     <label>Nomor Induk Kependudukan (NIK)</label>
-                                    <input class="form-control" type="text" placeholder="Masukkan NIK">
+                                    <input id="{{ $nikForm }}" class="form-control" type="text" placeholder="Masukkan NIK">
                                 </div>
-                                <button type="button" class="btn btn-dark btn-block" data-toggle="modal" data-target="#exampleModal">Submit</button>
+                                <button type="button" class="btn btn-dark btn-block" onclick="showModal()">Periksa</button>
                             </form>
                         </div>
                     </div>
@@ -109,22 +112,46 @@
             </div>
         </div>
     </div>
+    @php
+       $uuidModal = Uuid::uuid7();
+    @endphp
+    <script>
+        function showModal(){
+            const nikValue = $("#{{ $nikForm }}").val()
+            $.ajax({
+                type: "get",
+                url: '{{ route("saksi.find", ["NIK" => "NIK_PLACEHOLDER"]) }}'.replace("NIK_PLACEHOLDER", nikValue),
+                success: function(response) {
+                    $("#{{ $uuidModal }}").modal('show');
+                    $("#{{ $uuidModal }} .modal-dialog .modal-body").html(response);
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: xhr["responseJSON"]["message"]
+                    });
+                },
+                complete: function(data) {}
+            });
+        }
+    </script>
     {{-- Modal --}}
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="{{ $uuidModal }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered"" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Input Hitung Cepat</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              ...
+              
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-dark">Save changes</button>
+              <button type="button" class="btn btn-light" data-dismiss="modal">Batal</button>
+              <button type="button" class="btn btn-dark">Kirim</button>
             </div>
           </div>
         </div>

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get("/saksi/input", [HitungCepatController::class, "inputHitungCepatSaksi"]);
+Route::get("/saksi/find", [HitungCepatController::class, "searchSaksiTps"])->name("saksi.find");
 Route::get("/login", [AuthController::class, "index"])->name("login");
 Route::post('/login', [AuthController::class, 'post']);
 Route::get("/error", [ErrorController::class, "index"]);
