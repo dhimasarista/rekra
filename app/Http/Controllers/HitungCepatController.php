@@ -104,9 +104,9 @@ class HitungCepatController extends Controller
 
                     // Mengembalikan data calon dengan jumlah suara, jika tidak ada data hscadEntry maka jumlahnya 0
                     return [
-                        "id" => $c->id,  // ID calon
-                        'calon_name' => $c->calon_name,  // Nama calon
-                        'amount' => $hscadEntry ? $hscadEntry->amount : 0,  // Jumlah suara, 0 jika tidak ada data
+                        "id" => $c->id, // ID calon
+                        'calon_name' => $c->calon_name, // Nama calon
+                        'amount' => $hscadEntry ? $hscadEntry->amount : 0, // Jumlah suara, 0 jika tidak ada data
                     ];
                 });
 
@@ -115,13 +115,12 @@ class HitungCepatController extends Controller
 
                 // Mengembalikan data TPS dengan informasi calon, jumlah suara, dan siapa yang terakhir mengupdate
                 return [
-                    "id" => $tps->id,  // ID TPS
-                    'tps_name' => $tps->name,  // Nama TPS
-                    'calon_data' => $calonData,  // Data calon di TPS ini
-                    'updated_by' => $updatedBy,  // Siapa yang terakhir kali mengupdate
+                    "id" => $tps->id, // ID TPS
+                    'tps_name' => $tps->name, // Nama TPS
+                    'calon_data' => $calonData, // Data calon di TPS ini
+                    'updated_by' => $updatedBy, // Siapa yang terakhir kali mengupdate
                 ];
             });
-
 
             return view('hitung_cepat.admin_table', [
                 'table' => $tpsData->first()->kelurahan->name,
@@ -192,7 +191,7 @@ class HitungCepatController extends Controller
         } catch (QueryException $e) {
             DB::rollBack();
             $message = match ($e->errorInfo[1]) {
-                // 1062 => "Data sudah ada",
+            // 1062 => "Data sudah ada",
                 default => $e->getMessage(),
             };
             return response()->json(["message" => $message, "data" => $tpsId], 500);
@@ -222,12 +221,12 @@ class HitungCepatController extends Controller
         $typeQuery = $request->query("Type");
         if ($idQuery == null) {
             return response()->json([
-                "message" => "Tidak Ada Data!"
+                "message" => "Tidak Ada Data!",
             ], 500);
         }
         if ($request->session()->get("level") === "kabkota" && $tingkatQuery !== "Kabkota") {
             return response()->json([
-                "message" => "Tidak diizinkan!"
+                "message" => "Tidak diizinkan!",
             ], 500);
         } else {
             if (!$idQuery || $idQuery == "null" || $idQuery == "Pilih") {
@@ -235,7 +234,7 @@ class HitungCepatController extends Controller
             }
             if ($typeQuery == "null") {
                 return response()->json([
-                    "message" => "Pilih Jenis Rekap Terlebih Dahulu!!!"
+                    "message" => "Pilih Jenis Rekap Terlebih Dahulu!!!",
                 ], 500);
             } else if ($typeQuery == "admin") {
                 $wilayah = match ($tingkatQuery) {
@@ -257,7 +256,7 @@ class HitungCepatController extends Controller
                 ], 200);
             } else {
                 return response()->json([
-                    "message" => "Internal Server Error!"
+                    "message" => "Internal Server Error!",
                 ], 500);
             }
         }
@@ -292,7 +291,7 @@ class HitungCepatController extends Controller
                 $options[] = [
                     "id" => $p->id,
                     "is_selected" => false,
-                    "name" => Formatting::capitalize($p->name)
+                    "name" => Formatting::capitalize($p->name),
                 ];
             }
             $config = [
@@ -304,8 +303,8 @@ class HitungCepatController extends Controller
                             "name" => "Kembali",
                             "icon" => "fa fa-arrow-left",
                             "route" => null, // route yang diarahkan ketika event klik
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
                 "submit" => [
                     "id" => Uuid::uuid7(), // ID unik untuk tombol submit
@@ -318,14 +317,14 @@ class HitungCepatController extends Controller
                         [
                             "id" => "inputText", // ID dari elemen input
                             "name" => "nama", // Nama field yang dikirim
-                            "type" => "string" // Tipe data yang dikirim (string, array)
+                            "type" => "string", // Tipe data yang dikirim (string, array)
                         ],
                         [
                             "id" => "dynamicContainer", // ID dari container elemen dynamic input
                             "name" => "skills", // Nama field untuk array dynamic input
-                            "type" => "array" // Tipe data array karena ada banyak input
+                            "type" => "array", // Tipe data array karena ada banyak input
                         ],
-                    ]
+                    ],
                 ],
                 "form" => [
                     [
@@ -338,25 +337,25 @@ class HitungCepatController extends Controller
                             "is_fetching" => false, // Jika true, data akan diambil melalui AJAX
                             "route" => "#", // Rute untuk AJAX fetch
                             "response" => null, // Key dalam respons untuk data yang diambil
-                            "sibling_form_id" => $formId2 // ID elemen lain yang akan diupdate berdasarkan fetch
+                            "sibling_form_id" => $formId2, // ID elemen lain yang akan diupdate berdasarkan fetch
                         ],
                         "options" => [
                             [
                                 "id" => "null",
                                 "is_selected" => true,
-                                "name" => "Pilih"
+                                "name" => "Pilih",
                             ],
                             [
                                 "id" => "saksi",
                                 "is_selected" => false,
-                                "name" => "Hitung Cepat Saksi"
+                                "name" => "Hitung Cepat Saksi",
                             ],
                             [
                                 "id" => "admin",
                                 "is_selected" => false,
-                                "name" => "Hitung Cepat Admin"
+                                "name" => "Hitung Cepat Admin",
                             ],
-                        ]
+                        ],
                     ],
                     [
                         "id" => $formId2, // ID untuk elemen form
@@ -368,25 +367,25 @@ class HitungCepatController extends Controller
                             "is_fetching" => false, // Jika true, data akan diambil melalui AJAX
                             "route" => "#",
                             "response" => "data", // Key dalam respons untuk data yang diambil
-                            "sibling_form_id" => $formId3 // ID elemen lain yang akan diupdate berdasarkan fetch
+                            "sibling_form_id" => $formId3, // ID elemen lain yang akan diupdate berdasarkan fetch
                         ],
                         "options" => [
                             [
                                 "id" => "null",
                                 "is_selected" => true,
-                                "name" => "Pilih"
+                                "name" => "Pilih",
                             ],
                             [
                                 "id" => "provinsi",
                                 "is_selected" => false,
-                                "name" => "Provinsi"
+                                "name" => "Provinsi",
                             ],
                             [
                                 "id" => "kabkota",
                                 "is_selected" => false,
-                                "name" => "Kabkota"
+                                "name" => "Kabkota",
                             ],
-                        ]
+                        ],
                     ],
                     [
                         "id" => $formId3,
@@ -401,9 +400,9 @@ class HitungCepatController extends Controller
                                 "Id" => "",
                             ]), // Rute untuk AJAX fetch
                             "response" => "data", // Key dalam respons untuk data yang diambil
-                            "sibling_form_id" => $formId4 // ID elemen lain yang akan diupdate berdasarkan fetch
+                            "sibling_form_id" => $formId4, // ID elemen lain yang akan diupdate berdasarkan fetch
                         ],
-                        "options" => $options
+                        "options" => $options,
                     ],
                     [
                         "id" => $formId4,
@@ -422,10 +421,10 @@ class HitungCepatController extends Controller
                             ],
                         ],
                     ],
-                ]
+                ],
             ];
             return view($view, [
-                "config" => $config
+                "config" => $config,
             ]);
         } catch (Exception $e) {
             $val = Formatting::formatUrl([
@@ -537,7 +536,7 @@ class HitungCepatController extends Controller
                 ]);
             }
 
-            $results = $tpsData->map(function($tps){
+            $results = $tpsData->map(function ($tps) {
                 $hsca = HitungSuaraCepatSaksi::where("tps_id", $tps->id)->first();
                 return [
                     "id" => $tps->id,
@@ -549,7 +548,7 @@ class HitungCepatController extends Controller
 
             return view("hitung_cepat.saksi_table", [
                 "table" => $table,
-                "data" => $results
+                "data" => $results,
             ]);
         } catch (Exception $e) {
             return response()->json([
@@ -557,20 +556,21 @@ class HitungCepatController extends Controller
             ]);
         }
     }
-    public function editHitungCepatSaksi(Request $request){
+    public function editHitungCepatSaksi(Request $request)
+    {
         try {
             $idQuery = $request->query("Id");
             $tps = $this->tps->tpsWithDetail()
-            ->where("tps.id", $idQuery)
-            ->first();
+                ->where("tps.id", $idQuery)
+                ->first();
             $data = null;
             $hitungCepat = HitungSuaraCepatSaksi::where("tps_id", $idQuery)->first();
-            if($hitungCepat){
+            if ($hitungCepat) {
                 $data = HitungSuaraCepatSaksiDetail::with("calon")
-                ->where("hitung_suara_cepat_saksi_detail.hs_cepat_saksi_id", $hitungCepat->id)
-                ->get();
+                    ->where("hitung_suara_cepat_saksi_detail.hs_cepat_saksi_id", $hitungCepat->id)
+                    ->get();
             }
-            return view("hitung_cepat/edit_saksi",[
+            return view("hitung_cepat/edit_saksi", [
                 "tps" => $tps,
                 "data" => $data,
             ]);
@@ -581,16 +581,17 @@ class HitungCepatController extends Controller
         }
     }
 
-    public function storeNIK(Request $request){
+    public function storeNIK(Request $request)
+    {
         try {
             DB::beginTransaction();
             $responseCode = 200;
             $message = null;
             $validator = Validator::make($request->all(), [
                 "nik" => "required|string|min:16",
-                "tps_id" => "required|string|uuid"
+                "tps_id" => "required|string|uuid",
             ], [
-                "nik.min" => "NIK harus 16 karakter!"
+                "nik.min" => "NIK harus 16 karakter!",
             ]);
             if ($validator->fails()) {
                 $message = $validator->errors()->all();
@@ -603,8 +604,8 @@ class HitungCepatController extends Controller
                     $message = "Berhasil Memperbarui NIK";
                 } else {
                     $tps = $this->tps->tpsWithDetail()
-                    ->where("tps.id", $request->tps_id)
-                    ->first();
+                        ->where("tps.id", $request->tps_id)
+                        ->first();
                     $calon = Calon::whereIn('code', [$tps->kabkota_id, $tps->provinsi_id])->get();
                     $uuid = Uuid::uuid7();
                     HitungSuaraCepatSaksi::create([
@@ -643,7 +644,8 @@ class HitungCepatController extends Controller
         }
     }
 
-    public function inputStatus(Request $request){
+    public function inputStatus(Request $request)
+    {
         try {
             DB::beginTransaction();
             $tpsQuery = $request->query("Tps");
@@ -675,7 +677,8 @@ class HitungCepatController extends Controller
         }
     }
 
-    public function submitEditHitungCepatSaksi(Request $request) {
+    public function submitEditHitungCepatSaksi(Request $request)
+    {
         try {
             DB::beginTransaction();
             $responseStatus = 500;
@@ -684,14 +687,14 @@ class HitungCepatController extends Controller
             $tpsQuery = $request->query("Tps");
             $body = $request->data;
             $hcs = HitungSuaraCepatSaksi::where("tps_id", $tpsQuery)->first();
-            if($hcs){
+            if ($hcs) {
                 $data = HitungSuaraCepatSaksiDetail::where("hs_cepat_saksi_id", $hcs->id)->get();
                 foreach ($data as $d) {
                     foreach ($body as $b) {
                         if ($b["id"] == $d->calon_id) {
                             // $d->amount = $b["value"];
                             // $d->save();
-                            DB::update('UPDATE hitung_suara_cepat_saksi_detail SET amount = ? WHERE id = ?', [(int)$b["value"], $d->id]);
+                            DB::update('UPDATE hitung_suara_cepat_saksi_detail SET amount = ? WHERE id = ?', [(int) $b["value"], $d->id]);
                             $message = "Berhasil Memperbarui Data!";
                             $responseStatus = 200;
                         } else {
@@ -717,6 +720,22 @@ class HitungCepatController extends Controller
         } catch (Exception $e) {
             DB::rollBack();
             return response()->json(["message" => $e->getMessage()], 500);
+        }
+    }
+
+    public function inputHitungCepatSaksi()
+    {
+        try {
+
+            return view("hitung_cepat.saksi_input", []);
+        } catch (Exception $e) {
+            $val = Formatting::formatUrl([
+                "code" => 500,
+                "title" => $e->getMessage(),
+                "message" => $e->getMessage(),
+            ]);
+
+            return redirect("/error$val");
         }
     }
 }

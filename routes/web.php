@@ -13,7 +13,7 @@ use App\Models\Tps;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
-// Route::get("/chart", [ErrorController::class, "test"]);
+Route::get("/saksi/input", [HitungCepatController::class, "inputHitungCepatSaksi"]);
 Route::get("/login", [AuthController::class, "index"])->name("login");
 Route::post('/login', [AuthController::class, 'post']);
 Route::get("/error", [ErrorController::class, "index"]);
