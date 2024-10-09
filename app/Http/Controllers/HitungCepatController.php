@@ -177,8 +177,9 @@ class HitungCepatController extends Controller
                     $HC->updated_by = $dataHSC["updated_by"];
                     $HC->save();
                 } else {
-                    $message = "Data Tidak Ditemukan. (Internal Server Error)";
                     $responseCode = 500;
+                    throw new Exception("Data Tidak Ditemukan!", 1);
+                    
                 }
             } else {
                 $this->hitungCepatAdmin->insert($dataHSC);
@@ -216,49 +217,61 @@ class HitungCepatController extends Controller
     }
     public function chart(Request $request)
     {
-        $idQuery = $request->query("Id");
-        $tingkatQuery = $request->query("Tingkat");
-        $typeQuery = $request->query("Type");
-        if ($idQuery == null) {
-            return response()->json([
-                "message" => "Tidak Ada Data!",
-            ], 500);
-        }
-        if ($request->session()->get("level") === "kabkota" && $tingkatQuery !== "Kabkota") {
-            return response()->json([
-                "message" => "Tidak diizinkan!",
-            ], 500);
-        } else {
-            if (!$idQuery || $idQuery == "null" || $idQuery == "Pilih") {
-                return redirect("/");
+        $responseCode = 200;
+        try {
+            $idQuery = $request->query("Id");
+            $tingkatQuery = $request->query("Tingkat");
+            $typeQuery = $request->query("Type");
+            if ($idQuery == null) {
+                $responseCode = 404;
+                throw new Exception("Tidak Ada Data!", 1);
             }
-            if ($typeQuery == "null") {
-                return response()->json([
-                    "message" => "Pilih Jenis Rekap Terlebih Dahulu!!!",
-                ], 500);
-            } else if ($typeQuery == "admin") {
-                $wilayah = match ($tingkatQuery) {
-                    "Kabkota" => Kabkota::with("kecamatan")->find($idQuery),
-                    "Provinsi" => Provinsi::with("kabkota")->find($idQuery),
-                    default => null,
-                };
-
-                $dataPerwilayah = $this->getDataPerWilayah($wilayah, $idQuery, $tingkatQuery);
-                $calonTotal = $this->getCalonTotalAdmin($idQuery);
-
-                $data = [
-                    "calon_total" => $calonTotal,
-                    "data_perwilayah" => $dataPerwilayah,
-                ];
-                return response()->json([
-                    "data" => $data,
-                    "wilayah" => $wilayah,
-                ], 200);
+            if ($request->session()->get("level") === "kabkota" && $tingkatQuery !== "Kabkota") {
+                $responseCode = 300;
+                throw new Exception("Not Allowed", 1);
             } else {
-                return response()->json([
-                    "message" => "Internal Server Error!",
-                ], 500);
+                if (!$idQuery || $idQuery == "null" || $idQuery == "Pilih" || !$tingkatQuery || $tingkatQuery  == "null" || $tingkatQuery == "Pilih") {
+                    $responseCode = 400;
+                    throw new Exception("Pilihan Salah!", 1);
+                }
+                if ($typeQuery == "null") {
+                    $responseCode = 404;
+                    throw new Exception("Pilih Jenis Rekap Terlebih Dahulu!!!", 1);
+                } else if ($typeQuery == "admin") {
+                    $wilayah = match ($tingkatQuery) {
+                        "Kabkota" => Kabkota::with("kecamatan")->find($idQuery),
+                        "Provinsi" => Provinsi::with("kabkota")->find($idQuery),
+                        default => null,
+                    };
+
+                    if (!$wilayah) {
+                        $responseCode = 404;
+                        throw new Exception("Data Tidak Ditemukan!", 1);
+                    }
+    
+                    $dataPerwilayah = $this->getDataPerWilayah($wilayah, $idQuery, $tingkatQuery);
+                    $calonTotal = $this->getCalonTotalAdmin($idQuery);
+    
+                    $data = [
+                        "calon_total" => $calonTotal,
+                        "data_perwilayah" => $dataPerwilayah,
+                    ];
+                    return response()->json([
+                        "data" => $data,
+                        "wilayah" => $wilayah,
+                    ], 200);
+                } else {
+                    $responseCode = 500;
+                    throw new Exception("Internal Server Error!", 1);
+                }
             }
+        } catch (QueryException $e) {
+            $message = match ($e->errorInfo[1]) {
+                default => $e->getMessage(),
+            };
+            return response()->json(["message" => $message], $responseCode);
+        } catch (Exception $e) {
+            return response()->json(["message" => $e->getMessage()], $responseCode);
         }
     }
     public function selectTingkatPemilihan(Request $request)
@@ -587,6 +600,7 @@ class HitungCepatController extends Controller
 
     public function editHitungCepatSaksi(Request $request)
     {
+        $responseCode = 200;
         try {
             $idQuery = $request->query("Id");
             $tps = $this->tps->tpsWithDetail()
@@ -598,6 +612,10 @@ class HitungCepatController extends Controller
                 $data = HitungSuaraCepatSaksiDetail::with("calon")
                     ->where("hitung_suara_cepat_saksi_detail.hs_cepat_saksi_id", $hitungCepat->id)
                     ->get();
+            } else {
+                $responseCode = 404;
+                throw new Exception("Data Belum Ada", 1);
+                
             }
             return view("hitung_cepat/edit_saksi", [
                 "tps" => $tps,
@@ -606,12 +624,13 @@ class HitungCepatController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),
-            ]);
+            ], $responseCode);
         }
     }
 
     public function storeNIK(Request $request)
     {
+        $responseCode = 200;
         try {
             DB::beginTransaction();
             $responseCode = 200;
@@ -623,8 +642,8 @@ class HitungCepatController extends Controller
                 "nik.min" => "NIK harus 16 karakter!",
             ]);
             if ($validator->fails()) {
-                $message = $validator->errors()->all();
                 $responseCode = 500;
+                throw new Exception($validator->errors()->first(), 1);
             } else {
                 $hscs = HitungSuaraCepatSaksi::where("tps_id", $request->tps_id)->first();
                 if ($hscs) {
@@ -686,8 +705,8 @@ class HitungCepatController extends Controller
                 $data->save();
                 $message = "Berhasil Memperbarui Status";
             } else {
-                $message = "Data Belum Ada";
                 $responseCode = 500;
+                throw new Exception("Data Belum Ada!", 1);
             }
             DB::commit();
             return response()->json([
@@ -727,14 +746,15 @@ class HitungCepatController extends Controller
                             $message = "Berhasil Memperbarui Data!";
                             $responseStatus = 200;
                         } else {
-                            $message = "Data Tidak Valid!";
                             $responseStatus = 400;
+                            throw new Exception("Data Tidak Valid!", 1);
                         }
                     }
                 }
             } else {
-                $message = "Data Tidak Ditemukan!";
                 $responseStatus = 404;
+                throw new Exception("Data Tidak Ditemukan!", 1);
+                
             }
             DB::commit();
             return response()->json([
@@ -755,7 +775,6 @@ class HitungCepatController extends Controller
     public function inputHitungCepatSaksi()
     {
         try {
-
             return view("hitung_cepat.saksi_input", []);
         } catch (Exception $e) {
             $val = Formatting::formatUrl([
