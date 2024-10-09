@@ -578,6 +578,11 @@ class HitungCepatController extends Controller
             $tps = null;
             $data = null;
             if ($hc) {
+                if ($hc->input_status) {
+                    $responseCode = 300;
+                    throw new Exception("Saksi Hanya Bisa 1 Kali Input, Terimakasih.", 1);
+                    
+                }
                 $data = HitungSuaraCepatSaksiDetail::where('hs_cepat_saksi_id', $hc->id)->get();
                 $tps = $this->tps->tpsWithDetail()
                 ->where("tps.id", $hc->tps_id)
