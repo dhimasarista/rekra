@@ -227,7 +227,7 @@ class HitungCepatController extends Controller
                 throw new Exception("Tidak Ada Data!", 1);
             }
             if ($request->session()->get("level") === "kabkota" && $tingkatQuery !== "Kabkota") {
-                $responseCode = 300;
+                $responseCode = 400;
                 throw new Exception("Not Allowed", 1);
             } else {
                 if (!$idQuery || $idQuery == "null" || $idQuery == "Pilih" || !$tingkatQuery || $tingkatQuery  == "null" || $tingkatQuery == "Pilih") {
@@ -579,7 +579,7 @@ class HitungCepatController extends Controller
             $data = null;
             if ($hc) {
                 if ($hc->input_status) {
-                    $responseCode = 300;
+                    $responseCode = 400;
                     throw new Exception("Saksi Hanya Bisa 1 Kali Input, Terimakasih.", 1);
                     
                 }
