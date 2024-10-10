@@ -249,8 +249,32 @@ class HitungCepatController extends Controller
                         throw new Exception("Data Tidak Ditemukan!", 1);
                     }
     
-                    $dataPerwilayah = $this->getDataPerWilayah($wilayah, $idQuery, $tingkatQuery);
-                    $calonTotal = $this->getCalonTotalAdmin($idQuery);
+                    $dataPerwilayah = $this->getDataAdminPerWilayah($wilayah, $idQuery, $tingkatQuery);
+                    $calonTotal = $this->getCalonTotal($idQuery, "admin");
+    
+                    $data = [
+                        "calon_total" => $calonTotal,
+                        "data_perwilayah" => $dataPerwilayah,
+                    ];
+                    return response()->json([
+                        "data" => $data,
+                        "wilayah" => $wilayah,
+                    ], 200);
+                }
+                else if( $typeQuery == "saksi") {
+                    $wilayah = match ($tingkatQuery) {
+                        "Kabkota" => Kabkota::with("kecamatan")->find($idQuery),
+                        "Provinsi" => Provinsi::with("kabkota")->find($idQuery),
+                        default => null,
+                    };
+
+                    if (!$wilayah) {
+                        $responseCode = 404;
+                        throw new Exception("Data Tidak Ditemukan!", 1);
+                    }
+    
+                    $dataPerwilayah = $this->getDataSaksiPerwilayah($wilayah, $idQuery, $tingkatQuery);
+                    $calonTotal = $this->getCalonTotal($idQuery, "saksi");
     
                     $data = [
                         "calon_total" => $calonTotal,
@@ -449,13 +473,37 @@ class HitungCepatController extends Controller
             return redirect("/error$val");
         }
     }
-    private function getDataPerWilayah($wilayah, $idQuery, $typeQuery)
+    private function getDataAdminPerWilayah($wilayah, $idQuery, $typeQuery)
     {
         $dataPerwilayah = [];
-        $calonTotal = $this->getCalonTotalAdmin($idQuery);
+        $calonTotal = $this->getCalonTotal($idQuery, "admin");
 
         foreach ($wilayah->{($typeQuery === "Provinsi" || $typeQuery === "provinsi") ? 'kabkota' : 'kecamatan'} as $region) {
             $totalSuara = $this->getTotalSuaraPerWilayahAdmin($region->id, $idQuery, $typeQuery);
+
+            $totalSuaraArray = $totalSuara->isEmpty() ? $calonTotal->map(fn($calon) => (object) [
+                'id' => $calon->id,
+                'calon_name' => $calon->calon_name,
+                'wakil_name' => $calon->wakil_name,
+                'total' => 0,
+            ]) : $totalSuara;
+
+            $dataPerwilayah[] = [
+                "id" => $region->id,
+                "name" => $region->name,
+                "total_suara" => $totalSuaraArray,
+            ];
+        }
+
+        return $dataPerwilayah;
+    }
+
+    private function getDataSaksiPerwilayah($wilayah, $idQuery, $typeQuery){
+        $dataPerwilayah = [];
+        $calonTotal = $this->getCalonTotal($idQuery, "saksi");
+
+        foreach ($wilayah->{($typeQuery === "Provinsi" || $typeQuery === "provinsi") ? 'kabkota' : 'kecamatan'} as $region) {
+            $totalSuara = $this->getTotalSuaraPerWilayahSaksi($region->id, $idQuery, $typeQuery);
 
             $totalSuaraArray = $totalSuara->isEmpty() ? $calonTotal->map(fn($calon) => (object) [
                 'id' => $calon->id,
@@ -495,19 +543,38 @@ class HitungCepatController extends Controller
             ->groupBy("calon.id", "calon.calon_name", "calon.wakil_name")
             ->get();
     }
-
-    /**
-     * Get Calon Total
-     */
-    private function getCalonTotalAdmin($idQuery)
+    private function getTotalSuaraPerWilayahSaksi($regionId, $idQuery, $typeQuery)
     {
         return Calon::select(
             "calon.id",
             "calon.calon_name",
             "calon.wakil_name",
-            DB::raw("COALESCE(SUM(hitung_suara_cepat_admin_detail.amount), 0) as total")
+            DB::raw("COALESCE(SUM(hitung_suara_cepat_saksi_detail.amount), 0) as total")
+            )
+            ->leftJoin("hitung_suara_cepat_saksi_detail", "calon.id", "=", "hitung_suara_cepat_saksi_detail.calon_id")
+            ->leftJoin("hitung_suara_cepat_saksi", "hitung_suara_cepat_saksi.id", "=", "hitung_suara_cepat_saksi_detail.hs_cepat_saksi_id")
+            ->leftJoin("tps", "hitung_suara_cepat_saksi.tps_id", "=", "tps.id")
+            ->leftJoin("kelurahan", "tps.kelurahan_id", "=", "kelurahan.id")
+            ->leftJoin("kecamatan", "kelurahan.kecamatan_id", "=", "kecamatan.id")
+            ->leftJoin("kabkota", "kecamatan.kabkota_id", "=", "kabkota.id")
+            ->where(($typeQuery === "Provinsi") ? "kabkota.id" : "kecamatan.id", $regionId)
+            ->where("calon.code", $idQuery)
+            ->groupBy("calon.id", "calon.calon_name", "calon.wakil_name")
+            ->get();
+    }
+
+    /**
+     * Get Calon Total
+     */
+    private function getCalonTotal($idQuery, $table)
+    {
+        return Calon::select(
+            "calon.id",
+            "calon.calon_name",
+            "calon.wakil_name",
+            DB::raw("COALESCE(SUM(hitung_suara_cepat_".$table."_detail.amount), 0) as total")
         )
-            ->leftJoin("hitung_suara_cepat_admin_detail", "calon.id", "=", "hitung_suara_cepat_admin_detail.calon_id")
+            ->leftJoin("hitung_suara_cepat_".$table."_detail", "calon.id", "=", "hitung_suara_cepat_".$table."_detail.calon_id")
             ->where("calon.code", $idQuery)
             ->groupBy("calon.id", "calon.calon_name", "calon.wakil_name")
             ->get();

@@ -77,7 +77,7 @@
                 <rect width="60" height="60" fill="white" transform="translate(15 21)"/>
                 </clipPath>
                 </defs>
-                </svg>
+                </svg>  
         </div>
         <div class="row justify-content-center">
             <div class="col-md-6">
