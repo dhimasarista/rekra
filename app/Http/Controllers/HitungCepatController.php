@@ -750,9 +750,6 @@ class HitungCepatController extends Controller
                             DB::update('UPDATE hitung_suara_cepat_saksi_detail SET amount = ? WHERE id = ?', [(int) $b["value"], $d->id]);
                             $message = "Berhasil Memperbarui Data!";
                             $responseStatus = 200;
-                        } else {
-                            $responseStatus = 400;
-                            throw new Exception("Data Tidak Valid!", 1);
                         }
                     }
                 }
