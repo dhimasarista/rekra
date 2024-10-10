@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="../admin/vendors/styles/core.css" />
     <link rel="stylesheet" type="text/css" href="../admin/vendors/styles/icon-font.min.css" />
     <link rel="stylesheet" type="text/css" href="../admin/src/plugins/TopLoaderService/TopLoaderService.css" />
-
+    <script src="../admin/vendors/scripts/core.js"></script>
     <style>
         body {
             background: url('https://images.unsplash.com/photo-1669346861428-da971fd936d5?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center fixed;
@@ -114,6 +114,7 @@
     </div>
     @php
        $uuidModal = Uuid::uuid7();
+       $submitModal = Uuid::uuid7();
     @endphp
     <script>
         function showModal(){
@@ -151,11 +152,55 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-light" data-dismiss="modal">Batal</button>
-              <button type="button" class="btn btn-dark">Kirim</button>
+              <button type="button" class="btn btn-dark" id="{{ $submitModal }}">Kirim</button>
             </div>
           </div>
         </div>
-      </div>
+    </div>
+    <script>
+        $("#{{ $submitModal }}").on("click", function(e){
+            e.preventDefault();
+            let data = [];
+            let nik = $("#{{ $nikForm }}").val()
+            $("#{{ $uuidModal }} .modal-dialog .modal-body input").each(function(){
+                let value = $(this).val()
+                data.push({
+                    id: $(this).attr("data-calon"),
+                    value: value
+                });
+            });
+            TopLoaderService.start();
+            const url = "{{ route('hitung_cepat.saksi.bysaksi.post', ['NIK' => 'NIK_PLACEHOLDER']) }}".replace("NIK_PLACEHOLDER", nik)
+            $.ajax({
+                type: "POST",
+                data: {
+                    data
+                },
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: url,
+                success: function (response) {
+                    Toast.fire({
+                        icon: "success",
+                        title: response["message"]
+                    });
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: xhr["responseJSON"]["message"]
+                    });
+                },
+                complete: function(data) {
+                    $('#{{ $uuidModal }}').modal('hide');
+                    TopLoaderService.end();
+                }
+            });
+        });
+    </script>
 
     <script src="../admin/src/plugins/TopLoaderService/TopLoaderService.js"></script>
     <script src="../admin/vendors/scripts/core.js"></script>

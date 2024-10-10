@@ -774,6 +774,49 @@ class HitungCepatController extends Controller
         }
     }
 
+    public function submitHitungCepatSaksiBySaksi(Request $request){
+        try {
+            DB::beginTransaction();
+            $responseStatus = 200;
+            $message = null;
+
+            $nikQuery = $request->query("NIK");
+            $body = $request->data;
+            $hc  = HitungSuaraCepatSaksi::where("nik", $nikQuery)->first();
+            if ($hc) {
+                $data = HitungSuaraCepatSaksiDetail::where("hs_cepat_saksi_id", $hc->id)->get();
+                foreach ($data as $d) {
+                    foreach ($body as $b) {
+                        if ($b["id"] == $d->calon_id) {
+                            DB::update('UPDATE hitung_suara_cepat_saksi_detail SET amount = ? WHERE id = ?', [(int) $b["value"], $d->id]);
+                            $message = "Berhasil Memperbarui Data!";
+                            $responseStatus = 200;
+                        }
+                    }
+                }
+                $hc->input_status = true;
+                $hc->save();
+            } else {
+                $responseStatus = 404;
+                throw new Exception("Data Tidak Ditemukan!", 1);
+                
+            }
+            DB::commit();
+            return response()->json([
+                "message" => $message,
+            ], $responseStatus);
+        } catch (QueryException $e) {
+            DB::rollBack();
+            $message = match ($e->errorInfo[1]) {
+                default => $e->getMessage(),
+            };
+            return response()->json(["message" => $message], 500);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return response()->json(["message" => $e->getMessage()], 500);
+        }
+    }
+
     public function inputHitungCepatSaksi()
     {
         try {
