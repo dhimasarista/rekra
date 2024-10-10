@@ -256,10 +256,6 @@ class HitungCepatController extends Controller
                         "calon_total" => $calonTotal,
                         "data_perwilayah" => $dataPerwilayah,
                     ];
-                    return response()->json([
-                        "data" => $data,
-                        "wilayah" => $wilayah,
-                    ], 200);
                 }
                 else if( $typeQuery == "saksi") {
                     $wilayah = match ($tingkatQuery) {
@@ -280,15 +276,15 @@ class HitungCepatController extends Controller
                         "calon_total" => $calonTotal,
                         "data_perwilayah" => $dataPerwilayah,
                     ];
-                    return response()->json([
-                        "data" => $data,
-                        "wilayah" => $wilayah,
-                    ], 200);
                 } else {
                     $responseCode = 500;
                     throw new Exception("Internal Server Error!", 1);
                 }
             }
+            return response()->json([
+                "data" => $data,
+                "wilayah" => $wilayah,
+            ], $responseCode);
         } catch (QueryException $e) {
             $message = match ($e->errorInfo[1]) {
                 default => $e->getMessage(),
