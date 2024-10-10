@@ -49,7 +49,7 @@
                     });
                 </script>
                 <span id="{{ $idContainerSelect3 }}"></span>
-                <button id="{{ $idButtonSubmit }}" class="btn btn-dark m-1">Submit</button>
+                <button id="{{ $idButtonSubmit }}" class="btn btn-dark m-1">Tampilkan</button>
                 <script>
                     $("#{{ $idButtonSubmit }}").on("click", function(e) {
                         e.preventDefault();
