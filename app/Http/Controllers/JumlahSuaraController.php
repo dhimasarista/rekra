@@ -208,16 +208,37 @@ class JumlahSuaraController extends Controller
         try {
             $message = "Data Berhasil Disimpan";
             $responseCode = 200;
-            $body = $request->except(["note", "total_suara_sah", "total_sah_tidak_sah", "total_suara_tidak_sah"]);
+            $body = $request->except([
+                "note",
+                "dpt",
+                "dptb",
+                "dptk",
+                "surat_suara_diterima",
+                "surat_suara_digunakan",
+                "surat_suara_tidak_digunakan",
+                "surat_suara_rusak",
+                "total_suara_sah",
+                "total_sah_tidak_sah",
+                "total_suara_tidak_sah",
+                "c_keberatan"
+            ]);
             $tpsId = $request->query("Tps");
             $jumlahSuaraId = Uuid::uuid7();
             $dataJSD = []; // JSD: jumlah_suara_details
             $dataJS = [
                 "id" => $jumlahSuaraId,
                 "note" => $request->note,
+                "dpt" => $request->dpt,
+                "dptb" => $request->dptb,
+                "dptk" => $request->dptk,
+                "surat_suara_diterima" => $request->surat_suara_diterima,
+                "surat_suara_digunakan" => $request->surat_suara_digunakan,
+                "surat_suara_tidak_digunakan" => $request->surat_suara_tidak_digunakan,
+                "surat_suara_rusak" => $request->surat_suara_rusak,
                 "total_suara_sah" => $request->total_suara_sah,
                 "total_suara_tidak_sah" => $request->total_suara_tidak_sah,
                 "total_sah_tidak_sah" => $request->total_sah_tidak_sah,
+                "c_keberatan" => $request->c_keberatan,
             ]; // JS: jumlah_suara
 
             foreach ($body as $key => $value) {
@@ -246,10 +267,18 @@ class JumlahSuaraController extends Controller
             if (empty($dataJSD)) {
                 $JS = $this->jumlahSuara->find($jumlahSuaraId);
                 if ($JS) {
+                    $JS->dpt = $dataJS["dpt"];
+                    $JS->dptb = $dataJS["dptb"];
+                    $JS->dptk = $dataJS["dptk"];
+                    $JS->surat_suara_diterima = $dataJS["surat_suara_diterima"];
+                    $JS->surat_suara_digunakan = $dataJS["surat_suara_digunakan"];
+                    $JS->surat_suara_tidak_digunakan = $dataJS["surat_suara_tidak_digunakan"];
+                    $JS->surat_suara_rusak = $dataJS["surat_suara_rusak"];
                     $JS->total_suara_sah = $dataJS["total_suara_sah"];
                     $JS->total_suara_tidak_sah = $dataJS["total_suara_tidak_sah"];
                     $JS->total_sah_tidak_sah = $dataJS["total_sah_tidak_sah"];
                     $JS->note = $dataJS["note"];
+                    $JS->c_keberatan = $dataJS["c_keberatan"];
                     $JS->save();
                 } else {
                     $message = "Data Tidak Ditemukan. (Internal Server Error)";
@@ -401,6 +430,41 @@ class JumlahSuaraController extends Controller
                     "form_data" => [
                         ...$calonFormData,
                         [
+                            "id" => $formId1,
+                            "name" => "dpt",
+                            "type" => "string",
+                        ],
+                        [
+                            "id" => $formId2,
+                            "name" => "dptb",
+                            "type" => "string",
+                        ],
+                        [
+                            "id" => $formId3,
+                            "name" => "dptk",
+                            "type" => "string",
+                        ],
+                        [
+                            "id" => $formId4,
+                            "name" => "surat_suara_diterima",
+                            "type" => "string",
+                        ],
+                        [
+                            "id" => $formId5,
+                            "name" => "surat_suara_digunakan",
+                            "type" => "string",
+                        ],
+                        [
+                            "id" => $formId6,
+                            "name" => "surat_suara_tidak_digunakan",
+                            "type" => "string",
+                        ],
+                        [
+                            "id" => $formId7,
+                            "name" => "surat_suara_rusak",
+                            "type" => "string",
+                        ],
+                        [
                             "id" => $formId12,
                             "name" => "note",
                             "type" => "string",
@@ -420,21 +484,26 @@ class JumlahSuaraController extends Controller
                             "name" => "total_sah_tidak_sah",
                             "type" => "string",
                         ],
+                        // [
+                        //     "id" => $formId11,
+                        //     "name" => "c_keberatan",
+                        //     "type" => "string",
+                        // ],
                     ],
                 ],
                 "form" => [
-                     ...$calonForm,
+                    ...$calonForm,
                     [
                         "id" => $formId1,
                         "type" => "number",
                         "name" => "Pengguna Hak Pilih DPT",
-                        "is_disabled" => true,
+                        "is_disabled" => false,
                         "for_submit" => false,
                         "fetch_data" => [
                             "is_fetching" => false,
                         ],
                         "data" => [
-                            "value" => null,
+                            "value" => $jumlahSuara->dpt ?? null,
                             "placeholder" => "Wajib Diisi",
                         ],
                     ],
@@ -442,13 +511,13 @@ class JumlahSuaraController extends Controller
                         "id" => $formId2,
                         "type" => "number",
                         "name" => "Pengguna Hak Pilih DPTB",
-                        "is_disabled" => true,
+                        "is_disabled" => false,
                         "for_submit" => false,
                         "fetch_data" => [
                             "is_fetching" => false,
                         ],
                         "data" => [
-                            "value" => null,
+                            "value" => $jumlahSuara->dptb ?? null,
                             "placeholder" => "Wajib Diisi",
                         ],
                     ],
@@ -456,13 +525,13 @@ class JumlahSuaraController extends Controller
                         "id" => $formId3,
                         "type" => "number",
                         "name" => "Pengguna Hak Pilih DPTK",
-                        "is_disabled" => true,
+                        "is_disabled" => false,
                         "for_submit" => false,
                         "fetch_data" => [
                             "is_fetching" => false,
                         ],
                         "data" => [
-                            "value" => null,
+                            "value" => $jumlahSuara->dptk ?? null,
                             "placeholder" => "Wajib Diisi",
                         ],
                     ],
@@ -470,13 +539,13 @@ class JumlahSuaraController extends Controller
                         "id" => $formId4,
                         "type" => "number",
                         "name" => "Surat Suara Diterima",
-                        "is_disabled" => true,
+                        "is_disabled" => false,
                         "for_submit" => false,
                         "fetch_data" => [
                             "is_fetching" => false,
                         ],
                         "data" => [
-                            "value" => null,
+                            "value" => $jumlahSuara->surat_suara_diterima ?? null,
                             "placeholder" => "Wajib Diisi",
                         ],
                     ],
@@ -484,27 +553,27 @@ class JumlahSuaraController extends Controller
                         "id" => $formId5,
                         "type" => "number",
                         "name" => "Surat Suara Digunakan",
-                        "is_disabled" => true,
+                        "is_disabled" => false,
                         "for_submit" => false,
                         "fetch_data" => [
                             "is_fetching" => false,
                         ],
                         "data" => [
-                            "value" => null,
+                            "value" => $jumlahSuara->surat_suara_digunakan ?? null,
                             "placeholder" => "Wajib Diisi",
                         ],
                     ],
                     [
                         "id" => $formId6,
                         "type" => "number",
-                        "name" => "Surat Suara Tidak Digunakan Digunakan",
-                        "is_disabled" => true,
+                        "name" => "Surat Suara Tidak Digunakan",
+                        "is_disabled" => false,
                         "for_submit" => false,
                         "fetch_data" => [
                             "is_fetching" => false,
                         ],
                         "data" => [
-                            "value" => null,
+                            "value" => $jumlahSuara->surat_suara_tidak_digunakan ?? null,
                             "placeholder" => "Wajib Diisi",
                         ],
                     ],
@@ -512,13 +581,13 @@ class JumlahSuaraController extends Controller
                         "id" => $formId7,
                         "type" => "number",
                         "name" => "Surat Suara Rusak",
-                        "is_disabled" => true,
+                        "is_disabled" => false,
                         "for_submit" => false,
                         "fetch_data" => [
                             "is_fetching" => false,
                         ],
                         "data" => [
-                            "value" => null,
+                            "value" => $jumlahSuara->surat_suara_rusak ?? null,
                             "placeholder" => "Wajib Diisi",
                         ],
                     ],

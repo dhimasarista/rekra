@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->unsignedInteger("surat_suara_diterima")->nullable();
             $table->unsignedInteger("surat_suara_digunakan")->nullable();
             $table->unsignedInteger("surat_suara_tidak_digunakan")->nullable();
-            $table->unsignedInteger("surat_suara_suara_rusak")->nullable();
+            $table->unsignedInteger("surat_suara_rusak")->nullable();
             $table->unsignedInteger("total_suara_sah")->nullable();
             $table->unsignedInteger("total_suara_tidak_sah")->nullable();
             $table->unsignedInteger("total_sah_tidak_sah")->nullable();
