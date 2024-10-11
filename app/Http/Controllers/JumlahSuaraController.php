@@ -173,7 +173,7 @@ class JumlahSuaraController extends Controller
                     4 => [
                         "id" => $formId4, // ID untuk elemen form
                         "type" => "select", // Tipe elemen: select, text, number, notification, dynamic-input
-                        "name" => "Nama Kelurahan", // Label untuk elemen form
+                        "name" => "Nama Kelurahan/Desa", // Label untuk elemen form
                         "is_disabled" => true, // Jika true, elemen akan disabled
                         "for_submit" => true, // Jika true, elemen ini digunakan untuk submit
                         "fetch_data" => [

@@ -114,7 +114,7 @@
                             success: function(response) {
                                 const siblingSelect = $("#{{ $idSelect4 }}");
                                 siblingSelect.empty();
-                                siblingSelect.append('<option>Pilih Kelurahan</option>');
+                                siblingSelect.append('<option>Pilih Kelurahan/Desa</option>');
                                 response["data"].forEach(val => {
                                     let dataId = $(
                                         "#{{ $form['fetch_data']['sibling_form_id'] ?? 'siblingSelect' }}"

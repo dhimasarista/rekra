@@ -15,7 +15,7 @@
                     <i class="fa fa-plus"></i> Kecamatan
                 </a>
                 <a class="btn btn-sm btn-dark m-1" href="{{ route('wilayah.form', ['Type' => 'Kelurahan']) }}">
-                    <i class="fa fa-plus"></i> Kelurahan
+                    <i class="fa fa-plus"></i> Kelurahan/Desa
                 </a>
                 <a id="tambah-tps" class="btn btn-sm btn-dark m-1" href="javascript:;">
                     <i class="fa fa-plus"></i> TPS

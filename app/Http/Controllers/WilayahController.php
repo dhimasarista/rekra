@@ -505,7 +505,7 @@ class WilayahController extends Controller
                             "value" => $kelurahan->name ?? null,
                             "placeholder" => null
                         ],
-                        "name" => "Nama Kelurahan",
+                        "name" => "Nama Kelurahan/Desa",
                         "is_disabled" => false,
                         "for_submit" => false,
                         "fetch_data" => [
