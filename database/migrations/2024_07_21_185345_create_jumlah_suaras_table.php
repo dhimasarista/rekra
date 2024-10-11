@@ -13,9 +13,17 @@ return new class extends Migration {
         Schema::create("jumlah_suara", function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->string("note")->nullable();
-            $table->integer("total_suara_sah")->nullable();
-            $table->integer("total_suara_tidak_sah")->nullable();
-            $table->integer("total_sah_tidak_sah")->nullable();
+            $table->unsignedInteger("dpt")->nullable();
+            $table->unsignedInteger("dptb")->nullable();
+            $table->unsignedInteger("dptk")->nullable();
+            $table->unsignedInteger("surat_suara_diterima")->nullable();
+            $table->unsignedInteger("surat_suara_digunakan")->nullable();
+            $table->unsignedInteger("surat_suara_tidak_digunakan")->nullable();
+            $table->unsignedInteger("surat_suara_suara_rusak")->nullable();
+            $table->unsignedInteger("total_suara_sah")->nullable();
+            $table->unsignedInteger("total_suara_tidak_sah")->nullable();
+            $table->unsignedInteger("total_sah_tidak_sah")->nullable();
+            $table->boolean("c_keberatan")->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
