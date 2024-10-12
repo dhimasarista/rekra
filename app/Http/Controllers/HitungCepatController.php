@@ -179,7 +179,7 @@ class HitungCepatController extends Controller
                 } else {
                     $responseCode = 500;
                     throw new Exception("Data Tidak Ditemukan!", 1);
-                    
+
                 }
             } else {
                 $this->hitungCepatAdmin->insert($dataHSC);
@@ -248,10 +248,10 @@ class HitungCepatController extends Controller
                         $responseCode = 404;
                         throw new Exception("Data Tidak Ditemukan!", 1);
                     }
-    
+
                     $dataPerwilayah = $this->getDataAdminPerWilayah($wilayah, $idQuery, $tingkatQuery);
                     $calonTotal = $this->getCalonTotal($idQuery, "admin");
-    
+
                     $data = [
                         "calon_total" => $calonTotal,
                         "data_perwilayah" => $dataPerwilayah,
@@ -268,10 +268,10 @@ class HitungCepatController extends Controller
                         $responseCode = 404;
                         throw new Exception("Data Tidak Ditemukan!", 1);
                     }
-    
+
                     $dataPerwilayah = $this->getDataSaksiPerwilayah($wilayah, $idQuery, $tingkatQuery);
                     $calonTotal = $this->getCalonTotal($idQuery, "saksi");
-    
+
                     $data = [
                         "calon_total" => $calonTotal,
                         "data_perwilayah" => $dataPerwilayah,
@@ -598,7 +598,6 @@ class HitungCepatController extends Controller
     public function listBySaksi(Request $request)
     {
         try {
-            $table = "Test Saksi";
             $idQuery = $request->query("Id");
             $tpsData = $this->tps->tpsWithDetail()
                 ->where("kelurahan_id", $idQuery)
@@ -611,6 +610,7 @@ class HitungCepatController extends Controller
                     'calon' => [],
                 ]);
             }
+            $table = $tpsData[0]->kelurahan_name." - ".$tpsData[0]->kecamatan_name." - ".$tpsData[0]->kabkota_name ?? "Kosong";
 
             $results = $tpsData->map(function ($tps) {
                 $hsca = HitungSuaraCepatSaksi::where("tps_id", $tps->id)->first();
@@ -621,7 +621,6 @@ class HitungCepatController extends Controller
                     "input_status" => $hsca ? $hsca->input_status : false,
                 ];
             });
-
             return view("hitung_cepat.saksi_table", [
                 "table" => $table,
                 "data" => $results,
@@ -644,7 +643,7 @@ class HitungCepatController extends Controller
                 if ($hc->input_status) {
                     $responseCode = 400;
                     throw new Exception("Saksi Hanya Bisa 1 Kali Input, Terimakasih.", 1);
-                    
+
                 }
                 $data = HitungSuaraCepatSaksiDetail::where('hs_cepat_saksi_id', $hc->id)->get();
                 $tps = $this->tps->tpsWithDetail()
@@ -683,7 +682,7 @@ class HitungCepatController extends Controller
             } else {
                 $responseCode = 404;
                 throw new Exception("Data Belum Ada", 1);
-                
+
             }
             return view("hitung_cepat/edit_saksi", [
                 "tps" => $tps,
@@ -819,7 +818,7 @@ class HitungCepatController extends Controller
             } else {
                 $responseStatus = 404;
                 throw new Exception("Data Tidak Ditemukan!", 1);
-                
+
             }
             DB::commit();
             return response()->json([
@@ -862,7 +861,7 @@ class HitungCepatController extends Controller
             } else {
                 $responseStatus = 404;
                 throw new Exception("Data Tidak Ditemukan!", 1);
-                
+
             }
             DB::commit();
             return response()->json([
