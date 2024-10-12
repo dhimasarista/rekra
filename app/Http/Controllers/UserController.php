@@ -67,11 +67,11 @@ class UserController extends Controller
             $view = "layouts.form";
             $user = $this->userService->findById($request->query("Id") ?? "");
             $kabkota = KabKota::all();
-            $formId1 = Uuid::uuid7();
-            $formId2 = Uuid::uuid7();
-            $formId3 = Uuid::uuid7();
-            $formId4 = Uuid::uuid7();
-            $formId5 = Uuid::uuid7();
+            $formId1 = bin2hex(random_bytes(8));
+            $formId2 = bin2hex(random_bytes(8));
+            $formId3 = bin2hex(random_bytes(8));
+            $formId4 = bin2hex(random_bytes(8));
+            $formId5 = bin2hex(random_bytes(8));
 
             $optionsKabkota[] = [
                 "id" => null,
@@ -121,7 +121,7 @@ class UserController extends Controller
                 ],
                 "submit" => [
                     "type" => "input", // or "input"
-                    "id" => Uuid::uuid7(),
+                    "id" => bin2hex(random_bytes(8)),
                     "route" => route('user.store'),
                     "method" => "post",
                     "redirect" => route("user.index"),

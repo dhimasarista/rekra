@@ -309,10 +309,10 @@ class HitungCepatController extends Controller
         try {
             $view = "layouts.form";
             //
-            $formId1 = Uuid::uuid7();
-            $formId2 = Uuid::uuid7();
-            $formId3 = Uuid::uuid7();
-            $formId4 = Uuid::uuid7();
+            $formId1 = bin2hex(random_bytes(8));
+            $formId2 = bin2hex(random_bytes(8));
+            $formId3 = bin2hex(random_bytes(8));
+            $formId4 = bin2hex(random_bytes(8));
             //
             $provinsi = Provinsi::all();
             $options[] = [
@@ -340,7 +340,7 @@ class HitungCepatController extends Controller
                     ],
                 ],
                 "submit" => [
-                    "id" => Uuid::uuid7(), // ID unik untuk tombol submit
+                    "id" => bin2hex(random_bytes(8)), // ID unik untuk tombol submit
                     "name" => "Submit", // Penamaan nama button
                     "type" => "redirect", // Tipe submit, bisa 'input' atau 'redirect'
                     "route" => "#", // Rute yang akan diakses saat submit

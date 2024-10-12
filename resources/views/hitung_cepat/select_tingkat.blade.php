@@ -1,9 +1,8 @@
-@use('Ramsey\Uuid\Uuid')
 @use('App\Helpers\Formatting')
 @php
     $segments = request()->segments();
-    $idSelect1 = Uuid::uuid7();
-    $idSelect2 = Uuid::uuid7();
+    $idSelect1 = bin2hex(random_bytes(8));
+    $idSelect2 = bin2hex(random_bytes(8));
 @endphp
 <select id="{{ $idSelect1 }}" class="custom-select col-md-2 m-1">
     <option disabled selected>Pilih Provinsi</option>

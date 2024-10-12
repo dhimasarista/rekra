@@ -1,14 +1,13 @@
 @extends('layouts/main')
 @section('body')
-    @use('Ramsey\Uuid\Uuid')
     @use('App\Helpers\Formatting')
     @php
         $segments = request()->segments();
-        $idSelect1 = Uuid::uuid7();
-        $idSelect2 = Uuid::uuid7();
-        $idSelect3 = Uuid::uuid7();
-        $idSelect4 = Uuid::uuid7();
-        $idButtonSubmit = Uuid::uuid7();
+        $idSelect1 = bin2hex(random_bytes(8));
+        $idSelect2 = bin2hex(random_bytes(8));
+        $idSelect3 = bin2hex(random_bytes(8));
+        $idSelect4 = bin2hex(random_bytes(8));
+        $idButtonSubmit = bin2hex(random_bytes(8));
     @endphp
     {{-- @dd($idSelect1) --}}
     <div class="xs-pd-20-10 pd-ltr-20">
