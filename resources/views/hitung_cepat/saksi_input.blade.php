@@ -201,7 +201,6 @@
             });
         });
     </script>
-
     <script src="../admin/src/plugins/TopLoaderService/TopLoaderService.js"></script>
     <script src="../admin/vendors/scripts/core.js"></script>
     <script src="../admin/vendors/scripts/script.min.js"></script>

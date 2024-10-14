@@ -227,6 +227,4 @@
             </div>
         </div>
     </div>
-    {{-- <script src="../admin/src/plugins/apexcharts/apexcharts.min.js"></script> --}}
-    {{-- <script src="../admin/vendors/scripts/dashboard3.js"></script> --}}
 @endsection
