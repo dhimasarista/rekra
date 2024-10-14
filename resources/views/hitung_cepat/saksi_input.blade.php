@@ -58,7 +58,6 @@
 </head>
 
 <body>
-    @use('Ramsey\Uuid\Uuid')
     <div class="container mt-5">
         <div style="padding-bottom: 40px; text-align: center">
             <svg width="350" viewBox="0 0 709 98" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -77,7 +76,7 @@
                 <rect width="60" height="60" fill="white" transform="translate(15 21)"/>
                 </clipPath>
                 </defs>
-                </svg>  
+                </svg>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-6">
@@ -97,7 +96,7 @@
                                 </div>
                             </div>
                             @php
-                                $nikForm = Uuid::uuid7();
+                                $nikForm = bin2hex(random_bytes(8));
                             @endphp
                             <form>
                                 <div class="form-group">
@@ -113,8 +112,8 @@
         </div>
     </div>
     @php
-       $uuidModal = Uuid::uuid7();
-       $submitModal = Uuid::uuid7();
+       $uuidModal = bin2hex(random_bytes(8));
+       $submitModal = bin2hex(random_bytes(8));
     @endphp
     <script>
         function showModal(){
@@ -148,7 +147,7 @@
               </button>
             </div>
             <div class="modal-body">
-              
+
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-light" data-dismiss="modal">Batal</button>

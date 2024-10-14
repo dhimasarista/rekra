@@ -179,7 +179,7 @@ class HitungCepatController extends Controller
                 } else {
                     $responseCode = 500;
                     throw new Exception("Data Tidak Ditemukan!", 1);
-                    
+
                 }
             } else {
                 $this->hitungCepatAdmin->insert($dataHSC);
@@ -230,7 +230,7 @@ class HitungCepatController extends Controller
                 $responseCode = 400;
                 throw new Exception("Not Allowed", 1);
             } else {
-                if (!$idQuery || $idQuery == "null" || $idQuery == "Pilih" || !$tingkatQuery || $tingkatQuery  == "null" || $tingkatQuery == "Pilih") {
+                if (!$idQuery || $idQuery == "null" || $idQuery == "Pilih" || !$tingkatQuery || $tingkatQuery == "null" || $tingkatQuery == "Pilih") {
                     $responseCode = 400;
                     throw new Exception("Pilihan Salah!", 1);
                 }
@@ -248,16 +248,15 @@ class HitungCepatController extends Controller
                         $responseCode = 404;
                         throw new Exception("Data Tidak Ditemukan!", 1);
                     }
-    
+
                     $dataPerwilayah = $this->getDataAdminPerWilayah($wilayah, $idQuery, $tingkatQuery);
                     $calonTotal = $this->getCalonTotal($idQuery, "admin");
-    
+
                     $data = [
                         "calon_total" => $calonTotal,
                         "data_perwilayah" => $dataPerwilayah,
                     ];
-                }
-                else if( $typeQuery == "saksi") {
+                } else if ($typeQuery == "saksi") {
                     $wilayah = match ($tingkatQuery) {
                         "Kabkota" => Kabkota::with("kecamatan")->find($idQuery),
                         "Provinsi" => Provinsi::with("kabkota")->find($idQuery),
@@ -268,10 +267,10 @@ class HitungCepatController extends Controller
                         $responseCode = 404;
                         throw new Exception("Data Tidak Ditemukan!", 1);
                     }
-    
+
                     $dataPerwilayah = $this->getDataSaksiPerwilayah($wilayah, $idQuery, $tingkatQuery);
                     $calonTotal = $this->getCalonTotal($idQuery, "saksi");
-    
+
                     $data = [
                         "calon_total" => $calonTotal,
                         "data_perwilayah" => $dataPerwilayah,
@@ -309,10 +308,10 @@ class HitungCepatController extends Controller
         try {
             $view = "layouts.form";
             //
-            $formId1 = Uuid::uuid7();
-            $formId2 = Uuid::uuid7();
-            $formId3 = Uuid::uuid7();
-            $formId4 = Uuid::uuid7();
+            $formId1 = bin2hex(random_bytes(8));
+            $formId2 = bin2hex(random_bytes(8));
+            $formId3 = bin2hex(random_bytes(8));
+            $formId4 = bin2hex(random_bytes(8));
             //
             $provinsi = Provinsi::all();
             $options[] = [
@@ -340,7 +339,7 @@ class HitungCepatController extends Controller
                     ],
                 ],
                 "submit" => [
-                    "id" => Uuid::uuid7(), // ID unik untuk tombol submit
+                    "id" => bin2hex(random_bytes(8)), // ID unik untuk tombol submit
                     "name" => "Submit", // Penamaan nama button
                     "type" => "redirect", // Tipe submit, bisa 'input' atau 'redirect'
                     "route" => "#", // Rute yang akan diakses saat submit
@@ -494,7 +493,8 @@ class HitungCepatController extends Controller
         return $dataPerwilayah;
     }
 
-    private function getDataSaksiPerwilayah($wilayah, $idQuery, $typeQuery){
+    private function getDataSaksiPerwilayah($wilayah, $idQuery, $typeQuery)
+    {
         $dataPerwilayah = [];
         $calonTotal = $this->getCalonTotal($idQuery, "saksi");
 
@@ -546,7 +546,7 @@ class HitungCepatController extends Controller
             "calon.calon_name",
             "calon.wakil_name",
             DB::raw("COALESCE(SUM(hitung_suara_cepat_saksi_detail.amount), 0) as total")
-            )
+        )
             ->leftJoin("hitung_suara_cepat_saksi_detail", "calon.id", "=", "hitung_suara_cepat_saksi_detail.calon_id")
             ->leftJoin("hitung_suara_cepat_saksi", "hitung_suara_cepat_saksi.id", "=", "hitung_suara_cepat_saksi_detail.hs_cepat_saksi_id")
             ->leftJoin("tps", "hitung_suara_cepat_saksi.tps_id", "=", "tps.id")
@@ -568,9 +568,9 @@ class HitungCepatController extends Controller
             "calon.id",
             "calon.calon_name",
             "calon.wakil_name",
-            DB::raw("COALESCE(SUM(hitung_suara_cepat_".$table."_detail.amount), 0) as total")
+            DB::raw("COALESCE(SUM(hitung_suara_cepat_" . $table . "_detail.amount), 0) as total")
         )
-            ->leftJoin("hitung_suara_cepat_".$table."_detail", "calon.id", "=", "hitung_suara_cepat_".$table."_detail.calon_id")
+            ->leftJoin("hitung_suara_cepat_" . $table . "_detail", "calon.id", "=", "hitung_suara_cepat_" . $table . "_detail.calon_id")
             ->where("calon.code", $idQuery)
             ->groupBy("calon.id", "calon.calon_name", "calon.wakil_name")
             ->get();
@@ -598,7 +598,6 @@ class HitungCepatController extends Controller
     public function listBySaksi(Request $request)
     {
         try {
-            $table = "Test Saksi";
             $idQuery = $request->query("Id");
             $tpsData = $this->tps->tpsWithDetail()
                 ->where("kelurahan_id", $idQuery)
@@ -611,6 +610,7 @@ class HitungCepatController extends Controller
                     'calon' => [],
                 ]);
             }
+            $table = $tpsData[0]->kelurahan_name . " - " . $tpsData[0]->kecamatan_name . " - " . $tpsData[0]->kabkota_name ?? "Kosong";
 
             $results = $tpsData->map(function ($tps) {
                 $hsca = HitungSuaraCepatSaksi::where("tps_id", $tps->id)->first();
@@ -621,7 +621,6 @@ class HitungCepatController extends Controller
                     "input_status" => $hsca ? $hsca->input_status : false,
                 ];
             });
-
             return view("hitung_cepat.saksi_table", [
                 "table" => $table,
                 "data" => $results,
@@ -633,7 +632,8 @@ class HitungCepatController extends Controller
         }
     }
 
-    public function searchSaksiTps(Request $request){
+    public function searchSaksiTps(Request $request)
+    {
         $responseCode = 200;
         try {
             $nikQuery = $request->query('NIK');
@@ -644,12 +644,12 @@ class HitungCepatController extends Controller
                 if ($hc->input_status) {
                     $responseCode = 400;
                     throw new Exception("Saksi Hanya Bisa 1 Kali Input, Terimakasih.", 1);
-                    
+
                 }
                 $data = HitungSuaraCepatSaksiDetail::where('hs_cepat_saksi_id', $hc->id)->get();
                 $tps = $this->tps->tpsWithDetail()
-                ->where("tps.id", $hc->tps_id)
-                ->first();
+                    ->where("tps.id", $hc->tps_id)
+                    ->first();
             } else {
                 $responseCode = 404;
                 throw new Exception("Saksi Tidak Ditemukan", 404);
@@ -683,7 +683,7 @@ class HitungCepatController extends Controller
             } else {
                 $responseCode = 404;
                 throw new Exception("Data Belum Ada", 1);
-                
+
             }
             return view("hitung_cepat/edit_saksi", [
                 "tps" => $tps,
@@ -819,7 +819,7 @@ class HitungCepatController extends Controller
             } else {
                 $responseStatus = 404;
                 throw new Exception("Data Tidak Ditemukan!", 1);
-                
+
             }
             DB::commit();
             return response()->json([
@@ -837,7 +837,8 @@ class HitungCepatController extends Controller
         }
     }
 
-    public function submitHitungCepatSaksiBySaksi(Request $request){
+    public function submitHitungCepatSaksiBySaksi(Request $request)
+    {
         try {
             DB::beginTransaction();
             $responseStatus = 200;
@@ -845,7 +846,7 @@ class HitungCepatController extends Controller
 
             $nikQuery = $request->query("NIK");
             $body = $request->data;
-            $hc  = HitungSuaraCepatSaksi::where("nik", $nikQuery)->first();
+            $hc = HitungSuaraCepatSaksi::where("nik", $nikQuery)->first();
             if ($hc) {
                 $data = HitungSuaraCepatSaksiDetail::where("hs_cepat_saksi_id", $hc->id)->get();
                 foreach ($data as $d) {
@@ -862,7 +863,6 @@ class HitungCepatController extends Controller
             } else {
                 $responseStatus = 404;
                 throw new Exception("Data Tidak Ditemukan!", 1);
-                
             }
             DB::commit();
             return response()->json([
@@ -871,6 +871,7 @@ class HitungCepatController extends Controller
         } catch (QueryException $e) {
             DB::rollBack();
             $message = match ($e->errorInfo[1]) {
+                1264 => "Jumlah Tidak Valid",
                 default => $e->getMessage(),
             };
             return response()->json(["message" => $message], 500);
