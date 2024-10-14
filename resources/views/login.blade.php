@@ -7,46 +7,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
     <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="../admin/vendor/TopLoaderService/TopLoaderService.css" />
-    <script src="../admin/vendor/TopLoaderService/TopLoaderService.js"></script>
-    <!-- Bootstrap core JavaScript-->
-    <script src="../admin/vendor/jquery/jquery.min.js"></script>
-    <script src="../admin/src/plugins/sweetalert2/sweetalert2.js"></script>
-    <link rel="stylesheet" type="text/css" href="../admin/src/plugins/TopLoaderService/TopLoaderService.css" />
-    <script>
-        const ErrorResponse = (data) => {
-            if (data) {
-                if (typeof data.message === 'string') {
-                    // Jika ada properti 'message' dengan tipe string
-                    return data.message;
-                } else {
-                    // Jika tidak ada properti 'message' atau bukan string, cek properti lainnya
-                    for (const key in data) {
-                        if (data.hasOwnProperty(key)) {
-                            const value = data[key];
-                            if (Array.isArray(value) && value.length > 0 && typeof value[0] === 'string') {
-                                // Jika properti ini adalah array yang berisi string
-                                return value[0]; // Ambil pesan pertama dari array
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            // timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.onmouseenter = Swal.stopTimer;
-                toast.onmouseleave = Swal.resumeTimer;
-            }
-        });
-    </script>
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('admin/src/plugins/TopLoaderService/TopLoaderService.css') }}" />
+    <script src="{{ asset("admin/vendor/jquery/jquery.min.js") }}"></script>
+    <script src="{{ asset('admin/src/plugins/sweetalert2/sweetalert2.js') }}"></script>
+    <script src="{{ asset('admin/js/script.js') }}"></script>
     <style>
         * {
             margin: 0px;
@@ -65,8 +31,7 @@
 
         .LoginPageInnerContainer .ImageContianer {
             width: 50%;
-            /* background-image: url('https://images.prismic.io/turing/652ec7adfbd9a45bcec81a41_Laravel_1f3f0a9d0c.webp?auto=format%2Ccompress&fit=max&w=3840'); */
-            background-image: url("../admin/src/images/bg.jpg");
+            background-image: url("{{ asset("admin/src/images/bg.jpg") }}");
             background-size: cover;
             background-position: center;
             min-height: 100%;
@@ -86,7 +51,7 @@
             background-color: white;
             min-height: 100%;
             padding: 5%;
-            background: url(https://i.imgur.com/BKyjjFa.png) no-repeat center center fixed;
+            /* background: url("https://i.imgur.com/BKyjjFa.png") no-repeat center center fixed; */
             -webkit-background-size: cover;
             -moz-background-size: cover;
             -o-background-size: cover;
