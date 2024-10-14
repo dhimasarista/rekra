@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CalonController;
+use App\Http\Controllers\DataPemilihController;
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\HitungCepatController;
 use App\Http\Controllers\JumlahSuaraController;
@@ -65,6 +66,8 @@ Route::middleware("auth")->middleware("checkingSession")->group(function () {
         Route::get("/wilayah-pemilihan/list", [WilayahController::class, "findAllByType"])->name("wilayah.list");
         Route::get("/wilayah-pemilihan/form", [WilayahController::class, "form"])->name("wilayah.form");
         Route::delete("/wilayah-pemilihan", [WilayahController::class, "destroy"])->name("wilayah.delete");
+
+        Route::get("/data-pemilih", [DataPemilihController::class, "index"])->name("data-pemilih.index");
     });
 
     Route::prefix("input")->group(function () {

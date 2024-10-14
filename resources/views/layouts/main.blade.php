@@ -39,6 +39,14 @@
         <script src="{{ asset('admin/src/plugins/datatables/js/responsive.bootstrap4.min.js') }}"></script>
         <script src="{{ asset('admin/src/plugins/sweetalert2/sweetalert2.js') }}"></script>
         <script src="{{ asset('admin/js/script.js') }}"></script>
+        {{-- data table button --}}
+        <script src="{{ asset("admin/src/plugins/datatables/js/dataTables.buttons.min.js") }}"></script>
+        <script src="{{ asset("admin/src/plugins/datatables/js/buttons.bootstrap4.min.js")}}"></script>
+        <script src="{{ asset("admin/src/plugins/datatables/js/buttons.print.min.js")}}"></script>
+        <script src="{{ asset("admin/src/plugins/datatables/js/buttons.html5.min.js")}}"></script>
+        <script src="{{ asset("admin/src/plugins/datatables/js/buttons.flash.min.js")}}"></script>
+        <script src="{{ asset("admin/src/plugins/datatables/js/pdfmake.min.js")}}"></script>
+        <script src="{{ asset("admin/src/plugins/datatables/js/vfs_fonts.js")}}"></script>
     
         <!-- Socket.io -->
         {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script> --}}
@@ -307,6 +315,13 @@
                     @if (session()->get('level') == 'master')
                         <li>
                             <div class="sidebar-small-cap">System Administrator</div>
+                        </li>
+                        <li>
+                            <a href="{{ route('data-pemilih.index', []) }}"
+                                class="dropdown-toggle no-arrow {{ request()->is('data-pemilih') ? 'active' : '' }}">
+                                <span class="micon dw dw-settings1"></span>
+                                <span class="text">Data Pemilih</span>
+                            </a>
                         </li>
                         <li>
                             <a href="{{ route('user.index', []) }}"
