@@ -1,4 +1,5 @@
 @extends('layouts/main')
+@use('App\Helpers\Formatting')
 @section('body')
     @use('Ramsey\Uuid\Uuid')
     @php
