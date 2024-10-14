@@ -8,11 +8,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="{{ asset('admin/src/plugins/TopLoaderService/TopLoaderService.css') }}" />
-    <script src="{{ asset("admin/src/plugins/TopLoaderService/TopLoaderService.css") }}"></script>
-    <script src="{{ asset("admin/lib/jquery/dist/jquery.min.js") }}"></script>
-    <script src="{{ asset('admin/src/plugins/sweetalert2/sweetalert2.js') }}"></script>
-    <script src="{{ asset('admin/js/script.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href='/admin/src/plugins/TopLoaderService/TopLoaderService.css' />
+    <script src="/admin/src/plugins/TopLoaderService/TopLoaderService.css"></script>
+    <script src="/admin/lib/jquery/dist/jquery.min.js"></script>
+    <script src='/admin/src/plugins/sweetalert2/sweetalert2.js'></script>
+    <script src='/admin/js/script.js'></script>
     <style>
         * {
             margin: 0px;
@@ -31,7 +31,7 @@
 
         .LoginPageInnerContainer .ImageContianer {
             width: 50%;
-            background-image: url("{{ asset("admin/src/images/bg.jpg") }}");
+            background-image: url("/admin/src/images/bg.jpg");
             background-size: cover;
             background-position: center;
             min-height: 100%;
