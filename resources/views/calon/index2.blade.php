@@ -95,12 +95,12 @@
                                 { data: 'code', name: 'code' },
                                 { 
                                     data: 'calon_name', render: function (data, type, row) {
-                                        return Formatting.capitalize(row.calon_name)
+                                        return Formatting.capitalize(`${row.calon_name} - ${row.wakil_name}`)
                                     }
                                 },
                                 { 
-                                    data: 'wakil_name', render: function (data, type, row) {
-                                        return Formatting.capitalize(row.wakil_name)
+                                    data: null, render: function (data, type, row) {
+                                        return Formatting.capitalize(row.kabkota_name)
                                     }
                                 },
                                 {

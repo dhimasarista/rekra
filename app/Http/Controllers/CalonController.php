@@ -31,47 +31,49 @@ class CalonController extends Controller
     {
         return view("calon.index2", []);
     }
-
     public function all(Request $request) {
         try {
             // Ambil parameter dari request
             $limit = $request->input('length', 10); // default 10
             $start = $request->input('start', 0); // default 0
             $search = $request->input('search.value', '');
-
+    
             // Query untuk mengambil data dengan pagination dan pencarian
-            $query = Calon::whereNull('deleted_at');
-
+            $query = Calon::query()
+                ->whereNull('calon.deleted_at')
+                ->join('kabkota', 'calon.code', '=', 'kabkota.id')
+                ->select('calon.*', 'kabkota.name as kabkota_name'); // Ambil semua kolom dari calon dan nama kabkota
+    
             // Filter berdasarkan pencarian
             if ($search) {
                 $query->where(function($q) use ($search) {
-                    $q->where('calon_name', 'LIKE', "%$search%")
-                      ->orWhere('wakil_name', 'LIKE', "%$search%");
+                    $q->where('calon.calon_name', 'LIKE', "%$search%")
+                      ->orWhere('calon.wakil_name', 'LIKE', "%$search%")
+                      ->orWhere('kabkota.name', 'LIKE', "%$search%"); // Pencarian untuk nama kabkota
                 });
             }
-
+    
             // Hitung total data
             $totalData = $query->count();
-
+    
             // Ambil data dengan limit dan offset
             $data = $query->limit($limit)->offset($start)->get();
-
+    
             return response()->json([
-                "draw" => $request->input('draw'),
+                "draw" => intval($request->input('draw')), // Pastikan draw diubah menjadi integer
                 "recordsTotal" => $totalData,
                 "recordsFiltered" => $totalData,
                 "data" => $data,
             ], 200);
         } catch (Exception $e) {
-            $val = Formatting::formatUrl([
+            return response()->json([
                 "code" => 500,
-                "title" => $e->getMessage(),
+                "title" => "Error",
                 "message" => $e->getMessage(),
-            ]);
-
-            return redirect("/error$val");
+            ], 500);
         }
     }
+    
     
     /**
      * Show the form for creating a new resource.
