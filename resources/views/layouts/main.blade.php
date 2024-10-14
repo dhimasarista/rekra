@@ -311,7 +311,7 @@
                         <li>
                             <a href="{{ route('data-pemilih.index', []) }}"
                                 class="dropdown-toggle no-arrow {{ request()->is('data-pemilih') ? 'active' : '' }}">
-                                <span class="micon dw dw-settings1"></span>
+                                <span class="micon dw dw-id-card2"></span>
                                 <span class="text">Data Pemilih</span>
                             </a>
                         </li>
