@@ -56,8 +56,7 @@
                 </div>
 
                 <script>
-                    $(document).ready(function() {
-                        var table = $("#datatable-table").DataTable({
+                    let table = $("#datatable-table").DataTable({
                             scrollCollapse: true,
                             autoWidth: false,
                             responsive: true,
@@ -110,7 +109,6 @@
                         });
 
                         table.buttons().container().appendTo('#export-buttons');
-                    });
                 </script>
             </div>
         </div>
@@ -128,7 +126,7 @@
                         <div class="form-group row">
 							<label class="col-md-12 col-form-label">NIK</label>
 							<div class="col-md-12">
-								<input class="form-control" id="{{ $nikForm }}" type="text" placeholder="Masukkan NIK">
+								<input class="form-control" id="{{ $nikForm }}" type="number" placeholder="Masukkan NIK">
 							</div>
 						</div>
                         <div class="form-group row">
@@ -140,7 +138,7 @@
                         <div class="form-group row">
 							<label class="col-md-12 col-form-label">Nomor HP</label>
 							<div class="col-md-12">
-								<input class="form-control" id="{{ $phoneForm }}" type="text" placeholder="Masukkan Nomor HP">
+								<input class="form-control" id="{{ $phoneForm }}" type="number" placeholder="Masukkan Nomor HP">
 							</div>
 						</div>
                         <div class="form-group row">
@@ -159,7 +157,42 @@
         </div>
     </div>
     <script>
-
+        $("#{{ $buttonSubmit }}").on("click", function(e){
+            $.ajax({
+                    type: "POST",
+                    url: "{{ route('data-pemilih.create') }}",
+                    data: JSON.stringify({
+                        nik: $("#{{ $nikForm }}").val(),
+                        name: $("#{{ $nameForm }}").val(),
+                        phone: $("#{{ $phoneForm }}").val(),
+                        address: $("#{{ $addressForm }}").val(),
+                    }),
+                    contentType: "application/json",
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        table.ajax.reload()
+                        $('#{{ $idModal }}').modal('hide');
+                        Toast.fire({
+                            icon: "success",
+                            title: response["message"]
+                        });
+                        $("#{{ $nikForm }}").val(null)
+                        $("#{{ $nameForm }}").val(null)
+                        $("#{{ $phoneForm }}").val(null)
+                        $("#{{ $addressForm }}").val(null)
+                    },
+                    error: function(xhr, status, error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: xhr["responseJSON"]["message"]
+                        });
+                    },
+                    complete: function(data) {}
+            });
+        })
     </script>
 
 @endsection

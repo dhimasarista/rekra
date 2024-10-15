@@ -68,6 +68,7 @@ Route::middleware("auth")->middleware("checkingSession")->group(function () {
         Route::delete("/wilayah-pemilihan", [WilayahController::class, "destroy"])->name("wilayah.delete");
 
         Route::get("/data-pemilih", [DataPemilihController::class, "index"])->name("data-pemilih.index");
+        Route::post("/data-pemilih", [DataPemilihController::class, "create"])->name("data-pemilih.create");
         Route::get("/data-pemilih/all", [DataPemilihController::class, "all"])->name("data-pemilih.all");
     });
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Formatting;
 use App\Models\DataPemilih;
+use DB;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -53,8 +54,14 @@ class DataPemilihController extends Controller
             // Hitung total data
             $totalData = $query->count();
     
-            // Ambil data dengan limit dan offset
-            $data = $query->limit($limit)->offset($start)->get();
+            // Jika length adalah -1, ambil semua data
+            if ($limit == -1) {
+                $data = $query->get();
+            } else {
+                // Ambil data dengan limit dan offset
+                $data = $query->limit($limit)->offset($start)->get();
+            }
+    
             return response()->json([
                 "draw" => intval($request->input('draw')), // Pastikan draw diubah menjadi integer
                 "recordsTotal" => $totalData,
@@ -69,7 +76,7 @@ class DataPemilihController extends Controller
             ], 500);
         }
     }
-
+    
     /**
      * Show the form for creating a new resource.
      */
@@ -77,19 +84,51 @@ class DataPemilihController extends Controller
     {
         $responseCode = 200;
         try {
+            DB::beginTransaction();
             $validator = Validator::make($request->all(), [
+                "nik" => "required|string|size:16",
                 "name" => "required|string",
-                "nik" => "required|string|size:10",
                 "address" => "required|string",
                 "phone" => "required|string",
             ]);
+            if ($validator->fails()) {
+                $responseCode = 500;
+                throw new Exception($validator->errors()->first(), 1);
+            } else {
+                $data = DataPemilih::where("nik", $request->nik)->first();
+                if ($data) {
+                    $responseCode = 400;
+                    throw new Exception("NIK Sudah Dipakai",1);
+                } else {
+                    DataPemilih::create([
+                        "nik" => $request->nik,
+                        "phone" => $request->phone,
+                        "name" => $request->name,
+                        "address" => $request->address
+                    ]);
+                    $message = "Berhasil Menambahkan Data";
+                }
+            }
+            DB::commit();
+            return response()->json([
+                "message" => $message,
+                "data" => $request->all(),
+            ], $responseCode);
         } catch (QueryException $e) {
+            DB::rollBack();
             $message = match ($e->errorInfo[1]) {
                 default => $e->getMessage(),
             };
-            return response()->json(["message" => $message], $responseCode);
+            return response()->json([
+                "message" => $message,
+                "data" => $request->all(),
+            ], $responseCode);
         } catch (Exception $e) {
-            return response()->json(["message" => $e->getMessage()], $responseCode);
+            DB::rollBack();
+            return response()->json([
+                "message" => $e->getMessage(),
+                "data" => $request->all(),
+            ], $responseCode);
         }
     }
 
