@@ -16,7 +16,7 @@ return new class extends Migration
             $table->char("nik", 16)->index()->unique();
             $table->string("name");
             $table->string("phone");
-            $table->string("alamat");
+            $table->string("address");
             $table->timestamps();
             $table->softDeletes();
         });

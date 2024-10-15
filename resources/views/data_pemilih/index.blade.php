@@ -12,7 +12,7 @@
                     <i class="fa fa-plus"></i> Tambah Data
                 </a>
                 <a class="btn btn-sm btn-dark text-light m-1">
-                    <i class="fa fa-search"></i> Cari Data
+                    <i class="fa fa-trash"></i> Hapus Data
                 </a>
             </div>
         </div>
@@ -44,24 +44,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Hello</td>
-                                    <td>{{ Formatting::capitalize('Anto Selang') }}</td>
-                                    <td>Hello</td>
-                                    <td>Hello</td>
-                                </tr>
-                                <tr>
-                                    <td>Hello</td>
-                                    <td>{{ Formatting::capitalize('Anto Selang') }}</td>
-                                    <td>Hello</td>
-                                    <td>Hello</td>
-                                </tr>
-                                <tr>
-                                    <td>Hello</td>
-                                    <td>{{ Formatting::capitalize('Anto Selang') }}</td>
-                                    <td>Hello</td>
-                                    <td>Hello</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -77,6 +59,12 @@
                                 targets: "datatable-nosort",
                                 orderable: false,
                             }],
+                            processing: true,
+                            serverSide: true,
+                            ajax: {
+                                url: "{{ route('data-pemilih.all') }}",
+                                type: "GET"
+                            },
                             "lengthMenu": [
                                 [10, 25, 50, 100, -1],
                                 [10, 25, 50, 100, "All"]
@@ -88,12 +76,31 @@
                                 paginate: {
                                     next: '<i class="ion-chevron-right"></i>',
                                     previous: '<i class="ion-chevron-left"></i>'
-                                }
+                                },
+                                processing: "Mohon tunggu, data sedang diambil..."
                             },
                             dom: '<"d-flex justify-content-between"lBf>rt<"d-flex justify-content-between"ip>',
                             buttons: [
                                 'copy', 'csv', 'pdf', 'print', 'excel'
-                            ]
+                            ],
+                            columns: [
+                                { 
+                                    data: 'nik', render: function (data, type, row) {
+                                        return Formatting.capitalize(data)
+                                    }
+                                },
+                                { 
+                                    data: 'name', render: function (data, type, row) {
+                                        return Formatting.capitalize(data)
+                                    }
+                                },
+                                { data: 'phone', name: 'phone' },
+                                { 
+                                    data: null, render: function (data, type, row) {
+                                        return Formatting.capitalize(row.address)
+                                    }
+                                },
+                            ],
                         });
 
                         table.buttons().container().appendTo('#export-buttons');
