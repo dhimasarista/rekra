@@ -17,9 +17,9 @@
                 <a class="btn btn-sm btn-dark text-light m-1" data-toggle="modal" data-target="#{{ $idModal }}">
                     <i class="fa fa-plus"></i> Tambah Data
                 </a>
-                <a class="btn btn-sm btn-dark text-light m-1">
+                {{-- <a class="btn btn-sm btn-dark text-light m-1">
                     <i class="fa fa-trash"></i> Hapus Data
-                </a>
+                </a> --}}
             </div>
         </div>
         <div class="row pb-10">
