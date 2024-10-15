@@ -4,12 +4,12 @@
     @use('Ramsey\Uuid\Uuid')
     @php
         $segments = request()->segments();
-        $idSelect1 = bin2hex(random_bytes(8));
-        $idSelect2 = bin2hex(random_bytes(8));
-        $idSelect3 = bin2hex(random_bytes(8));
-        $idSelect4 = bin2hex(random_bytes(8));
-        $idSelect5 = bin2hex(random_bytes(8));
-        $idButtonSubmit = bin2hex(random_bytes(8));
+        $idSelect1 = "X".bin2hex(random_bytes(8));
+        $idSelect2 = "X".bin2hex(random_bytes(8));
+        $idSelect3 = "X".bin2hex(random_bytes(8));
+        $idSelect4 = "X".bin2hex(random_bytes(8));
+        $idSelect5 = "X".bin2hex(random_bytes(8));
+        $idButtonSubmit = "X".bin2hex(random_bytes(8));
     @endphp
     {{-- @dd($idSelect1) --}}
     <div class="xs-pd-20-10 pd-ltr-20">

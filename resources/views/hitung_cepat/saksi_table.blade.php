@@ -1,9 +1,9 @@
 @use('App\Helpers\Formatting')
 @use('Ramsey\Uuid\Uuid')
 @php
-    $editSaksiModal = bin2hex(random_bytes(8));
-    $modalBodyEditSaksi = bin2hex(random_bytes(8));
-    $submitEditSaksi = bin2hex(random_bytes(8));
+    $editSaksiModal = "X".bin2hex(random_bytes(8));
+    $modalBodyEditSaksi = "X".bin2hex(random_bytes(8));
+    $submitEditSaksi = "X".bin2hex(random_bytes(8));
 @endphp
 <div class="card-box mb-30">
     <div class="pd-20">

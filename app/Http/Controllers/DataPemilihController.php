@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Helpers\Formatting;
 use App\Models\DataPemilih;
 use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Validator;
 
 class DataPemilihController extends Controller
 {
@@ -71,9 +73,24 @@ class DataPemilihController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $responseCode = 200;
+        try {
+            $validator = Validator::make($request->all(), [
+                "name" => "required|string",
+                "nik" => "required|string|size:10",
+                "address" => "required|string",
+                "phone" => "required|string",
+            ]);
+        } catch (QueryException $e) {
+            $message = match ($e->errorInfo[1]) {
+                default => $e->getMessage(),
+            };
+            return response()->json(["message" => $message], $responseCode);
+        } catch (Exception $e) {
+            return response()->json(["message" => $e->getMessage()], $responseCode);
+        }
     }
 
     /**

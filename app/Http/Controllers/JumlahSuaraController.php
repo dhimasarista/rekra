@@ -82,10 +82,10 @@ class JumlahSuaraController extends Controller
             $data = null;
             $view = "layouts.form";
             //
-            $formId1 = bin2hex(random_bytes(8));
-            $formId2 = bin2hex(random_bytes(8));
-            $formId3 = bin2hex(random_bytes(8));
-            $formId4 = bin2hex(random_bytes(8));
+            $formId1 = "X".bin2hex(random_bytes(8));
+            $formId2 = "X".bin2hex(random_bytes(8));
+            $formId3 = "X".bin2hex(random_bytes(8));
+            $formId4 = "X".bin2hex(random_bytes(8));
             //
             $provinsi = Provinsi::all();
             $options[] = [
@@ -108,7 +108,7 @@ class JumlahSuaraController extends Controller
                     "button_list" => [],
                 ],
                 "submit" => [
-                    "id" => bin2hex(random_bytes(8)),
+                    "id" => "X".bin2hex(random_bytes(8)),
                     "name" => "submit",
                     "type" => "redirect",
                     "route" => route("input.list", [
@@ -394,18 +394,18 @@ class JumlahSuaraController extends Controller
                 "calon" => $newCalon,
             ];
             //
-            $formId1 = bin2hex(random_bytes(8));
-            $formId2 = bin2hex(random_bytes(8));
-            $formId3 = bin2hex(random_bytes(8));
-            $formId4 = bin2hex(random_bytes(8));
-            $formId5 = bin2hex(random_bytes(8));
-            $formId6 = bin2hex(random_bytes(8));
-            $formId7 = bin2hex(random_bytes(8));
-            $formId8 = bin2hex(random_bytes(8));
-            $formId9 = bin2hex(random_bytes(8));
-            $formId10 = bin2hex(random_bytes(8));
-            $formId11 = bin2hex(random_bytes(8));
-            $formId12 = bin2hex(random_bytes(8));
+            $formId1 = "X".bin2hex(random_bytes(8));
+            $formId2 = "X".bin2hex(random_bytes(8));
+            $formId3 = "X".bin2hex(random_bytes(8));
+            $formId4 = "X".bin2hex(random_bytes(8));
+            $formId5 = "X".bin2hex(random_bytes(8));
+            $formId6 = "X".bin2hex(random_bytes(8));
+            $formId7 = "X".bin2hex(random_bytes(8));
+            $formId8 = "X".bin2hex(random_bytes(8));
+            $formId9 = "X".bin2hex(random_bytes(8));
+            $formId10 = "X".bin2hex(random_bytes(8));
+            $formId11 = "X".bin2hex(random_bytes(8));
+            $formId12 = "X".bin2hex(random_bytes(8));
             //
             $config = [
                 "name" => $data["tps_name"],
@@ -420,7 +420,7 @@ class JumlahSuaraController extends Controller
                     ],
                 ],
                 "submit" => [
-                    "id" => bin2hex(random_bytes(8)),
+                    "id" => "X".bin2hex(random_bytes(8)),
                     "type" => "input", // redirect, input
                     "route" => route("input.store", [
                         "Tps" => $tpsQuery,

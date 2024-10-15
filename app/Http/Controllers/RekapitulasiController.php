@@ -31,8 +31,8 @@ class RekapitulasiController extends Controller
             if ($typeQuery) {
                 if ($typeQuery == "Provinsi" || $typeQuery == "provinsi") {
                     $data = Provinsi::all();
-                    $formId1 = bin2hex(random_bytes(8));
-                    $formId2 = bin2hex(random_bytes(8));
+                    $formId1 = "X".bin2hex(random_bytes(8));
+                    $formId2 = "X".bin2hex(random_bytes(8));
                     $options[] = [
                         "id" => null,
                         "is_selected" => true,
@@ -49,7 +49,7 @@ class RekapitulasiController extends Controller
                         "name" => "Pilih Provinsi",
                         "submit" => [
                             "type" => "redirect", // or "input"
-                            "id" => bin2hex(random_bytes(8)),
+                            "id" => "X".bin2hex(random_bytes(8)),
                             "route" => route('rekap.list', ['Type' => 'Provinsi']),
                         ],
                         "form" => [
@@ -98,13 +98,13 @@ class RekapitulasiController extends Controller
                             "name" => $p->name,
                         ];
                     }
-                    $formId1 = bin2hex(random_bytes(8));
-                    $formId2 = bin2hex(random_bytes(8));
+                    $formId1 = "X".bin2hex(random_bytes(8));
+                    $formId2 = "X".bin2hex(random_bytes(8));
                     $config = [
                         "name" => "Pilih Kabupaten/Kota",
                         "submit" => [
                             "type" => "redirect", // or "input"
-                            "id" => bin2hex(random_bytes(8)),
+                            "id" => "X".bin2hex(random_bytes(8)),
                             "route" => route('rekap.list', ['Type' => 'Kabkota']),
                         ],
                         "form" => [

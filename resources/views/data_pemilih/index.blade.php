@@ -2,13 +2,19 @@
 @section('body')
     @php
         $segments = request()->segments();
+        $idModal = "X".bin2hex(random_bytes(8));   
+        $buttonSubmit = "X".bin2hex(random_bytes(8));
+        $nikForm = "X".bin2hex(random_bytes(8));
+        $nameForm = "X".bin2hex(random_bytes(8));
+        $phoneForm = "X".bin2hex(random_bytes(8));
+        $addressForm = "X".bin2hex(random_bytes(8));
     @endphp
     @use('App\Helpers\Formatting')
     <div class="xs-pd-20-10 pd-ltr-20">
         <div class="title pb-20 d-flex justify-content-between align-items-center">
             <h2 class="h2 mb-0">Data Pemilih</h2>
             <div class="text-right">
-                <a class="btn btn-sm btn-dark text-light m-1" data-toggle="modal" data-target="#Medium-modal">
+                <a class="btn btn-sm btn-dark text-light m-1" data-toggle="modal" data-target="#{{ $idModal }}">
                     <i class="fa fa-plus"></i> Tambah Data
                 </a>
                 <a class="btn btn-sm btn-dark text-light m-1">
@@ -107,31 +113,53 @@
                     });
                 </script>
             </div>
-            <div class="col-md-4 mb-20">
-
-            </div>
         </div>
     </div>
-    <div class="modal fade" id="Medium-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
+    <div class="modal fade" id="{{ $idModal }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content ">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myLargeModalLabel">Large modal</h4>
+                    <h4 class="modal-title" id="myLargeModalLabel">Tambah Data</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
-                <div class="modal-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <div class="modal-body" style="overflow-y: auto;">
+                    <form>
+                        <div class="form-group row">
+							<label class="col-md-12 col-form-label">NIK</label>
+							<div class="col-md-12">
+								<input class="form-control" id="{{ $nikForm }}" type="text" placeholder="Masukkan NIK">
+							</div>
+						</div>
+                        <div class="form-group row">
+							<label class="col-md-12 col-form-label">Nama</label>
+							<div class="col-md-12">
+								<input class="form-control" id="{{ $nameForm }}" type="text" placeholder="Masukkan Nama">
+							</div>
+						</div>
+                        <div class="form-group row">
+							<label class="col-md-12 col-form-label">Nomor HP</label>
+							<div class="col-md-12">
+								<input class="form-control" id="{{ $phoneForm }}" type="text" placeholder="Masukkan Nomor HP">
+							</div>
+						</div>
+                        <div class="form-group row">
+							<label class="col-md-12 col-form-label">Alamat</label>
+							<div class="col-md-12">
+								<input class="form-control" id="{{ $addressForm }}" type="text" placeholder="Masukkan Alamat">
+							</div>
+						</div>
+                    </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-dark" id="{{ $buttonSubmit }}">Simpan</button>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+
+    </script>
+
 @endsection

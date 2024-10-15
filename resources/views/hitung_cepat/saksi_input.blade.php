@@ -96,7 +96,7 @@
                                 </div>
                             </div>
                             @php
-                                $nikForm = bin2hex(random_bytes(8));
+                                $nikForm = "X".bin2hex(random_bytes(8));
                             @endphp
                             <form>
                                 <div class="form-group">
@@ -112,8 +112,8 @@
         </div>
     </div>
     @php
-       $uuidModal = bin2hex(random_bytes(8));
-       $submitModal = bin2hex(random_bytes(8));
+       $uuidModal = "X".bin2hex(random_bytes(8));
+       $submitModal = "X".bin2hex(random_bytes(8));
     @endphp
     <script>
         function showModal(){

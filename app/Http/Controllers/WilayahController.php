@@ -183,9 +183,9 @@ class WilayahController extends Controller
             $view = "layouts.form";
             $idQuery = $request->query("Id");
             //
-                $formId1 = bin2hex(random_bytes(8));
-                $formId2 = bin2hex(random_bytes(8));
-                $formId3 = bin2hex(random_bytes(8));
+                $formId1 = "X".bin2hex(random_bytes(8));
+                $formId2 = "X".bin2hex(random_bytes(8));
+                $formId3 = "X".bin2hex(random_bytes(8));
             //
             $config = [
                 "name" => null,
@@ -201,7 +201,7 @@ class WilayahController extends Controller
                 ],
                 "submit" => [
                     "type" => "input",
-                    "id" => bin2hex(random_bytes(8)),
+                    "id" => "X".bin2hex(random_bytes(8)),
                     "route" => null,
                     "method" => "post",
                     "redirect" => url()->previous()
@@ -310,7 +310,7 @@ class WilayahController extends Controller
                         "name" => $p->name,
                     ];
                 }
-                $containerIdForm2 = bin2hex(random_bytes(8));
+                $containerIdForm2 = "X".bin2hex(random_bytes(8));
                 $config["submit"]["route"] = route("wilayah.post", ["Type" => "Kecamatan", "Id" => $idQuery]);
                 $config["submit"]["form_data"] = [
                     0 => [
@@ -367,7 +367,7 @@ class WilayahController extends Controller
                         "id" => $formId3,
                         "type" => "dynamic-input",
                         "button" => [
-                            "id" => bin2hex(random_bytes(8)),
+                            "id" => "X".bin2hex(random_bytes(8)),
                             "name" => "+Tambah Kolom",
                             "show" => true,
                         ],
@@ -394,7 +394,7 @@ class WilayahController extends Controller
                     $config["name"] = "Create Kecamatan";
                 }
             } else if($typeQuery == "Kelurahan"|| $typeQuery == "kelurahan") {
-                $formId4 = bin2hex(random_bytes(8));
+                $formId4 = "X".bin2hex(random_bytes(8));
                 $provinsi = Provinsi::all();
 
                 $optProvinsi[] = [
@@ -410,7 +410,7 @@ class WilayahController extends Controller
                     ];
                 }
                 $kelurahan = Kelurahan::find($idQuery);
-                $containerIdForm4 = bin2hex(random_bytes(8));
+                $containerIdForm4 = "X".bin2hex(random_bytes(8));
                 $config["submit"]["route"] = route("wilayah.post", ["Type" => "Kelurahan", "Id" => $idQuery]);
                 $config["submit"]["form_data"] = [
                     [
@@ -494,7 +494,7 @@ class WilayahController extends Controller
                         "id" => $formId4,
                         "type" => "dynamic-input",
                         "button" => [
-                            "id" => bin2hex(random_bytes(8)),
+                            "id" => "X".bin2hex(random_bytes(8)),
                             "name" => "+ Tambah",
                             "show" => true,
                         ],
@@ -523,8 +523,8 @@ class WilayahController extends Controller
                 }
             } else if($typeQuery == "TPS" || $typeQuery == "tps"){
                 $formQuery = $request->query("Form");
-                $formId4 = bin2hex(random_bytes(8));
-                $formId5 = bin2hex(random_bytes(8));
+                $formId4 = "X".bin2hex(random_bytes(8));
+                $formId5 = "X".bin2hex(random_bytes(8));
                 $tps = TPS::where("tps.id", $idQuery)
                 ->join("kelurahan", "tps.kelurahan_id", "kelurahan.id")
                 ->select("tps.*", "kelurahan.name as kelurahan_name")

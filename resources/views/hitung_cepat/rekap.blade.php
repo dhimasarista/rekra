@@ -3,10 +3,10 @@
     @use('App\Helpers\Formatting')
     @php
         $segments = request()->segments();
-        $idSelect1 = bin2hex(random_bytes(8));
-        $idSelect2 = bin2hex(random_bytes(8));
-        $idContainerSelect3 = bin2hex(random_bytes(8));
-        $idButtonSubmit = bin2hex(random_bytes(8));
+        $idSelect1 = "X".bin2hex(random_bytes(8));
+        $idSelect2 = "X".bin2hex(random_bytes(8));
+        $idContainerSelect3 = "X".bin2hex(random_bytes(8));
+        $idButtonSubmit = "X".bin2hex(random_bytes(8));
     @endphp
     <div class="xs-pd-20-10 pd-ltr-20">
         <div class="title pb-20 d-flex justify-content-between align-items-center">
