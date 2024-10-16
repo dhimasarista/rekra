@@ -1,4 +1,4 @@
-<script src="../admin/src/plugins/apexcharts/apexcharts.min.js"></script>
+{{-- <script src="../admin/src/plugins/apexcharts/apexcharts.min.js"></script> --}}
 <div class="row mb-30">
     <div class="col-md-6 mb-20">
         <div class="bg-white pd-20 card-box  mb-30">
