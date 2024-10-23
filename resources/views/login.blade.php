@@ -300,8 +300,8 @@
                         {{-- todo: buat simpan kredensial, dimana ketika tercentang, maka akan menyimpan ke local storage --}}
                         <div class="OptionsContainer">
                             <div class="checkboxContainer">
-                                <input type="checkbox" id="RememberMe" class="checkbox" name="remember"> <label
-                                    for="RememberMe">Simpan Kredensial</label>
+                                {{-- <input type="checkbox" id="RememberMe" class="checkbox" name="remember"> <label
+                                    for="RememberMe">Simpan Kredensial</label> --}}
                             </div>
                             <a class="ForgotPasswordLink">Forgot Password?</a>
                         </div>
