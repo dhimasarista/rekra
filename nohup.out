@@ -1,0 +1,1739 @@
+
+   INFO  Server running on [http://127.0.0.1:8000].  
+
+  Press Ctrl+C to stop the server
+
+  2024-10-21 23:00:34 / .......................................... ~ 500.32ms
+  2024-10-21 23:00:35 /login ....................................... ~ 0.04ms
+  2024-10-21 23:00:35 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.04ms
+  2024-10-21 23:00:35 /admin/js/script.js .......................... ~ 0.03ms
+  2024-10-21 23:00:35 /admin/lib/jquery/dist/jquery.min.js ......... ~ 0.05ms
+  2024-10-21 23:00:35 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.13ms
+  2024-10-21 23:00:35 /admin/src/scripts/jquery.min.js ............. ~ 0.03ms
+  2024-10-21 23:00:35 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.03ms
+  2024-10-21 23:00:35 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.03ms
+  2024-10-21 23:00:35 /admin/src/images/bg.jpg ..................... ~ 0.02ms
+  2024-10-21 23:00:35 /favicon.ico ................................. ~ 0.30ms
+
+   INFO  Server running on [http://127.0.0.1:8000].  
+
+  Press Ctrl+C to stop the server
+
+  2024-10-21 23:01:14 /login ....................................... ~ 0.14ms
+  2024-10-21 23:01:14 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.07ms
+  2024-10-21 23:01:14 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.10ms
+  2024-10-21 23:01:14 /admin/lib/jquery/dist/jquery.min.js ......... ~ 0.27ms
+  2024-10-21 23:01:14 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.46ms
+  2024-10-21 23:01:14 /admin/js/script.js .......................... ~ 0.27ms
+  2024-10-21 23:01:14 /admin/src/scripts/jquery.min.js ............. ~ 0.83ms
+  2024-10-21 23:01:14 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 1.13ms
+  2024-10-21 23:01:14 /admin/src/images/bg.jpg ..................... ~ 0.11ms
+  2024-10-21 23:01:14 /favicon.ico ................................. ~ 0.15ms
+  2024-10-21 23:01:21 /login ....................................... ~ 0.13ms
+  2024-10-21 23:01:22 / ............................................ ~ 0.06ms
+  2024-10-21 23:01:22 /admin/vendors/styles/core.css ............... ~ 0.29ms
+  2024-10-21 23:01:22 /admin/vendors/styles/icon-font.min.css ...... ~ 0.58ms
+  2024-10-21 23:01:22 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.74ms
+  2024-10-21 23:01:22 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.83ms
+  2024-10-21 23:01:22 /admin/vendors/styles/style.css .............. ~ 0.92ms
+  2024-10-21 23:01:22 /admin/src/plugins/switchery/switchery.min.css  ~ 1.20ms
+  2024-10-21 23:01:22 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.07ms
+  2024-10-21 23:01:22 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.06ms
+  2024-10-21 23:01:22 /admin/vendors/scripts/core.js ............... ~ 0.06ms
+  2024-10-21 23:01:22 /admin/vendors/scripts/script.min.js ......... ~ 0.05ms
+  2024-10-21 23:01:22 /admin/vendors/scripts/process.js ............ ~ 0.05ms
+  2024-10-21 23:01:22 /admin/vendors/scripts/layout-settings.js .... ~ 0.05ms
+  2024-10-21 23:01:22 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.06ms
+  2024-10-21 23:01:22 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.05ms
+  2024-10-21 23:01:22 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.06ms
+  2024-10-21 23:01:22 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.06ms
+  2024-10-21 23:01:22 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.05ms
+  2024-10-21 23:01:22 /admin/js/script.js .......................... ~ 0.05ms
+  2024-10-21 23:01:22 /admin/src/plugins/plyr/dist/plyr.css ........ ~ 0.05ms
+  2024-10-21 23:01:22 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.10ms
+  2024-10-21 23:01:22 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.18ms
+  2024-10-21 23:01:22 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.25ms
+  2024-10-21 23:01:22 /admin/vendors/images/banner-img.png ......... ~ 0.05ms
+  2024-10-21 23:01:22 /admin/src/plugins/plyr/dist/plyr.js ......... ~ 0.19ms
+  2024-10-21 23:01:22 /admin/vendors/images/favicon-32x32.png ...... ~ 0.14ms
+  2024-10-21 23:01:45 /rekapitulasi ................................ ~ 0.18ms
+  2024-10-21 23:01:45 /admin/vendors/styles/core.css ............... ~ 0.08ms
+  2024-10-21 23:01:45 /admin/vendors/styles/icon-font.min.css ...... ~ 0.07ms
+  2024-10-21 23:01:45 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.14ms
+  2024-10-21 23:01:45 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.26ms
+  2024-10-21 23:01:45 /admin/vendors/styles/style.css .............. ~ 0.34ms
+  2024-10-21 23:01:45 /admin/src/plugins/switchery/switchery.min.css  ~ 0.45ms
+  2024-10-21 23:01:45 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.06ms
+  2024-10-21 23:01:45 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.05ms
+  2024-10-21 23:01:45 /admin/vendors/scripts/core.js ............... ~ 0.05ms
+  2024-10-21 23:01:46 /admin/vendors/scripts/script.min.js ......... ~ 0.07ms
+  2024-10-21 23:01:46 /admin/vendors/scripts/process.js ............ ~ 0.05ms
+  2024-10-21 23:01:46 /admin/vendors/scripts/layout-settings.js .... ~ 0.06ms
+  2024-10-21 23:01:46 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.05ms
+  2024-10-21 23:01:46 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.04ms
+  2024-10-21 23:01:46 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.03ms
+  2024-10-21 23:01:46 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.05ms
+  2024-10-21 23:01:46 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.06ms
+  2024-10-21 23:01:46 /admin/js/script.js .......................... ~ 0.05ms
+  2024-10-21 23:01:46 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.08ms
+  2024-10-21 23:01:46 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.10ms
+  2024-10-21 23:01:46 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.20ms
+  2024-10-21 23:01:46 /rekapitulasi ................................ ~ 0.13ms
+  2024-10-21 23:01:47 /admin/vendors/styles/core.css ............... ~ 0.09ms
+  2024-10-21 23:01:47 /admin/vendors/styles/icon-font.min.css ...... ~ 0.34ms
+  2024-10-21 23:01:47 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.19ms
+  2024-10-21 23:01:47 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.36ms
+  2024-10-21 23:01:47 /admin/vendors/styles/style.css .............. ~ 0.45ms
+  2024-10-21 23:01:47 /admin/src/plugins/switchery/switchery.min.css  ~ 0.67ms
+  2024-10-21 23:01:47 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.06ms
+  2024-10-21 23:01:47 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.05ms
+  2024-10-21 23:01:47 /admin/vendors/scripts/core.js ............... ~ 0.05ms
+  2024-10-21 23:01:47 /admin/vendors/scripts/script.min.js ......... ~ 0.10ms
+  2024-10-21 23:01:47 /admin/vendors/scripts/process.js ............ ~ 0.04ms
+  2024-10-21 23:01:47 /admin/vendors/scripts/layout-settings.js .... ~ 0.04ms
+  2024-10-21 23:01:47 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.04ms
+  2024-10-21 23:01:47 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.04ms
+  2024-10-21 23:01:47 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.04ms
+  2024-10-21 23:01:47 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.04ms
+  2024-10-21 23:01:47 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.04ms
+  2024-10-21 23:01:47 /admin/js/script.js .......................... ~ 0.04ms
+  2024-10-21 23:01:47 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.06ms
+  2024-10-21 23:01:47 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.13ms
+  2024-10-21 23:01:47 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.04ms
+  2024-10-21 23:01:48 /input ....................................... ~ 0.10ms
+  2024-10-21 23:01:48 /admin/vendors/styles/core.css ............... ~ 0.13ms
+  2024-10-21 23:01:48 /admin/vendors/styles/icon-font.min.css ...... ~ 0.60ms
+  2024-10-21 23:01:48 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.98ms
+  2024-10-21 23:01:48 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 1.19ms
+  2024-10-21 23:01:48 /admin/vendors/styles/style.css .............. ~ 0.81ms
+  2024-10-21 23:01:48 /admin/src/plugins/switchery/switchery.min.css  ~ 0.07ms
+  2024-10-21 23:01:48 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.08ms
+  2024-10-21 23:01:48 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.05ms
+  2024-10-21 23:01:48 /admin/vendors/scripts/core.js ............... ~ 0.09ms
+  2024-10-21 23:01:48 /admin/vendors/scripts/script.min.js ......... ~ 0.13ms
+  2024-10-21 23:01:48 /admin/vendors/scripts/process.js ............ ~ 0.05ms
+  2024-10-21 23:01:48 /admin/vendors/scripts/layout-settings.js .... ~ 0.04ms
+  2024-10-21 23:01:48 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.06ms
+  2024-10-21 23:01:48 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.04ms
+  2024-10-21 23:01:48 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.04ms
+  2024-10-21 23:01:48 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.04ms
+  2024-10-21 23:01:48 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.04ms
+  2024-10-21 23:01:48 /admin/js/script.js .......................... ~ 0.04ms
+  2024-10-21 23:01:48 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.06ms
+  2024-10-21 23:01:48 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.04ms
+  2024-10-21 23:01:48 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.05ms
+  2024-10-21 23:01:49 /rekapitulasi ................................ ~ 0.18ms
+  2024-10-21 23:01:49 /admin/vendors/styles/core.css ............... ~ 0.17ms
+  2024-10-21 23:01:49 /admin/vendors/styles/icon-font.min.css ...... ~ 0.56ms
+  2024-10-21 23:01:49 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.79ms
+  2024-10-21 23:01:49 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.50ms
+  2024-10-21 23:01:49 /admin/vendors/styles/style.css .............. ~ 0.34ms
+  2024-10-21 23:01:49 /admin/src/plugins/switchery/switchery.min.css  ~ 0.52ms
+  2024-10-21 23:01:49 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.10ms
+  2024-10-21 23:01:49 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.18ms
+  2024-10-21 23:01:49 /admin/vendors/scripts/core.js ............... ~ 0.06ms
+  2024-10-21 23:01:49 /admin/vendors/scripts/script.min.js ......... ~ 0.06ms
+  2024-10-21 23:01:49 /admin/vendors/scripts/process.js ............ ~ 0.06ms
+  2024-10-21 23:01:49 /admin/vendors/scripts/layout-settings.js .... ~ 0.06ms
+  2024-10-21 23:01:49 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.06ms
+  2024-10-21 23:01:49 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.05ms
+  2024-10-21 23:01:49 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.05ms
+  2024-10-21 23:01:49 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.04ms
+  2024-10-21 23:01:49 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.04ms
+  2024-10-21 23:01:49 /admin/js/script.js .......................... ~ 0.05ms
+  2024-10-21 23:01:49 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.10ms
+  2024-10-21 23:01:49 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.18ms
+  2024-10-21 23:01:49 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.24ms
+  2024-10-21 23:01:50 /hitung-cepat/admin .......................... ~ 0.13ms
+  2024-10-21 23:01:50 /admin/vendors/styles/core.css ............... ~ 0.37ms
+  2024-10-21 23:01:50 /admin/vendors/styles/icon-font.min.css ...... ~ 0.81ms
+  2024-10-21 23:01:50 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 1.00ms
+  2024-10-21 23:01:50 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 1.06ms
+  2024-10-21 23:01:50 /admin/vendors/styles/style.css .............. ~ 0.47ms
+  2024-10-21 23:01:50 /admin/src/plugins/switchery/switchery.min.css  ~ 0.43ms
+  2024-10-21 23:01:50 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.04ms
+  2024-10-21 23:01:50 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.04ms
+  2024-10-21 23:01:50 /admin/vendors/scripts/core.js ............... ~ 0.04ms
+  2024-10-21 23:01:50 /admin/vendors/scripts/script.min.js ......... ~ 0.13ms
+  2024-10-21 23:01:50 /admin/vendors/scripts/process.js ............ ~ 0.16ms
+  2024-10-21 23:01:50 /admin/vendors/scripts/layout-settings.js .... ~ 0.06ms
+  2024-10-21 23:01:50 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.08ms
+  2024-10-21 23:01:50 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.51ms
+  2024-10-21 23:01:50 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.16ms
+  2024-10-21 23:01:50 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.16ms
+  2024-10-21 23:01:50 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.09ms
+  2024-10-21 23:01:50 /admin/js/script.js .......................... ~ 0.06ms
+  2024-10-21 23:01:50 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.08ms
+  2024-10-21 23:01:50 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.28ms
+  2024-10-21 23:01:50 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.86ms
+  2024-10-21 23:01:57 /logout ...................................... ~ 0.08ms
+  2024-10-21 23:01:57 /login ....................................... ~ 0.03ms
+  2024-10-21 23:01:57 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.03ms
+  2024-10-21 23:01:57 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.03ms
+  2024-10-21 23:01:57 /admin/lib/jquery/dist/jquery.min.js ......... ~ 0.04ms
+  2024-10-21 23:01:57 /admin/js/script.js .......................... ~ 0.20ms
+  2024-10-21 23:01:57 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.25ms
+  2024-10-21 23:01:57 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.29ms
+  2024-10-21 23:01:57 /admin/src/scripts/jquery.min.js ............. ~ 0.32ms
+  2024-10-21 23:01:57 /admin/src/images/bg.jpg ..................... ~ 0.03ms
+  2024-10-21 23:01:57 /favicon.ico ................................. ~ 0.05ms
+  2024-10-21 23:02:07 /login ..................................... ~ 500.32ms
+  2024-10-21 23:02:07 / ............................................ ~ 0.05ms
+  2024-10-21 23:02:08 /admin/vendors/styles/icon-font.min.css ...... ~ 0.08ms
+  2024-10-21 23:02:08 /admin/vendors/styles/core.css ............... ~ 0.28ms
+  2024-10-21 23:02:08 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.49ms
+  2024-10-21 23:02:08 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.57ms
+  2024-10-21 23:02:08 /admin/src/plugins/switchery/switchery.min.css  ~ 0.47ms
+  2024-10-21 23:02:08 /admin/vendors/styles/style.css .............. ~ 0.52ms
+  2024-10-21 23:02:08 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.08ms
+  2024-10-21 23:02:08 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.14ms
+  2024-10-21 23:02:08 /admin/vendors/scripts/core.js ............... ~ 0.04ms
+  2024-10-21 23:02:08 /admin/vendors/scripts/script.min.js ......... ~ 0.05ms
+  2024-10-21 23:02:08 /admin/vendors/scripts/process.js ............ ~ 0.07ms
+  2024-10-21 23:02:08 /admin/vendors/scripts/layout-settings.js .... ~ 0.06ms
+  2024-10-21 23:02:08 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.05ms
+  2024-10-21 23:02:08 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.06ms
+  2024-10-21 23:02:08 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.05ms
+  2024-10-21 23:02:08 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.05ms
+  2024-10-21 23:02:08 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.11ms
+  2024-10-21 23:02:08 /admin/js/script.js .......................... ~ 0.04ms
+  2024-10-21 23:02:08 /admin/src/plugins/plyr/dist/plyr.css ........ ~ 0.05ms
+  2024-10-21 23:02:08 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.09ms
+  2024-10-21 23:02:08 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.19ms
+  2024-10-21 23:02:08 /admin/vendors/images/banner-img.png ......... ~ 0.21ms
+  2024-10-21 23:02:08 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.43ms
+  2024-10-21 23:02:08 /admin/src/plugins/plyr/dist/plyr.js ......... ~ 0.04ms
+  2024-10-21 23:02:09 /rekapitulasi ................................ ~ 0.19ms
+  2024-10-21 23:02:09 /rekapitulasi/list ........................... ~ 0.07ms
+  2024-10-21 23:02:09 /admin/vendors/styles/core.css ............... ~ 0.25ms
+  2024-10-21 23:02:09 /admin/vendors/styles/icon-font.min.css ...... ~ 0.50ms
+  2024-10-21 23:02:09 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.62ms
+  2024-10-21 23:02:09 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.73ms
+  2024-10-21 23:02:09 /admin/vendors/styles/style.css .............. ~ 0.81ms
+  2024-10-21 23:02:09 /admin/src/plugins/switchery/switchery.min.css  ~ 1.01ms
+  2024-10-21 23:02:09 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.19ms
+  2024-10-21 23:02:09 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.04ms
+  2024-10-21 23:02:09 /admin/vendors/scripts/core.js ............... ~ 0.03ms
+  2024-10-21 23:02:09 /admin/vendors/scripts/script.min.js ......... ~ 0.06ms
+  2024-10-21 23:02:09 /admin/vendors/scripts/process.js ............ ~ 0.04ms
+  2024-10-21 23:02:09 /admin/vendors/scripts/layout-settings.js .... ~ 0.04ms
+  2024-10-21 23:02:09 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.04ms
+  2024-10-21 23:02:09 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.26ms
+  2024-10-21 23:02:09 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.08ms
+  2024-10-21 23:02:09 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.07ms
+  2024-10-21 23:02:09 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.05ms
+  2024-10-21 23:02:09 /admin/js/script.js .......................... ~ 0.06ms
+  2024-10-21 23:02:09 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.07ms
+  2024-10-21 23:02:09 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.09ms
+  2024-10-21 23:02:09 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.17ms
+  2024-10-21 23:02:14 /rekapitulasi/list ......................... ~ 500.41ms
+  2024-10-21 23:02:14 /admin/vendors/styles/core.css ............... ~ 0.07ms
+  2024-10-21 23:02:14 /admin/vendors/styles/icon-font.min.css ...... ~ 0.10ms
+  2024-10-21 23:02:14 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.28ms
+  2024-10-21 23:02:14 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.06ms
+  2024-10-21 23:02:14 /admin/vendors/styles/style.css .............. ~ 0.06ms
+  2024-10-21 23:02:14 /admin/src/plugins/switchery/switchery.min.css  ~ 0.05ms
+  2024-10-21 23:02:14 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.06ms
+  2024-10-21 23:02:14 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.06ms
+  2024-10-21 23:02:14 /admin/vendors/scripts/core.js ............... ~ 0.06ms
+  2024-10-21 23:02:15 /admin/vendors/scripts/script.min.js ......... ~ 0.06ms
+  2024-10-21 23:02:15 /admin/vendors/scripts/process.js ............ ~ 0.07ms
+  2024-10-21 23:02:15 /admin/vendors/scripts/layout-settings.js .... ~ 0.06ms
+  2024-10-21 23:02:15 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.06ms
+  2024-10-21 23:02:15 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.06ms
+  2024-10-21 23:02:15 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.06ms
+  2024-10-21 23:02:15 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.06ms
+  2024-10-21 23:02:15 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.10ms
+  2024-10-21 23:02:15 /admin/js/script.js .......................... ~ 0.06ms
+  2024-10-21 23:02:15 /admin/src/plugins/apexcharts/apexcharts.min.js  ~ 0.08ms
+  2024-10-21 23:02:15 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.07ms
+  2024-10-21 23:02:15 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.05ms
+  2024-10-21 23:02:15 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.06ms
+  2024-10-21 23:02:15 /rekapitulasi/list ........................... ~ 0.15ms
+  2024-10-21 23:02:16 /admin/vendors/styles/core.css ............... ~ 0.06ms
+  2024-10-21 23:02:16 /admin/vendors/styles/icon-font.min.css ...... ~ 0.11ms
+  2024-10-21 23:02:16 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.32ms
+  2024-10-21 23:02:16 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.43ms
+  2024-10-21 23:02:16 /admin/vendors/styles/style.css .............. ~ 0.29ms
+  2024-10-21 23:02:16 /admin/src/plugins/switchery/switchery.min.css  ~ 0.43ms
+  2024-10-21 23:02:16 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.12ms
+  2024-10-21 23:02:16 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.06ms
+  2024-10-21 23:02:16 /admin/vendors/scripts/core.js ............... ~ 0.05ms
+  2024-10-21 23:02:16 /admin/vendors/scripts/script.min.js ......... ~ 0.07ms
+  2024-10-21 23:02:16 /admin/vendors/scripts/process.js ............ ~ 0.05ms
+  2024-10-21 23:02:16 /admin/vendors/scripts/layout-settings.js .... ~ 0.06ms
+  2024-10-21 23:02:16 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.04ms
+  2024-10-21 23:02:16 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.04ms
+  2024-10-21 23:02:16 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.04ms
+  2024-10-21 23:02:16 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.05ms
+  2024-10-21 23:02:16 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.05ms
+  2024-10-21 23:02:16 /admin/js/script.js .......................... ~ 0.10ms
+  2024-10-21 23:02:16 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.06ms
+  2024-10-21 23:02:16 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.09ms
+  2024-10-21 23:02:16 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.12ms
+  2024-10-21 23:33:27 / ............................................ ~ 0.80ms
+  2024-10-21 23:33:54 / ............................................ ~ 0.31ms
+  2024-10-21 23:33:59 / ............................................ ~ 0.27ms
+  2024-10-21 23:34:18 /login ....................................... ~ 0.27ms
+  2024-10-21 23:34:18 /favicon.ico ................................. ~ 0.25ms
+  2024-10-21 23:34:20 / ............................................ ~ 0.24ms
+  2024-10-22 00:47:55 /.git/config ................................. ~ 0.69ms
+  2024-10-22 00:59:00 /autodiscover/autodiscover.json .............. ~ 0.52ms
+  2024-10-22 01:03:52 / ............................................ ~ 0.14ms
+  2024-10-22 01:03:52 /login ....................................... ~ 0.07ms
+  2024-10-22 01:03:52 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.85ms
+  2024-10-22 01:03:52 /admin/lib/jquery/dist/jquery.min.js ......... ~ 1.27ms
+  2024-10-22 01:03:52 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 1.01ms
+  2024-10-22 01:03:52 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.06ms
+  2024-10-22 01:03:52 /admin/js/script.js .......................... ~ 0.05ms
+  2024-10-22 01:03:52 /admin/src/scripts/jquery.min.js ............. ~ 0.12ms
+  2024-10-22 01:03:52 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.07ms
+  2024-10-22 01:03:52 /admin/src/images/bg.jpg ..................... ~ 0.06ms
+  2024-10-22 01:03:53 / ............................................ ~ 0.27ms
+  2024-10-22 01:03:53 /login ....................................... ~ 0.08ms
+  2024-10-22 01:03:53 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.13ms
+  2024-10-22 01:03:53 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.07ms
+  2024-10-22 01:03:53 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.09ms
+  2024-10-22 01:03:53 /admin/js/script.js .......................... ~ 0.19ms
+  2024-10-22 01:03:53 /admin/src/scripts/jquery.min.js ............. ~ 0.09ms
+  2024-10-22 01:03:53 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.09ms
+  2024-10-22 01:03:53 /admin/lib/jquery/dist/jquery.min.js ......... ~ 0.20ms
+  2024-10-22 01:03:54 /admin/src/images/bg.jpg ..................... ~ 0.06ms
+  2024-10-22 01:03:54 /favicon.ico ................................. ~ 0.05ms
+  2024-10-22 01:04:19 /login ....................................... ~ 0.26ms
+  2024-10-22 01:04:19 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.23ms
+  2024-10-22 01:04:19 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.18ms
+  2024-10-22 01:04:19 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.23ms
+  2024-10-22 01:04:19 /admin/lib/jquery/dist/jquery.min.js ......... ~ 0.14ms
+  2024-10-22 01:04:19 /admin/js/script.js .......................... ~ 0.08ms
+  2024-10-22 01:04:19 /admin/src/scripts/jquery.min.js ............. ~ 0.12ms
+  2024-10-22 01:04:19 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.11ms
+  2024-10-22 01:04:20 /favicon.ico ................................. ~ 0.11ms
+  2024-10-22 01:04:21 /login ....................................... ~ 0.10ms
+  2024-10-22 01:04:21 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.03ms
+  2024-10-22 01:04:21 /admin/lib/jquery/dist/jquery.min.js ......... ~ 0.03ms
+  2024-10-22 01:04:21 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.02ms
+  2024-10-22 01:04:21 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.05ms
+  2024-10-22 01:04:21 /admin/js/script.js .......................... ~ 0.10ms
+  2024-10-22 01:04:21 /admin/src/scripts/jquery.min.js ............. ~ 0.27ms
+  2024-10-22 01:04:21 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.31ms
+  2024-10-22 01:04:21 /favicon.ico ................................. ~ 0.02ms
+  2024-10-22 01:04:22 /login ....................................... ~ 0.22ms
+  2024-10-22 01:04:22 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.17ms
+  2024-10-22 01:04:22 /admin/lib/jquery/dist/jquery.min.js ......... ~ 0.14ms
+  2024-10-22 01:04:22 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.19ms
+  2024-10-22 01:04:22 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.14ms
+  2024-10-22 01:04:22 /admin/js/script.js .......................... ~ 0.20ms
+  2024-10-22 01:04:22 /admin/src/scripts/jquery.min.js ............. ~ 1.03ms
+  2024-10-22 01:04:22 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.13ms
+  2024-10-22 01:04:22 /favicon.ico ................................. ~ 0.24ms
+  2024-10-22 01:04:23 /login ....................................... ~ 0.22ms
+  2024-10-22 01:04:23 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.16ms
+  2024-10-22 01:04:23 /admin/lib/jquery/dist/jquery.min.js ......... ~ 0.26ms
+  2024-10-22 01:04:23 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.74ms
+  2024-10-22 01:04:23 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.40ms
+  2024-10-22 01:04:23 /admin/js/script.js .......................... ~ 0.24ms
+  2024-10-22 01:04:23 /admin/src/scripts/jquery.min.js ............. ~ 1.10ms
+  2024-10-22 01:04:23 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 1.80ms
+  2024-10-22 01:04:23 /favicon.ico ................................. ~ 0.13ms
+  2024-10-22 01:04:24 /login ....................................... ~ 0.10ms
+  2024-10-22 01:04:24 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.03ms
+  2024-10-22 01:04:24 /admin/lib/jquery/dist/jquery.min.js ......... ~ 0.03ms
+  2024-10-22 01:04:24 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.02ms
+  2024-10-22 01:04:24 /admin/js/script.js .......................... ~ 0.02ms
+  2024-10-22 01:04:24 /admin/src/scripts/jquery.min.js ............. ~ 0.02ms
+  2024-10-22 01:04:24 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.02ms
+  2024-10-22 01:04:24 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.03ms
+  2024-10-22 01:04:25 /favicon.ico ................................. ~ 0.35ms
+  2024-10-22 01:04:25 /login ....................................... ~ 0.25ms
+  2024-10-22 01:04:25 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.22ms
+  2024-10-22 01:04:25 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.20ms
+  2024-10-22 01:04:25 /admin/lib/jquery/dist/jquery.min.js ......... ~ 0.49ms
+  2024-10-22 01:04:25 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 1.33ms
+  2024-10-22 01:04:25 /admin/js/script.js .......................... ~ 1.58ms
+  2024-10-22 01:04:25 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.29ms
+  2024-10-22 01:04:25 /admin/src/scripts/jquery.min.js ............. ~ 0.60ms
+  2024-10-22 01:04:26 /favicon.ico ................................. ~ 0.36ms
+  2024-10-22 01:04:26 /login ....................................... ~ 0.27ms
+  2024-10-22 01:04:26 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.18ms
+  2024-10-22 01:04:26 /admin/lib/jquery/dist/jquery.min.js ......... ~ 0.20ms
+  2024-10-22 01:04:26 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.22ms
+  2024-10-22 01:04:26 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.33ms
+  2024-10-22 01:04:26 /admin/js/script.js .......................... ~ 0.65ms
+  2024-10-22 01:04:26 /admin/src/scripts/jquery.min.js ............. ~ 1.85ms
+  2024-10-22 01:04:26 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 2.38ms
+  2024-10-22 01:04:27 /favicon.ico ................................. ~ 0.43ms
+  2024-10-22 01:04:29 /login ....................................... ~ 0.35ms
+  2024-10-22 01:04:29 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.25ms
+  2024-10-22 01:04:29 /admin/lib/jquery/dist/jquery.min.js ......... ~ 0.19ms
+  2024-10-22 01:04:29 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.19ms
+  2024-10-22 01:04:29 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.22ms
+  2024-10-22 01:04:29 /admin/js/script.js .......................... ~ 0.17ms
+  2024-10-22 01:04:29 /admin/src/scripts/jquery.min.js ............. ~ 0.29ms
+  2024-10-22 01:04:29 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 1.17ms
+  2024-10-22 01:04:29 /favicon.ico ................................. ~ 0.26ms
+  2024-10-22 01:04:31 /login ....................................... ~ 0.32ms
+  2024-10-22 01:04:31 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.20ms
+  2024-10-22 01:04:31 /admin/lib/jquery/dist/jquery.min.js ......... ~ 0.55ms
+  2024-10-22 01:04:31 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 1.42ms
+  2024-10-22 01:04:31 /admin/js/script.js .......................... ~ 1.77ms
+  2024-10-22 01:04:31 /admin/src/scripts/jquery.min.js ............. ~ 2.90ms
+  2024-10-22 01:04:31 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 3.75ms
+  2024-10-22 01:04:31 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.18ms
+  2024-10-22 01:04:31 /favicon.ico ................................. ~ 0.18ms
+  2024-10-22 01:04:38 /login ....................................... ~ 0.08ms
+  2024-10-22 01:04:38 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.16ms
+  2024-10-22 01:04:38 /admin/lib/jquery/dist/jquery.min.js ......... ~ 0.17ms
+  2024-10-22 01:04:38 /admin/js/script.js .......................... ~ 0.30ms
+  2024-10-22 01:04:38 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 1.58ms
+  2024-10-22 01:04:38 /admin/src/scripts/jquery.min.js ............. ~ 1.30ms
+  2024-10-22 01:04:38 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 1.72ms
+  2024-10-22 01:04:38 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 1.88ms
+  2024-10-22 01:04:38 /favicon.ico ................................. ~ 0.09ms
+  2024-10-22 01:04:42 /login ....................................... ~ 0.12ms
+  2024-10-22 01:04:42 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.05ms
+  2024-10-22 01:04:42 /admin/lib/jquery/dist/jquery.min.js ......... ~ 0.10ms
+  2024-10-22 01:04:42 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.31ms
+  2024-10-22 01:04:42 /admin/js/script.js .......................... ~ 0.42ms
+  2024-10-22 01:04:42 /admin/src/scripts/jquery.min.js ............. ~ 0.72ms
+  2024-10-22 01:04:42 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.74ms
+  2024-10-22 01:04:42 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.69ms
+  2024-10-22 01:04:42 /favicon.ico ................................. ~ 0.43ms
+  2024-10-22 01:04:46 /login ....................................... ~ 0.29ms
+  2024-10-22 01:04:47 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.18ms
+  2024-10-22 01:04:47 /admin/lib/jquery/dist/jquery.min.js ......... ~ 0.36ms
+  2024-10-22 01:04:47 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 1.05ms
+  2024-10-22 01:04:47 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 1.34ms
+  2024-10-22 01:04:47 /admin/js/script.js .......................... ~ 0.35ms
+  2024-10-22 01:04:47 /admin/src/scripts/jquery.min.js ............. ~ 1.45ms
+  2024-10-22 01:04:47 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 2.26ms
+  2024-10-22 01:04:47 /favicon.ico ................................. ~ 0.18ms
+  2024-10-22 01:05:03 /login ..................................... ~ 500.24ms
+  2024-10-22 01:05:04 / ............................................ ~ 0.09ms
+  2024-10-22 01:05:04 /admin/vendors/styles/icon-font.min.css ...... ~ 0.08ms
+  2024-10-22 01:05:04 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.18ms
+  2024-10-22 01:05:04 /admin/vendors/styles/core.css ............... ~ 0.30ms
+  2024-10-22 01:05:04 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.40ms
+  2024-10-22 01:05:04 /admin/vendors/styles/style.css ............ ~ 501.02ms
+  2024-10-22 01:05:05 /admin/src/plugins/switchery/switchery.min.css  ~ 501.36ms
+  2024-10-22 01:05:05 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.03ms
+  2024-10-22 01:05:05 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.03ms
+  2024-10-22 01:05:05 /admin/vendors/scripts/core.js ............... ~ 0.03ms
+  2024-10-22 01:05:06 /admin/vendors/scripts/script.min.js ......... ~ 0.10ms
+  2024-10-22 01:05:06 /admin/vendors/scripts/process.js ............ ~ 0.07ms
+  2024-10-22 01:05:06 /admin/vendors/scripts/layout-settings.js .... ~ 0.05ms
+  2024-10-22 01:05:06 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.04ms
+  2024-10-22 01:05:06 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.04ms
+  2024-10-22 01:05:06 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.04ms
+  2024-10-22 01:05:06 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.04ms
+  2024-10-22 01:05:06 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.04ms
+  2024-10-22 01:05:06 /admin/js/script.js .......................... ~ 0.04ms
+  2024-10-22 01:05:06 /admin/src/plugins/plyr/dist/plyr.css ........ ~ 0.05ms
+  2024-10-22 01:05:06 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.05ms
+  2024-10-22 01:05:06 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.05ms
+  2024-10-22 01:05:06 /admin/vendors/fonts/ionicons.ttf?v=2.0.1 .... ~ 0.04ms
+  2024-10-22 01:05:06 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.07ms
+  2024-10-22 01:05:06 /admin/vendors/images/banner-img.png ......... ~ 0.28ms
+  2024-10-22 01:05:06 /admin/src/plugins/plyr/dist/plyr.js ......... ~ 0.16ms
+  2024-10-22 01:05:07 /admin/vendors/images/favicon-32x32.png ...... ~ 0.27ms
+  2024-10-22 01:05:07 /admin/vendors/images/apple-touch-icon.png ... ~ 0.15ms
+  2024-10-22 01:05:09 /hitung-cepat/rekap .......................... ~ 0.07ms
+  2024-10-22 01:05:09 /admin/vendors/styles/core.css ............... ~ 0.30ms
+  2024-10-22 01:05:09 /admin/vendors/styles/icon-font.min.css ...... ~ 0.15ms
+  2024-10-22 01:05:09 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.13ms
+  2024-10-22 01:05:09 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.23ms
+  2024-10-22 01:05:09 /admin/vendors/styles/style.css .............. ~ 0.55ms
+  2024-10-22 01:05:09 /admin/src/plugins/switchery/switchery.min.css  ~ 1.11ms
+  2024-10-22 01:05:09 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.15ms
+  2024-10-22 01:05:09 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.14ms
+  2024-10-22 01:05:10 /admin/vendors/scripts/core.js ............... ~ 0.29ms
+  2024-10-22 01:05:10 /admin/vendors/scripts/script.min.js ......... ~ 0.33ms
+  2024-10-22 01:05:11 /admin/vendors/scripts/process.js ............ ~ 0.15ms
+  2024-10-22 01:05:11 /admin/vendors/scripts/layout-settings.js .... ~ 0.14ms
+  2024-10-22 01:05:11 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.25ms
+  2024-10-22 01:05:11 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.22ms
+  2024-10-22 01:05:11 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.15ms
+  2024-10-22 01:05:11 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.14ms
+  2024-10-22 01:05:11 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.16ms
+  2024-10-22 01:05:11 /admin/js/script.js .......................... ~ 0.14ms
+  2024-10-22 01:05:11 /admin/src/plugins/apexcharts/apexcharts.min.js  ~ 0.14ms
+  2024-10-22 01:05:11 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.13ms
+  2024-10-22 01:05:11 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.13ms
+  2024-10-22 01:05:11 /admin/vendors/fonts/ionicons.ttf?v=2.0.1 .... ~ 0.13ms
+  2024-10-22 01:05:11 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.18ms
+  2024-10-22 01:05:14 /hitung-cepat/pilih-tingkat .................. ~ 0.08ms
+  2024-10-22 01:05:16 /hitung-cepat/chart ........................ ~ 500.32ms
+  2024-10-22 01:05:23 /hitung-cepat/chart ........................ ~ 500.70ms
+  2024-10-22 01:05:25 /hitung-cepat/chart .......................... ~ 0.24ms
+  2024-10-22 01:05:28 /hitung-cepat/saksi .......................... ~ 0.15ms
+  2024-10-22 01:05:28 /admin/vendors/styles/core.css ............... ~ 0.16ms
+  2024-10-22 01:05:28 /admin/vendors/styles/icon-font.min.css ...... ~ 0.19ms
+  2024-10-22 01:05:28 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.15ms
+  2024-10-22 01:05:28 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.14ms
+  2024-10-22 01:05:28 /admin/vendors/styles/style.css .............. ~ 0.21ms
+  2024-10-22 01:05:28 /admin/src/plugins/switchery/switchery.min.css  ~ 0.73ms
+  2024-10-22 01:05:28 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.21ms
+  2024-10-22 01:05:28 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.32ms
+  2024-10-22 01:05:28 /admin/vendors/scripts/core.js ............... ~ 0.24ms
+  2024-10-22 01:05:29 /admin/vendors/scripts/script.min.js ......... ~ 0.25ms
+  2024-10-22 01:05:29 /admin/vendors/scripts/process.js ............ ~ 0.15ms
+  2024-10-22 01:05:29 /admin/vendors/scripts/layout-settings.js .... ~ 0.12ms
+  2024-10-22 01:05:29 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.14ms
+  2024-10-22 01:05:29 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.08ms
+  2024-10-22 01:05:29 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.04ms
+  2024-10-22 01:05:29 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.03ms
+  2024-10-22 01:05:29 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.03ms
+  2024-10-22 01:05:29 /admin/js/script.js .......................... ~ 0.03ms
+  2024-10-22 01:05:29 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.04ms
+  2024-10-22 01:05:29 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.08ms
+  2024-10-22 01:05:29 /admin/vendors/fonts/ionicons.ttf?v=2.0.1 .... ~ 0.05ms
+  2024-10-22 01:05:29 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.11ms
+  2024-10-22 01:05:33 /calon ....................................... ~ 0.23ms
+  2024-10-22 01:05:33 /admin/vendors/styles/core.css ............... ~ 0.19ms
+  2024-10-22 01:05:33 /admin/vendors/styles/icon-font.min.css ...... ~ 0.14ms
+  2024-10-22 01:05:33 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.12ms
+  2024-10-22 01:05:33 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.12ms
+  2024-10-22 01:05:33 /admin/vendors/styles/style.css .............. ~ 0.24ms
+  2024-10-22 01:05:33 /admin/src/plugins/switchery/switchery.min.css  ~ 0.74ms
+  2024-10-22 01:05:33 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.15ms
+  2024-10-22 01:05:33 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.12ms
+  2024-10-22 01:05:33 /admin/vendors/scripts/core.js ............... ~ 0.12ms
+  2024-10-22 01:05:34 /admin/vendors/scripts/script.min.js ......... ~ 0.34ms
+  2024-10-22 01:05:34 /admin/vendors/scripts/process.js ............ ~ 0.23ms
+  2024-10-22 01:05:34 /admin/vendors/scripts/layout-settings.js .... ~ 0.21ms
+  2024-10-22 01:05:34 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.18ms
+  2024-10-22 01:05:34 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.16ms
+  2024-10-22 01:05:34 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.13ms
+  2024-10-22 01:05:34 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.10ms
+  2024-10-22 01:05:34 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.09ms
+  2024-10-22 01:05:34 /admin/js/script.js .......................... ~ 0.25ms
+  2024-10-22 01:05:34 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.15ms
+  2024-10-22 01:05:34 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.26ms
+  2024-10-22 01:05:34 /admin/vendors/fonts/ionicons.ttf?v=2.0.1 .... ~ 0.24ms
+  2024-10-22 01:05:34 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.17ms
+  2024-10-22 01:05:34 /calon/all ................................... ~ 0.18ms
+  2024-10-22 01:05:42 /calon/all ................................... ~ 0.08ms
+  2024-10-22 01:05:45 /calon/all ................................... ~ 0.08ms
+  2024-10-22 01:05:45 /calon/all ................................... ~ 0.09ms
+  2024-10-22 01:05:46 /calon/all ................................... ~ 0.28ms
+  2024-10-22 01:05:47 /calon/all ................................... ~ 0.24ms
+  2024-10-22 01:05:47 /calon/all ................................... ~ 0.13ms
+  2024-10-22 01:18:20 /login ....................................... ~ 0.24ms
+  2024-10-22 01:18:21 /login ....................................... ~ 0.23ms
+  2024-10-22 01:18:22 /login ....................................... ~ 0.18ms
+  2024-10-22 01:18:28 /login ..................................... ~ 500.49ms
+  2024-10-22 01:18:28 / ............................................ ~ 0.09ms
+  2024-10-22 01:18:28 /admin/vendors/styles/core.css ............... ~ 0.05ms
+  2024-10-22 01:18:28 /admin/src/plugins/switchery/switchery.min.css  ~ 0.04ms
+  2024-10-22 01:18:28 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.09ms
+  2024-10-22 01:18:28 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.16ms
+  2024-10-22 01:18:28 /admin/vendors/styles/icon-font.min.css ...... ~ 0.19ms
+  2024-10-22 01:18:28 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.35ms
+  2024-10-22 01:18:28 /admin/vendors/styles/style.css .............. ~ 0.06ms
+  2024-10-22 01:18:29 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.05ms
+  2024-10-22 01:18:29 /admin/vendors/scripts/core.js ............... ~ 0.04ms
+  2024-10-22 01:18:29 /admin/vendors/scripts/script.min.js ......... ~ 0.20ms
+  2024-10-22 01:18:29 /admin/vendors/scripts/process.js ............ ~ 0.14ms
+  2024-10-22 01:18:29 /admin/vendors/scripts/layout-settings.js .... ~ 0.07ms
+  2024-10-22 01:18:29 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.07ms
+  2024-10-22 01:18:29 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.06ms
+  2024-10-22 01:18:29 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.05ms
+  2024-10-22 01:18:29 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.09ms
+  2024-10-22 01:18:29 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.06ms
+  2024-10-22 01:18:29 /admin/js/script.js .......................... ~ 0.06ms
+  2024-10-22 01:18:29 /admin/src/plugins/plyr/dist/plyr.css ........ ~ 0.07ms
+  2024-10-22 01:18:29 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.10ms
+  2024-10-22 01:18:29 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.28ms
+  2024-10-22 01:18:29 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.21ms
+  2024-10-22 01:18:29 /admin/vendors/images/banner-img.png ......... ~ 0.06ms
+  2024-10-22 01:18:29 /admin/src/plugins/plyr/dist/plyr.js ......... ~ 0.07ms
+  2024-10-22 01:18:30 /hitung-cepat/admin .......................... ~ 0.09ms
+  2024-10-22 01:18:30 /admin/vendors/styles/core.css ............... ~ 0.61ms
+  2024-10-22 01:18:30 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 1.47ms
+  2024-10-22 01:18:30 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 1.68ms
+  2024-10-22 01:18:30 /admin/vendors/styles/icon-font.min.css ...... ~ 1.73ms
+  2024-10-22 01:18:30 /admin/src/plugins/switchery/switchery.min.css  ~ 1.77ms
+  2024-10-22 01:18:30 /admin/vendors/styles/style.css .............. ~ 1.77ms
+  2024-10-22 01:18:30 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.04ms
+  2024-10-22 01:18:30 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.08ms
+  2024-10-22 01:18:30 /admin/vendors/scripts/core.js ............... ~ 0.02ms
+  2024-10-22 01:18:30 /admin/vendors/scripts/script.min.js ......... ~ 0.02ms
+  2024-10-22 01:18:30 /admin/vendors/scripts/process.js ............ ~ 0.02ms
+  2024-10-22 01:18:30 /admin/vendors/scripts/layout-settings.js .... ~ 0.02ms
+  2024-10-22 01:18:30 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.02ms
+  2024-10-22 01:18:30 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.02ms
+  2024-10-22 01:18:30 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.02ms
+  2024-10-22 01:18:30 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.02ms
+  2024-10-22 01:18:30 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.02ms
+  2024-10-22 01:18:30 /admin/js/script.js .......................... ~ 0.02ms
+  2024-10-22 01:18:30 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.03ms
+  2024-10-22 01:18:30 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.09ms
+  2024-10-22 01:18:30 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.06ms
+  2024-10-22 01:18:31 /hitung-cepat/saksi .......................... ~ 0.39ms
+  2024-10-22 01:18:31 /admin/vendors/styles/core.css ............... ~ 0.99ms
+  2024-10-22 01:18:31 /admin/vendors/styles/icon-font.min.css ...... ~ 0.52ms
+  2024-10-22 01:18:31 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.60ms
+  2024-10-22 01:18:31 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.35ms
+  2024-10-22 01:18:31 /admin/vendors/styles/style.css .............. ~ 0.64ms
+  2024-10-22 01:18:31 /admin/src/plugins/switchery/switchery.min.css  ~ 1.27ms
+  2024-10-22 01:18:31 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.07ms
+  2024-10-22 01:18:31 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.06ms
+  2024-10-22 01:18:31 /admin/vendors/scripts/core.js ............... ~ 0.05ms
+  2024-10-22 01:18:31 /admin/vendors/scripts/script.min.js ......... ~ 0.23ms
+  2024-10-22 01:18:31 /admin/vendors/scripts/process.js ............ ~ 0.06ms
+  2024-10-22 01:18:31 /admin/vendors/scripts/layout-settings.js .... ~ 0.07ms
+  2024-10-22 01:18:31 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.05ms
+  2024-10-22 01:18:31 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.04ms
+  2024-10-22 01:18:31 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.04ms
+  2024-10-22 01:18:31 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.04ms
+  2024-10-22 01:18:32 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.04ms
+  2024-10-22 01:18:32 /admin/js/script.js .......................... ~ 0.04ms
+  2024-10-22 01:18:32 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.07ms
+  2024-10-22 01:18:32 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.31ms
+  2024-10-22 01:18:32 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.20ms
+  2024-10-22 01:20:01 /hitung-cepat/admin .......................... ~ 0.13ms
+  2024-10-22 01:20:01 /admin/vendors/styles/core.css ............... ~ 0.05ms
+  2024-10-22 01:20:01 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.06ms
+  2024-10-22 01:20:01 /admin/vendors/styles/icon-font.min.css ...... ~ 0.06ms
+  2024-10-22 01:20:01 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.41ms
+  2024-10-22 01:20:01 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.14ms
+  2024-10-22 01:20:01 /admin/vendors/styles/style.css .............. ~ 0.22ms
+  2024-10-22 01:20:01 /admin/src/plugins/switchery/switchery.min.css  ~ 0.40ms
+  2024-10-22 01:20:01 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.43ms
+  2024-10-22 01:20:01 /admin/vendors/scripts/core.js ............... ~ 0.03ms
+  2024-10-22 01:20:01 /admin/vendors/scripts/script.min.js ......... ~ 0.13ms
+  2024-10-22 01:20:01 /admin/vendors/scripts/process.js ............ ~ 0.07ms
+  2024-10-22 01:20:01 /admin/vendors/scripts/layout-settings.js .... ~ 0.05ms
+  2024-10-22 01:20:01 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.05ms
+  2024-10-22 01:20:01 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.05ms
+  2024-10-22 01:20:01 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.05ms
+  2024-10-22 01:20:01 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.05ms
+  2024-10-22 01:20:01 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.05ms
+  2024-10-22 01:20:01 /admin/js/script.js .......................... ~ 0.05ms
+  2024-10-22 01:20:01 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.12ms
+  2024-10-22 01:20:01 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.20ms
+  2024-10-22 01:20:01 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 3.38ms
+  2024-10-22 01:20:02 /wilayah-pemilihan/find ...................... ~ 0.18ms
+  2024-10-22 01:20:03 /wilayah-pemilihan/find ...................... ~ 0.12ms
+  2024-10-22 01:20:04 /wilayah-pemilihan/find ...................... ~ 0.09ms
+  2024-10-22 01:20:07 /wilayah-pemilihan/find .................... ~ 500.70ms
+  2024-10-22 01:20:09 /wilayah-pemilihan/find ...................... ~ 0.28ms
+  2024-10-22 01:20:12 /wilayah-pemilihan/find ...................... ~ 0.26ms
+  2024-10-22 01:20:12 /wilayah-pemilihan/find ...................... ~ 0.27ms
+  2024-10-22 01:20:14 /wilayah-pemilihan/find ...................... ~ 0.09ms
+  2024-10-22 01:40:55 / ............................................ ~ 0.27ms
+  2024-10-22 01:40:56 /sdk ......................................... ~ 0.27ms
+  2024-10-22 01:40:56 /nmaplowercheck1729536055 .................... ~ 0.20ms
+  2024-10-22 01:40:57 /evox/about .................................. ~ 0.24ms
+  2024-10-22 01:40:57 /HNAP1 ....................................... ~ 0.12ms
+  2024-10-22 01:40:58 / ............................................ ~ 0.26ms
+  2024-10-22 01:40:59 / ............................................ ~ 0.25ms
+  2024-10-22 02:01:31 /actuator/health ............................. ~ 0.30ms
+  2024-10-22 02:25:13 / ............................................ ~ 0.08ms
+  2024-10-22 02:43:16 / ............................................ ~ 0.23ms
+  2024-10-22 02:43:16 /login ....................................... ~ 0.24ms
+  2024-10-22 03:48:20 /calon ....................................... ~ 0.55ms
+  2024-10-22 03:48:20 /login ....................................... ~ 0.04ms
+  2024-10-22 03:48:20 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.21ms
+  2024-10-22 03:48:20 /admin/js/script.js .......................... ~ 0.24ms
+  2024-10-22 03:48:20 /admin/lib/jquery/dist/jquery.min.js ......... ~ 0.28ms
+  2024-10-22 03:48:20 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.78ms
+  2024-10-22 03:48:20 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.91ms
+  2024-10-22 03:48:20 /admin/src/scripts/jquery.min.js ............. ~ 0.14ms
+  2024-10-22 03:48:20 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.14ms
+  2024-10-22 03:48:21 /favicon.ico ................................. ~ 0.18ms
+  2024-10-22 03:48:29 /login ....................................... ~ 0.25ms
+  2024-10-22 03:48:29 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.20ms
+  2024-10-22 03:48:29 /admin/lib/jquery/dist/jquery.min.js ......... ~ 0.32ms
+  2024-10-22 03:48:29 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.96ms
+  2024-10-22 03:48:29 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 1.12ms
+  2024-10-22 03:48:29 /admin/js/script.js .......................... ~ 1.25ms
+  2024-10-22 03:48:29 /admin/src/scripts/jquery.min.js ............. ~ 1.41ms
+  2024-10-22 03:48:29 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.14ms
+  2024-10-22 03:48:29 /favicon.ico ................................. ~ 0.13ms
+  2024-10-22 03:48:33 /login ....................................... ~ 0.29ms
+  2024-10-22 03:48:33 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.16ms
+  2024-10-22 03:48:33 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.13ms
+  2024-10-22 03:48:33 /admin/lib/jquery/dist/jquery.min.js ......... ~ 0.16ms
+  2024-10-22 03:48:33 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.19ms
+  2024-10-22 03:48:33 /admin/js/script.js .......................... ~ 0.39ms
+  2024-10-22 03:48:33 /admin/src/scripts/jquery.min.js ............. ~ 0.17ms
+  2024-10-22 03:48:33 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.11ms
+  2024-10-22 03:48:33 /favicon.ico ................................. ~ 0.13ms
+  2024-10-22 03:48:49 /login ..................................... ~ 501.04ms
+  2024-10-22 03:48:49 / ............................................ ~ 0.15ms
+  2024-10-22 03:48:49 /admin/vendors/styles/core.css ............... ~ 0.24ms
+  2024-10-22 03:48:49 /admin/vendors/styles/icon-font.min.css ...... ~ 0.20ms
+  2024-10-22 03:48:49 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.19ms
+  2024-10-22 03:48:49 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.34ms
+  2024-10-22 03:48:49 /admin/vendors/styles/style.css .............. ~ 0.61ms
+  2024-10-22 03:48:49 /admin/src/plugins/switchery/switchery.min.css  ~ 0.19ms
+  2024-10-22 03:48:49 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.20ms
+  2024-10-22 03:48:49 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.20ms
+  2024-10-22 03:48:50 /admin/vendors/scripts/core.js ............... ~ 0.27ms
+  2024-10-22 03:48:50 /admin/vendors/scripts/script.min.js ......... ~ 0.24ms
+  2024-10-22 03:48:50 /admin/vendors/scripts/process.js ............ ~ 0.19ms
+  2024-10-22 03:48:50 /admin/vendors/scripts/layout-settings.js .... ~ 0.20ms
+  2024-10-22 03:48:50 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.13ms
+  2024-10-22 03:48:50 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.11ms
+  2024-10-22 03:48:50 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.24ms
+  2024-10-22 03:48:50 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.16ms
+  2024-10-22 03:48:51 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.15ms
+  2024-10-22 03:48:51 /admin/js/script.js .......................... ~ 0.16ms
+  2024-10-22 03:48:51 /admin/src/plugins/plyr/dist/plyr.css ........ ~ 0.16ms
+  2024-10-22 03:48:51 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.21ms
+  2024-10-22 03:48:51 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.52ms
+  2024-10-22 03:48:51 /admin/vendors/fonts/ionicons.ttf?v=2.0.1 .... ~ 0.15ms
+  2024-10-22 03:48:51 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.77ms
+  2024-10-22 03:48:51 /admin/vendors/images/banner-img.png ......... ~ 0.12ms
+  2024-10-22 03:48:51 /admin/src/plugins/plyr/dist/plyr.js ......... ~ 0.14ms
+  2024-10-22 03:48:51 /admin/vendors/images/favicon-32x32.png ...... ~ 0.30ms
+  2024-10-22 03:48:51 /admin/vendors/images/apple-touch-icon.png ... ~ 0.17ms
+  2024-10-22 03:48:55 /hitung-cepat/admin .......................... ~ 0.26ms
+  2024-10-22 03:48:55 /admin/vendors/styles/core.css ............... ~ 0.15ms
+  2024-10-22 03:48:55 /admin/vendors/styles/icon-font.min.css ...... ~ 0.15ms
+  2024-10-22 03:48:55 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.15ms
+  2024-10-22 03:48:55 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.26ms
+  2024-10-22 03:48:55 /admin/vendors/styles/style.css .............. ~ 0.49ms
+  2024-10-22 03:48:55 /admin/src/plugins/switchery/switchery.min.css  ~ 1.04ms
+  2024-10-22 03:48:55 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.18ms
+  2024-10-22 03:48:55 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.14ms
+  2024-10-22 03:48:55 /admin/vendors/scripts/core.js ............... ~ 0.13ms
+  2024-10-22 03:48:55 /admin/vendors/scripts/script.min.js ......... ~ 0.27ms
+  2024-10-22 03:48:55 /admin/vendors/scripts/process.js ............ ~ 0.18ms
+  2024-10-22 03:48:55 /admin/vendors/scripts/layout-settings.js .... ~ 0.17ms
+  2024-10-22 03:48:55 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.16ms
+  2024-10-22 03:48:56 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.29ms
+  2024-10-22 03:48:56 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.19ms
+  2024-10-22 03:48:56 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.19ms
+  2024-10-22 03:48:56 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.19ms
+  2024-10-22 03:48:56 /admin/js/script.js .......................... ~ 0.18ms
+  2024-10-22 03:48:56 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.26ms
+  2024-10-22 03:48:56 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.52ms
+  2024-10-22 03:48:56 /admin/vendors/fonts/ionicons.ttf?v=2.0.1 .... ~ 0.17ms
+  2024-10-22 03:48:56 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.17ms
+  2024-10-22 03:48:59 /wilayah-pemilihan/find ...................... ~ 0.26ms
+  2024-10-22 03:49:00 /wilayah-pemilihan/find ...................... ~ 0.08ms
+  2024-10-22 03:49:01 /wilayah-pemilihan/find ...................... ~ 0.08ms
+  2024-10-22 03:49:05 /hitung-cepat/admin/list ..................... ~ 0.24ms
+  2024-10-22 03:49:39 /rekapitulasi ................................ ~ 0.25ms
+  2024-10-22 03:49:39 /rekapitulasi/list ........................... ~ 0.18ms
+  2024-10-22 03:49:39 /admin/vendors/styles/icon-font.min.css ...... ~ 0.56ms
+  2024-10-22 03:49:39 /admin/vendors/styles/core.css ............... ~ 1.28ms
+  2024-10-22 03:49:39 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 2.15ms
+  2024-10-22 03:49:39 /admin/vendors/styles/style.css .............. ~ 2.56ms
+  2024-10-22 03:49:39 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 3.39ms
+  2024-10-22 03:49:39 /admin/src/plugins/switchery/switchery.min.css  ~ 3.77ms
+  2024-10-22 03:49:39 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.18ms
+  2024-10-22 03:49:39 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.18ms
+  2024-10-22 03:49:39 /admin/vendors/scripts/core.js ............... ~ 0.21ms
+  2024-10-22 03:49:40 /admin/vendors/scripts/script.min.js ......... ~ 0.28ms
+  2024-10-22 03:49:40 /admin/vendors/scripts/process.js ............ ~ 0.22ms
+  2024-10-22 03:49:40 /admin/vendors/scripts/layout-settings.js .... ~ 0.12ms
+  2024-10-22 03:49:40 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.12ms
+  2024-10-22 03:49:40 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.11ms
+  2024-10-22 03:49:40 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.11ms
+  2024-10-22 03:49:40 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.11ms
+  2024-10-22 03:49:40 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.11ms
+  2024-10-22 03:49:41 /admin/js/script.js .......................... ~ 0.11ms
+  2024-10-22 03:49:41 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.39ms
+  2024-10-22 03:49:41 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.62ms
+  2024-10-22 03:49:41 /admin/vendors/fonts/ionicons.ttf?v=2.0.1 .... ~ 0.90ms
+  2024-10-22 03:49:41 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 1.17ms
+  2024-10-22 03:49:42 /rekapitulasi/list ........................... ~ 0.08ms
+  2024-10-22 03:49:42 /admin/vendors/styles/core.css ............... ~ 0.47ms
+  2024-10-22 03:49:42 /admin/vendors/styles/icon-font.min.css ...... ~ 1.46ms
+  2024-10-22 03:49:42 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 2.32ms
+  2024-10-22 03:49:42 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 2.54ms
+  2024-10-22 03:49:42 /admin/vendors/styles/style.css .............. ~ 0.21ms
+  2024-10-22 03:49:42 /admin/src/plugins/switchery/switchery.min.css  ~ 0.69ms
+  2024-10-22 03:49:42 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.10ms
+  2024-10-22 03:49:42 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.15ms
+  2024-10-22 03:49:42 /admin/vendors/scripts/core.js ............... ~ 0.10ms
+  2024-10-22 03:49:43 /admin/vendors/scripts/script.min.js ......... ~ 0.24ms
+  2024-10-22 03:49:43 /admin/vendors/scripts/process.js ............ ~ 0.15ms
+  2024-10-22 03:49:43 /admin/vendors/scripts/layout-settings.js .... ~ 0.15ms
+  2024-10-22 03:49:43 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.17ms
+  2024-10-22 03:49:44 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.13ms
+  2024-10-22 03:49:44 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.26ms
+  2024-10-22 03:49:44 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.15ms
+  2024-10-22 03:49:44 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.17ms
+  2024-10-22 03:49:44 /admin/js/script.js .......................... ~ 0.14ms
+  2024-10-22 03:49:44 /admin/src/plugins/apexcharts/apexcharts.min.js  ~ 0.14ms
+  2024-10-22 03:49:44 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.13ms
+  2024-10-22 03:49:44 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.14ms
+  2024-10-22 03:49:44 /admin/vendors/fonts/ionicons.ttf?v=2.0.1 .... ~ 0.19ms
+  2024-10-22 03:49:44 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.45ms
+  2024-10-22 03:50:00 /rekapitulasi/list ........................... ~ 0.07ms
+  2024-10-22 03:50:00 /admin/vendors/styles/core.css ............... ~ 0.13ms
+  2024-10-22 03:50:00 /admin/vendors/styles/icon-font.min.css ...... ~ 0.11ms
+  2024-10-22 03:50:00 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.26ms
+  2024-10-22 03:50:00 /admin/vendors/styles/style.css .............. ~ 0.46ms
+  2024-10-22 03:50:00 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.92ms
+  2024-10-22 03:50:00 /admin/src/plugins/switchery/switchery.min.css  ~ 1.05ms
+  2024-10-22 03:50:00 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.12ms
+  2024-10-22 03:50:00 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.10ms
+  2024-10-22 03:50:00 /admin/vendors/scripts/core.js ............... ~ 0.10ms
+  2024-10-22 03:50:01 /admin/vendors/scripts/script.min.js ......... ~ 0.09ms
+  2024-10-22 03:50:01 /admin/vendors/scripts/process.js ............ ~ 0.06ms
+  2024-10-22 03:50:01 /admin/vendors/scripts/layout-settings.js .... ~ 0.03ms
+  2024-10-22 03:50:01 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.03ms
+  2024-10-22 03:50:01 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.03ms
+  2024-10-22 03:50:01 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.03ms
+  2024-10-22 03:50:01 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.02ms
+  2024-10-22 03:50:01 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.03ms
+  2024-10-22 03:50:01 /admin/js/script.js .......................... ~ 0.03ms
+  2024-10-22 03:50:01 /admin/src/plugins/apexcharts/apexcharts.min.js  ~ 0.04ms
+  2024-10-22 03:50:01 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.03ms
+  2024-10-22 03:50:01 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.04ms
+  2024-10-22 03:50:01 /admin/vendors/fonts/ionicons.ttf?v=2.0.1 .... ~ 0.09ms
+  2024-10-22 03:50:01 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.10ms
+  2024-10-22 03:50:02 /admin/vendors/images/favicon-32x32.png ...... ~ 0.10ms
+  2024-10-22 03:50:02 /admin/vendors/images/apple-touch-icon.png ... ~ 0.17ms
+  2024-10-22 03:50:02 /rekapitulasi/list ........................... ~ 0.08ms
+  2024-10-22 03:50:02 /admin/vendors/styles/core.css ............... ~ 0.04ms
+  2024-10-22 03:50:02 /admin/vendors/styles/icon-font.min.css ...... ~ 0.03ms
+  2024-10-22 03:50:02 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.05ms
+  2024-10-22 03:50:02 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.08ms
+  2024-10-22 03:50:02 /admin/vendors/styles/style.css .............. ~ 0.12ms
+  2024-10-22 03:50:02 /admin/src/plugins/switchery/switchery.min.css  ~ 0.02ms
+  2024-10-22 03:50:02 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.04ms
+  2024-10-22 03:50:02 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.02ms
+  2024-10-22 03:50:02 /admin/vendors/scripts/core.js ............... ~ 0.02ms
+  2024-10-22 03:50:02 /admin/vendors/scripts/script.min.js ......... ~ 0.23ms
+  2024-10-22 03:50:02 /admin/vendors/scripts/process.js ............ ~ 0.17ms
+  2024-10-22 03:50:02 /admin/vendors/scripts/layout-settings.js .... ~ 0.17ms
+  2024-10-22 03:50:03 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.16ms
+  2024-10-22 03:50:03 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.20ms
+  2024-10-22 03:50:03 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.18ms
+  2024-10-22 03:50:03 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.09ms
+  2024-10-22 03:50:03 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.04ms
+  2024-10-22 03:50:03 /admin/js/script.js .......................... ~ 0.04ms
+  2024-10-22 03:50:03 /rekapitulasi/list ........................... ~ 0.04ms
+  2024-10-22 03:50:03 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.04ms
+  2024-10-22 03:50:03 /admin/src/plugins/apexcharts/apexcharts.min.js  ~ 0.14ms
+  2024-10-22 03:50:03 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.06ms
+  2024-10-22 03:50:03 /admin/vendors/fonts/ionicons.ttf?v=2.0.1 .... ~ 0.15ms
+  2024-10-22 03:50:03 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.16ms
+  2024-10-22 03:50:03 /admin/vendors/fonts/fontawesome-webfont.woff?v=4.7.0  ~ 0.04ms
+  2024-10-22 03:50:03 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.08ms
+  2024-10-22 03:50:03 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.16ms
+  2024-10-22 03:50:03 /admin/vendors/styles/style.css .............. ~ 0.23ms
+  2024-10-22 03:50:03 /admin/src/plugins/switchery/switchery.min.css  ~ 0.41ms
+  2024-10-22 03:50:03 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.04ms
+  2024-10-22 03:50:03 /admin/vendors/styles/icon-font.min.css ...... ~ 0.07ms
+  2024-10-22 03:50:03 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.18ms
+  2024-10-22 03:50:03 /admin/vendors/styles/core.css ............... ~ 0.27ms
+  2024-10-22 03:50:03 /admin/vendors/scripts/core.js ............... ~ 0.25ms
+  2024-10-22 03:50:04 /admin/vendors/scripts/script.min.js ......... ~ 0.21ms
+  2024-10-22 03:50:04 /admin/vendors/scripts/process.js ............ ~ 0.18ms
+  2024-10-22 03:50:04 /admin/vendors/scripts/layout-settings.js .... ~ 0.17ms
+  2024-10-22 03:50:04 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.15ms
+  2024-10-22 03:50:04 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.09ms
+  2024-10-22 03:50:04 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.03ms
+  2024-10-22 03:50:04 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.03ms
+  2024-10-22 03:50:04 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.02ms
+  2024-10-22 03:50:04 /rekapitulasi/list ........................... ~ 0.02ms
+  2024-10-22 03:50:04 /admin/js/script.js .......................... ~ 0.02ms
+  2024-10-22 03:50:04 /admin/vendors/styles/core.css ............... ~ 0.03ms
+  2024-10-22 03:50:04 /admin/vendors/styles/icon-font.min.css ...... ~ 0.02ms
+  2024-10-22 03:50:04 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.02ms
+  2024-10-22 03:50:04 /admin/vendors/styles/style.css .............. ~ 0.05ms
+  2024-10-22 03:50:04 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.15ms
+  2024-10-22 03:50:04 /admin/src/plugins/switchery/switchery.min.css  ~ 0.19ms
+  2024-10-22 03:50:04 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.02ms
+  2024-10-22 03:50:04 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.02ms
+  2024-10-22 03:50:04 /admin/vendors/scripts/core.js ............... ~ 0.02ms
+  2024-10-22 03:50:04 /admin/vendors/scripts/script.min.js ......... ~ 0.32ms
+  2024-10-22 03:50:04 /admin/vendors/scripts/process.js ............ ~ 0.13ms
+  2024-10-22 03:50:04 /admin/vendors/scripts/layout-settings.js .... ~ 0.10ms
+  2024-10-22 03:50:04 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.12ms
+  2024-10-22 03:50:04 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.11ms
+  2024-10-22 03:50:05 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.22ms
+  2024-10-22 03:50:05 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.10ms
+  2024-10-22 03:50:05 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.10ms
+  2024-10-22 03:50:05 /admin/js/script.js .......................... ~ 0.15ms
+  2024-10-22 03:50:05 /admin/src/plugins/apexcharts/apexcharts.min.js  ~ 0.24ms
+  2024-10-22 03:50:05 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.09ms
+  2024-10-22 03:50:05 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.05ms
+  2024-10-22 03:50:05 /admin/vendors/fonts/ionicons.ttf?v=2.0.1 .... ~ 0.07ms
+  2024-10-22 03:50:05 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.17ms
+  2024-10-22 03:50:05 /admin/vendors/images/favicon-32x32.png ...... ~ 0.29ms
+  2024-10-22 03:50:05 /admin/vendors/images/apple-touch-icon.png ... ~ 0.12ms
+  2024-10-22 03:50:06 /rekapitulasi/list ........................... ~ 0.12ms
+  2024-10-22 03:50:06 /admin/vendors/styles/core.css ............... ~ 0.06ms
+  2024-10-22 03:50:06 /admin/vendors/styles/icon-font.min.css ...... ~ 0.05ms
+  2024-10-22 03:50:06 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.09ms
+  2024-10-22 03:50:06 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.16ms
+  2024-10-22 03:50:06 /admin/vendors/styles/style.css .............. ~ 0.22ms
+  2024-10-22 03:50:06 /admin/src/plugins/switchery/switchery.min.css  ~ 0.05ms
+  2024-10-22 03:50:06 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.07ms
+  2024-10-22 03:50:06 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.14ms
+  2024-10-22 03:50:06 /admin/vendors/scripts/core.js ............... ~ 0.33ms
+  2024-10-22 03:50:07 /admin/vendors/scripts/script.min.js ......... ~ 0.11ms
+  2024-10-22 03:50:07 /admin/vendors/scripts/process.js ............ ~ 0.05ms
+  2024-10-22 03:50:07 /admin/vendors/scripts/layout-settings.js .... ~ 0.04ms
+  2024-10-22 03:50:07 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.05ms
+  2024-10-22 03:50:07 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.06ms
+  2024-10-22 03:50:07 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.05ms
+  2024-10-22 03:50:07 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.04ms
+  2024-10-22 03:50:07 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.05ms
+  2024-10-22 03:50:07 /admin/js/script.js .......................... ~ 0.04ms
+  2024-10-22 03:50:07 /admin/src/plugins/apexcharts/apexcharts.min.js  ~ 0.05ms
+  2024-10-22 03:50:07 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.05ms
+  2024-10-22 03:50:07 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.09ms
+  2024-10-22 03:50:07 /admin/vendors/fonts/ionicons.ttf?v=2.0.1 .... ~ 0.15ms
+  2024-10-22 03:50:07 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.25ms
+  2024-10-22 03:50:07 /admin/vendors/images/favicon-32x32.png ...... ~ 0.26ms
+  2024-10-22 03:50:07 /admin/vendors/images/apple-touch-icon.png ... ~ 0.11ms
+  2024-10-22 03:53:21 /rekapitulasi/list ......................... ~ 500.62ms
+  2024-10-22 03:53:21 /admin/vendors/styles/core.css ............... ~ 0.17ms
+  2024-10-22 03:53:21 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.23ms
+  2024-10-22 03:53:21 /admin/vendors/styles/style.css .............. ~ 0.61ms
+  2024-10-22 03:53:21 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.23ms
+  2024-10-22 03:53:21 /admin/vendors/styles/icon-font.min.css ...... ~ 0.63ms
+  2024-10-22 03:53:21 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.87ms
+  2024-10-22 03:53:21 /admin/src/plugins/switchery/switchery.min.css  ~ 0.22ms
+  2024-10-22 03:53:21 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.18ms
+  2024-10-22 03:53:22 /admin/vendors/scripts/core.js ............... ~ 0.22ms
+  2024-10-22 03:53:22 /admin/vendors/scripts/script.min.js ......... ~ 0.28ms
+  2024-10-22 03:53:22 /admin/vendors/scripts/process.js ............ ~ 0.18ms
+  2024-10-22 03:53:22 /admin/vendors/scripts/layout-settings.js .... ~ 0.19ms
+  2024-10-22 03:53:22 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.19ms
+  2024-10-22 03:53:22 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.21ms
+  2024-10-22 03:53:22 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.20ms
+  2024-10-22 03:53:22 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.20ms
+  2024-10-22 03:53:22 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.22ms
+  2024-10-22 03:53:22 /admin/js/script.js .......................... ~ 0.19ms
+  2024-10-22 03:53:22 /admin/src/plugins/apexcharts/apexcharts.min.js  ~ 0.29ms
+  2024-10-22 03:53:22 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.24ms
+  2024-10-22 03:53:22 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.25ms
+  2024-10-22 03:53:22 /admin/vendors/fonts/ionicons.ttf?v=2.0.1 .... ~ 0.71ms
+  2024-10-22 03:53:22 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.76ms
+  2024-10-22 03:53:23 /admin/vendors/images/favicon-32x32.png ...... ~ 0.34ms
+  2024-10-22 03:53:23 /admin/vendors/images/apple-touch-icon.png ... ~ 0.23ms
+  2024-10-22 03:53:23 /rekapitulasi/list ........................... ~ 0.24ms
+  2024-10-22 03:53:23 /admin/vendors/styles/core.css ............... ~ 0.17ms
+  2024-10-22 03:53:24 /admin/vendors/styles/icon-font.min.css ...... ~ 0.36ms
+  2024-10-22 03:53:24 /admin/vendors/styles/style.css .............. ~ 0.97ms
+  2024-10-22 03:53:24 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 1.81ms
+  2024-10-22 03:53:24 /admin/src/plugins/switchery/switchery.min.css  ~ 2.11ms
+  2024-10-22 03:53:24 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 2.44ms
+  2024-10-22 03:53:24 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.21ms
+  2024-10-22 03:53:24 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.52ms
+  2024-10-22 03:53:24 /admin/vendors/scripts/core.js ............... ~ 0.15ms
+  2024-10-22 03:53:24 /admin/vendors/scripts/script.min.js ......... ~ 0.28ms
+  2024-10-22 03:53:24 /admin/vendors/scripts/process.js ............ ~ 0.20ms
+  2024-10-22 03:53:24 /admin/vendors/scripts/layout-settings.js .... ~ 0.20ms
+  2024-10-22 03:53:24 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.18ms
+  2024-10-22 03:53:24 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.18ms
+  2024-10-22 03:53:24 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.20ms
+  2024-10-22 03:53:24 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.18ms
+  2024-10-22 03:53:24 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.19ms
+  2024-10-22 03:53:24 /admin/js/script.js .......................... ~ 0.18ms
+  2024-10-22 03:53:25 /admin/src/plugins/apexcharts/apexcharts.min.js  ~ 0.25ms
+  2024-10-22 03:53:25 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.53ms
+  2024-10-22 03:53:25 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.21ms
+  2024-10-22 03:53:25 /admin/vendors/fonts/ionicons.ttf?v=2.0.1 .... ~ 0.17ms
+  2024-10-22 03:53:25 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.16ms
+  2024-10-22 03:53:25 /admin/vendors/fonts/dropways.woff?jm47o8 .... ~ 0.09ms
+  2024-10-22 03:53:25 /admin/vendors/fonts/fontawesome-webfont.woff?v=4.7.0  ~ 0.17ms
+  2024-10-22 03:53:32 /rekapitulasi/list ........................... ~ 0.17ms
+  2024-10-22 03:53:32 /admin/vendors/styles/core.css ............... ~ 0.10ms
+  2024-10-22 03:53:32 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.09ms
+  2024-10-22 03:53:32 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.13ms
+  2024-10-22 03:53:32 /admin/vendors/styles/style.css .............. ~ 0.24ms
+  2024-10-22 03:53:32 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.12ms
+  2024-10-22 03:53:32 /admin/vendors/styles/icon-font.min.css ...... ~ 0.16ms
+  2024-10-22 03:53:32 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.38ms
+  2024-10-22 03:53:32 /admin/src/plugins/switchery/switchery.min.css  ~ 0.48ms
+  2024-10-22 03:53:32 /admin/vendors/scripts/core.js ............... ~ 0.24ms
+  2024-10-22 03:53:33 /admin/vendors/scripts/script.min.js ......... ~ 0.08ms
+  2024-10-22 03:53:33 /admin/vendors/scripts/process.js ............ ~ 0.03ms
+  2024-10-22 03:53:33 /admin/vendors/scripts/layout-settings.js .... ~ 0.03ms
+  2024-10-22 03:53:33 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.03ms
+  2024-10-22 03:53:33 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.06ms
+  2024-10-22 03:53:33 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.03ms
+  2024-10-22 03:53:33 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.02ms
+  2024-10-22 03:53:33 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.02ms
+  2024-10-22 03:53:33 /admin/js/script.js .......................... ~ 0.02ms
+  2024-10-22 03:53:33 /admin/src/plugins/apexcharts/apexcharts.min.js  ~ 0.02ms
+  2024-10-22 03:53:33 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.38ms
+  2024-10-22 03:53:33 /admin/vendors/fonts/ionicons.ttf?v=2.0.1 .... ~ 0.53ms
+  2024-10-22 03:53:33 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 1.18ms
+  2024-10-22 03:53:33 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 1.52ms
+  2024-10-22 03:53:34 /admin/vendors/images/favicon-32x32.png ...... ~ 0.50ms
+  2024-10-22 03:53:34 /admin/vendors/images/apple-touch-icon.png ... ~ 1.13ms
+  2024-10-22 03:53:35 /rekapitulasi/list ........................... ~ 0.29ms
+  2024-10-22 03:53:35 /admin/vendors/styles/core.css ............... ~ 0.29ms
+  2024-10-22 03:53:35 /admin/vendors/styles/icon-font.min.css ...... ~ 0.30ms
+  2024-10-22 03:53:35 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.87ms
+  2024-10-22 03:53:35 /admin/vendors/styles/style.css .............. ~ 0.29ms
+  2024-10-22 03:53:35 /admin/src/plugins/switchery/switchery.min.css  ~ 1.14ms
+  2024-10-22 03:53:35 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 1.46ms
+  2024-10-22 03:53:35 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.29ms
+  2024-10-22 03:53:35 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.20ms
+  2024-10-22 03:53:35 /admin/vendors/scripts/core.js ............... ~ 0.33ms
+  2024-10-22 03:53:36 /rekapitulasi/list ........................... ~ 0.17ms
+  2024-10-22 03:53:36 /admin/vendors/styles/core.css ............... ~ 0.24ms
+  2024-10-22 03:53:36 /admin/vendors/styles/icon-font.min.css ...... ~ 0.20ms
+  2024-10-22 03:53:36 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.26ms
+  2024-10-22 03:53:36 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.43ms
+  2024-10-22 03:53:36 /admin/vendors/styles/style.css .............. ~ 0.62ms
+  2024-10-22 03:53:36 /admin/src/plugins/switchery/switchery.min.css  ~ 0.18ms
+  2024-10-22 03:53:36 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.10ms
+  2024-10-22 03:53:36 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.10ms
+  2024-10-22 03:53:36 /admin/vendors/scripts/core.js ............... ~ 0.27ms
+  2024-10-22 03:53:37 /admin/vendors/scripts/script.min.js ......... ~ 0.29ms
+  2024-10-22 03:53:37 /admin/vendors/scripts/process.js ............ ~ 0.17ms
+  2024-10-22 03:53:37 /admin/vendors/scripts/layout-settings.js .... ~ 0.30ms
+  2024-10-22 03:53:37 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.23ms
+  2024-10-22 03:53:37 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.19ms
+  2024-10-22 03:53:37 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.21ms
+  2024-10-22 03:53:37 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.18ms
+  2024-10-22 03:53:37 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.19ms
+  2024-10-22 03:53:37 /admin/js/script.js .......................... ~ 0.18ms
+  2024-10-22 03:53:38 /admin/src/plugins/apexcharts/apexcharts.min.js  ~ 0.22ms
+  2024-10-22 03:53:38 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.45ms
+  2024-10-22 03:53:38 /admin/vendors/fonts/ionicons.ttf?v=2.0.1 .... ~ 0.90ms
+  2024-10-22 03:53:38 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 1.39ms
+  2024-10-22 03:53:38 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 1.73ms
+  2024-10-22 03:53:40 /admin/vendors/images/favicon-32x32.png ...... ~ 0.27ms
+  2024-10-22 03:53:40 /admin/vendors/images/apple-touch-icon.png ... ~ 0.34ms
+  2024-10-22 03:53:41 /hitung-cepat/saksi .......................... ~ 0.28ms
+  2024-10-22 03:53:41 /admin/vendors/styles/core.css ............... ~ 0.43ms
+  2024-10-22 03:53:41 /admin/vendors/styles/icon-font.min.css ...... ~ 1.78ms
+  2024-10-22 03:53:41 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 2.38ms
+  2024-10-22 03:53:41 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 2.70ms
+  2024-10-22 03:53:41 /admin/vendors/styles/style.css .............. ~ 3.04ms
+  2024-10-22 03:53:41 /admin/src/plugins/switchery/switchery.min.css  ~ 3.92ms
+  2024-10-22 03:53:41 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.28ms
+  2024-10-22 03:53:41 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.92ms
+  2024-10-22 03:53:41 /admin/vendors/scripts/core.js ............... ~ 0.19ms
+  2024-10-22 03:53:42 /admin/vendors/scripts/script.min.js ......... ~ 0.28ms
+  2024-10-22 03:53:42 /admin/vendors/scripts/process.js ............ ~ 0.19ms
+  2024-10-22 03:53:42 /admin/vendors/scripts/layout-settings.js .... ~ 0.20ms
+  2024-10-22 03:53:42 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.16ms
+  2024-10-22 03:53:42 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.20ms
+  2024-10-22 03:53:42 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.22ms
+  2024-10-22 03:53:42 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.18ms
+  2024-10-22 03:53:42 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.20ms
+  2024-10-22 03:53:42 /admin/js/script.js .......................... ~ 0.19ms
+  2024-10-22 03:53:42 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.19ms
+  2024-10-22 03:53:42 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.21ms
+  2024-10-22 03:53:42 /admin/vendors/fonts/ionicons.ttf?v=2.0.1 .... ~ 0.25ms
+  2024-10-22 03:53:42 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.75ms
+  2024-10-22 03:53:44 /hitung-cepat/admin .......................... ~ 0.25ms
+  2024-10-22 03:53:44 /admin/vendors/styles/icon-font.min.css ...... ~ 0.49ms
+  2024-10-22 03:53:44 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.84ms
+  2024-10-22 03:53:44 /admin/vendors/styles/core.css ............... ~ 1.12ms
+  2024-10-22 03:53:44 /admin/vendors/styles/style.css .............. ~ 1.54ms
+  2024-10-22 03:53:44 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 2.26ms
+  2024-10-22 03:53:44 /admin/src/plugins/switchery/switchery.min.css  ~ 2.42ms
+  2024-10-22 03:53:45 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.22ms
+  2024-10-22 03:53:45 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.34ms
+  2024-10-22 03:53:45 /admin/vendors/scripts/core.js ............... ~ 0.10ms
+  2024-10-22 03:53:46 /admin/vendors/scripts/script.min.js ......... ~ 0.26ms
+  2024-10-22 03:53:46 /admin/vendors/scripts/process.js ............ ~ 0.20ms
+  2024-10-22 03:53:46 /admin/vendors/scripts/layout-settings.js .... ~ 0.22ms
+  2024-10-22 03:53:46 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.17ms
+  2024-10-22 03:53:46 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.31ms
+  2024-10-22 03:53:46 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.18ms
+  2024-10-22 03:53:46 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.23ms
+  2024-10-22 03:53:46 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.18ms
+  2024-10-22 03:53:46 /admin/js/script.js .......................... ~ 0.23ms
+  2024-10-22 03:53:46 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.18ms
+  2024-10-22 03:53:46 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.30ms
+  2024-10-22 03:53:46 /admin/vendors/fonts/ionicons.ttf?v=2.0.1 .... ~ 0.56ms
+  2024-10-22 03:53:46 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.20ms
+  2024-10-22 03:53:48 /wilayah-pemilihan/find ...................... ~ 0.12ms
+  2024-10-22 03:53:49 /wilayah-pemilihan/find ...................... ~ 0.27ms
+  2024-10-22 03:53:50 /wilayah-pemilihan/find ...................... ~ 0.07ms
+  2024-10-22 03:53:57 /hitung-cepat/admin/list ..................... ~ 0.26ms
+  2024-10-22 03:54:01 /hitung-cepat/admin/list ..................... ~ 0.30ms
+  2024-10-22 03:54:02 /hitung-cepat/admin/list ..................... ~ 0.09ms
+  2024-10-22 03:54:02 /hitung-cepat/admin/list ..................... ~ 0.04ms
+  2024-10-22 03:54:04 /hitung-cepat/admin/list ..................... ~ 0.15ms
+  2024-10-22 03:54:04 /hitung-cepat/admin/list ................... ~ 500.91ms
+  2024-10-22 03:54:04 /hitung-cepat/admin/list ..................... ~ 0.61ms
+  2024-10-22 03:54:04 /hitung-cepat/admin/list ..................... ~ 0.13ms
+  2024-10-22 03:54:05 /hitung-cepat/admin/list ..................... ~ 0.15ms
+  2024-10-22 03:54:06 /hitung-cepat/admin/list ..................... ~ 0.26ms
+  2024-10-22 03:54:07 /hitung-cepat/admin/list ..................... ~ 0.08ms
+  2024-10-22 03:54:08 /hitung-cepat/admin/list ..................... ~ 0.37ms
+  2024-10-22 03:54:12 /hitung-cepat/admin/list ................... ~ 500.76ms
+  2024-10-22 03:54:14 /hitung-cepat/admin/list ..................... ~ 0.29ms
+  2024-10-22 03:54:15 /hitung-cepat/admin/list ..................... ~ 0.27ms
+  2024-10-22 03:54:16 /hitung-cepat/admin/list ..................... ~ 0.28ms
+  2024-10-22 03:54:16 /hitung-cepat/admin/list ..................... ~ 0.16ms
+  2024-10-22 03:54:16 /hitung-cepat/admin/list ..................... ~ 0.23ms
+  2024-10-22 03:54:16 /hitung-cepat/admin/list ..................... ~ 0.13ms
+  2024-10-22 03:54:16 /hitung-cepat/admin/list ................... ~ 500.77ms
+  2024-10-22 03:54:17 /hitung-cepat/admin/list ..................... ~ 0.20ms
+  2024-10-22 03:54:17 /hitung-cepat/admin/list ..................... ~ 0.17ms
+  2024-10-22 03:54:17 /hitung-cepat/admin/list ..................... ~ 0.09ms
+  2024-10-22 03:54:17 /hitung-cepat/admin/list ..................... ~ 0.04ms
+  2024-10-22 03:54:20 /hitung-cepat/rekap .......................... ~ 0.36ms
+  2024-10-22 03:54:20 /admin/vendors/styles/core.css ............... ~ 0.45ms
+  2024-10-22 03:54:20 /admin/vendors/styles/icon-font.min.css .... ~ 501.70ms
+  2024-10-22 03:54:20 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 501.98ms
+  2024-10-22 03:54:20 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.25ms
+  2024-10-22 03:54:20 /admin/vendors/styles/style.css .............. ~ 0.38ms
+  2024-10-22 03:54:20 /admin/src/plugins/switchery/switchery.min.css  ~ 0.19ms
+  2024-10-22 03:54:20 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.18ms
+  2024-10-22 03:54:20 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.19ms
+  2024-10-22 03:54:20 /admin/vendors/scripts/core.js ............... ~ 0.17ms
+  2024-10-22 03:54:21 /admin/vendors/scripts/script.min.js ......... ~ 0.37ms
+  2024-10-22 03:54:21 /admin/vendors/scripts/process.js ............ ~ 0.30ms
+  2024-10-22 03:54:21 /admin/vendors/scripts/layout-settings.js .... ~ 0.24ms
+  2024-10-22 03:54:21 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.24ms
+  2024-10-22 03:54:21 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.18ms
+  2024-10-22 03:54:21 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.21ms
+  2024-10-22 03:54:21 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.19ms
+  2024-10-22 03:54:21 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.21ms
+  2024-10-22 03:54:21 /admin/js/script.js .......................... ~ 0.18ms
+  2024-10-22 03:54:21 /admin/src/plugins/apexcharts/apexcharts.min.js  ~ 0.25ms
+  2024-10-22 03:54:21 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.23ms
+  2024-10-22 03:54:21 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.21ms
+  2024-10-22 03:54:21 /admin/vendors/fonts/ionicons.ttf?v=2.0.1 .... ~ 0.21ms
+  2024-10-22 03:54:21 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.41ms
+  2024-10-22 03:54:24 /hitung-cepat/pilih-tingkat .................. ~ 0.32ms
+  2024-10-22 03:54:25 /wilayah-pemilihan/find .................... ~ 500.75ms
+  2024-10-22 03:54:26 /hitung-cepat/chart .......................... ~ 0.27ms
+  2024-10-22 04:14:54 /.env ...................................... ~ 500.70ms
+  2024-10-22 04:30:36 /hitung-cepat/rekap .......................... ~ 0.32ms
+  2024-10-22 04:30:36 /admin/vendors/styles/core.css ............... ~ 0.34ms
+  2024-10-22 04:30:37 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.20ms
+  2024-10-22 04:30:37 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.25ms
+  2024-10-22 04:30:37 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.61ms
+  2024-10-22 04:30:37 /admin/vendors/styles/style.css .............. ~ 0.17ms
+  2024-10-22 04:30:37 /admin/src/plugins/switchery/switchery.min.css  ~ 0.17ms
+  2024-10-22 04:30:37 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.21ms
+  2024-10-22 04:30:37 /admin/vendors/styles/icon-font.min.css ...... ~ 0.23ms
+  2024-10-22 04:30:37 /admin/vendors/scripts/core.js ............... ~ 0.30ms
+  2024-10-22 04:30:38 /admin/vendors/scripts/script.min.js ......... ~ 0.27ms
+  2024-10-22 04:30:38 /admin/vendors/scripts/process.js ............ ~ 0.21ms
+  2024-10-22 04:30:38 /admin/vendors/scripts/layout-settings.js .... ~ 0.19ms
+  2024-10-22 04:30:38 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.17ms
+  2024-10-22 04:30:38 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.22ms
+  2024-10-22 04:30:38 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.17ms
+  2024-10-22 04:30:38 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.21ms
+  2024-10-22 04:30:38 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.18ms
+  2024-10-22 04:30:38 /admin/js/script.js .......................... ~ 0.30ms
+  2024-10-22 04:30:38 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.22ms
+  2024-10-22 04:30:38 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.22ms
+  2024-10-22 04:30:38 /admin/vendors/fonts/ionicons.ttf?v=2.0.1 .... ~ 0.61ms
+  2024-10-22 04:30:38 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 1.34ms
+  2024-10-22 04:30:39 /admin/src/plugins/apexcharts/apexcharts.min.js  ~ 0.19ms
+  2024-10-22 04:39:22 / ............................................ ~ 0.32ms
+  2024-10-22 06:34:43 / .......................................... ~ 500.75ms
+  2024-10-22 06:34:43 /login ....................................... ~ 0.23ms
+  2024-10-22 06:46:56 / ............................................ ~ 0.26ms
+  2024-10-22 07:18:36 /hello.world ................................. ~ 0.25ms
+  2024-10-22 07:18:37 /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.24ms
+  2024-10-22 07:18:37 /vendor/phpunit/phpunit/Util/PHP/eval-stdin.php  ~ 0.16ms
+  2024-10-22 07:18:37 /vendor/phpunit/src/Util/PHP/eval-stdin.php .. ~ 0.28ms
+  2024-10-22 07:18:37 /vendor/phpunit/Util/PHP/eval-stdin.php ...... ~ 0.11ms
+  2024-10-22 07:18:37 /vendor/phpunit/phpunit/LICENSE/eval-stdin.php  ~ 0.24ms
+  2024-10-22 07:18:38 /vendor/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.13ms
+  2024-10-22 07:18:38 /phpunit/phpunit/src/Util/PHP/eval-stdin.php . ~ 0.23ms
+  2024-10-22 07:18:38 /phpunit/phpunit/Util/PHP/eval-stdin.php ..... ~ 0.11ms
+  2024-10-22 07:18:38 /phpunit/src/Util/PHP/eval-stdin.php ......... ~ 0.12ms
+  2024-10-22 07:18:39 /phpunit/Util/PHP/eval-stdin.php ............. ~ 0.23ms
+  2024-10-22 07:18:39 /lib/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.16ms
+  2024-10-22 07:18:39 /lib/phpunit/phpunit/Util/PHP/eval-stdin.php . ~ 0.28ms
+  2024-10-22 07:18:39 /lib/phpunit/src/Util/PHP/eval-stdin.php ..... ~ 0.10ms
+  2024-10-22 07:18:39 /lib/phpunit/Util/PHP/eval-stdin.php ......... ~ 0.25ms
+  2024-10-22 07:18:40 /lib/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.16ms
+  2024-10-22 07:18:40 /laravel/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 500.84ms
+  2024-10-22 07:18:40 /www/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.16ms
+  2024-10-22 07:18:40 /ws/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.23ms
+  2024-10-22 07:18:41 /yii/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.28ms
+  2024-10-22 07:18:41 /zend/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.18ms
+  2024-10-22 07:18:41 /ws/ec/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.25ms
+  2024-10-22 07:18:41 /V2/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.21ms
+  2024-10-22 07:18:41 /tests/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.26ms
+  2024-10-22 07:18:42 /test/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.18ms
+  2024-10-22 07:18:42 /testing/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.32ms
+  2024-10-22 07:18:42 /api/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.18ms
+  2024-10-22 07:18:43 /demo/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.29ms
+  2024-10-22 07:18:43 /cms/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.29ms
+  2024-10-22 07:18:43 /crm/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.15ms
+  2024-10-22 07:18:43 /admin/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 500.79ms
+  2024-10-22 07:18:44 /backup/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.18ms
+  2024-10-22 07:18:44 /blog/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.14ms
+  2024-10-22 07:18:44 /workspace/drupal/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.25ms
+  2024-10-22 07:18:44 /panel/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.11ms
+  2024-10-22 07:18:45 /public/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.24ms
+  2024-10-22 07:18:45 /apps/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.11ms
+  2024-10-22 07:18:45 /app/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.28ms
+  127.0.0.1:34146 [302]: GET /index.php?s=/index/\think\app/invokefunction&function=call_user_func_array&vars[0]=md5&vars[1][]=Hello
+  2024-10-22 07:18:45 .............................................. ~ 5.67ms
+  2024-10-22 07:18:45 /public/index.php .......................... ~ 500.68ms
+  127.0.0.1:34162 [302]: GET /index.php?lang=../../../../../../../../usr/local/lib/php/pearcmd&+config-create+/&/<?echo(md5("hi"));?>+/tmp/index1.php
+  2024-10-22 07:18:46 .............................................. ~ 0.32ms
+  127.0.0.1:34170 [302]: GET /index.php?lang=../../../../../../../../tmp/index1
+  2024-10-22 07:18:46 .............................................. ~ 0.36ms
+  2024-10-22 07:18:46 /containers/json ............................. ~ 0.28ms
+  2024-10-22 07:21:45 / ............................................ ~ 0.24ms
+  2024-10-22 07:37:23 / ............................................ ~ 0.25ms
+  2024-10-22 07:37:38 /robots.txt .................................. ~ 0.26ms
+  2024-10-22 07:37:39 /sitemap.xml ................................. ~ 0.24ms
+  2024-10-22 07:37:40 /.well-known/security.txt .................... ~ 0.28ms
+  2024-10-22 07:37:42 /favicon.ico ................................. ~ 0.28ms
+  2024-10-22 07:55:20 / ............................................ ~ 0.28ms
+  2024-10-22 07:55:21 /login ....................................... ~ 0.31ms
+  2024-10-22 07:57:18 / ............................................ ~ 0.24ms
+  2024-10-22 07:57:41 / ............................................ ~ 0.26ms
+  2024-10-22 07:57:43 /login ....................................... ~ 0.34ms
+  2024-10-22 08:02:09 / ............................................ ~ 0.35ms
+  2024-10-22 08:02:10 /login ....................................... ~ 0.26ms
+  2024-10-22 08:09:11 /Autodiscover/Autodiscover.xml ............... ~ 0.25ms
+  2024-10-22 08:17:45 /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 500.71ms
+  2024-10-22 08:21:27 /favicon.ico ................................. ~ 0.28ms
+  2024-10-22 08:25:18 /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.26ms
+  2024-10-22 08:31:11 /solr/admin/info/system .................... ~ 500.65ms
+  2024-10-22 09:22:46 /cgi-bin/luci/;stok=/locale .................. ~ 0.27ms
+  2024-10-22 09:23:07 / ............................................ ~ 0.28ms
+  2024-10-22 09:23:23 /login ....................................... ~ 0.28ms
+  2024-10-22 09:23:24 /favicon.ico ................................. ~ 0.30ms
+  2024-10-22 09:23:27 / ............................................ ~ 0.08ms
+  2024-10-22 09:23:43 / ............................................ ~ 0.27ms
+  2024-10-22 09:23:43 /login ....................................... ~ 0.26ms
+  2024-10-22 09:23:45 /favicon.ico ................................. ~ 0.26ms
+  2024-10-22 09:25:36 / ............................................ ~ 0.25ms
+  2024-10-22 09:25:47 /login ..................................... ~ 500.69ms
+  2024-10-22 09:31:34 /console/ .................................... ~ 0.34ms
+  2024-10-22 09:40:54 /_ignition/execute-solution .................. ~ 0.26ms
+  2024-10-22 09:45:14 / ............................................ ~ 0.26ms
+  2024-10-22 09:45:15 /login ....................................... ~ 0.27ms
+  2024-10-22 09:46:19 /owa/auth/x.js ............................... ~ 0.42ms
+  2024-10-22 09:48:41 / ............................................ ~ 0.24ms
+  2024-10-22 09:51:26 / ............................................ ~ 0.26ms
+  2024-10-22 09:51:27 /login ..................................... ~ 500.67ms
+  2024-10-22 10:03:43 /vpnsvc/connect.cgi .......................... ~ 0.28ms
+  2024-10-22 10:07:58 /.env ........................................ ~ 0.29ms
+  2024-10-22 10:33:40 /actuator/gateway/routes ..................... ~ 0.26ms
+  2024-10-22 10:47:55 /geoserver ................................... ~ 0.25ms
+  2024-10-22 10:58:02 / ............................................ ~ 0.25ms
+  2024-10-22 10:58:08 /1.sql ....................................... ~ 0.24ms
+  2024-10-22 10:58:08 /backup.sql .................................. ~ 0.24ms
+  2024-10-22 10:58:09 /database.sql ................................ ~ 0.31ms
+  2024-10-22 10:58:10 /data.sql .................................... ~ 0.25ms
+  2024-10-22 10:58:11 /db_backup.sql ............................... ~ 0.08ms
+  2024-10-22 10:58:11 /dbdump.sql .................................. ~ 0.24ms
+  2024-10-22 10:58:12 /db.sql ...................................... ~ 0.09ms
+  2024-10-22 10:58:12 /dump.sql .................................... ~ 0.30ms
+  2024-10-22 10:58:13 /149.113.138.163.sql ......................... ~ 0.08ms
+  2024-10-22 10:58:13 /149.113.138.163_db.sql ...................... ~ 0.24ms
+  2024-10-22 10:58:14 /localhost.sql ............................... ~ 0.22ms
+  2024-10-22 10:58:15 /mysqldump.sql ............................... ~ 0.10ms
+  2024-10-22 10:58:15 /mysql.sql ................................... ~ 0.22ms
+  2024-10-22 10:58:16 /site.sql .................................... ~ 0.09ms
+  2024-10-22 10:58:17 /sql.sql ..................................... ~ 0.27ms
+  2024-10-22 10:58:17 /temp.sql .................................... ~ 0.28ms
+  2024-10-22 10:58:18 /translate.sql ............................... ~ 0.28ms
+  2024-10-22 10:58:19 /users.sql ................................... ~ 0.24ms
+  2024-10-22 10:58:20 /www.sql ..................................... ~ 0.22ms
+  2024-10-22 10:58:20 /wp-content/uploads/dump.sql ................. ~ 0.24ms
+  2024-10-22 10:58:21 /wp-content/mysql.sql ........................ ~ 0.29ms
+  2024-10-22 10:58:22 /sa.bak .................................... ~ 500.75ms
+  2024-10-22 10:58:22 /wwwroot.bak ................................. ~ 0.29ms
+  2024-10-22 10:58:23 /backup.bak .................................. ~ 0.32ms
+  2024-10-22 10:58:23 /database.bak ................................ ~ 0.26ms
+  2024-10-22 10:58:24 /data.bak .................................... ~ 0.25ms
+  2024-10-22 10:58:24 /db_backup.bak ............................... ~ 0.26ms
+  2024-10-22 10:58:25 /dbdump.bak .................................. ~ 0.26ms
+  2024-10-22 10:58:25 /db.bak ...................................... ~ 0.24ms
+  2024-10-22 10:58:26 /dump.bak .................................... ~ 0.23ms
+  2024-10-22 10:58:26 /149.113.138.163.bak ......................... ~ 0.24ms
+  2024-10-22 10:58:27 /149.113.138.163_db.bak ...................... ~ 0.31ms
+  2024-10-22 10:58:27 /localhost.bak ............................... ~ 0.28ms
+  2024-10-22 10:58:28 /mysqldump.bak ............................... ~ 0.28ms
+  2024-10-22 10:58:28 /mysql.bak ................................... ~ 0.29ms
+  2024-10-22 10:58:29 /site.bak .................................... ~ 0.36ms
+  2024-10-22 10:58:29 /sql.bak ..................................... ~ 0.25ms
+  2024-10-22 10:58:30 /temp.bak .................................... ~ 0.22ms
+  2024-10-22 10:58:30 /translate.bak ............................... ~ 0.21ms
+  2024-10-22 10:58:31 /users.bak ................................... ~ 0.25ms
+  2024-10-22 10:58:32 /www.bak ..................................... ~ 0.26ms
+  2024-10-22 10:58:32 /wp-content/uploads/dump.bak ................. ~ 0.29ms
+  2024-10-22 10:58:33 /wp-content/mysql.bak ........................ ~ 0.26ms
+  2024-10-22 11:04:28 /.aws/credentials ............................ ~ 0.24ms
+  2024-10-22 11:04:58 / ............................................ ~ 0.25ms
+  2024-10-22 11:04:59 /public/config.js ............................ ~ 0.23ms
+  2024-10-22 11:04:59 /config.js ................................... ~ 0.25ms
+  2024-10-22 11:06:28 /.git-credentials ............................ ~ 0.27ms
+  2024-10-22 11:06:44 / ............................................ ~ 0.24ms
+  2024-10-22 11:06:45 /login ....................................... ~ 0.23ms
+  2024-10-22 11:06:58 /.env ........................................ ~ 0.27ms
+  2024-10-22 11:06:59 /.env.bak .................................... ~ 0.28ms
+  2024-10-22 11:06:59 /.env.dev .................................... ~ 0.27ms
+  2024-10-22 11:07:00 /.env.dev.local .............................. ~ 0.26ms
+  2024-10-22 11:07:00 /.env.development.local ...................... ~ 0.29ms
+  2024-10-22 11:07:01 /.env.prod ................................... ~ 0.29ms
+  2024-10-22 11:07:01 /.env.prod.local ............................. ~ 0.29ms
+  2024-10-22 11:07:02 /.env.production ............................. ~ 0.33ms
+  2024-10-22 11:07:03 /.env.production.local ....................... ~ 0.30ms
+  2024-10-22 11:07:03 /.env.local .................................. ~ 0.32ms
+  2024-10-22 11:07:04 /.env.example ................................ ~ 0.23ms
+  2024-10-22 11:07:04 /.env.stage .................................. ~ 0.31ms
+  2024-10-22 11:07:05 /.env.live ................................... ~ 0.33ms
+  2024-10-22 11:07:05 /.env.backup ................................. ~ 0.27ms
+  2024-10-22 11:07:06 /.env.save ................................... ~ 0.31ms
+  2024-10-22 11:07:06 /.env.old .................................... ~ 0.34ms
+  2024-10-22 11:07:07 /.env.www .................................... ~ 0.32ms
+  2024-10-22 11:07:07 /.env_1 ...................................... ~ 0.28ms
+  2024-10-22 11:07:08 /.env_sample ................................. ~ 0.25ms
+  2024-10-22 11:07:08 /.env.138 .................................... ~ 0.26ms
+  2024-10-22 11:07:09 /.env.149.113 ................................ ~ 0.25ms
+  2024-10-22 11:07:09 /api/.env .................................... ~ 0.24ms
+  2024-10-22 11:54:14 /login ..................................... ~ 500.73ms
+  2024-10-22 12:02:13 /auth.json ................................... ~ 0.27ms
+  2024-10-22 12:02:41 /credentials.json .......................... ~ 500.37ms
+  2024-10-22 12:02:41 /assets/credentials.json ..................... ~ 0.29ms
+  2024-10-22 12:03:37 /manage.py ................................... ~ 0.09ms
+  2024-10-22 12:03:37 /settings.py ................................. ~ 0.26ms
+  2024-10-22 12:03:38 /app/settings.py ............................. ~ 0.08ms
+  2024-10-22 12:03:38 /django/settings.py .......................... ~ 0.22ms
+  2024-10-22 12:03:39 /settings/settings.py ........................ ~ 0.22ms
+  2024-10-22 12:03:40 /web/settings/settings.py .................... ~ 0.13ms
+  2024-10-22 12:06:23 /sendgrid.env ................................ ~ 0.25ms
+  2024-10-22 12:06:51 /assets/other/service-account-credentials.json  ~ 0.31ms
+  2024-10-22 12:06:52 /service-account-credentials.json ............ ~ 0.25ms
+  2024-10-22 12:07:51 / ............................................ ~ 0.26ms
+  2024-10-22 12:07:52 /google-api-private-key.json ................. ~ 0.23ms
+  2024-10-22 12:07:52 /app/config/pimcore/google-api-private-key.json  ~ 0.24ms
+  2024-10-22 12:07:53 /pimcore/app/config/pimcore/google-api-private-key.json  ~ 0.24ms
+  2024-10-22 12:10:04 /robots.txt .................................. ~ 0.09ms
+  2024-10-22 12:10:04 /sitemap.xml ................................. ~ 0.25ms
+  2024-10-22 12:10:04 / ............................................ ~ 0.26ms
+  2024-10-22 12:10:05 /login ....................................... ~ 0.32ms
+  2024-10-22 12:10:05 /login ....................................... ~ 0.17ms
+  2024-10-22 12:10:05 /login ....................................... ~ 0.08ms
+  2024-10-22 12:10:07 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.38ms
+  2024-10-22 12:10:07 /admin/src/scripts/jquery.min.js ............. ~ 0.62ms
+  2024-10-22 12:10:07 /admin/js/script.js .......................... ~ 0.19ms
+  2024-10-22 12:10:07 /admin/lib/jquery/dist/jquery.min.js ......... ~ 0.16ms
+  2024-10-22 12:10:07 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.14ms
+  2024-10-22 12:10:07 / ............................................ ~ 0.23ms
+  2024-10-22 12:10:07 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.13ms
+  2024-10-22 12:10:08 /login ....................................... ~ 0.09ms
+  2024-10-22 12:10:08 / ............................................ ~ 0.24ms
+  2024-10-22 12:10:08 /login ....................................... ~ 0.23ms
+  2024-10-22 12:10:17 /admin/lib/jquery/dist/true/ ................. ~ 0.27ms
+  2024-10-22 12:10:18 /admin/lib/jquery/dist/true/github.com/necolas/normalize.css  ~ 0.26ms
+  2024-10-22 12:11:17 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.33ms
+  2024-10-22 12:11:17 /admin/js/script.js .......................... ~ 0.75ms
+  2024-10-22 12:11:17 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.16ms
+  2024-10-22 14:16:26 /cgi-bin/luci/;stok=/locale .................. ~ 0.30ms
+  2024-10-22 15:16:38 /version ..................................... ~ 0.27ms
+  2024-10-22 15:50:26 / ............................................ ~ 0.12ms
+  2024-10-22 15:50:28 /login ....................................... ~ 0.23ms
+  2024-10-22 16:03:51 /Autodiscover/Autodiscover.xml ............... ~ 0.28ms
+  2024-10-22 16:14:02 / ............................................ ~ 0.26ms
+  2024-10-22 16:15:35 /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.26ms
+  2024-10-22 16:21:15 /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.26ms
+  2024-10-22 16:44:35 / ............................................ ~ 0.25ms
+  2024-10-22 16:48:40 /webui/ .................................... ~ 500.70ms
+  2024-10-22 16:51:46 /favicon.ico ................................. ~ 0.28ms
+  2024-10-22 16:53:19 / ............................................ ~ 0.25ms
+  2024-10-22 16:54:04 / ............................................ ~ 0.31ms
+  2024-10-22 16:55:51 /vpn/index.html .............................. ~ 0.28ms
+  2024-10-22 16:58:11 /.git/config ................................. ~ 0.27ms
+  2024-10-22 17:11:41 /.env ........................................ ~ 0.33ms
+  2024-10-22 17:15:50 / ............................................ ~ 0.27ms
+  2024-10-22 17:15:53 /login ....................................... ~ 0.23ms
+  2024-10-22 17:31:27 /console/ .................................... ~ 0.28ms
+  2024-10-22 17:44:33 /_ignition/execute-solution .................. ~ 0.26ms
+  2024-10-22 17:50:33 /hitung-cepat/rekap .......................... ~ 0.29ms
+  2024-10-22 17:50:33 /login ....................................... ~ 0.26ms
+  2024-10-22 17:50:34 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.19ms
+  2024-10-22 17:50:34 /admin/lib/jquery/dist/jquery.min.js ......... ~ 0.21ms
+  2024-10-22 17:50:34 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.31ms
+  2024-10-22 17:50:34 /admin/js/script.js .......................... ~ 0.32ms
+  2024-10-22 17:50:34 /admin/src/scripts/jquery.min.js ............. ~ 1.45ms
+  2024-10-22 17:50:34 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 2.30ms
+  2024-10-22 17:50:34 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.20ms
+  2024-10-22 17:50:36 /favicon.ico ................................. ~ 0.38ms
+  2024-10-22 17:50:44 /login ....................................... ~ 0.07ms
+  2024-10-22 17:50:44 / ............................................ ~ 0.23ms
+  2024-10-22 17:50:45 /admin/vendors/styles/icon-font.min.css ...... ~ 0.40ms
+  2024-10-22 17:50:45 /admin/vendors/styles/core.css ............... ~ 0.85ms
+  2024-10-22 17:50:45 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 1.46ms
+  2024-10-22 17:50:45 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.15ms
+  2024-10-22 17:50:45 /admin/vendors/styles/style.css .............. ~ 0.27ms
+  2024-10-22 17:50:45 /admin/src/plugins/switchery/switchery.min.css  ~ 0.77ms
+  2024-10-22 17:50:45 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.15ms
+  2024-10-22 17:50:45 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.13ms
+  2024-10-22 17:50:47 /admin/vendors/scripts/core.js ............... ~ 0.26ms
+  2024-10-22 17:50:50 / ............................................ ~ 0.24ms
+  2024-10-22 17:50:51 /admin/vendors/scripts/script.min.js ......... ~ 0.25ms
+  2024-10-22 17:50:51 /admin/vendors/scripts/process.js ............ ~ 0.17ms
+  2024-10-22 17:50:51 /admin/vendors/scripts/layout-settings.js .... ~ 0.15ms
+  2024-10-22 17:50:51 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.13ms
+  2024-10-22 17:50:51 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.14ms
+  2024-10-22 17:50:51 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.15ms
+  2024-10-22 17:50:51 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.24ms
+  2024-10-22 17:50:51 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.16ms
+  2024-10-22 17:50:51 /login ....................................... ~ 0.16ms
+  2024-10-22 17:50:52 /admin/js/script.js .......................... ~ 0.15ms
+  2024-10-22 17:50:52 /admin/src/plugins/plyr/dist/plyr.css ........ ~ 0.15ms
+  2024-10-22 17:50:52 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.15ms
+  2024-10-22 17:50:52 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.20ms
+  2024-10-22 17:50:52 /admin/vendors/fonts/ionicons.ttf?v=2.0.1 .... ~ 0.39ms
+  2024-10-22 17:50:52 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.14ms
+  2024-10-22 17:50:52 /admin/vendors/images/banner-img.png ......... ~ 0.26ms
+  2024-10-22 17:50:52 /admin/src/plugins/plyr/dist/plyr.js ......... ~ 0.17ms
+  2024-10-22 17:50:55 /hitung-cepat/rekap ........................ ~ 500.59ms
+  2024-10-22 17:50:55 /admin/vendors/styles/icon-font.min.css ...... ~ 0.26ms
+  2024-10-22 17:50:55 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.90ms
+  2024-10-22 17:50:55 /admin/vendors/styles/core.css ............... ~ 0.19ms
+  2024-10-22 17:50:55 /admin/vendors/styles/style.css .............. ~ 0.16ms
+  2024-10-22 17:50:55 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.28ms
+  2024-10-22 17:50:55 /admin/src/plugins/switchery/switchery.min.css  ~ 0.11ms
+  2024-10-22 17:50:55 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.10ms
+  2024-10-22 17:50:55 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.15ms
+  2024-10-22 17:50:56 /admin/vendors/scripts/core.js ............... ~ 0.34ms
+  2024-10-22 17:50:58 /admin/vendors/scripts/script.min.js ......... ~ 0.25ms
+  2024-10-22 17:50:58 /admin/vendors/scripts/process.js ............ ~ 0.23ms
+  2024-10-22 17:50:58 /admin/vendors/scripts/layout-settings.js .... ~ 0.16ms
+  2024-10-22 17:50:58 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.27ms
+  2024-10-22 17:50:58 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.19ms
+  2024-10-22 17:50:58 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.21ms
+  2024-10-22 17:50:58 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.18ms
+  2024-10-22 17:50:58 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.20ms
+  2024-10-22 17:50:58 /admin/js/script.js .......................... ~ 0.30ms
+  2024-10-22 17:50:59 /admin/src/plugins/apexcharts/apexcharts.min.js  ~ 0.19ms
+  2024-10-22 17:50:59 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.20ms
+  2024-10-22 17:50:59 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.17ms
+  2024-10-22 17:50:59 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.54ms
+  2024-10-22 17:50:59 /admin/vendors/fonts/ionicons.ttf?v=2.0.1 .... ~ 0.50ms
+  2024-10-22 17:51:02 /hitung-cepat/pilih-tingkat .................. ~ 0.24ms
+  2024-10-22 17:51:04 /wilayah-pemilihan/find ...................... ~ 0.08ms
+  2024-10-22 17:51:07 /hitung-cepat/chart .......................... ~ 0.27ms
+  2024-10-22 17:51:34 /rekapitulasi ................................ ~ 0.27ms
+  2024-10-22 17:51:34 /admin/vendors/styles/core.css ............... ~ 0.20ms
+  2024-10-22 17:51:34 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.19ms
+  2024-10-22 17:51:34 /admin/vendors/styles/icon-font.min.css ...... ~ 0.18ms
+  2024-10-22 17:51:34 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.24ms
+  2024-10-22 17:51:34 /admin/vendors/styles/style.css .............. ~ 0.59ms
+  2024-10-22 17:51:34 /admin/src/plugins/switchery/switchery.min.css  ~ 0.18ms
+  2024-10-22 17:51:34 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.21ms
+  2024-10-22 17:51:34 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.16ms
+  2024-10-22 17:51:35 /admin/vendors/scripts/core.js ............... ~ 0.32ms
+  2024-10-22 17:51:39 /admin/vendors/scripts/script.min.js ......... ~ 0.26ms
+  2024-10-22 17:51:39 /admin/vendors/scripts/process.js ............ ~ 0.22ms
+  2024-10-22 17:51:39 /admin/vendors/scripts/layout-settings.js .... ~ 0.15ms
+  2024-10-22 17:51:39 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.11ms
+  2024-10-22 17:51:39 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.29ms
+  2024-10-22 17:51:39 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.12ms
+  2024-10-22 17:51:40 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.12ms
+  2024-10-22 17:51:40 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.11ms
+  2024-10-22 17:51:40 /admin/js/script.js .......................... ~ 0.11ms
+  2024-10-22 17:51:40 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.10ms
+  2024-10-22 17:51:40 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.13ms
+  2024-10-22 17:51:40 /admin/vendors/fonts/ionicons.ttf?v=2.0.1 .... ~ 0.11ms
+  2024-10-22 17:51:40 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.12ms
+  2024-10-22 17:55:06 / ............................................ ~ 0.26ms
+  2024-10-22 17:55:07 /login ..................................... ~ 500.78ms
+  2024-10-22 18:28:54 /actuator/gateway/routes ..................... ~ 0.26ms
+  2024-10-22 19:05:09 /geoserver ................................... ~ 0.29ms
+  2024-10-22 19:10:22 / ............................................ ~ 0.27ms
+  2024-10-22 19:10:23 /login ....................................... ~ 0.32ms
+  2024-10-22 20:26:58 / ............................................ ~ 0.18ms
+  2024-10-22 20:36:25 / ............................................ ~ 0.09ms
+  2024-10-22 20:36:26 /login ....................................... ~ 0.08ms
+  2024-10-22 21:59:48 / ............................................ ~ 0.27ms
+  2024-10-22 22:08:07 / ............................................ ~ 0.10ms
+  2024-10-22 22:08:22 /login ....................................... ~ 0.28ms
+  2024-10-22 22:08:22 /favicon.ico ................................. ~ 0.20ms
+  2024-10-22 22:08:22 / ............................................ ~ 0.26ms
+  2024-10-22 22:13:20 /ecp/Current/exporttool/microsoft.exchange.ediscovery.exporttool.application  ~ 0.30ms
+  2024-10-22 22:51:40 /cgi-bin/luci/;stok=/locale .................. ~ 0.12ms
+  2024-10-22 23:35:49 / ............................................ ~ 1.62ms
+  2024-10-22 23:35:49 /login ....................................... ~ 0.11ms
+  2024-10-22 23:35:50 /favicon.ico ................................. ~ 0.16ms
+  2024-10-22 23:35:50 /favicon.ico ................................. ~ 0.07ms
+  2024-10-22 23:35:50 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.06ms
+  2024-10-22 23:35:51 /admin/src/scripts/jquery.min.js ............. ~ 0.56ms
+  2024-10-23 00:02:40 /.env ........................................ ~ 0.15ms
+  2024-10-23 00:17:38 /hello.world ................................. ~ 0.45ms
+  2024-10-23 00:17:39 /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.12ms
+  2024-10-23 00:17:39 /vendor/phpunit/phpunit/Util/PHP/eval-stdin.php  ~ 0.07ms
+  2024-10-23 00:17:39 /vendor/phpunit/src/Util/PHP/eval-stdin.php .. ~ 0.24ms
+  2024-10-23 00:17:40 /vendor/phpunit/Util/PHP/eval-stdin.php ...... ~ 0.16ms
+  2024-10-23 00:17:40 /vendor/phpunit/phpunit/LICENSE/eval-stdin.php  ~ 0.31ms
+  2024-10-23 00:17:40 /vendor/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.09ms
+  2024-10-23 00:17:41 /phpunit/phpunit/src/Util/PHP/eval-stdin.php . ~ 0.08ms
+  2024-10-23 00:17:41 /phpunit/phpunit/Util/PHP/eval-stdin.php ..... ~ 0.04ms
+  2024-10-23 00:17:41 /phpunit/src/Util/PHP/eval-stdin.php ......... ~ 0.28ms
+  2024-10-23 00:17:42 /phpunit/Util/PHP/eval-stdin.php ............. ~ 0.08ms
+  2024-10-23 00:17:42 /lib/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.27ms
+  2024-10-23 00:17:43 /lib/phpunit/phpunit/Util/PHP/eval-stdin.php . ~ 0.17ms
+  2024-10-23 00:17:43 /lib/phpunit/src/Util/PHP/eval-stdin.php ..... ~ 0.10ms
+  2024-10-23 00:17:43 /lib/phpunit/Util/PHP/eval-stdin.php ......... ~ 0.07ms
+  2024-10-23 00:17:44 /lib/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.04ms
+  2024-10-23 00:17:44 /laravel/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.28ms
+  2024-10-23 00:17:44 /www/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.15ms
+  2024-10-23 00:17:45 /ws/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.24ms
+  2024-10-23 00:17:45 /yii/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.08ms
+  2024-10-23 00:17:46 /zend/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.04ms
+  2024-10-23 00:17:46 /ws/ec/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.25ms
+  2024-10-23 00:17:46 /V2/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.16ms
+  2024-10-23 00:17:47 /tests/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.28ms
+  2024-10-23 00:17:47 /test/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.17ms
+  2024-10-23 00:17:48 /testing/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.32ms
+  2024-10-23 00:17:48 /api/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.32ms
+  2024-10-23 00:17:48 /demo/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.29ms
+  2024-10-23 00:17:49 /cms/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.18ms
+  2024-10-23 00:17:49 /crm/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.32ms
+  2024-10-23 00:17:49 /admin/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.08ms
+  2024-10-23 00:17:50 /backup/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.11ms
+  2024-10-23 00:17:50 /blog/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.08ms
+  2024-10-23 00:17:51 /workspace/drupal/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.10ms
+  2024-10-23 00:17:51 /panel/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.28ms
+  2024-10-23 00:17:51 /public/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.11ms
+  2024-10-23 00:17:52 /apps/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.27ms
+  2024-10-23 00:17:52 /app/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.23ms
+  127.0.0.1:39332 [302]: GET /index.php?s=/index/\think\app/invokefunction&function=call_user_func_array&vars[0]=md5&vars[1][]=Hello
+  2024-10-23 00:17:52 .............................................. ~ 1.46ms
+  2024-10-23 00:17:53 /public/index.php ............................ ~ 0.24ms
+  127.0.0.1:39350 [302]: GET /index.php?lang=../../../../../../../../usr/local/lib/php/pearcmd&+config-create+/&/<?echo(md5("hi"));?>+/tmp/index1.php
+  2024-10-23 00:17:53 ............................................ ~ 500.74ms
+  127.0.0.1:39352 [302]: GET /index.php?lang=../../../../../../../../tmp/index1
+  2024-10-23 00:17:54 .............................................. ~ 0.28ms
+  2024-10-23 00:17:54 /containers/json ............................. ~ 0.28ms
+  2024-10-23 01:30:26 / .......................................... ~ 513.81ms
+  2024-10-23 01:30:26 /login ....................................... ~ 0.06ms
+  2024-10-23 01:30:27 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.06ms
+  2024-10-23 01:30:27 /admin/lib/jquery/dist/jquery.min.js ......... ~ 0.24ms
+  2024-10-23 01:30:27 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.45ms
+  2024-10-23 01:30:27 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.40ms
+  2024-10-23 01:30:27 /admin/js/script.js .......................... ~ 0.05ms
+  2024-10-23 01:30:27 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.05ms
+  2024-10-23 01:30:27 /admin/src/scripts/jquery.min.js ............. ~ 0.05ms
+  2024-10-23 01:30:27 /admin/src/images/bg.jpg ..................... ~ 0.05ms
+  2024-10-23 01:30:27 /favicon.ico ................................. ~ 0.15ms
+  2024-10-23 01:30:35 /login ..................................... ~ 500.36ms
+  2024-10-23 01:30:36 / ............................................ ~ 0.04ms
+  2024-10-23 01:30:36 /admin/vendors/styles/core.css ............... ~ 0.35ms
+  2024-10-23 01:30:36 /admin/vendors/styles/icon-font.min.css ...... ~ 0.50ms
+  2024-10-23 01:30:36 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.57ms
+  2024-10-23 01:30:36 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.61ms
+  2024-10-23 01:30:36 /admin/vendors/styles/style.css .............. ~ 0.43ms
+  2024-10-23 01:30:36 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.03ms
+  2024-10-23 01:30:36 /admin/src/plugins/switchery/switchery.min.css  ~ 0.03ms
+  2024-10-23 01:30:36 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.03ms
+  2024-10-23 01:30:36 /admin/vendors/scripts/core.js ............... ~ 0.04ms
+  2024-10-23 01:30:36 /admin/vendors/scripts/script.min.js ......... ~ 0.20ms
+  2024-10-23 01:30:36 /admin/vendors/scripts/process.js ............ ~ 0.08ms
+  2024-10-23 01:30:36 /admin/vendors/scripts/layout-settings.js .... ~ 0.06ms
+  2024-10-23 01:30:36 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.06ms
+  2024-10-23 01:30:36 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.04ms
+  2024-10-23 01:30:36 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.04ms
+  2024-10-23 01:30:37 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.04ms
+  2024-10-23 01:30:37 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.04ms
+  2024-10-23 01:30:37 /admin/js/script.js .......................... ~ 0.04ms
+  2024-10-23 01:30:37 /admin/src/plugins/plyr/dist/plyr.css ........ ~ 0.17ms
+  2024-10-23 01:30:37 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.11ms
+  2024-10-23 01:30:37 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.30ms
+  2024-10-23 01:30:37 /admin/vendors/images/banner-img.png ......... ~ 0.19ms
+  2024-10-23 01:30:37 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.44ms
+  2024-10-23 01:30:37 /admin/src/plugins/plyr/dist/plyr.js ......... ~ 0.05ms
+  2024-10-23 01:30:39 /hitung-cepat/rekap ........................ ~ 501.97ms
+  2024-10-23 01:30:39 /admin/vendors/styles/core.css ............... ~ 0.07ms
+  2024-10-23 01:30:39 /admin/vendors/styles/icon-font.min.css ...... ~ 0.16ms
+  2024-10-23 01:30:39 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.37ms
+  2024-10-23 01:30:39 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.47ms
+  2024-10-23 01:30:39 /admin/vendors/styles/style.css .............. ~ 0.55ms
+  2024-10-23 01:30:39 /admin/src/plugins/switchery/switchery.min.css  ~ 0.88ms
+  2024-10-23 01:30:40 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.06ms
+  2024-10-23 01:30:40 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.25ms
+  2024-10-23 01:30:40 /admin/vendors/scripts/core.js ............... ~ 0.75ms
+  2024-10-23 01:30:40 /admin/vendors/scripts/script.min.js ......... ~ 0.06ms
+  2024-10-23 01:30:40 /admin/vendors/scripts/process.js ............ ~ 0.05ms
+  2024-10-23 01:30:40 /admin/vendors/scripts/layout-settings.js .... ~ 0.09ms
+  2024-10-23 01:30:40 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.83ms
+  2024-10-23 01:30:40 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.07ms
+  2024-10-23 01:30:40 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.09ms
+  2024-10-23 01:30:40 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.05ms
+  2024-10-23 01:30:40 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.04ms
+  2024-10-23 01:30:40 /admin/js/script.js .......................... ~ 0.05ms
+  2024-10-23 01:30:40 /admin/src/plugins/apexcharts/apexcharts.min.js  ~ 0.08ms
+  2024-10-23 01:30:40 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.13ms
+  2024-10-23 01:30:40 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.08ms
+  2024-10-23 01:30:40 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.14ms
+  2024-10-23 01:30:42 /hitung-cepat/pilih-tingkat .................. ~ 0.12ms
+  2024-10-23 01:30:43 /wilayah-pemilihan/find ...................... ~ 0.09ms
+  2024-10-23 01:30:45 /hitung-cepat/chart .......................... ~ 0.15ms
+  2024-10-23 01:30:54 /hitung-cepat/saksi .......................... ~ 0.15ms
+  2024-10-23 01:30:54 /admin/vendors/styles/core.css ............... ~ 0.05ms
+  2024-10-23 01:30:54 /admin/vendors/styles/icon-font.min.css ...... ~ 0.05ms
+  2024-10-23 01:30:54 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.04ms
+  2024-10-23 01:30:54 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.08ms
+  2024-10-23 01:30:54 /admin/vendors/styles/style.css .............. ~ 0.14ms
+  2024-10-23 01:30:54 /admin/src/plugins/switchery/switchery.min.css  ~ 0.05ms
+  2024-10-23 01:30:54 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 3.01ms
+  2024-10-23 01:30:54 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 4.12ms
+  2024-10-23 01:30:54 /admin/vendors/scripts/core.js ............... ~ 0.06ms
+  2024-10-23 01:30:54 /admin/vendors/scripts/script.min.js ......... ~ 0.14ms
+  2024-10-23 01:30:54 /admin/vendors/scripts/process.js ............ ~ 0.07ms
+  2024-10-23 01:30:54 /admin/vendors/scripts/layout-settings.js .... ~ 0.06ms
+  2024-10-23 01:30:54 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.05ms
+  2024-10-23 01:30:54 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.05ms
+  2024-10-23 01:30:54 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.07ms
+  2024-10-23 01:30:54 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.08ms
+  2024-10-23 01:30:54 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 2.91ms
+  2024-10-23 01:30:54 /admin/js/script.js .......................... ~ 0.08ms
+  2024-10-23 01:30:54 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.06ms
+  2024-10-23 01:30:54 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.05ms
+  2024-10-23 01:30:54 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.05ms
+  2024-10-23 01:30:56 /wilayah-pemilihan/find ...................... ~ 0.18ms
+  2024-10-23 01:30:57 /wilayah-pemilihan/find ...................... ~ 0.09ms
+  2024-10-23 01:30:58 /wilayah-pemilihan/find ...................... ~ 0.15ms
+  2024-10-23 01:30:59 /hitung-cepat/saksi/list ..................... ~ 0.16ms
+  2024-10-23 01:31:02 /hitung-cepat/saksi/edit ..................... ~ 0.08ms
+  2024-10-23 01:31:06 /hitung-cepat/saksi/edit ..................... ~ 0.32ms
+  2024-10-23 01:31:08 /hitung-cepat/saksi/edit ..................... ~ 0.17ms
+  2024-10-23 01:31:11 /hitung-cepat/saksi/nik ...................... ~ 0.18ms
+  2024-10-23 01:31:13 /hitung-cepat/saksi/edit ..................... ~ 0.16ms
+  2024-10-23 01:31:14 /hitung-cepat/saksi/edit ................... ~ 500.32ms
+  2024-10-23 01:31:15 /hitung-cepat/saksi/edit ................... ~ 500.58ms
+  2024-10-23 01:31:17 /hitung-cepat/saksi/edit ..................... ~ 0.08ms
+  2024-10-23 01:31:25 /saksi/input ................................. ~ 0.09ms
+  2024-10-23 01:31:26 /admin/vendors/styles/core.css ............... ~ 0.09ms
+  2024-10-23 01:31:26 /admin/vendors/styles/icon-font.min.css ...... ~ 0.04ms
+  2024-10-23 01:31:26 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.04ms
+  2024-10-23 01:31:26 /admin/vendors/scripts/core.js ............... ~ 0.04ms
+  2024-10-23 01:31:26 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.05ms
+  2024-10-23 01:31:26 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.10ms
+  2024-10-23 01:31:26 /admin/vendors/scripts/script.min.js ......... ~ 0.08ms
+  2024-10-23 01:31:26 /admin/vendors/scripts/process.js ............ ~ 0.08ms
+  2024-10-23 01:31:26 /admin/vendors/scripts/layout-settings.js .... ~ 0.08ms
+  2024-10-23 01:31:26 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.08ms
+  2024-10-23 01:31:26 /admin/js/script.js .......................... ~ 0.09ms
+  2024-10-23 01:31:29 /saksi/favicon.svg ........................... ~ 0.15ms
+  2024-10-23 01:31:32 /saksi/find ................................ ~ 501.58ms
+  2024-10-23 01:31:33 /saksi/input ................................. ~ 0.15ms
+  2024-10-23 01:31:33 /admin/vendors/styles/core.css ............... ~ 0.14ms
+  2024-10-23 01:31:33 /admin/vendors/styles/icon-font.min.css ...... ~ 0.07ms
+  2024-10-23 01:31:34 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.08ms
+  2024-10-23 01:31:34 /admin/vendors/scripts/core.js ............... ~ 0.05ms
+  2024-10-23 01:31:34 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.04ms
+  2024-10-23 01:31:34 /admin/vendors/scripts/script.min.js ......... ~ 0.04ms
+  2024-10-23 01:31:34 /admin/vendors/scripts/layout-settings.js .... ~ 0.04ms
+  2024-10-23 01:31:34 /admin/vendors/scripts/process.js ............ ~ 0.04ms
+  2024-10-23 01:31:34 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.26ms
+  2024-10-23 01:31:34 /admin/js/script.js .......................... ~ 0.11ms
+  2024-10-23 01:31:35 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.21ms
+  2024-10-23 01:31:36 /saksi/find .................................. ~ 0.28ms
+  2024-10-23 01:31:48 /admin/vendors/styles/core.css ............... ~ 0.23ms
+  2024-10-23 01:31:48 /admin/vendors/styles/icon-font.min.css ...... ~ 0.84ms
+  2024-10-23 01:31:48 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 1.02ms
+  2024-10-23 01:31:49 /admin/vendors/scripts/bootstrap-select.min.js.map  ~ 0.08ms
+  2024-10-23 01:32:14 /saksi/find .................................. ~ 0.25ms
+  2024-10-23 01:32:19 /saksi/find .................................. ~ 0.25ms
+  2024-10-23 01:32:25 /saksi/find .................................. ~ 0.14ms
+  2024-10-23 01:32:27 /saksi/find .................................. ~ 0.35ms
+  2024-10-23 01:32:28 /saksi/find .................................. ~ 0.17ms
+  2024-10-23 01:32:35 /saksi/find .................................. ~ 0.48ms
+  2024-10-23 01:32:53 /hitung-cepat/admin .......................... ~ 0.18ms
+  2024-10-23 01:32:53 /admin/vendors/styles/core.css ............... ~ 0.08ms
+  2024-10-23 01:32:53 /admin/vendors/styles/icon-font.min.css ...... ~ 0.13ms
+  2024-10-23 01:32:53 /admin/src/plugins/datatables/css/dataTables.bootstrap4.min.css  ~ 0.32ms
+  2024-10-23 01:32:53 /admin/src/plugins/TopLoaderService/TopLoaderService.css  ~ 0.07ms
+  2024-10-23 01:32:53 /admin/vendors/styles/style.css .............. ~ 0.06ms
+  2024-10-23 01:32:53 /admin/src/plugins/datatables/css/responsive.bootstrap4.min.css  ~ 0.07ms
+  2024-10-23 01:32:53 /admin/src/plugins/switchery/switchery.min.css  ~ 0.12ms
+  2024-10-23 01:32:53 /admin/src/plugins/TopLoaderService/TopLoaderService.js  ~ 0.21ms
+  2024-10-23 01:32:53 /admin/vendors/scripts/core.js ............... ~ 0.07ms
+  2024-10-23 01:32:54 /admin/vendors/scripts/script.min.js ......... ~ 0.76ms
+  2024-10-23 01:32:54 /admin/vendors/scripts/process.js ............ ~ 0.20ms
+  2024-10-23 01:32:54 /admin/vendors/scripts/layout-settings.js .... ~ 0.24ms
+  2024-10-23 01:32:54 /admin/src/plugins/datatables/js/jquery.dataTables.min.js  ~ 0.07ms
+  2024-10-23 01:32:54 /admin/src/plugins/datatables/js/dataTables.bootstrap4.min.js  ~ 0.06ms
+  2024-10-23 01:32:54 /admin/src/plugins/datatables/js/dataTables.responsive.min.js  ~ 0.07ms
+  2024-10-23 01:32:54 /admin/src/plugins/datatables/js/responsive.bootstrap4.min.js  ~ 0.14ms
+  2024-10-23 01:32:54 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.06ms
+  2024-10-23 01:32:54 /admin/js/script.js .......................... ~ 0.06ms
+  2024-10-23 01:32:54 /admin/vendors/fonts/bootstrap-icons.woff2?08efbba7c53d8c5413793eecb19b20bb  ~ 0.06ms
+  2024-10-23 01:32:54 /admin/vendors/fonts/fontawesome-webfont.woff2?v=4.7.0  ~ 0.05ms
+  2024-10-23 01:32:54 /admin/vendors/fonts/dropways.ttf?jm47o8 ..... ~ 0.05ms
+  2024-10-23 01:32:56 /wilayah-pemilihan/find ...................... ~ 0.19ms
+  2024-10-23 01:32:57 /wilayah-pemilihan/find ...................... ~ 0.30ms
+  2024-10-23 01:32:58 /wilayah-pemilihan/find ...................... ~ 0.10ms
+  2024-10-23 01:33:01 /hitung-cepat/admin/list ..................... ~ 0.09ms
+  2024-10-23 02:48:21 / ............................................ ~ 0.93ms
+  2024-10-23 03:01:52 / .......................................... ~ 500.83ms
+  2024-10-23 03:01:53 /login ....................................... ~ 0.15ms
+  2024-10-23 03:01:53 /favicon.ico ................................. ~ 0.25ms
+  2024-10-23 03:01:53 /favicon.ico ................................. ~ 0.20ms
+  2024-10-23 03:01:54 /admin/src/plugins/sweetalert2/sweetalert2.js  ~ 0.35ms
+  2024-10-23 03:01:54 /admin/src/scripts/jquery.min.js ............. ~ 0.36ms
+  2024-10-23 03:19:26 / ............................................ ~ 0.26ms
+  2024-10-23 04:46:05 / ............................................ ~ 0.31ms
+  2024-10-23 04:46:13 / ............................................ ~ 0.27ms
+  2024-10-23 04:46:41 /login ....................................... ~ 0.41ms
+  2024-10-23 04:46:43 /favicon.ico ................................. ~ 0.34ms
+  2024-10-23 04:46:46 / ............................................ ~ 0.24ms
+  2024-10-23 05:21:31 /.env ........................................ ~ 0.30ms
+  2024-10-23 05:28:56 / ............................................ ~ 0.45ms
+  2024-10-23 06:31:30 /hello.world ................................. ~ 0.25ms
+  2024-10-23 06:31:32 /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.24ms
+  2024-10-23 06:31:36 /vendor/phpunit/phpunit/Util/PHP/eval-stdin.php  ~ 0.21ms
+  2024-10-23 06:31:39 /vendor/phpunit/src/Util/PHP/eval-stdin.php .. ~ 0.32ms
+  2024-10-23 06:31:43 /vendor/phpunit/Util/PHP/eval-stdin.php ...... ~ 0.27ms
+  2024-10-23 06:31:47 /vendor/phpunit/phpunit/LICENSE/eval-stdin.php  ~ 0.24ms
+  2024-10-23 06:31:51 /vendor/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 500.84ms
+  2024-10-23 06:31:55 /phpunit/phpunit/src/Util/PHP/eval-stdin.php . ~ 0.24ms
+  2024-10-23 06:31:58 /phpunit/phpunit/Util/PHP/eval-stdin.php ..... ~ 0.24ms
+  2024-10-23 06:32:02 /phpunit/src/Util/PHP/eval-stdin.php ......... ~ 0.29ms
+  2024-10-23 06:32:05 /phpunit/Util/PHP/eval-stdin.php ............. ~ 0.24ms
+  2024-10-23 06:32:10 /lib/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.27ms
+  2024-10-23 06:32:14 /lib/phpunit/phpunit/Util/PHP/eval-stdin.php . ~ 0.07ms
+  2024-10-23 06:32:18 /lib/phpunit/src/Util/PHP/eval-stdin.php ..... ~ 0.25ms
+  2024-10-23 06:32:21 /lib/phpunit/Util/PHP/eval-stdin.php ......... ~ 0.24ms
+  2024-10-23 06:32:26 /lib/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 500.68ms
+  2024-10-23 06:32:29 /laravel/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 500.70ms
+  2024-10-23 06:32:33 /www/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.24ms
+  2024-10-23 06:32:36 /ws/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.20ms
+  2024-10-23 06:32:40 /yii/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.27ms
+  2024-10-23 06:32:43 /zend/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.26ms
+  2024-10-23 06:32:47 /ws/ec/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.27ms
+  2024-10-23 06:32:51 /V2/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.43ms
+  2024-10-23 06:32:54 /tests/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.26ms
+  2024-10-23 06:32:59 /test/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.22ms
+  2024-10-23 06:33:03 /testing/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.24ms
+  2024-10-23 06:33:06 /api/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.25ms
+  2024-10-23 06:33:11 /demo/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.18ms
+  2024-10-23 06:33:14 /cms/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.41ms
+  2024-10-23 06:33:18 /crm/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.16ms
+  2024-10-23 06:33:23 /admin/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.18ms
+  2024-10-23 06:33:26 /backup/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.44ms
+  2024-10-23 06:33:29 /blog/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.29ms
+  2024-10-23 06:33:33 /workspace/drupal/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.29ms
+  2024-10-23 06:33:36 /panel/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.24ms
+  2024-10-23 06:33:39 /public/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.28ms
+  2024-10-23 06:33:43 /apps/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.25ms
+  2024-10-23 06:33:47 /app/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php  ~ 0.23ms
+  127.0.0.1:48212 [302]: GET /index.php?s=/index/\think\app/invokefunction&function=call_user_func_array&vars[0]=md5&vars[1][]=Hello
+  2024-10-23 06:33:51 .............................................. ~ 1.92ms
+  2024-10-23 06:33:54 /public/index.php .......................... ~ 500.66ms
+  127.0.0.1:55216 [302]: GET /index.php?lang=../../../../../../../../usr/local/lib/php/pearcmd&+config-create+/&/<?echo(md5("hi"));?>+/tmp/index1.php
+  2024-10-23 06:33:58 .............................................. ~ 0.36ms
+  127.0.0.1:55224 [302]: GET /index.php?lang=../../../../../../../../tmp/index1
+  2024-10-23 06:34:01 .............................................. ~ 0.26ms
+  2024-10-23 06:34:05 /containers/json ............................. ~ 0.25ms
+  2024-10-23 06:34:16 / ............................................ ~ 0.41ms
+  2024-10-23 08:06:34 / ............................................ ~ 0.25ms
+  2024-10-23 08:11:14 /webui/ ...................................... ~ 0.19ms
+  2024-10-23 08:14:08 /favicon.ico ................................. ~ 0.23ms
+  2024-10-23 08:15:39 / ............................................ ~ 0.30ms
+  2024-10-23 08:16:24 / ............................................ ~ 0.27ms
+  2024-10-23 08:16:25 /login ....................................... ~ 0.25ms
+  2024-10-23 08:18:03 /vpn/index.html .............................. ~ 0.10ms
+  2024-10-23 08:19:04 /geoserver/web/ .............................. ~ 0.10ms
+  2024-10-23 08:20:25 /.git/config ................................. ~ 0.24ms
+  2024-10-23 09:31:12 / ............................................ ~ 0.26ms
+  2024-10-23 09:31:19 /login ....................................... ~ 0.33ms
