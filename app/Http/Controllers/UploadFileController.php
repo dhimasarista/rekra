@@ -2,7 +2,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Smalot\PdfParser\Parser;
 
 class UploadFileController extends Controller
@@ -35,13 +34,9 @@ class UploadFileController extends Controller
 
         // Extract text from each page and accumulate data
         $pages = $pdf->getPages();
-        $data = null;
-        Log::info('Total pages in PDF: ' . count($pages));
         foreach ($pages as $index => $page) {
             try {
                 $text = $page->getText();
-                $data[] = $page->getText();
-                Log::info('Processing page ' . ($index + 1));
 
                 // Split text into lines
                 $lines = explode("\n", $text);
@@ -79,7 +74,10 @@ class UploadFileController extends Controller
                     }
                 }
             } catch (\Exception $e) {
-                Log::error('Error processing page ' . ($index + 1) . ': ' . $e->getMessage());
+                $responseCode = 500;
+                return response()->json([
+                    "message" => $e->getMessage(),
+                ], $responseCode);
             }
         }
 
@@ -87,8 +85,7 @@ class UploadFileController extends Controller
         if (empty($tableData)) {
             $responseCode = 500;
             return response()->json([
-                "error" => "Failed to parse data from PDF. Please check the PDF structure or try again.",
-                "lines" => $lines,
+                "message" => "Failed to parse data from PDF. Please check the PDF structure or try again.",
             ], $responseCode);
         }
 
@@ -96,7 +93,6 @@ class UploadFileController extends Controller
         return response()->json([
             "data" => $tableData,
             "metadata" => $metadata,
-            "pages" => $data,
         ], $responseCode);
     }
 }

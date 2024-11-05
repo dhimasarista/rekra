@@ -57,8 +57,8 @@
                             contentType: false,
                             success: function(response) {
                                 table.ajax.reload();
-                                $('#parsedData').text(JSON.stringify(response, null, 2));
-                                console.log(response);
+                                // $('#parsedData').text(JSON.stringify(response, null, 2));
+                                // console.log(response);
                             },
                             error: function(xhr) {
                                 Swal.fire({
