@@ -62,7 +62,7 @@ class UploadFileController extends Controller
                     }
 
                     // Detect and parse table rows
-                    if (preg_match('/^(\d+)\s+([A-Za-z\s]+)\s+([LP])\s+(\d+)\s+(.+?)\s+(\d{3})\s+(\d{3})/', $line, $matches)) {
+                    if (preg_match('/^(\d+)\s+(.+?)\s+([LP])\s+(\d+)\s+(.+?)\s+(\d+)\s+(\d+)/', $line, $matches)) {
                         $tableData[] = [
                             'no' => trim($matches[1]),
                             'nama' => trim($matches[2]),
