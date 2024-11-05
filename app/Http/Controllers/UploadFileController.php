@@ -35,11 +35,12 @@ class UploadFileController extends Controller
 
         // Extract text from each page and accumulate data
         $pages = $pdf->getPages();
+        $data = null;
         Log::info('Total pages in PDF: ' . count($pages));
-
         foreach ($pages as $index => $page) {
             try {
                 $text = $page->getText();
+                $data[] = $page->getText();
                 Log::info('Processing page ' . ($index + 1));
 
                 // Split text into lines
@@ -47,21 +48,19 @@ class UploadFileController extends Controller
 
                 foreach ($lines as $line) {
                     $line = trim($line);
-
-                    // Improved metadata extraction
-                    if (preg_match('/^PROVINSI\s*:\s*(.+)$/i', $line, $matches)) {
+                    if (preg_match('/^PROVINSI\s*:\s*(.+?)\s*:\s*(.+)$/i', $line, $matches)) {
                         $metadata['provinsi'] = trim($matches[1]);
-                    } elseif (preg_match('/^KABUPATEN\/KOTA\s*:\s*(.+)$/i', $line, $matches)) {
+                        $metadata['kecamatan'] = trim($matches[2]);
+                    } elseif (preg_match('/^KABUPATEN\/KOTA\s*:\s*(.+?)\s*:\s*(.+)$/i', $line, $matches)) {
                         $metadata['kota'] = trim($matches[1]);
-                    } elseif (preg_match('/^KECAMATAN\s*:\s*(.+)$/i', $line, $matches)) {
-                        $metadata['kecamatan'] = trim($matches[1]);
-                    } elseif (preg_match('/^DESA\/KELURAHAN\s*:\s*(.+)$/i', $line, $matches)) {
-                        $metadata['kelurahan'] = trim($matches[1]);
-                    } elseif (preg_match('/^TPS\s*:\s*(.+)$/i', $line, $matches)) {
+                        $metadata['kelurahan'] = trim($matches[2]);
+
+                    } elseif (preg_match('/^\s*:\s*(.+)$/i', $line, $matches)) {
+                        // Capture the value after the colon as TPS
                         $metadata['tps'] = trim($matches[1]);
                     }
 
-                    // Detect and parse table rows
+                    // Check for table row lines
                     if (preg_match('/^(\d+)\s+(.+?)\s+([LP])\s+(\d+)\s+(.+?)\s+(\d+)\s+(\d+)/', $line, $matches)) {
                         $tableData[] = [
                             'no' => trim($matches[1]),
@@ -89,7 +88,7 @@ class UploadFileController extends Controller
             $responseCode = 500;
             return response()->json([
                 "error" => "Failed to parse data from PDF. Please check the PDF structure or try again.",
-                "metadata" => $metadata,
+                "lines" => $lines,
             ], $responseCode);
         }
 
@@ -97,7 +96,7 @@ class UploadFileController extends Controller
         return response()->json([
             "data" => $tableData,
             "metadata" => $metadata,
-            "pages" => $pages,
+            "pages" => $data,
         ], $responseCode);
     }
 }
