@@ -2,18 +2,21 @@
 @section('body')
     @php
         $segments = request()->segments();
-        $idModal = "X".bin2hex(random_bytes(8));   
-        $buttonSubmit = "X".bin2hex(random_bytes(8));
-        $nikForm = "X".bin2hex(random_bytes(8));
-        $nameForm = "X".bin2hex(random_bytes(8));
-        $phoneForm = "X".bin2hex(random_bytes(8));
-        $addressForm = "X".bin2hex(random_bytes(8));
+        $idModal = 'X' . bin2hex(random_bytes(8));
+        $buttonSubmit = 'X' . bin2hex(random_bytes(8));
+        $nikForm = 'X' . bin2hex(random_bytes(8));
+        $nameForm = 'X' . bin2hex(random_bytes(8));
+        $phoneForm = 'X' . bin2hex(random_bytes(8));
+        $addressForm = 'X' . bin2hex(random_bytes(8));
     @endphp
     @use('App\Helpers\Formatting')
     <div class="xs-pd-20-10 pd-ltr-20">
         <div class="title pb-20 d-flex justify-content-between align-items-center">
             <h2 class="h2 mb-0">Data Pemilih</h2>
             <div class="text-right">
+                <a class="btn btn-sm btn-dark text-light m-1">
+                    <i class="fa fa-plus"></i> Upload DPT
+                </a>
                 <a class="btn btn-sm btn-dark text-light m-1" data-toggle="modal" data-target="#{{ $idModal }}">
                     <i class="fa fa-plus"></i> Tambah Data
                 </a>
@@ -57,58 +60,63 @@
 
                 <script>
                     let table = $("#datatable-table").DataTable({
-                            scrollCollapse: true,
-                            autoWidth: false,
-                            responsive: true,
-                            columnDefs: [{
-                                targets: "datatable-nosort",
-                                orderable: false,
-                            }],
-                            processing: true,
-                            serverSide: true,
-                            ajax: {
-                                url: "{{ route('data-pemilih.all') }}",
-                                type: "GET"
+                        scrollCollapse: true,
+                        autoWidth: false,
+                        responsive: true,
+                        columnDefs: [{
+                            targets: "datatable-nosort",
+                            orderable: false,
+                        }],
+                        processing: true,
+                        serverSide: true,
+                        ajax: {
+                            url: "{{ route('data-pemilih.all') }}",
+                            type: "GET"
+                        },
+                        "lengthMenu": [
+                            [10, 25, 50, 100, -1],
+                            [10, 25, 50, 100, "All"]
+                        ],
+                        "language": {
+                            "info": "_START_-_END_ of _TOTAL_ entries",
+                            searchPlaceholder: "Search",
+                            lengthMenu: "Show _MENU_ entries",
+                            paginate: {
+                                next: '<i class="ion-chevron-right"></i>',
+                                previous: '<i class="ion-chevron-left"></i>'
                             },
-                            "lengthMenu": [
-                                [10, 25, 50, 100, -1],
-                                [10, 25, 50, 100, "All"]
-                            ],
-                            "language": {
-                                "info": "_START_-_END_ of _TOTAL_ entries",
-                                searchPlaceholder: "Search",
-                                lengthMenu: "Show _MENU_ entries",
-                                paginate: {
-                                    next: '<i class="ion-chevron-right"></i>',
-                                    previous: '<i class="ion-chevron-left"></i>'
-                                },
-                                processing: "Mohon tunggu, data sedang diambil..."
+                            processing: "Mohon tunggu, data sedang diambil..."
+                        },
+                        dom: '<"d-flex justify-content-between"lBf>rt<"d-flex justify-content-between"ip>',
+                        buttons: [
+                            'copy', 'csv', 'pdf', 'print', 'excel'
+                        ],
+                        columns: [{
+                                data: 'nik',
+                                render: function(data, type, row) {
+                                    return Formatting.capitalize(data)
+                                }
                             },
-                            dom: '<"d-flex justify-content-between"lBf>rt<"d-flex justify-content-between"ip>',
-                            buttons: [
-                                'copy', 'csv', 'pdf', 'print', 'excel'
-                            ],
-                            columns: [
-                                { 
-                                    data: 'nik', render: function (data, type, row) {
-                                        return Formatting.capitalize(data)
-                                    }
-                                },
-                                { 
-                                    data: 'name', render: function (data, type, row) {
-                                        return Formatting.capitalize(data)
-                                    }
-                                },
-                                { data: 'phone', name: 'phone' },
-                                { 
-                                    data: null, render: function (data, type, row) {
-                                        return Formatting.capitalize(row.address)
-                                    }
-                                },
-                            ],
-                        });
+                            {
+                                data: 'name',
+                                render: function(data, type, row) {
+                                    return Formatting.capitalize(data)
+                                }
+                            },
+                            {
+                                data: 'phone',
+                                name: 'phone'
+                            },
+                            {
+                                data: null,
+                                render: function(data, type, row) {
+                                    return Formatting.capitalize(row.address)
+                                }
+                            },
+                        ],
+                    });
 
-                        table.buttons().container().appendTo('#export-buttons');
+                    table.buttons().container().appendTo('#export-buttons');
                 </script>
             </div>
         </div>
@@ -124,29 +132,33 @@
                 <div class="modal-body" style="overflow-y: auto;">
                     <form>
                         <div class="form-group row">
-							<label class="col-md-12 col-form-label">NIK</label>
-							<div class="col-md-12">
-								<input class="form-control" id="{{ $nikForm }}" type="number" placeholder="Masukkan NIK">
-							</div>
-						</div>
+                            <label class="col-md-12 col-form-label">NIK</label>
+                            <div class="col-md-12">
+                                <input class="form-control" id="{{ $nikForm }}" type="number"
+                                    placeholder="Masukkan NIK">
+                            </div>
+                        </div>
                         <div class="form-group row">
-							<label class="col-md-12 col-form-label">Nama</label>
-							<div class="col-md-12">
-								<input class="form-control" id="{{ $nameForm }}" type="text" placeholder="Masukkan Nama">
-							</div>
-						</div>
+                            <label class="col-md-12 col-form-label">Nama</label>
+                            <div class="col-md-12">
+                                <input class="form-control" id="{{ $nameForm }}" type="text"
+                                    placeholder="Masukkan Nama">
+                            </div>
+                        </div>
                         <div class="form-group row">
-							<label class="col-md-12 col-form-label">Nomor HP</label>
-							<div class="col-md-12">
-								<input class="form-control" id="{{ $phoneForm }}" type="number" placeholder="Masukkan Nomor HP">
-							</div>
-						</div>
+                            <label class="col-md-12 col-form-label">Nomor HP</label>
+                            <div class="col-md-12">
+                                <input class="form-control" id="{{ $phoneForm }}" type="number"
+                                    placeholder="Masukkan Nomor HP">
+                            </div>
+                        </div>
                         <div class="form-group row">
-							<label class="col-md-12 col-form-label">Alamat</label>
-							<div class="col-md-12">
-								<input class="form-control" id="{{ $addressForm }}" type="text" placeholder="Masukkan Alamat">
-							</div>
-						</div>
+                            <label class="col-md-12 col-form-label">Alamat</label>
+                            <div class="col-md-12">
+                                <input class="form-control" id="{{ $addressForm }}" type="text"
+                                    placeholder="Masukkan Alamat">
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -157,42 +169,41 @@
         </div>
     </div>
     <script>
-        $("#{{ $buttonSubmit }}").on("click", function(e){
+        $("#{{ $buttonSubmit }}").on("click", function(e) {
             $.ajax({
-                    type: "POST",
-                    url: "{{ route('data-pemilih.create') }}",
-                    data: JSON.stringify({
-                        nik: $("#{{ $nikForm }}").val(),
-                        name: $("#{{ $nameForm }}").val(),
-                        phone: $("#{{ $phoneForm }}").val(),
-                        address: $("#{{ $addressForm }}").val(),
-                    }),
-                    contentType: "application/json",
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
-                        table.ajax.reload()
-                        $('#{{ $idModal }}').modal('hide');
-                        Toast.fire({
-                            icon: "success",
-                            title: response["message"]
-                        });
-                        $("#{{ $nikForm }}").val(null)
-                        $("#{{ $nameForm }}").val(null)
-                        $("#{{ $phoneForm }}").val(null)
-                        $("#{{ $addressForm }}").val(null)
-                    },
-                    error: function(xhr, status, error) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: xhr["responseJSON"]["message"]
-                        });
-                    },
-                    complete: function(data) {}
+                type: "POST",
+                url: "{{ route('data-pemilih.create') }}",
+                data: JSON.stringify({
+                    nik: $("#{{ $nikForm }}").val(),
+                    name: $("#{{ $nameForm }}").val(),
+                    phone: $("#{{ $phoneForm }}").val(),
+                    address: $("#{{ $addressForm }}").val(),
+                }),
+                contentType: "application/json",
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    table.ajax.reload()
+                    $('#{{ $idModal }}').modal('hide');
+                    Toast.fire({
+                        icon: "success",
+                        title: response["message"]
+                    });
+                    $("#{{ $nikForm }}").val(null)
+                    $("#{{ $nameForm }}").val(null)
+                    $("#{{ $phoneForm }}").val(null)
+                    $("#{{ $addressForm }}").val(null)
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: xhr["responseJSON"]["message"]
+                    });
+                },
+                complete: function(data) {}
             });
         })
     </script>
-
 @endsection
