@@ -17,42 +17,68 @@
         <div class="title pb-20 d-flex justify-content-between align-items-center">
             <h2 class="h2 mb-0">Data Pemilih</h2>
             <div class="text-right">
-                <input type="file" name="pdf" id="pdf" accept="application/pdf" style="display: none;" required>
+                <input type="file" name="pdf" id="{{ $uploadDptForm }}" accept="application/pdf" style="display: none;"
+                    required>
                 <a class="btn btn-sm btn-dark text-light m-1" id="{{ $uploadDptBtn }}">
                     <i class="fa fa-cloud-upload"></i> Upload DPT
                 </a>
-                <script>
-                    $('{{ $uploadDptBtn }}').on('click', function() {
-                        $('#pdf').click();
-                    });
-                    $('#uploadForm').on('submit', function(e) {
-                        e.preventDefault();
 
-                        var formData = new FormData(this);
+                <script>
+                    $('#{{ $uploadDptBtn }}').on('click', function() {
+                        $('#{{ $uploadDptForm }}').click();
+                    });
+
+                    $('#{{ $uploadDptForm }}').on('change', function(e) {
+                        e.preventDefault();
+                        TopLoaderService.start();
+
+                        var fileInput = $('#{{ $uploadDptForm }}')[0];
+                        if (fileInput.files.length === 0) {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'No file selected',
+                                text: 'Please select a PDF file to upload.'
+                            });
+                            TopLoaderService.end();
+                            return;
+                        }
+
+                        var formData = new FormData();
+                        formData.append('pdf', fileInput.files[0]);
 
                         $.ajax({
-                            url: '/parse-pdf',
+                            url: '{{ route('data-pemilih.pdf') }}',
                             type: 'POST',
                             data: formData,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
                             processData: false,
                             contentType: false,
                             success: function(response) {
-                                // Display parsed data
+                                table.ajax.reload();
                                 $('#parsedData').text(JSON.stringify(response, null, 2));
+                                console.log(response);
                             },
                             error: function(xhr) {
-                                alert('Error parsing PDF: ' + xhr.responseText);
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: xhr["responseJSON"]["message"]
+                                });
+                            },
+                            complete: function() {
+                                TopLoaderService.end();
                             }
                         });
                     });
                 </script>
+
                 <a class="btn btn-sm btn-dark text-light m-1" data-toggle="modal" data-target="#{{ $idModal }}">
                     <i class="fa fa-plus"></i> Tambah Data
                 </a>
-                {{-- <a class="btn btn-sm btn-dark text-light m-1">
-                    <i class="fa fa-trash"></i> Hapus Data
-                </a> --}}
             </div>
+
         </div>
         <div class="row pb-10">
             <div class="col-md-12 mb-20">

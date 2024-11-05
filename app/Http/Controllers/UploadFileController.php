@@ -1,28 +1,29 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Smalot\PdfParser\Parser;
 
 class UploadFileController extends Controller
 {
     public function parseDptPdf(Request $request)
     {
-        // Validasi file yang di-upload
+        $responseCode = 200;
+
+        // Validate the uploaded file
         $request->validate([
             'pdf' => 'required|file|mimes:pdf|max:2048',
         ]);
 
-        // Simpan file yang di-upload ke storage
+        // Save the uploaded file to storage
         $filePath = $request->file('pdf')->store('public');
 
-        // Parse PDF
+        // Parse the PDF file
         $parser = new Parser();
         $pdf = $parser->parseFile(storage_path('app/' . $filePath));
 
-        // Extract text from each page
-        $pages = $pdf->getPages();
+        // Initialize metadata and data storage
         $tableData = [];
         $metadata = [
             'provinsi' => '',
@@ -32,61 +33,71 @@ class UploadFileController extends Controller
             'tps' => '',
         ];
 
-        foreach ($pages as $page) {
-            $text = $page->getText();
+        // Extract text from each page and accumulate data
+        $pages = $pdf->getPages();
+        Log::info('Total pages in PDF: ' . count($pages));
 
-            // Split text into lines
-            $lines = explode("\n", $text);
+        foreach ($pages as $index => $page) {
+            try {
+                $text = $page->getText();
+                Log::info('Processing page ' . ($index + 1));
 
-            foreach ($lines as $line) {
-                $line = trim($line);
+                // Split text into lines
+                $lines = explode("\n", $text);
 
-                // Extract metadata
-                if (strpos($line, 'PROVINSI') === 0) {
-                    $metadata['provinsi'] = trim(explode(':', $line)[1]);
-                } elseif (strpos($line, 'KABUPATEN/KOTA') === 0) {
-                    $metadata['kota'] = trim(explode(':', $line)[1]);
-                } elseif (strpos($line, 'KECAMATAN') === 0) {
-                    $metadata['kecamatan'] = trim(explode(':', $line)[1]);
-                } elseif (strpos($line, 'DESA/KELURAHAN') === 0) {
-                    $metadata['kelurahan'] = trim(explode(':', $line)[1]);
-                } elseif (strpos($line, 'TPS') === 0) {
-                    $metadata['tps'] = trim(explode(':', $line)[1]);
+                foreach ($lines as $line) {
+                    $line = trim($line);
+
+                    // Improved metadata extraction
+                    if (preg_match('/^PROVINSI\s*:\s*(.+)$/i', $line, $matches)) {
+                        $metadata['provinsi'] = trim($matches[1]);
+                    } elseif (preg_match('/^KABUPATEN\/KOTA\s*:\s*(.+)$/i', $line, $matches)) {
+                        $metadata['kota'] = trim($matches[1]);
+                    } elseif (preg_match('/^KECAMATAN\s*:\s*(.+)$/i', $line, $matches)) {
+                        $metadata['kecamatan'] = trim($matches[1]);
+                    } elseif (preg_match('/^DESA\/KELURAHAN\s*:\s*(.+)$/i', $line, $matches)) {
+                        $metadata['kelurahan'] = trim($matches[1]);
+                    } elseif (preg_match('/^TPS\s*:\s*(.+)$/i', $line, $matches)) {
+                        $metadata['tps'] = trim($matches[1]);
+                    }
+
+                    // Detect and parse table rows
+                    if (preg_match('/^(\d+)\s+([A-Za-z\s]+)\s+([LP])\s+(\d+)\s+(.+?)\s+(\d{3})\s+(\d{3})/', $line, $matches)) {
+                        $tableData[] = [
+                            'no' => trim($matches[1]),
+                            'nama' => trim($matches[2]),
+                            'jenis_kelamin' => trim($matches[3]),
+                            'usia' => (int) $matches[4],
+                            'alamat' => trim($matches[5]),
+                            'rt' => trim($matches[6]),
+                            'rw' => trim($matches[7]),
+                            'tps' => $metadata['tps'],
+                            'kelurahan' => $metadata['kelurahan'],
+                            'kecamatan' => $metadata['kecamatan'],
+                            'kota' => $metadata['kota'],
+                            'provinsi' => $metadata['provinsi'],
+                        ];
+                    }
                 }
-
-                // Detect and parse table header
-                if (preg_match('/NO\s+NAMA\s+JENIS\s+KELAMIN\s+USIA/', $line)) {
-                    continue; // Skip header row
-                }
-
-                // Parse table rows
-                $columns = preg_split('/\s{2,}/', $line);
-                if (count($columns) >= 8) {
-                    list($no, $nama, $jenis_kelamin, $usia, $alamat, $rt, $rw, $ket) = $columns;
-
-                    $tableData[] = [
-                        'nama' => $nama,
-                        'jenis_kelamin' => $jenis_kelamin,
-                        'usia' => (int) $usia,
-                        'alamat' => $alamat,
-                        'rt' => $rt,
-                        'rw' => $rw,
-                        'tps' => $metadata['tps'],
-                        'kelurahan' => $metadata['kelurahan'],
-                        'kecamatan' => $metadata['kecamatan'],
-                        'kota' => $metadata['kota'],
-                        'provinsi' => $metadata['provinsi'],
-                    ];
-                }
-
-                // Stop parsing if footer or summary is detected
-                if (preg_match('/Rekapitulasi Pemilih Per TPS/', $line)) {
-                    break 2; // Exit both foreach loops
-                }
+            } catch (\Exception $e) {
+                Log::error('Error processing page ' . ($index + 1) . ': ' . $e->getMessage());
             }
         }
 
-        // Return the JSON response
-        return response()->json($tableData);
+        // Check if table data array is empty, indicating potential issues with PDF parsing
+        if (empty($tableData)) {
+            $responseCode = 500;
+            return response()->json([
+                "error" => "Failed to parse data from PDF. Please check the PDF structure or try again.",
+                "metadata" => $metadata,
+            ], $responseCode);
+        }
+
+        // Return the JSON response with table data and metadata
+        return response()->json([
+            "data" => $tableData,
+            "metadata" => $metadata,
+            "pages" => $pages,
+        ], $responseCode);
     }
 }
