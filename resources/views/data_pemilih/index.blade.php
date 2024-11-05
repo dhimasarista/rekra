@@ -8,15 +8,44 @@
         $nameForm = 'X' . bin2hex(random_bytes(8));
         $phoneForm = 'X' . bin2hex(random_bytes(8));
         $addressForm = 'X' . bin2hex(random_bytes(8));
+
+        $uploadDptBtn = 'X' . bin2hex(random_bytes(8));
+        $uploadDptForm = 'X' . bin2hex(random_bytes(8));
     @endphp
     @use('App\Helpers\Formatting')
     <div class="xs-pd-20-10 pd-ltr-20">
         <div class="title pb-20 d-flex justify-content-between align-items-center">
             <h2 class="h2 mb-0">Data Pemilih</h2>
             <div class="text-right">
-                <a class="btn btn-sm btn-dark text-light m-1">
-                    <i class="fa fa-plus"></i> Upload DPT
+                <input type="file" name="pdf" id="pdf" accept="application/pdf" style="display: none;" required>
+                <a class="btn btn-sm btn-dark text-light m-1" id="{{ $uploadDptBtn }}">
+                    <i class="fa fa-cloud-upload"></i> Upload DPT
                 </a>
+                <script>
+                    $('{{ $uploadDptBtn }}').on('click', function() {
+                        $('#pdf').click();
+                    });
+                    $('#uploadForm').on('submit', function(e) {
+                        e.preventDefault();
+
+                        var formData = new FormData(this);
+
+                        $.ajax({
+                            url: '/parse-pdf',
+                            type: 'POST',
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            success: function(response) {
+                                // Display parsed data
+                                $('#parsedData').text(JSON.stringify(response, null, 2));
+                            },
+                            error: function(xhr) {
+                                alert('Error parsing PDF: ' + xhr.responseText);
+                            }
+                        });
+                    });
+                </script>
                 <a class="btn btn-sm btn-dark text-light m-1" data-toggle="modal" data-target="#{{ $idModal }}">
                     <i class="fa fa-plus"></i> Tambah Data
                 </a>

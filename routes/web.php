@@ -7,6 +7,7 @@ use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\HitungCepatController;
 use App\Http\Controllers\JumlahSuaraController;
 use App\Http\Controllers\RekapitulasiController;
+use App\Http\Controllers\UploadFileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WilayahController;
 use App\Models\Calon;
@@ -70,6 +71,7 @@ Route::middleware("auth")->middleware("checkingSession")->group(function () {
         Route::get("/data-pemilih", [DataPemilihController::class, "index"])->name("data-pemilih.index");
         Route::post("/data-pemilih", [DataPemilihController::class, "create"])->name("data-pemilih.create");
         Route::get("/data-pemilih/all", [DataPemilihController::class, "all"])->name("data-pemilih.all");
+        Route::post('/data-pemilih/pdf', [UploadFileController::class, 'parseDptPdf'])->name("data-pemilih.pdf");
     });
 
     Route::prefix("input")->group(function () {
