@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\DataPemilih;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Ramsey\Uuid\Uuid as Uuid;
@@ -103,7 +102,7 @@ class UploadFileController extends Controller
                 "message" => "Gagal mengurai data dari PDF. Silakan periksa struktur PDF atau coba lagi.",
             ], $responseCode);
         } else {
-            DataPemilih::insert($tableData);
+            // DataPemilih::insert($tableData);
             DB::commit();
         }
         // Kembalikan respon JSON dengan data tabel dan metadata

@@ -103,8 +103,8 @@
                                 <tr>
                                     <th class="table-plus datatable-nosort">NIK</th>
                                     <th>Nama</th>
-                                    <th>Nomor Ponsel</th>
                                     <th>Alamat</th>
+                                    <th>TPS</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -159,13 +159,15 @@
                                 }
                             },
                             {
-                                data: 'phone',
-                                name: 'phone'
+                                data: null,
+                                render: function(data, type, row) {
+                                    return Formatting.capitalize(`${row.address} RT ${row.rt} RW ${row.rw}`)
+                                }
                             },
                             {
                                 data: null,
                                 render: function(data, type, row) {
-                                    return Formatting.capitalize(row.address)
+                                    return `TPS ${row.tps} ${row.kelurahan_desa} ${row.kecamatan} ${row.kabkota} ${row.provinsi}`
                                 }
                             },
                         ],
