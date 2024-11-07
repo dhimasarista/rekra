@@ -68,6 +68,7 @@
                                 });
                             },
                             complete: function() {
+                                $("#{{ $uploadDptForm }}").val(null);
                                 TopLoaderService.end();
                             }
                         });

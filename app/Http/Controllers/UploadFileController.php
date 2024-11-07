@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\DataPemilih;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Ramsey\Uuid\Uuid as Uuid;
@@ -42,12 +43,14 @@ class UploadFileController extends Controller
 
         // Ambil semua halaman dan akumulasikan data
         $pages = $pdf->getPages();
+        $data[] = null;
         foreach ($pages as $index => $page) {
             try {
                 $text = $page->getText(); // Ambil teks dari halaman
 
                 // Pisahkan teks menjadi baris-baris
                 $lines = explode("\n", $text);
+                $data[] = $lines;
 
                 foreach ($lines as $line) {
                     $line = trim($line); // Hilangkan spasi di awal dan akhir baris
@@ -65,7 +68,7 @@ class UploadFileController extends Controller
                     }
 
                     // Cek apakah baris merupakan baris tabel
-                    if (preg_match('/^(\d+)\s+(.+?)\s+([LP])\s+(\d+)\s+(.+?)\s+(\d+)\s+(\d+)/', $line, $matches)) {
+                    if (preg_match('/^(\d+)\s*(.+?)\s*([LP])\s*(\d+)\s*(.+?)\s*(\d+)\s*(\d+)/', $line, $matches)) {
                         // Simpan data tabel ke dalam array
                         $tableData[] = [
                             // 'no' => trim($matches[1]),
@@ -94,7 +97,7 @@ class UploadFileController extends Controller
             }
         }
 
-        // Cek apakah array data tabel kosong, yang menunjukkan kemungkinan masalah dengan parsing PDF
+        // table jangan sampai kosong
         if (empty($tableData)) {
             $responseCode = 500;
             DB::rollBack();
@@ -102,13 +105,13 @@ class UploadFileController extends Controller
                 "message" => "Gagal mengurai data dari PDF. Silakan periksa struktur PDF atau coba lagi.",
             ], $responseCode);
         } else {
-            // DataPemilih::insert($tableData);
+            DataPemilih::insert($tableData);
             DB::commit();
         }
-        // Kembalikan respon JSON dengan data tabel dan metadata
         return response()->json([
             "data" => $tableData,
             "metadata" => $metadata,
+            "data2" => $data,
         ], $responseCode);
     }
 }
