@@ -46,7 +46,15 @@ class DataPemilihController extends Controller
                 $query->where(function($q) use ($search) {
                     $q->where('name', 'LIKE', "%$search%")
                       ->orWhere('nik', 'LIKE', "%$search%")
-                      ->orWhere('phone', 'LIKE', "%$search%")
+                      ->orWhere('age', 'LIKE', "%$search%")
+                      ->orWhere('gender', 'LIKE', "%$search%")
+                      ->orWhere('rt', 'LIKE', "%$search%")
+                      ->orWhere('rw', 'LIKE', "%$search%")
+                      ->orWhere('tps', 'LIKE', "%$search%")
+                      ->orWhere('kelurahan_desa', 'LIKE', "%$search%")
+                      ->orWhere('kecamatan', 'LIKE', "%$search%")
+                      ->orWhere('kabkota', 'LIKE', "%$search%")
+                      ->orWhere('provinsi', 'LIKE', "%$search%")
                       ->orWhere('address', 'LIKE', "%$search%");
                 });
             }

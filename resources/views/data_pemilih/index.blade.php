@@ -104,6 +104,8 @@
                                 <tr>
                                     <th class="table-plus datatable-nosort">NIK</th>
                                     <th>Nama</th>
+                                    <th>Umur</th>
+                                    <th>Jenis Kelamin</th>
                                     <th>Alamat</th>
                                     <th>TPS</th>
                                 </tr>
@@ -155,6 +157,18 @@
                             },
                             {
                                 data: 'name',
+                                render: function(data, type, row) {
+                                    return Formatting.capitalize(data)
+                                }
+                            },
+                            {
+                                data: 'age',
+                                render: function(data, type, row) {
+                                    return data
+                                }
+                            },
+                            {
+                                data: 'gender',
                                 render: function(data, type, row) {
                                     return Formatting.capitalize(data)
                                 }
