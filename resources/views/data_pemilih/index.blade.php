@@ -13,14 +13,24 @@
         $uploadDptForm = 'X' . bin2hex(random_bytes(8));
     @endphp
     @use('App\Helpers\Formatting')
+    <div id="loadingOverlay" class="loading-overlay text-center position-fixed w-100 h-100"
+        style="background: rgba(0, 0, 0, 0.7); top: 0; left: 0; z-index: 9999; display: none;">
+        <div class="loading-content text-center text-white"
+            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            <div class="spinner-border text-light" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <p class="mt-3">Loading, please wait...</p>
+        </div>
+    </div>
     <div class="xs-pd-20-10 pd-ltr-20">
         <div class="title pb-20 d-flex justify-content-between align-items-center">
             <h2 class="h2 mb-0">Data Pemilih</h2>
             <div class="text-right">
-                <input type="file" name="pdf" id="{{ $uploadDptForm }}" accept="application/pdf" style="display: none;"
-                    required>
+                <input type="file" name="pdf[]" id="{{ $uploadDptForm }}" accept="application/pdf"
+                    style="display: none;" multiple required>
                 <a class="btn btn-sm btn-dark text-light m-1" id="{{ $uploadDptBtn }}">
-                    <i class="fa fa-cloud-upload"></i> Upload DPT
+                    <i class="fa fa-cloud-upload"></i> Upload DPT (MAX 20)
                 </a>
 
                 <script>
@@ -30,9 +40,9 @@
 
                     $('#{{ $uploadDptForm }}').on('change', function(e) {
                         e.preventDefault();
-                        TopLoaderService.start();
+                        $("#{{ $uploadDptBtn }}").attr('disabled', 'disabled');
 
-                        var fileInput = $('#{{ $uploadDptForm }}')[0];
+                        let fileInput = $('#{{ $uploadDptForm }}')[0];
                         if (fileInput.files.length === 0) {
                             Swal.fire({
                                 icon: 'warning',
@@ -43,8 +53,10 @@
                             return;
                         }
 
-                        var formData = new FormData();
-                        formData.append('pdf', fileInput.files[0]);
+                        let formData = new FormData();
+                        $.each(fileInput.files, function(index, file) {
+                            formData.append('pdf[]', file);
+                        });
 
                         $.ajax({
                             url: '{{ route('data-pemilih.pdf') }}',
@@ -55,7 +67,14 @@
                             },
                             processData: false,
                             contentType: false,
+                            beforeSend: function() {
+                                $('#loadingOverlay').fadeIn();
+                            },
                             success: function(response) {
+                                Toast.fire({
+                                    icon: "success",
+                                    title: response["message"]
+                                });
                                 table.ajax.reload();
                                 // $('#parsedData').text(JSON.stringify(response, null, 2));
                                 // console.log(response);
@@ -68,8 +87,9 @@
                                 });
                             },
                             complete: function() {
+                                $('#loadingOverlay').fadeOut();
+                                $("#{{ $uploadDptBtn }}").removeAttr('disabled', 'disabled');
                                 $("#{{ $uploadDptForm }}").val(null);
-                                TopLoaderService.end();
                             }
                         });
                     });
