@@ -169,13 +169,12 @@
                         buttons: [
                             'copy', 'csv', 'pdf', 'print', 'excel'
                         ],
-                        columns: [
-                            // {
-                            //     data: 'nik',
-                            //     render: function(data, type, row) {
-                            //         return Formatting.capitalize(data)
-                            //     }
-                            // },
+                        columns: [{
+                                data: 'nik',
+                                render: function(data, type, row) {
+                                    return Formatting.capitalize(data)
+                                }
+                            },
                             {
                                 data: 'name',
                                 render: function(data, type, row) {
