@@ -11,9 +11,9 @@ class DataPemilih extends Model
 {
     use HasFactory, SoftDeletes;
     protected $primaryKey = "id";
-    // public $incrementing = false;
+    public $incrementing = false;
     protected $table = 'data_pemilih';
-    protected $keyType = 'integer';
+    protected $keyType = 'string';
 
     protected $fillable = [
         "id",

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\DataPemilih;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Ramsey\Uuid\Uuid;
 use Smalot\PdfParser\Parser;
 
 class UploadFileController extends Controller
@@ -64,7 +65,7 @@ class UploadFileController extends Controller
                         // Cek apakah baris merupakan baris tabel
                         if (preg_match('/^(\d+)\s*(.+?)\s*([LP])\s*(\d+)\s*(.+?)\s*(\d+)\s*(\d+)/', $line, $matches)) {
                             $tableData[] = [
-                                // "id" => Uuid::uuid7()->toString() . '-' . uniqid(),
+                                "id" => Uuid::uuid7()->toString(),
                                 'name' => trim($matches[2]),
                                 'gender' => trim($matches[3]),
                                 'age' => (int) $matches[4],
@@ -84,8 +85,6 @@ class UploadFileController extends Controller
                 // Commit setiap kali selesai mengurai satu file
                 if (!empty($tableData)) {
                     $allTableData = array_merge($allTableData, $tableData); // Simpan data dari file ini
-                    DataPemilih::insert($allTableData); // Uncomment to save to database
-                    DB::commit(); // Commit untuk data dari file ini
                 }
 
             } catch (\Exception $e) {
@@ -99,9 +98,20 @@ class UploadFileController extends Controller
 
         // Setelah semua file selesai diproses, kembalikan response
         if (empty($allTableData)) {
+            DB::rollBack();
             return response()->json([
                 "message" => "Gagal mengurai data dari PDF. Silakan periksa struktur PDF atau coba lagi.",
             ], 500);
+        } else {
+            // Memecah batch data untuk menghindari limit jumlah placeholder
+            $batchSize = 1000; // Tentukan ukuran batch yang lebih kecil
+            $chunks = array_chunk($allTableData, $batchSize);
+
+            foreach ($chunks as $chunk) {
+                DataPemilih::insert($chunk); // Menyimpan data per batch
+            }
+
+            DB::commit(); // Commit untuk data dari file ini
         }
 
         return response()->json([
@@ -109,5 +119,4 @@ class UploadFileController extends Controller
             "message" => "Berhasil Menambahkan Data",
         ], $responseCode);
     }
-
 }
