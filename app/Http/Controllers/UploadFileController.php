@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use App\Models\DataPemilih;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Ramsey\Uuid\Uuid as Uuid;
 use Smalot\PdfParser\Parser;
 
 class UploadFileController extends Controller
@@ -65,7 +64,7 @@ class UploadFileController extends Controller
                         // Cek apakah baris merupakan baris tabel
                         if (preg_match('/^(\d+)\s*(.+?)\s*([LP])\s*(\d+)\s*(.+?)\s*(\d+)\s*(\d+)/', $line, $matches)) {
                             $tableData[] = [
-                                "id" => Uuid::uuid7(),
+                                // "id" => Uuid::uuid7()->toString() . '-' . uniqid(),
                                 'name' => trim($matches[2]),
                                 'gender' => trim($matches[3]),
                                 'age' => (int) $matches[4],

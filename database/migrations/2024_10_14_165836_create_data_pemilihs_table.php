@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('data_pemilih', function (Blueprint $table) {
-            $table->uuid("id")->primary();
+            $table->integer("id")->primary()->autoIncrement();
             $table->char("nik", 16)->index()->unique()->default(null)->nullable();
             $table->string("name");
             $table->string("phone")->nullable()->default(null);
