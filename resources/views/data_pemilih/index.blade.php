@@ -122,8 +122,10 @@
                             class="table hover stripe multiple-select-row data-table-export no-wrap responsive">
                             <thead>
                                 <tr>
-                                    <th class="table-plus datatable-nosort">NIK</th>
+                                    {{-- <th class="table-plus datatable-nosort">NIK</th> --}}
                                     <th>Nama</th>
+                                    <th>Usia</th>
+                                    <th>Jenis Kelamin</th>
                                     <th>Alamat</th>
                                     <th>TPS</th>
                                 </tr>
@@ -167,14 +169,27 @@
                         buttons: [
                             'copy', 'csv', 'pdf', 'print', 'excel'
                         ],
-                        columns: [{
-                                data: 'nik',
+                        columns: [
+                            // {
+                            //     data: 'nik',
+                            //     render: function(data, type, row) {
+                            //         return Formatting.capitalize(data)
+                            //     }
+                            // },
+                            {
+                                data: 'name',
                                 render: function(data, type, row) {
                                     return Formatting.capitalize(data)
                                 }
                             },
                             {
-                                data: 'name',
+                                data: 'age',
+                                render: function(data, type, row) {
+                                    return data
+                                }
+                            },
+                            {
+                                data: 'gender',
                                 render: function(data, type, row) {
                                     return Formatting.capitalize(data)
                                 }
@@ -188,7 +203,7 @@
                             {
                                 data: null,
                                 render: function(data, type, row) {
-                                    return `TPS ${row.tps} ${row.kelurahan_desa} ${row.kecamatan} ${row.kabkota} ${row.provinsi}`
+                                    return `TPS ${row.tps} | ${row.kelurahan_desa} | ${row.kecamatan} | ${row.kabkota} | ${row.provinsi}`
                                 }
                             },
                         ],

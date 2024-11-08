@@ -30,7 +30,8 @@ class DataPemilihController extends Controller
         }
     }
 
-    public function all(Request $request){
+    public function all(Request $request)
+    {
         try {
             // Ambil parameter dari request
             $limit = $request->input('length', 10); // default 10
@@ -43,11 +44,12 @@ class DataPemilihController extends Controller
 
             // Filter berdasarkan pencarian
             if ($search) {
-                $query->where(function($q) use ($search) {
-                    $q->where('name', 'LIKE', "%$search%")
-                      ->orWhere('nik', 'LIKE', "%$search%")
-                      ->orWhere('phone', 'LIKE', "%$search%")
-                      ->orWhere('address', 'LIKE', "%$search%");
+                $query->where(function ($q) use ($search) {
+                    $q->where('kelurahan_desa', 'LIKE', "%$search%")
+                        ->orWhere('kecamatan', 'LIKE', "%$search%")
+                    // ->orWhere('name', 'LIKE', "%$search%")
+                        ->orWhere('provinsi', 'LIKE', "%$search%")
+                        ->orWhere('kabkota', 'LIKE', "%$search%");
                 });
             }
 
@@ -98,13 +100,13 @@ class DataPemilihController extends Controller
                 $data = DataPemilih::where("nik", $request->nik)->first();
                 if ($data) {
                     $responseCode = 400;
-                    throw new Exception("NIK Sudah Dipakai",1);
+                    throw new Exception("NIK Sudah Dipakai", 1);
                 } else {
                     DataPemilih::create([
                         "nik" => $request->nik,
                         "phone" => $request->phone,
                         "name" => $request->name,
-                        "address" => $request->address
+                        "address" => $request->address,
                     ]);
                     $message = "Berhasil Menambahkan Data";
                 }
