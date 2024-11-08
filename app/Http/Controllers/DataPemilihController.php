@@ -111,7 +111,7 @@ class DataPemilihController extends Controller
                     $message = "Berhasil Menambahkan Data";
                 }
             }
-            DB::commit();
+            // DB::commit();
             return response()->json([
                 "message" => $message,
                 "data" => $request->all(),
