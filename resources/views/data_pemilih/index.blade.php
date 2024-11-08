@@ -122,7 +122,7 @@
                             class="table hover stripe multiple-select-row data-table-export no-wrap responsive">
                             <thead>
                                 <tr>
-                                    {{-- <th class="table-plus datatable-nosort">NIK</th> --}}
+                                    <th class="table-plus datatable-nosort">NIK</th>
                                     <th>Nama</th>
                                     <th>Usia</th>
                                     <th>Jenis Kelamin</th>
