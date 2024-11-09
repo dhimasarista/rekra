@@ -7,6 +7,7 @@ use App\Models\DataPemilih;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -38,37 +39,49 @@ class DataPemilihController extends Controller
             $start = $request->input('start', 0); // default 0
             $search = $request->input('search.value', '');
 
-            // Query untuk mengambil data dengan pagination dan pencarian
-            $query = DataPemilih::query()
-                ->whereNull('deleted_at');
+            // Buat cache key berdasarkan parameter request
+            $cacheKey = "data_pemilih_{$start}_{$limit}_{$search}";
 
-            // Filter berdasarkan pencarian
-            if ($search) {
-                $query->where(function ($q) use ($search) {
-                    $q->where('kelurahan_desa', 'LIKE', "%$search%")
-                        ->orWhere('kecamatan', 'LIKE', "%$search%")
-                        ->orWhere('name', 'LIKE', "%$search%")
-                        ->orWhere('provinsi', 'LIKE', "%$search%")
-                        ->orWhere('kabkota', 'LIKE', "%$search%");
-                });
-            }
+            // Tentukan waktu cache dalam detik (misal 5 menit = 300 detik)
+            $cacheTTL = 300;
 
-            // Hitung total data
-            $totalData = $query->count();
+            // Cek apakah hasil query sudah ada di cache
+            $result = Cache::remember($cacheKey, $cacheTTL, function () use ($limit, $start, $search) {
+                // Query untuk mengambil data dengan pagination dan pencarian
+                $query = DataPemilih::query()
+                    ->whereNull('deleted_at');
 
-            // Jika length adalah -1, ambil semua data
-            if ($limit == -1) {
-                $data = $query->get();
-            } else {
-                // Ambil data dengan limit dan offset
-                $data = $query->limit($limit)->offset($start)->get();
-            }
+                // Filter berdasarkan pencarian
+                if ($search) {
+                    $query->where(function ($q) use ($search) {
+                        $q->where('kelurahan_desa', 'LIKE', "%$search%")
+                            ->orWhere('kecamatan', 'LIKE', "%$search%")
+                            ->orWhere('name', 'LIKE', "%$search%")
+                            ->orWhere('provinsi', 'LIKE', "%$search%")
+                            ->orWhere('kabkota', 'LIKE', "%$search%");
+                    });
+                }
 
+                // Hitung total data
+                $totalData = $query->count();
+
+                // Ambil data dengan limit dan offset atau semua data jika limit = -1
+                $data = $limit == -1 ? $query->get() : $query->limit($limit)->offset($start)->get();
+
+                // Kembalikan data dalam format array
+                return [
+                    "recordsTotal" => $totalData,
+                    "recordsFiltered" => $totalData,
+                    "data" => $data,
+                ];
+            });
+
+            // Kembalikan response JSON
             return response()->json([
-                "draw" => intval($request->input('draw')), // Pastikan draw diubah menjadi integer
-                "recordsTotal" => $totalData,
-                "recordsFiltered" => $totalData,
-                "data" => $data,
+                "draw" => intval($request->input('draw')),
+                "recordsTotal" => $result['recordsTotal'],
+                "recordsFiltered" => $result['recordsFiltered'],
+                "data" => $result['data'],
             ], 200);
         } catch (Exception $e) {
             return response()->json([
