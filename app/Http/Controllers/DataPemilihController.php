@@ -54,11 +54,10 @@ class DataPemilihController extends Controller
                 // Filter berdasarkan pencarian
                 if ($search) {
                     $query->where(function ($q) use ($search) {
-                        $q->where('kelurahan_desa', 'LIKE', "%$search%")
-                            ->orWhere('kecamatan', 'LIKE', "%$search%")
-                            ->orWhere('name', 'LIKE', "%$search%")
-                            ->orWhere('provinsi', 'LIKE', "%$search%")
-                            ->orWhere('kabkota', 'LIKE', "%$search%");
+                        $q->where('name', 'LIKE', "%$search%");
+                        // ->orWhere('kecamatan', 'LIKE', "%$search%")
+                        // ->orWhere('provinsi', 'LIKE', "%$search%")
+                        // ->orWhere('kabkota', 'LIKE', "%$search%");
                     });
                 }
 
