@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Ramsey\Uuid\Uuid;
+
 class DataPemilih extends Model
 {
     use HasFactory, SoftDeletes;
@@ -19,7 +20,7 @@ class DataPemilih extends Model
         "nik",
         "name",
         "phone",
-        "address"
+        "address",
     ];
 
     protected static function boot()
@@ -28,7 +29,7 @@ class DataPemilih extends Model
         static::creating(function ($model) {
             /**
              * Memeriksa dan membuat primary key menjadi unique id
-            */
+             */
             if (empty($model->{$model->getKeyName()})) {
                 $model->{$model->getKeyName()} = (string) Uuid::uuid7();
             }
