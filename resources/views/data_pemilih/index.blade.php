@@ -124,11 +124,7 @@
                                 <tr>
                                     <th class="table-plus datatable-nosort">NIK</th>
                                     <th>Nama</th>
-<<<<<<< HEAD
-                                    <th>Umur</th>
-=======
                                     <th>Usia</th>
->>>>>>> 88aaa4f8cd31a9678396bda4360bb71985869f06
                                     <th>Jenis Kelamin</th>
                                     <th>Alamat</th>
                                     <th>TPS</th>
