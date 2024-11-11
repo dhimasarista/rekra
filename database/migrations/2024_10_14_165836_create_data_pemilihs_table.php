@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('data_pemilih', function (Blueprint $table) {
             $table->uuid("id")->primary();
             $table->char("nik", 16)->index()->unique()->default(null)->nullable();
-            $table->string("name");
+            $table->string("name")->default(null);
             $table->string("phone")->nullable()->default(null);
             $table->string("address");
             $table->enum("gender", ["L", "P"]);
