@@ -104,6 +104,7 @@ class DataPemilihController extends Controller
                 "name" => "required|string",
                 "address" => "required|string",
                 "phone" => "required|string",
+                "age" => "integer",
             ]);
             if ($validator->fails()) {
                 $responseCode = 500;
@@ -114,16 +115,11 @@ class DataPemilihController extends Controller
                     $responseCode = 400;
                     throw new Exception("NIK Sudah Dipakai", 1);
                 } else {
-                    DataPemilih::create([
-                        "nik" => $request->nik,
-                        "phone" => $request->phone,
-                        "name" => $request->name,
-                        "address" => $request->address,
-                    ]);
+                    // DataPemilih::create([ ...$request->all()]);
                     $message = "Berhasil Menambahkan Data";
                 }
             }
-            // DB::commit();
+            DB::commit();
             return response()->json([
                 "message" => $message,
                 "data" => $request->all(),

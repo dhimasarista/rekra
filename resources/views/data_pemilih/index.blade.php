@@ -8,11 +8,33 @@
         $nameForm = 'X' . bin2hex(random_bytes(8));
         $phoneForm = 'X' . bin2hex(random_bytes(8));
         $addressForm = 'X' . bin2hex(random_bytes(8));
+        $genderForm = 'X' . bin2hex(random_bytes(8));
+        $ageForm = 'X' . bin2hex(random_bytes(8));
+        $rtForm = 'X' . bin2hex(random_bytes(8));
+        $rwForm = 'X' . bin2hex(random_bytes(8));
+        $tpsForm = 'X' . bin2hex(random_bytes(8));
+        $keldesaForm = 'X' . bin2hex(random_bytes(8));
+        $kabkotaForm = 'X' . bin2hex(random_bytes(8));
+        $provinsiForm = 'X' . bin2hex(random_bytes(8));
+        $kecamatanForm = 'X' . bin2hex(random_bytes(8));
 
         $uploadDptBtn = 'X' . bin2hex(random_bytes(8));
         $uploadDptForm = 'X' . bin2hex(random_bytes(8));
     @endphp
     @use('App\Helpers\Formatting')
+    <style>
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
     <div id="loadingOverlay" class="loading-overlay text-center position-fixed w-100 h-100"
         style="background: rgba(0, 0, 0, 0.7); top: 0; left: 0; z-index: 9999; display: none;">
         <div class="loading-content text-center text-white"
@@ -224,31 +246,69 @@
                 <div class="modal-body" style="overflow-y: auto;">
                     <form>
                         <div class="form-group row">
-                            <label class="col-md-12 col-form-label">NIK</label>
-                            <div class="col-md-12">
-                                <input class="form-control" id="{{ $nikForm }}" type="number"
-                                    placeholder="Masukkan NIK">
+                            <div class="col-md-6">
+                                <input class="form-control" id="{{ $nikForm }}" type="number" min="0"
+                                    placeholder="NIK">
+                            </div>
+                            <div class="col-md-6">
+                                <input class="form-control" id="{{ $phoneForm }}" type="number" min="0"
+                                    placeholder="Nomor HP">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-12 col-form-label">Nama</label>
                             <div class="col-md-12">
                                 <input class="form-control" id="{{ $nameForm }}" type="text"
-                                    placeholder="Masukkan Nama">
+                                    placeholder="Nama Lengkap">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-12 col-form-label">Nomor HP</label>
-                            <div class="col-md-12">
-                                <input class="form-control" id="{{ $phoneForm }}" type="number"
-                                    placeholder="Masukkan Nomor HP">
+                            <div class="col-md-6">
+                                <select id="{{ $genderForm }}" class="custom-select col-12">
+                                    <option selected disabled>Jenis Kelamin</option>
+                                    <option value="L">Laki-Laki</option>
+                                    <option value="P">Perempuan</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <input class="form-control" id="{{ $ageForm }}" type="number" min="0"
+                                    placeholder="Umur">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-12 col-form-label">Alamat</label>
-                            <div class="col-md-12">
-                                <input class="form-control" id="{{ $addressForm }}" type="text"
-                                    placeholder="Masukkan Alamat">
+                            <div class="col-md-8">
+                                <input class="form-control" id="{{ $addressForm }}" type="text" placeholder="Alamat">
+                            </div>
+                            <div class="col-md-4">
+                                <input class="form-control" id="{{ $tpsForm }}" type="number" min="0"
+                                    placeholder="TPS">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-4">
+                                <input class="form-control" id="{{ $rtForm }}" type="number" min="0"
+                                    placeholder="RT">
+                            </div>
+                            <div class="col-md-4">
+                                <input class="form-control" id="{{ $rwForm }}" type="number" min="0"
+                                    placeholder="RW">
+                            </div>
+                            <div class="col-md-4">
+                                <input class="form-control" id="{{ $keldesaForm }}" type="text"
+                                    placeholder="Kelurahan/Desa">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-4">
+                                <input class="form-control" id="{{ $kecamatanForm }}" type="text"
+                                    placeholder="Kecamatan">
+                            </div>
+                            <div class="col-md-4">
+                                <input class="form-control" id="{{ $kabkotaForm }}" type="text"
+                                    placeholder="Kab/Kota">
+                            </div>
+                            <div class="col-md-4">
+                                <input class="form-control" id="{{ $provinsiForm }}" type="text"
+                                    placeholder="Provinsi">
                             </div>
                         </div>
                     </form>
@@ -270,6 +330,15 @@
                     name: $("#{{ $nameForm }}").val(),
                     phone: $("#{{ $phoneForm }}").val(),
                     address: $("#{{ $addressForm }}").val(),
+                    gender: $("#{{ $genderForm }}").val(),
+                    age: $("#{{ $ageForm }}").val() ?? 0,
+                    tps: $("#{{ $tpsForm }}").val(),
+                    rt: $("#{{ $rtForm }}").val(),
+                    rw: $("#{{ $rwForm }}").val(),
+                    kelurahan_desa: $("#{{ $keldesaForm }}").val(),
+                    kecamatan: $("#{{ $kecamatanForm }}").val(),
+                    kabkota: $("#{{ $kabkotaForm }}").val(),
+                    provinsi: $("#{{ $provinsiForm }}").val(),
                 }),
                 contentType: "application/json",
                 headers: {
@@ -286,6 +355,15 @@
                     $("#{{ $nameForm }}").val(null)
                     $("#{{ $phoneForm }}").val(null)
                     $("#{{ $addressForm }}").val(null)
+                    $("#{{ $genderForm }}").prop("selectedIndex", 0)
+                    $("#{{ $ageForm }}").val(null)
+                    $("#{{ $tpsForm }}").val(null)
+                    $("#{{ $rtForm }}").val(null)
+                    $("#{{ $rwForm }}").val(null)
+                    $("#{{ $keldesaForm }}").val(null)
+                    $("#{{ $kecamatanForm }}").val(null)
+                    $("#{{ $kabkotaForm }}").val(null)
+                    $("#{{ $provinsiForm }}").val(null)
                 },
                 error: function(xhr, status, error) {
                     Swal.fire({
