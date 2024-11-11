@@ -150,6 +150,7 @@
                                     <th>Jenis Kelamin</th>
                                     <th>Alamat</th>
                                     <th>TPS</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -219,6 +220,12 @@
                                 data: null,
                                 render: function(data, type, row) {
                                     return Formatting.capitalize(`${row.address} RT ${row.rt} RW ${row.rw}`)
+                                }
+                            },
+                            {
+                                data: null,
+                                render: function(data, type, row) {
+                                    return `TPS ${row.tps} | ${row.kelurahan_desa} | ${row.kecamatan} | ${row.kabkota} | ${row.provinsi}`
                                 }
                             },
                             {
