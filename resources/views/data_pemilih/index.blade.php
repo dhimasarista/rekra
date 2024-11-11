@@ -231,7 +231,7 @@
                             {
                                 data: null,
                                 render: function(data, type, row) {
-                                    return `TPS ${row.tps} | ${row.kelurahan_desa} | ${row.kecamatan} | ${row.kabkota} | ${row.provinsi}`
+                                    return `<a href="#"><i class="icon-copy fa fa-user-plus" aria-hidden="true"></i></a>`
                                 }
                             },
                         ],
