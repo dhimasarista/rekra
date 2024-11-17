@@ -161,6 +161,7 @@
 
                 <script>
                     let table = $("#datatable-table").DataTable({
+                        searchDelay: 2000,
                         scrollCollapse: true,
                         autoWidth: false,
                         responsive: true,
