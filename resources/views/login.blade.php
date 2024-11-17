@@ -233,8 +233,9 @@
                     <div class="LogoContainer" style="text-align: center">
                         {{-- <img src="https://www.pngkey.com/png/full/529-5291672_sample-logo-png-transparent-background.png" class="logo"> --}}
                         <h1>
+                            HITUNG SUARA PILKADA 2024
                             <i>
-                                <svg width="350" viewBox="0 0 709 98" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                {{-- <svg width="350" viewBox="0 0 709 98" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#clip0_705_41)">
                                 <path d="M7.5 50C7.5 32.3225 7.5 23.4837 12.99 17.99C18.4875 12.5 27.3225 12.5 45 12.5C62.6775 12.5 71.5162 12.5 77.0062 17.99C82.5 23.4875 82.5 32.3225 82.5 50C82.5 67.6775 82.5 76.5162 77.0062 82.0062C71.52 87.5 62.6775 87.5 45 87.5C27.3225 87.5 18.4837 87.5 12.99 82.0062C7.5 76.52 7.5 67.6775 7.5 50Z" fill="#A41E11"/>
                                 <g clip-path="url(#clip1_705_41)">
@@ -251,14 +252,14 @@
                                 </clipPath>
                                 </defs>
                                 </svg>
-
+ --}}
 
                             </i>
                         </h1>
                         <br>
                     </div>
                     <header class="header">Masuk</header>
-                    <header class="subHeader">Selamat Datang di <b>Kamar Juang</b>. Silahkan Login Terlebih Dahulu.</header>
+                    <header class="subHeader"><b>Selamat Datang</b>. Silahkan Login Terlebih Dahulu.</header>
 
                     <form>
                         @csrf

@@ -13,8 +13,8 @@
             <div class="text-left" style="width: 100%">
                 <select id="{{ $idSelect1 }}" class="custom-select col-md-2 m-1">
                     <option disabled selected id="">Pilih Jenis Rekap</option>
-                    <option value="saksi">Hitung Cepat Saksi</option>
                     <option value="admin">Hitung Cepat Admin</option>
+                    <option value="saksi">Hitung Cepat Saksi</option>
                 </select>
                 <select id="{{ $idSelect2 }}" class="custom-select col-md-2 m-1">
                     <option disabled selected>Pilih Tingkatan</option>

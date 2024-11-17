@@ -232,7 +232,8 @@
     <div class="left-side-bar">
         <div class="brand-logo pt-10">
             <a href="/">
-                <svg width="709" height="98" viewBox="0 0 709 98" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <h3 style="color: white">PILKADA 2024</h3>
+                {{-- <svg width="709" height="98" viewBox="0 0 709 98" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_705_51)">
                 <path d="M7.5 50C7.5 32.3225 7.5 23.4837 12.99 17.99C18.4875 12.5 27.3225 12.5 45 12.5C62.6775 12.5 71.5162 12.5 77.0062 17.99C82.5 23.4875 82.5 32.3225 82.5 50C82.5 67.6775 82.5 76.5162 77.0062 82.0062C71.52 87.5 62.6775 87.5 45 87.5C27.3225 87.5 18.4837 87.5 12.99 82.0062C7.5 76.52 7.5 67.6775 7.5 50Z" fill="white"/>
                 <g clip-path="url(#clip1_705_51)">
@@ -248,8 +249,7 @@
                 <rect width="60" height="60" fill="white" transform="translate(15 21)"/>
                 </clipPath>
                 </defs>
-                </svg>
-
+                </svg> --}}
             </a>
             <div class="close-sidebar" data-toggle="left-sidebar-close">
                 <i class="ion-close-round"></i>
@@ -264,17 +264,17 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('hitung_cepat.saksi') }}"
-                            class="dropdown-toggle no-arrow {{ request()->path() == "hitung-cepat/saksi" ? 'active' : '' }}">
-                            <span class="micon dw dw-flash"></span>
-                            <span class="mtext">Hitung Cepat (Saksi)</span>
-                        </a>
-                    </li>
-                    <li>
                         <a href="{{ route('hitung_cepat.admin') }}"
                             class="dropdown-toggle no-arrow {{ request()->path() == "hitung-cepat/admin" ? 'active' : '' }}">
                             <span class="micon dw dw-flash"></span>
                             <span class="mtext">Hitung Cepat (Admin)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('hitung_cepat.saksi') }}"
+                            class="dropdown-toggle no-arrow {{ request()->path() == "hitung-cepat/saksi" ? 'active' : '' }}">
+                            <span class="micon dw dw-flash"></span>
+                            <span class="mtext">Hitung Cepat (Saksi)</span>
                         </a>
                     </li>
                     <li>
