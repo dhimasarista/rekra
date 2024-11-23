@@ -289,7 +289,7 @@
                     </li>
                     <li>
                         <a href="{{ route('hitung_suara.index') }}"
-                            class="dropdown-toggle no-arrow {{ Str::contains(request()->route()->getName(), 'input') ? 'active' : '' }}">
+                            class="dropdown-toggle no-arrow {{ request()->path() == 'hitung-suara' ? 'active' : '' }}">
                             <span class="micon dw dw-folder"></span>
                             <span class="mtext">Hitung Suara</span>
                         </a>
