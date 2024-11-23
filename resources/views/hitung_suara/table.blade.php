@@ -1,5 +1,6 @@
 @use('App\Helpers\Formatting')
 @php
+    $idDatatable = 'X' . bin2hex(random_bytes(8));
     $idModal = 'X' . bin2hex(random_bytes(8));
 @endphp
 <div class="card-box mb-30">
@@ -9,7 +10,8 @@
         </h4>
     </div>
     <div class="pb-20">
-        <table width="100%" id="datatable-table" class="table hover stripe multiple-select-row data-table-export wrap">
+        <table width="100%" id="{{ $idDatatable }}"
+            class="table hover stripe multiple-select-row data-table-export wrap">
             <thead>
                 <tr>
                     <th>Nomor TPS</th>
@@ -41,15 +43,11 @@
         </table>
     </div>
     <script>
-        $("#datatable-table").DataTable({
+        $("#{{ $idDatatable }}").DataTable({
             "order": [],
             "scrollX": true,
 
         });
-
-        const showModalForm = (id, type) => {
-
-        }
     </script>
 </div>
 <div class="modal fade bs-example-modal-lg" id="{{ $idModal }}" tabindex="-1" role="dialog"

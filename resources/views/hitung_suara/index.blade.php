@@ -206,4 +206,9 @@
             </div>
         </div>
     </div>
+    <script>
+        const showModalForm = (id, type) => {
+
+        }
+    </script>
 @endsection
