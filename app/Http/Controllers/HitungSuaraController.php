@@ -29,7 +29,7 @@ class HitungSuaraController extends Controller
         try {
             $provinsi = Provinsi::all();
             return view("hitung_suara.index", [
-                "urlSubmit" => route("hitung_suara.list"),
+                "urlSubmit" => route("hitung_suara.list", ['Id' => 'ID_PLACEHOLDER']),
                 "provinsi" => $provinsi,
             ]);
         } catch (Exception $e) {
@@ -46,11 +46,33 @@ class HitungSuaraController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function list()
+    public function list(Request $request)
     {
         try {
+            $idQuery = $request->query("Id");
+            $tps = $this->tps->tpsWithDetail()
+                ->where('kelurahan_id', $idQuery)
+                ->get();
+            $data = [];
+            foreach ($tps as $t) {
+                $data[] = [
+                    "id" => $t->id,
+                    "name" => $t->name,
+                    "wilayah" => "$t->kelurahan_name, $t->kecamatan_name, $t->kabkota_name",
+                    "provinsi" => route("input.form", [
+                        "Type" => "Provinsi",
+                        "Id" => "",
+                        "Tps" => $t->id,
+                    ]),
+                    "kabkota" => route("input.form", [
+                        "Type" => "Kabkota",
+                        "Id" => "",
+                        "Tps" => $t->id,
+                    ]),
+                ];
+            }
             return view("hitung_suara.table", [
-                "table" => "Test",
+                "data" => $data,
             ]);
         } catch (Exception $e) {
             $val = Formatting::formatUrl([

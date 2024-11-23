@@ -147,18 +147,6 @@
                 </select>
                 <script>
                     $("#{{ $idSelect4 }}").on("change", function(e) {
-                        $("#{{ $idSelect5 }}").removeAttr("disabled")
-                    })
-                </script>
-                <select id="{{ $idSelect5 }}" class="custom-select col-md-2 m-1" disabled>
-                    <option selected disabled value="0">Pilih Tingkatan</option>
-                    @if (session()->get('level') === 'provinsi' || session()->get('level') === 'master')
-                        <option value="Provinsi">Provinsi</option>
-                    @endif
-                    <option value="Kabkota">Kabkota</option>
-                </select>
-                <script>
-                    $("#{{ $idSelect5 }}").on("change", function(e) {
                         $("#{{ $idButtonSubmit }}").removeAttr("disabled")
                     })
                 </script>
@@ -168,8 +156,7 @@
                         e.preventDefault();
                         TopLoaderService.start()
                         let idQuery = $("#{{ $idSelect4 }} ").val();
-                        let typeQuery = $("#{{ $idSelect5 }} ").val();
-                        let url = `{!! $urlSubmit !!}`.replace("TYPE_PLACEHOLDER", typeQuery).replace(
+                        let url = `{!! $urlSubmit !!}`.replace(
                             'ID_PLACEHOLDER', idQuery);
                         $.ajax({
                             type: "get",
