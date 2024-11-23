@@ -5,6 +5,7 @@ use App\Http\Controllers\CalonController;
 use App\Http\Controllers\DataPemilihController;
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\HitungCepatController;
+use App\Http\Controllers\HitungSuaraController;
 use App\Http\Controllers\JumlahSuaraController;
 use App\Http\Controllers\RekapitulasiController;
 use App\Http\Controllers\UploadFileController;
@@ -80,6 +81,11 @@ Route::middleware("auth")->middleware("checkingSession")->group(function () {
         Route::get("/list", [JumlahSuaraController::class, "list"])->name("input.list");
         Route::get("/form", [JumlahSuaraController::class, "form"])->name("input.form")->middleware("dataRestriction");
     });
+
+    Route::prefix("hitung-suara")->group(function ($c) {
+        Route::get("", [HitungSuaraController::class, "index"])->name("hitung_suara.inedx");
+    });
+
     Route::prefix("hitung-cepat")->group(function () {
         Route::get("admin", [HitungCepatController::class, "byAdmin"])->name("hitung_cepat.admin");
         Route::post("admin", [HitungCepatController::class, "storeByAdmin"])->name("hitung_cepat.admin.post");
