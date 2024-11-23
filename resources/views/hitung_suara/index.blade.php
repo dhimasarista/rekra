@@ -204,10 +204,10 @@
                         <div class="error-page d-flex align-items-center flex-wrap justify-content-center pd-20">
                             <div class="pd-10">
                                 <div class="error-page-wrap text-center">
-                                    <h2>Belum Ada Data</h2>
+
+                                    <h2>Hitung Suara</h2>
                                     <h3>Pilih Data Terlebih Dahulu</h3>
-                                    <p>Pilih Provinsi > Pilih KabKota > Pilih Kecamatan > Pilih Kelurahan
-                                        > Pilih Tingkat Pemilihan (Provinsi/Kabkota) > Submit</p>
+                                    <p>Pilih Provinsi > Pilih KabKota > Pilih Kecamatan > Pilih Kelurahan > Tampilkan</p>
                                 </div>
                             </div>
                         </div>

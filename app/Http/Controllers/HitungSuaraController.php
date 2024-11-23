@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Formatting;
 use App\Models\JumlahSuara;
 use App\Models\JumlahSuaraDetail;
 use App\Models\Provinsi;
 use App\Models\Tps;
+use Exception;
 use Illuminate\Http\Request;
 
 class HitungSuaraController extends Controller
@@ -27,7 +29,7 @@ class HitungSuaraController extends Controller
         try {
             $provinsi = Provinsi::all();
             return view("hitung_suara.index", [
-                "urlSubmit" => "#",
+                "urlSubmit" => route("hitung_suara.list"),
                 "provinsi" => $provinsi,
             ]);
         } catch (Exception $e) {
@@ -44,9 +46,21 @@ class HitungSuaraController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function list()
     {
-        //
+        try {
+            return view("hitung_suara.table", [
+                "table" => "Test",
+            ]);
+        } catch (Exception $e) {
+            $val = Formatting::formatUrl([
+                "code" => 500,
+                "title" => $e->getMessage(),
+                "message" => $e->getMessage(),
+            ]);
+
+            return redirect("/error$val");
+        }
     }
 
     /**
