@@ -1,4 +1,9 @@
+{{-- @dd($data) --}}
+@php
+    $idForm1 = 'X' . bin2hex(random_bytes(8));
+@endphp
 <form>
+    <h1>{{ $tps_name }}</h1>
     <div class="row">
         <div class="container">
             <div class="row">
@@ -9,10 +14,6 @@
                 <div class="col-md form-group">
                     <label>Muhammad Rudi - Aunur Rafiq</label>
                     <input id="col2" placeholder="Wajib Diisi" value="0" type="text" class="form-control">
-                </div>
-                <div class="col-md form-group">
-                    <label>Nama Paslon 3</label>
-                    <input id="col3" placeholder="Wajib Diisi" value="0" type="text" class="form-control">
                 </div>
             </div>
         </div>
@@ -101,8 +102,6 @@
             </div>
         </div>
     </div>
-    {{ $data }}
-    {{ $jumlahSuara }}
 </form>
 <script>
     document.getElementById("fileInput").addEventListener("change", function(event) {
