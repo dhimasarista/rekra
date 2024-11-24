@@ -85,6 +85,7 @@ Route::middleware("auth")->middleware("checkingSession")->group(function () {
     Route::prefix("hitung-suara")->group(function ($c) {
         Route::get("", [HitungSuaraController::class, "index"])->name("hitung_suara.index");
         Route::get("/list", [HitungSuaraController::class, "list"])->name("hitung_suara.list");
+        Route::get("/form", [HitungSuaraController::class, "form"])->name("hitung_suara.form");
     });
 
     Route::prefix("hitung-cepat")->group(function () {

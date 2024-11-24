@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Formatting;
+use App\Models\Calon;
 use App\Models\JumlahSuara;
 use App\Models\JumlahSuaraDetail;
 use App\Models\Provinsi;
@@ -82,6 +83,67 @@ class HitungSuaraController extends Controller
             ]);
 
             return redirect("/error$val");
+        }
+    }
+
+    public function form(Request $request)
+    {
+        try {
+            $tpsQuery = $request->query("Tps");
+            $typeQuery = $request->query("Type");
+            // Ambil data TPS dengan detail
+            $tps = $this->tps->tpsWithDetail()
+                ->where('tps.id', $tpsQuery)
+                ->first(); // Menggunakan first() jika hanya membutuhkan satu hasil
+            if (!$tps) {
+                // Tangani kasus jika TPS tidak ditemukan
+                abort(404, 'TPS not found');
+            }
+            if ($typeQuery === "Kabkota" || $typeQuery === "kabkota") {
+                // Ambil data calon berdasarkan kabkota_id dari TPS
+                $calon = Calon::where("code", $tps->kabkota_id)->get(['id', 'calon_name', 'wakil_name']); // Ambil hanya kolom yang diperlukan
+            } else if ($typeQuery === "Provinsi" || $typeQuery === "provinsi") {
+                $calon = Calon::where("code", $tps->provinsi_id)->get(['id', 'calon_name', 'wakil_name']); // Ambil hanya kolom yang diperlukan
+            }
+            // Ambil jumlah suara detail berdasarkan tps_id
+            $jumlahSuaraDetail = $this->jumlahSuaraDetail
+                ->select("calon_id", "tps_id", "amount", "jumlah_suara_id")
+                ->where("tps_id", $tps->id)
+                ->get();
+            $jumlahSuaraId = null;
+            $jumlahSuara = $this->jumlahSuara::find($jumlahSuaraId);
+
+            // Buat lookup untuk jumlah suara berdasarkan calon_id
+            $jumlahSuaraLookup = $jumlahSuaraDetail->keyBy('calon_id');
+            // Format data calon dengan jumlah suara
+            $newCalon = $calon->map(function ($c) use ($jumlahSuaraLookup) {
+                $jumlahSuaraDetail = $jumlahSuaraLookup->get($c->id, (object) ['amount' => 0])->amount;
+                return [
+                    "id" => $c->id,
+                    "calon_name" => $c->calon_name,
+                    "wakil_name" => $c->wakil_name,
+                    "jumlah_suara" => $jumlahSuaraDetail,
+                ];
+            })->toArray();
+
+            // Format data untuk respons
+            $data = [
+                "tps_id" => $tps->id,
+                "tps_name" => sprintf(
+                    "%s - %s, %s, %s, %s",
+                    $typeQuery,
+                    $tps->name,
+                    Formatting::capitalize($tps->kelurahan_name),
+                    Formatting::capitalize($tps->kecamatan_name),
+                    Formatting::capitalize($tps->kabkota_name)
+                ),
+                "calon" => $newCalon,
+            ];
+            return view("hitung_suara.form", [
+                "data" => $data,
+            ]);
+        } catch (Exception $e) {
+            return response()->json(["message" => $e->getMessage()], 500);
         }
     }
 
