@@ -99,6 +99,7 @@ class HitungSuaraController extends Controller
                 // Tangani kasus jika TPS tidak ditemukan
                 abort(404, 'TPS not found');
             }
+            $calon = null;
             if ($typeQuery === "Kabkota" || $typeQuery === "kabkota") {
                 // Ambil data calon berdasarkan kabkota_id dari TPS
                 $calon = Calon::where("code", $tps->kabkota_id)->get(['id', 'calon_name', 'wakil_name']); // Ambil hanya kolom yang diperlukan
@@ -141,6 +142,7 @@ class HitungSuaraController extends Controller
             ];
             return view("hitung_suara.form", [
                 "data" => $data,
+                "jumlahSuara" => $jumlahSuara,
             ]);
         } catch (Exception $e) {
             return response()->json(["message" => $e->getMessage()], 500);

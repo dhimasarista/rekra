@@ -28,12 +28,12 @@
                             <div class="m-10">
                                 @if (session()->get('level') == 'provinsi' || session()->get('level') == 'master')
                                     <a class="btn btn-sm btn-dark m-1" href="#"
-                                        onclick="showModalForm('{{ $d['kabkota'] }}', 'Kabkota')">
+                                        onclick="showModalForm('{{ $d['id'] }}', 'Kabkota')">
                                         <i class="fa fa-plus"></i> Provinsi
                                     </a>
                                 @endif
                                 <a class="btn btn-sm btn-dark m-1" href="#"
-                                    onclick="showModalForm('{{ $d['kabkota'] }}', 'Kabkota')">
+                                    onclick="showModalForm('{{ $d['id'] }}', 'Kabkota')">
                                     <i class="fa fa-plus"></i> Kab/Kota
                                 </a>
                             </div>
@@ -70,11 +70,11 @@
     </div>
 </div>
 <script>
-    function showModalForm(id, type) {
+    function showModalForm(tps, type) {
         $.ajax({
             type: "get",
-            url: '{{ route('hitung_suara.form', ['Id' => 'ID_PLACEHOLDER', 'Type' => 'TYPE_PLACEHOLDER']) }}'
-                .replace("ID_PLACEHOLDER", id),
+            url: '{!! route('hitung_suara.form', ['Tps' => 'TPS_PLACEHOLDER', 'Type' => 'TYPE_PLACEHOLDER']) !!}'
+                .replace("TPS_PLACEHOLDER", tps).replace("TYPE_PLACEHOLDER", type),
             success: function(response) {
                 $("#{{ $idModal }}").modal('show');
                 // $("#{{ $idModal }}").attr('data-tps', id);

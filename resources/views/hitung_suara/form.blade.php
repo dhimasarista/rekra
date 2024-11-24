@@ -101,6 +101,8 @@
             </div>
         </div>
     </div>
+    {{ $data }}
+    {{ $jumlahSuara }}
 </form>
 <script>
     document.getElementById("fileInput").addEventListener("change", function(event) {
