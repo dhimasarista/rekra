@@ -233,7 +233,7 @@
                     <div class="LogoContainer" style="text-align: center">
                         {{-- <img src="https://www.pngkey.com/png/full/529-5291672_sample-logo-png-transparent-background.png" class="logo"> --}}
                         <h1>
-                            HITUNG SUARA PILKADA 2024
+                            TIM PANGKALAN DATA & IT
                             <i>
                                 {{-- <svg width="350" viewBox="0 0 709 98" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#clip0_705_41)">
