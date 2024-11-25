@@ -112,6 +112,11 @@ class HitungSuaraController extends Controller
                 ->where("tps_id", $tps->id)
                 ->get();
             $jumlahSuaraId = null;
+            foreach ($jumlahSuaraDetail as $value) {
+                if ($value->calon_id == $calon[0]->id) {
+                    $jumlahSuaraId = $value->jumlah_suara_id;
+                }
+            }
             $jumlahSuara = $this->jumlahSuara::find($jumlahSuaraId);
 
             // Buat lookup untuk jumlah suara berdasarkan calon_id

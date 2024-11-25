@@ -28,7 +28,7 @@
                             <div class="m-10">
                                 @if (session()->get('level') == 'provinsi' || session()->get('level') == 'master')
                                     <a class="btn btn-sm btn-dark m-1" href="#"
-                                        onclick="showModalForm('{{ $d['id'] }}', 'Kabkota')">
+                                        onclick="showModalForm('{{ $d['id'] }}', 'Provinsi')">
                                         <i class="fa fa-plus"></i> Provinsi
                                     </a>
                                 @endif
@@ -55,17 +55,7 @@
     aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myLargeModalLabel">Input Hasil Perhitung Suara</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            </div>
-            <div class="modal-body">
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-dark">Simpan</button>
-            </div>
         </div>
     </div>
 </div>
@@ -78,7 +68,7 @@
             success: function(response) {
                 $("#{{ $idModal }}").modal('show');
                 // $("#{{ $idModal }}").attr('data-tps', id);
-                $("#{{ $idModal }} .modal-dialog .modal-body").html(response);
+                $("#{{ $idModal }} .modal-content").html(response);
             },
             error: function(xhr, status, error) {
                 Swal.fire({
