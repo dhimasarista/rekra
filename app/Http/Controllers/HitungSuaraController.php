@@ -9,7 +9,10 @@ use App\Models\JumlahSuaraDetail;
 use App\Models\Provinsi;
 use App\Models\Tps;
 use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Ramsey\Uuid\Uuid;
 
 class HitungSuaraController extends Controller
 {
@@ -159,7 +162,89 @@ class HitungSuaraController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            DB::beginTransaction(); // Memulai transaksi
+            $message = null;
+
+            $tpsQuery = $request->query("Tps");
+            $jumlahSuaraId = Uuid::uuid7();
+            $dataJumlahSuaraDetail = [];
+            $dataJumlahSuara = [
+                "id" => $jumlahSuaraId,
+                "note" => $request->note,
+                "dpt" => $request->dpt,
+                "dptb" => $request->dptb,
+                "dptk" => $request->dptk,
+                "surat_suara_diterima" => $request->surat_suara_diterima,
+                "surat_suara_digunakan" => $request->surat_suara_digunakan,
+                "surat_suara_tidak_digunakan" => $request->surat_suara_tidak_digunakan,
+                "surat_suara_rusak" => $request->surat_suara_rusak,
+                "total_suara_sah" => $request->total_suara_sah,
+                "total_suara_tidak_sah" => $request->total_suara_tidak_sah,
+                "total_sah_tidak_sah" => $request->total_sah_tidak_sah,
+            ];
+
+            foreach ($request->calon as $calon) {
+                $jumlahSuaraDetail = $this->jumlahSuaraDetail
+                    ->where("tps_id", $tpsQuery)
+                    ->where("calon_id", $calon["id"])
+                    ->first();
+                if ($jumlahSuaraDetail) {
+                    $jumlahSuaraId = $jumlahSuaraDetail->jumlah_suara_id;
+                    $jumlahSuaraDetail->amount = $calon["value"];
+                    $jumlahSuaraDetail->save();
+                } else {
+                    $dataJumlahSuaraDetail[] = [
+                        "id" => Uuid::uuid7(),
+                        "jumlah_suara_id" => $jumlahSuaraId,
+                        "calon_id" => $calon["id"],
+                        "amount" => $calon["value"],
+                        "tps_id" => $tpsQuery,
+                    ];
+                }
+            }
+            // Jika tidak ada data, buat baru di tabel jumlah_suara
+            if (empty($dataJumlahSuaraDetail)) {
+                $jumlahSuara = $this->jumlahSuara->find($jumlahSuaraId);
+                if ($jumlahSuara) {
+                    $jumlahSuara->dpt = $dataJumlahSuara["dpt"];
+                    $jumlahSuara->dptb = $dataJumlahSuara["dptb"];
+                    $jumlahSuara->dptk = $dataJumlahSuara["dptk"];
+                    $jumlahSuara->surat_suara_diterima = $dataJumlahSuara["surat_suara_diterima"];
+                    $jumlahSuara->surat_suara_digunakan = $dataJumlahSuara["surat_suara_digunakan"];
+                    $jumlahSuara->surat_suara_tidak_digunakan = $dataJumlahSuara["surat_suara_tidak_digunakan"];
+                    $jumlahSuara->surat_suara_rusak = $dataJumlahSuara["surat_suara_rusak"];
+                    $jumlahSuara->total_suara_sah = $dataJumlahSuara["total_suara_sah"];
+                    $jumlahSuara->total_suara_tidak_sah = $dataJumlahSuara["total_suara_tidak_sah"];
+                    $jumlahSuara->total_sah_tidak_sah = $dataJumlahSuara["total_sah_tidak_sah"];
+                    $jumlahSuara->note = $dataJumlahSuara["note"];
+                    $jumlahSuara->save();
+                } else {
+                    return abort(500, "Data Tidak Ditemukan. (Internal Server Error)");
+                }
+            } else {
+                $this->jumlahSuara->insert($dataJumlahSuara);
+                $this->jumlahSuaraDetail->insert($dataJumlahSuaraDetail);
+            }
+
+            DB::commit();
+            return response()->json([
+                "message" => "Berhasil Menambahkan Data",
+            ], 200);
+        } catch (QueryException $e) {
+            DB::rollBack();
+            $message = match ($e->errorInfo[1]) {
+                1062 => "Data sudah ada",
+                1264 => "Jumlah Melebih Batas",
+                1048 => "Data tidak boleh kosong, isi 0 jika kosong.",
+                default => $e->getMessage(),
+            };
+
+            return response()->json(["message" => $message], 500);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return response()->json(["message" => $e->getMessage()], 500);
+        }
     }
 
     /**

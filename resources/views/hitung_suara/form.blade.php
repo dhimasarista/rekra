@@ -1,4 +1,4 @@
-{{-- @dd($jumlahSuara) --}}
+{{-- @dd($data) --}}
 @use('App\Helpers\Formatting')
 @php
     $idForm1 = 'X' . bin2hex(random_bytes(8));
@@ -17,96 +17,104 @@
     $idSubmit = 'X' . bin2hex(random_bytes(8));
 @endphp
 <div class="modal-header">
-    <h4 class="modal-title" id="myLargeModalLabel">{{ $data["tps_name"]  }}</h4>
+    <h4 class="modal-title" id="myLargeModalLabel">{{ $data['tps_name'] }}</h4>
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 </div>
 <div class="modal-body">
     <form>
         <div class="row">
-            <div class="container">
+            <div class="container container-calon">
                 <div class="row" id="{{ $idForm1 }}">
-                    @foreach ($data["calon"] as $calon)
-                    <div class="col-md form-group">
-                        <label>{{ Formatting::capitalize($calon['calon_name']." - ".$calon["wakil_name"]) }}</label>
-                        <input id="{{ $calon["id"] }}" placeholder="Wajib Diisi" value="{{ $calon["jumlah_suara"] }}" type="number" class="form-control">
-                    </div>
+                    @foreach ($data['calon'] as $calon)
+                        <div class="col-md form-group">
+                            <label>{{ Formatting::capitalize($calon['calon_name'] . ' - ' . $calon['wakil_name']) }}</label>
+                            <input id="{{ $calon['id'] }}" placeholder="Wajib Diisi"
+                                value="{{ $calon['jumlah_suara'] }}" type="number" class="form-control">
+                        </div>
                     @endforeach
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Pengguna Hak Pilih DPT</label>
-                    <input id="{{ $idForm2 }}" placeholder="Wajib Diisi" value="{{ $jumlahSuara["dpt"] ?? 0 }}" type="number" min="0"
-                        class="form-control">
+                    <input id="{{ $idForm2 }}" placeholder="Wajib Diisi" value="{{ $jumlahSuara['dpt'] ?? null }}"
+                        type="number" min="0" class="form-control">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Pengguna Hak Pilih DPTB</label>
-                    <input id="{{ $idForm3 }}" placeholder="Wajib Diisi" value="{{ $jumlahSuara["dptb"] ?? 0 }}" type="number" min="0"
-                        class="form-control">
+                    <input id="{{ $idForm3 }}" placeholder="Wajib Diisi" value="{{ $jumlahSuara['dptb'] ?? null }}"
+                        type="number" min="0" class="form-control">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Pengguna Hak Pilih DPTK</label>
-                    <input id="{{ $idForm4 }}" placeholder="Wajib Diisi" value="{{ $jumlahSuara["dptk"] ?? 0 }}" type="number" min="0"
-                        class="form-control">
+                    <input id="{{ $idForm4 }}" placeholder="Wajib Diisi" value="{{ $jumlahSuara['dptk'] ?? null }}"
+                        type="number" min="0" class="form-control">
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label>Surat Suara Diterima</label>
-                    <input id="{{ $idForm5 }}" placeholder="Wajib Diisi" value="{{ $jumlahSuara["surat_suara_diterima"] ?? 0 }}" type="number" min="0"
+                    <input id="{{ $idForm5 }}" placeholder="Wajib Diisi"
+                        value="{{ $jumlahSuara['surat_suara_diterima'] ?? null }}" type="number" min="0"
                         class="form-control">
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label>Surat Suara Digunakan</label>
-                    <input id="{{ $idForm6 }}" placeholder="Wajib Diisi" value="{{ $jumlahSuara["surat_suara_digunakan"] ?? 0 }}" type="number" min="0"
+                    <input id="{{ $idForm6 }}" placeholder="Wajib Diisi"
+                        value="{{ $jumlahSuara['surat_suara_digunakan'] ?? null }}" type="number" min="0"
                         class="form-control">
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label>Suara Tdk Digunakan</label>
-                    <input id="{{ $idForm7 }}" placeholder="Wajib Diisi" value="{{ $jumlahSuara["surat_suara_tidak_digunakan"] ?? 0 }}" type="number" min="0"
+                    <input id="{{ $idForm7 }}" placeholder="Wajib Diisi"
+                        value="{{ $jumlahSuara['surat_suara_tidak_digunakan'] ?? null }}" type="number" min="0"
                         class="form-control">
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label>Surat Suara Rusak</label>
-                    <input id="{{ $idForm8 }}" placeholder="Wajib Diisi" value="{{ $jumlahSuara["surat_suara_rusak"] ?? 0 }}" type="number" min="0"
+                    <input id="{{ $idForm8 }}" placeholder="Wajib Diisi"
+                        value="{{ $jumlahSuara['surat_suara_rusak'] ?? null }}" type="number" min="0"
                         class="form-control">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Total Suara Sah</label>
-                    <input id="{{ $idForm9 }}" placeholder="Wajib Diisi" value="{{ $jumlahSuara["total_surat_suara_sah"] ?? 0 }}" type="number" min="0"
+                    <input id="{{ $idForm9 }}" placeholder="Wajib Diisi"
+                        value="{{ $jumlahSuara['total_suara_sah'] ?? null }}" type="number" min="0"
                         class="form-control">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Total Suara Tidak Sah</label>
-                    <input id="{{ $idForm10 }}" placeholder="Wajib Diisi" value="{{ $jumlahSuara["total_suara_tidak_sah"] ?? 0 }}" type="number" min="0"
+                    <input id="{{ $idForm10 }}" placeholder="Wajib Diisi"
+                        value="{{ $jumlahSuara['total_suara_tidak_sah'] ?? null }}" type="number" min="0"
                         class="form-control">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Total Suara Sah & Tidak Sah</label>
-                    <input id="{{ $idForm11 }}" placeholder="Wajib Diisi" value="{{ $jumlahSuara["total_sah_tidak_sah"] ?? 0 }}" type="number" min="0"
+                    <input id="{{ $idForm11 }}" placeholder="Wajib Diisi"
+                        value="{{ $jumlahSuara['total_sah_tidak_sah'] ?? null }}" type="number" min="0"
                         class="form-control">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Catatan (Tidak Wajib)</label>
-                    <textarea placeholder="Contoh: Terjadi kecurangan..." id="{{ $idForm12 }}" class="form-control">{{ $jumlahSuara["note"] ?? null }}</textarea>
+                    <textarea placeholder="Contoh: Terjadi kecurangan..." id="{{ $idForm12 }}" class="form-control">{{ $jumlahSuara['note'] ?? null }}</textarea>
                 </div>
             </div>
             <div class="col-md-6">
@@ -140,8 +148,59 @@
     <button type="button" id="{{ $idSubmit }}" class="btn btn-dark">Simpan</button>
 </div>
 <script>
-    $("#{{ $idSubmit }}").on("click", function (e) {
+    $("#{{ $idSubmit }}").on("click", function(e) {
+        $(this).attr("disabled", true)
         e.preventDefault();
-        $(`#${$(".modal").attr("id")}`).modal("hide")
+        const id = $("#{{ $idForm1 }}").val()
+        let formData = {
+            calon: [],
+            dpt: $('#{{ $idForm2 }}').val(),
+            dptb: $('#{{ $idForm3 }}').val(),
+            dptk: $('#{{ $idForm4 }}').val(),
+            surat_suara_diterima: $('#{{ $idForm5 }}').val(),
+            surat_suara_digunakan: $('#{{ $idForm6 }}').val(),
+            surat_suara_tidak_digunakan: $('#{{ $idForm7 }}').val(),
+            surat_suara_rusak: $('#{{ $idForm8 }}').val(),
+            total_suara_sah: $('#{{ $idForm9 }}').val(),
+            total_suara_tidak_sah: $('#{{ $idForm10 }}').val(),
+            total_sah_tidak_sah: $('#{{ $idForm11 }}').val(),
+            note: $('#{{ $idForm12 }}').val(), // Ganti dengan ID elemen sesuai form Anda
+        }
+        $('.container-calon input').each(function() {
+            const id = $(this).attr('id');
+            const value = $(this).val();
+
+            // Push objek ke dalam array 'calon'
+            formData.calon.push({
+                id: id,
+                value: value
+            });
+        });
+        $.ajax({
+            url: `{!! route('hitung_suara.store', ['Tps' => 'TPS_PLACEHOLDER']) !!}`.replace("TPS_PLACEHOLDER", "{!! $data["tps_id"] !!}"),
+            type: "POST",
+            data: formData,
+            dataType: 'json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                Toast.fire({
+                    icon: "success",
+                    title: response["message"]
+                });
+            },
+            error: function(xhr, status, error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: xhr["responseJSON"]["message"]
+                });
+            },
+            complete: function() {
+                $(`#${$(".modal").attr("id")}`).modal("hide")
+                $(this).removeAttr("disabled")
+            }
+        });
     })
 </script>
