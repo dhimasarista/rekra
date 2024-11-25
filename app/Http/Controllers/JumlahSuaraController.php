@@ -220,7 +220,7 @@ class JumlahSuaraController extends Controller
                 "total_suara_sah",
                 "total_sah_tidak_sah",
                 "total_suara_tidak_sah",
-                "c_keberatan"
+
             ]);
             $tpsId = $request->query("Tps");
             $jumlahSuaraId = Uuid::uuid7();
@@ -238,7 +238,6 @@ class JumlahSuaraController extends Controller
                 "total_suara_sah" => $request->total_suara_sah,
                 "total_suara_tidak_sah" => $request->total_suara_tidak_sah,
                 "total_sah_tidak_sah" => $request->total_sah_tidak_sah,
-                "c_keberatan" => $request->c_keberatan,
             ]; // JS: jumlah_suara
 
             foreach ($body as $key => $value) {
@@ -278,7 +277,6 @@ class JumlahSuaraController extends Controller
                     $JS->total_suara_tidak_sah = $dataJS["total_suara_tidak_sah"];
                     $JS->total_sah_tidak_sah = $dataJS["total_sah_tidak_sah"];
                     $JS->note = $dataJS["note"];
-                    $JS->c_keberatan = $dataJS["c_keberatan"];
                     $JS->save();
                 } else {
                     $message = "Data Tidak Ditemukan. (Internal Server Error)";
@@ -484,11 +482,6 @@ class JumlahSuaraController extends Controller
                             "name" => "total_sah_tidak_sah",
                             "type" => "string",
                         ],
-                        // [
-                        //     "id" => $formId11,
-                        //     "name" => "c_keberatan",
-                        //     "type" => "string",
-                        // ],
                     ],
                 ],
                 "form" => [
