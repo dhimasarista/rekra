@@ -294,13 +294,13 @@
                             <span class="mtext">Hitung Suara</span>
                         </a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('input.index') }}"
                             class="dropdown-toggle no-arrow {{ Str::contains(request()->route()->getName(), 'input') ? 'active' : '' }}">
                             <span class="micon dw dw-folder"></span>
                             <span class="mtext">Input Suara</span>
                         </a>
-                    </li>
+                    </li> --}}
                     @if (session()->get('level') == 'master' || session()->get('level') == 'provinsi')
                         <li>
                             <a href="{{ route('rekap.index', ['Type' => 'Provinsi']) }}"

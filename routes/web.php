@@ -75,12 +75,12 @@ Route::middleware("auth")->middleware("checkingSession")->group(function () {
         Route::post('/data-pemilih/pdf', [UploadFileController::class, 'parseDptPdf'])->name("data-pemilih.pdf");
     });
 
-    Route::prefix("input")->group(function () {
-        Route::get("", [JumlahSuaraController::class, "index"])->name("input.index");
-        Route::post("", [JumlahSuaraController::class, "store"])->name("input.store");
-        Route::get("/list", [JumlahSuaraController::class, "list"])->name("input.list");
-        Route::get("/form", [JumlahSuaraController::class, "form"])->name("input.form")->middleware("dataRestriction");
-    });
+    // Route::prefix("input")->group(function () {
+    //     Route::get("", [JumlahSuaraController::class, "index"])->name("input.index");
+    //     Route::post("", [JumlahSuaraController::class, "store"])->name("input.store");
+    //     Route::get("/list", [JumlahSuaraController::class, "list"])->name("input.list");
+    //     Route::get("/form", [JumlahSuaraController::class, "form"])->name("input.form")->middleware("dataRestriction");
+    // });
 
     Route::prefix("hitung-suara")->group(function ($c) {
         Route::get("", [HitungSuaraController::class, "index"])->name("hitung_suara.index");
