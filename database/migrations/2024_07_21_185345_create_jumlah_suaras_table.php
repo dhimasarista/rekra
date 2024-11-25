@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->unsignedInteger("total_suara_sah")->nullable();
             $table->unsignedInteger("total_suara_tidak_sah")->nullable();
             $table->unsignedInteger("total_sah_tidak_sah")->nullable();
-            $table->boolean("c_keberatan")->nullable();
+            $table->string("c_hasil")->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
