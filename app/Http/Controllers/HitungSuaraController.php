@@ -257,17 +257,32 @@ class HitungSuaraController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function indexRekap(Request $request)
     {
-        //
+        try {
+            return view("hitung_suara.rekap", [
+            ]);
+        } catch (Exception $e) {
+            $val = Formatting::formatUrl([
+                "code" => 500,
+                "title" => $e->getMessage(),
+                "message" => $e->getMessage(),
+            ]);
+
+            return redirect("/error$val");
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function selectTingkat(Request $request)
     {
-        //
+        $provinsi = Provinsi::all();
+        return view("hitung_suara.select_tingkat", [
+            "data" => $provinsi,
+            "jenisWilayah" => $request->query("Select")
+        ]);
     }
 
     /**

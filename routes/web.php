@@ -88,6 +88,8 @@ Route::middleware("auth")->middleware("checkingSession")->group(function () {
         Route::post("/file", [HitungSuaraController::class, "uploadChasil"])->name("hitung_suara.file");
         Route::get("/list", [HitungSuaraController::class, "list"])->name("hitung_suara.list");
         Route::get("/form", [HitungSuaraController::class, "form"])->name("hitung_suara.form");
+        Route::get("/rekap", [HitungSuaraController::class, "indexRekap"])->name("hitung_suara.rekap");
+        Route::get("/rekap/select-tingkat", [HitungSuaraController::class, "selectTingkat"])->name("hitung_suara.rekap.select_tingkat");
     });
 
     Route::prefix("hitung-cepat")->group(function () {
