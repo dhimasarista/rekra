@@ -6,6 +6,8 @@ use App\Helpers\Formatting;
 use App\Models\Calon;
 use App\Models\JumlahSuara;
 use App\Models\JumlahSuaraDetail;
+use App\Models\Kecamatan;
+use App\Models\Kelurahan;
 use App\Models\Provinsi;
 use App\Models\Tps;
 use Exception;
@@ -147,6 +149,7 @@ class HitungSuaraController extends Controller
                     Formatting::capitalize($tps->kabkota_name)
                 ),
                 "calon" => $newCalon,
+                "type" => $typeQuery,
             ];
             return view("hitung_suara.form", [
                 "data" => $data,
@@ -182,6 +185,7 @@ class HitungSuaraController extends Controller
                 "total_suara_sah" => $request->total_suara_sah,
                 "total_suara_tidak_sah" => $request->total_suara_tidak_sah,
                 "total_sah_tidak_sah" => $request->total_sah_tidak_sah,
+                "c_hasil" => $request->c_hasil,
             ];
 
             foreach ($request->calon as $calon) {
@@ -218,6 +222,9 @@ class HitungSuaraController extends Controller
                     $jumlahSuara->total_suara_tidak_sah = $dataJumlahSuara["total_suara_tidak_sah"];
                     $jumlahSuara->total_sah_tidak_sah = $dataJumlahSuara["total_sah_tidak_sah"];
                     $jumlahSuara->note = $dataJumlahSuara["note"];
+                    if ($dataJumlahSuara["c_hasil"]) {
+                        $jumlahSuara->c_hasil = $dataJumlahSuara["c_hasil"];
+                    }
                     $jumlahSuara->save();
                 } else {
                     return abort(500, "Data Tidak Ditemukan. (Internal Server Error)");
@@ -266,9 +273,30 @@ class HitungSuaraController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function uploadChasil(Request $request)
     {
-        //
+        try {
+            $tps = Tps::find($request->query("Tps"));
+            $kelurahan = Kelurahan::find($tps->kelurahan_id);
+            $kecamatan = Kecamatan::find($kelurahan->kecamatan_id);
+            $request->validate([
+                'file' => 'required|file|mimes:jpg,jpeg,png,gif,pdf|max:2048', // hanya image dan pdf dengan ukuran maksimal 2MB
+            ]);
+            // Ambil file dari request
+            $file = $request->file('file');
+            // Nama Baru
+            $filename = $tps->name.".".$file->getClientOriginalExtension();
+            $filePath = $file->storeAs("public/chasil/$kecamatan->name/$kelurahan->name/".$request->query("Type")."/", $filename);
+            $publicPath = str_replace("public/", "storage/", $filePath);
+
+            return response()->json([
+                // 'file_name' => $filename
+                'file_url' => $publicPath,
+                // "file_path" => $filePath,
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json(["message" => $e->getMessage()], 500);
+        }
     }
 
     /**

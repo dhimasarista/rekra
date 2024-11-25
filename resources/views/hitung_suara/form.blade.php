@@ -119,7 +119,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label>Upload File C-Hasil</label>
+                    <label>Upload File (Image/PDF)</label>
                     <input type="file" id="{{ $idForm13 }}" accept="image/*,application/pdf"
                         class="form-control-file form-control height-auto">
                     <img id="preview" style="max-width: 200px; display: block; margin-top: 10px;">
@@ -128,6 +128,8 @@
         </div>
     </form>
     <script>
+        document.getElementById("preview").src = null;
+        document.getElementById("preview").src = "{{ $jumlahSuara['c_hasil'] ?? null }}";
         document.getElementById("{{ $idForm13 }}").addEventListener("change", function(event) {
             const file = event.target.files[0]
             const reader = new FileReader()
@@ -149,9 +151,10 @@
 </div>
 <script>
     $("#{{ $idSubmit }}").on("click", function(e) {
-        $(this).attr("disabled", true)
+        $(this).attr("disabled", true);
         e.preventDefault();
-        const id = $("#{{ $idForm1 }}").val()
+
+        const id = $("#{{ $idForm1 }}").val();
         let formData = {
             calon: [],
             dpt: $('#{{ $idForm2 }}').val(),
@@ -164,8 +167,13 @@
             total_suara_sah: $('#{{ $idForm9 }}').val(),
             total_suara_tidak_sah: $('#{{ $idForm10 }}').val(),
             total_sah_tidak_sah: $('#{{ $idForm11 }}').val(),
-            note: $('#{{ $idForm12 }}').val(), // Ganti dengan ID elemen sesuai form Anda
-        }
+            note: $('#{{ $idForm12 }}').val(),
+            c_hasil: "",
+        };
+        console.log(formData);
+
+
+        // Menyusun data calon
         $('.container-calon input').each(function() {
             const id = $(this).attr('id');
             const value = $(this).val();
@@ -176,6 +184,58 @@
                 value: value
             });
         });
+
+        // Menampilkan SweetAlert loading
+        Swal.fire({
+            title: 'Upload File',
+            text: 'Tunggu Sebentar Guys!',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
+        // Jika ada file di upload form
+        let fileUpload = $('#{{ $idForm13 }}')[0].files[0];
+        if (fileUpload) {
+            let formDataFile = new FormData();
+            formDataFile.append('file', fileUpload);
+
+            // Upload file terlebih dahulu
+            $.ajax({
+                url:  `{!! route('hitung_suara.file', ['Tps' => 'TPS_PLACEHOLDER', "Type" => "TYPE_PLACEHOLDER"]) !!}`.replace("TPS_PLACEHOLDER", "{!! $data["tps_id"] !!}").replace("TYPE_PLACEHOLDER", "{{ $data['type'] }}"),
+                type: "POST",
+                data: formDataFile,
+                processData: false,
+                contentType: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    formData["c_hasil"] = response.file_url;
+
+                    // Kirim data ke endpoint hitung suara
+                    submitData(formData);
+                },
+                error: function(xhr) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: xhr["responseJSON"]["message"]
+                    });
+                    $("#{{ $idSubmit }}").removeAttr("disabled");
+                },
+                complete: function(data){
+                    $(this).removeAttr("disabled");
+                }
+            });
+        } else {
+            // Jika tidak ada file, langsung kirim data
+            submitData(formData);
+        }
+    });
+
+    function submitData(formData) {
         $.ajax({
             url: `{!! route('hitung_suara.store', ['Tps' => 'TPS_PLACEHOLDER']) !!}`.replace("TPS_PLACEHOLDER", "{!! $data["tps_id"] !!}"),
             type: "POST",
@@ -198,9 +258,10 @@
                 });
             },
             complete: function() {
-                $(`#${$(".modal").attr("id")}`).modal("hide")
-                $(this).removeAttr("disabled")
+                $(`#${$(".modal").attr("id")}`).modal("hide");
+                $("#{{ $idSubmit }}").removeAttr("disabled");
             }
         });
-    })
+    }
 </script>
+
