@@ -36,77 +36,77 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Pengguna Hak Pilih DPT</label>
-                    <input id="{{ $idForm2 }}" placeholder="Wajib Diisi" value="" type="number" min="0"
+                    <input id="{{ $idForm2 }}" placeholder="Wajib Diisi" value="{{ $jumlahSuara["dpt"] ?? 0 }}" type="number" min="0"
                         class="form-control">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Pengguna Hak Pilih DPTB</label>
-                    <input id="{{ $idForm3 }}" placeholder="Wajib Diisi" value="" type="number" min="0"
+                    <input id="{{ $idForm3 }}" placeholder="Wajib Diisi" value="{{ $jumlahSuara["dptb"] ?? 0 }}" type="number" min="0"
                         class="form-control">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Pengguna Hak Pilih DPTK</label>
-                    <input id="{{ $idForm4 }}" placeholder="Wajib Diisi" value="" type="number" min="0"
+                    <input id="{{ $idForm4 }}" placeholder="Wajib Diisi" value="{{ $jumlahSuara["dptk"] ?? 0 }}" type="number" min="0"
                         class="form-control">
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label>Surat Suara Diterima</label>
-                    <input id="{{ $idForm5 }}" placeholder="Wajib Diisi" value="" type="number" min="0"
+                    <input id="{{ $idForm5 }}" placeholder="Wajib Diisi" value="{{ $jumlahSuara["surat_suara_diterima"] ?? 0 }}" type="number" min="0"
                         class="form-control">
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label>Surat Suara Digunakan</label>
-                    <input id="{{ $idForm6 }}" placeholder="Wajib Diisi" value="" type="number" min="0"
+                    <input id="{{ $idForm6 }}" placeholder="Wajib Diisi" value="{{ $jumlahSuara["surat_suara_digunakan"] ?? 0 }}" type="number" min="0"
                         class="form-control">
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label>Suara Tdk Digunakan</label>
-                    <input id="{{ $idForm7 }}" placeholder="Wajib Diisi" value="" type="number" min="0"
+                    <input id="{{ $idForm7 }}" placeholder="Wajib Diisi" value="{{ $jumlahSuara["surat_suara_tidak_digunakan"] ?? 0 }}" type="number" min="0"
                         class="form-control">
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label>Surat Suara Rusak</label>
-                    <input id="{{ $idForm8 }}" placeholder="Wajib Diisi" value="" type="number" min="0"
+                    <input id="{{ $idForm8 }}" placeholder="Wajib Diisi" value="{{ $jumlahSuara["surat_suara_rusak"] ?? 0 }}" type="number" min="0"
                         class="form-control">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Total Suara Sah</label>
-                    <input id="{{ $idForm9 }}" placeholder="Wajib Diisi" value="" type="number" min="0"
+                    <input id="{{ $idForm9 }}" placeholder="Wajib Diisi" value="{{ $jumlahSuara["total_surat_suara_sah"] ?? 0 }}" type="number" min="0"
                         class="form-control">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Total Suara Tidak Sah</label>
-                    <input id="{{ $idForm10 }}" placeholder="Wajib Diisi" value="" type="number" min="0"
+                    <input id="{{ $idForm10 }}" placeholder="Wajib Diisi" value="{{ $jumlahSuara["total_suara_tidak_sah"] ?? 0 }}" type="number" min="0"
                         class="form-control">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label>Total Suara Sah &amp; Tidak Sah</label>
-                    <input id="{{ $idForm11 }}" placeholder="Wajib Diisi" value="" type="number" min="0"
+                    <label>Total Suara Sah & Tidak Sah</label>
+                    <input id="{{ $idForm11 }}" placeholder="Wajib Diisi" value="{{ $jumlahSuara["total_sah_tidak_sah"] ?? 0 }}" type="number" min="0"
                         class="form-control">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Catatan (Tidak Wajib)</label>
-                    <textarea placeholder="Contoh: Terjadi kecurangan..." id="{{ $idForm12 }}" class="form-control"></textarea>
+                    <textarea placeholder="Contoh: Terjadi kecurangan..." id="{{ $idForm12 }}" class="form-control">{{ $jumlahSuara["note"] ?? null }}</textarea>
                 </div>
             </div>
             <div class="col-md-6">
