@@ -37,21 +37,21 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Pengguna Hak Pilih DPT</label>
-                    <input id="{{ $idForm2 }}" placeholder="Wajib Diisi" value="{{ $jumlahSuara['dpt'] ?? null }}"
+                    <input id="{{ $idForm2 }}" placeholder="Wajib Diisi" value="{{ $jumlahSuara['dpt'] ?? 0 }}"
                         type="number" min="0" class="form-control">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Pengguna Hak Pilih DPTB</label>
-                    <input id="{{ $idForm3 }}" placeholder="Wajib Diisi" value="{{ $jumlahSuara['dptb'] ?? null }}"
+                    <input id="{{ $idForm3 }}" placeholder="Wajib Diisi" value="{{ $jumlahSuara['dptb'] ?? 0 }}"
                         type="number" min="0" class="form-control">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Pengguna Hak Pilih DPTK</label>
-                    <input id="{{ $idForm4 }}" placeholder="Wajib Diisi" value="{{ $jumlahSuara['dptk'] ?? null }}"
+                    <input id="{{ $idForm4 }}" placeholder="Wajib Diisi" value="{{ $jumlahSuara['dptk'] ?? 0 }}"
                         type="number" min="0" class="form-control">
                 </div>
             </div>
@@ -59,7 +59,7 @@
                 <div class="form-group">
                     <label>Surat Suara Diterima</label>
                     <input id="{{ $idForm5 }}" placeholder="Wajib Diisi"
-                        value="{{ $jumlahSuara['surat_suara_diterima'] ?? null }}" type="number" min="0"
+                        value="{{ $jumlahSuara['surat_suara_diterima'] ?? 0 }}" type="number" min="0"
                         class="form-control">
                 </div>
             </div>
@@ -67,7 +67,7 @@
                 <div class="form-group">
                     <label>Surat Suara Digunakan</label>
                     <input id="{{ $idForm6 }}" placeholder="Wajib Diisi"
-                        value="{{ $jumlahSuara['surat_suara_digunakan'] ?? null }}" type="number" min="0"
+                        value="{{ $jumlahSuara['surat_suara_digunakan'] ?? 0 }}" type="number" min="0"
                         class="form-control">
                 </div>
             </div>
@@ -75,7 +75,7 @@
                 <div class="form-group">
                     <label>Suara Tdk Digunakan</label>
                     <input id="{{ $idForm7 }}" placeholder="Wajib Diisi"
-                        value="{{ $jumlahSuara['surat_suara_tidak_digunakan'] ?? null }}" type="number" min="0"
+                        value="{{ $jumlahSuara['surat_suara_tidak_digunakan'] ?? 0 }}" type="number" min="0"
                         class="form-control">
                 </div>
             </div>
@@ -83,7 +83,7 @@
                 <div class="form-group">
                     <label>Surat Suara Rusak</label>
                     <input id="{{ $idForm8 }}" placeholder="Wajib Diisi"
-                        value="{{ $jumlahSuara['surat_suara_rusak'] ?? null }}" type="number" min="0"
+                        value="{{ $jumlahSuara['surat_suara_rusak'] ?? 0 }}" type="number" min="0"
                         class="form-control">
                 </div>
             </div>
@@ -91,7 +91,7 @@
                 <div class="form-group">
                     <label>Total Suara Sah</label>
                     <input id="{{ $idForm9 }}" placeholder="Wajib Diisi"
-                        value="{{ $jumlahSuara['total_suara_sah'] ?? null }}" type="number" min="0"
+                        value="{{ $jumlahSuara['total_suara_sah'] ?? 0 }}" type="number" min="0"
                         class="form-control">
                 </div>
             </div>
@@ -99,7 +99,7 @@
                 <div class="form-group">
                     <label>Total Suara Tidak Sah</label>
                     <input id="{{ $idForm10 }}" placeholder="Wajib Diisi"
-                        value="{{ $jumlahSuara['total_suara_tidak_sah'] ?? null }}" type="number" min="0"
+                        value="{{ $jumlahSuara['total_suara_tidak_sah'] ?? 0 }}" type="number" min="0"
                         class="form-control">
                 </div>
             </div>
@@ -107,7 +107,7 @@
                 <div class="form-group">
                     <label>Total Suara Sah & Tidak Sah</label>
                     <input id="{{ $idForm11 }}" placeholder="Wajib Diisi"
-                        value="{{ $jumlahSuara['total_sah_tidak_sah'] ?? null }}" type="number" min="0"
+                        value="{{ $jumlahSuara['total_sah_tidak_sah'] ?? 0 }}" type="number" min="0"
                         class="form-control">
                 </div>
             </div>
@@ -129,7 +129,7 @@
     </form>
     <script>
         document.getElementById("preview").src = null;
-        document.getElementById("preview").src = "{{ $jumlahSuara['c_hasil'] ?? null }}";
+        document.getElementById("preview").src = "{{ $jumlahSuara['c_hasil'] ?? 0 }}";
         document.getElementById("{{ $idForm13 }}").addEventListener("change", function(event) {
             const file = event.target.files[0]
             const reader = new FileReader()

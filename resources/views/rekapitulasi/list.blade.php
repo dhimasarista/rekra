@@ -94,5 +94,82 @@
             </div>
 
         </div>
+        <div class="row pb-10">
+            <div class="col-md-12 mb-20">
+                <!-- Export Datatable start -->
+                <div class="card-box mb-30">
+                    <div class="pd-20">
+                        <h4 class="text-blue h4">{{ Formatting::capitalize($wilayah->name) }}</h4>
+                    </div>
+                    <div class="pb-20">
+                        <table width="100%" id="datatable-table2"
+                            class="table stripe multiple-select-row data-table-export wrap">
+                            <thead>
+                                <tr>
+                                    <th class="table-plus datatable-nosort">TPS</th>
+                                    @foreach ($calon as $c)
+                                        <th>{{ Formatting::capitalize($c->calon_name) }}</th>
+                                    @endforeach
+                                    <th>DPT</th>
+                                    <th>DPT</th>
+                                    <th>DPK</th>
+                                    <th>Surat Suara Diterima</th>
+                                    <th>Surat Suara Digunakan</th>
+                                    <th>Surat Suara Tdk Digunakan</th>
+                                    <th>Surat Suara Rusak</th>
+                                    <th>Sah</th>
+                                    <th>Tdk Sah</th>
+                                    <th>Sah/Tdk Sah</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($dataTps as $tps)
+                                    <tr>
+                                        <td>{{ Formatting::capitalize("$tps->provinsi_name, $tps->kabkota_name, $tps->kecamatan_name, $tps->kelurahan_name") }}
+                                            - {{ $tps->name }}</td>
+
+                                        @if (count($tps['calon']) === 0)
+                                            <!-- Check if calon array is empty -->
+                                            @foreach ($calon as $c)
+                                                <td>Kosong</td> <!-- If no calon data, show empty or "Kosong" -->
+                                            @endforeach
+                                        @else
+                                            @foreach ($calon as $key => $c)
+                                                @foreach ($tps['calon'] as $calonData)
+                                                    @if ($calonData['id'] === $c->id)
+                                                        <td>{{ $calonData['total_suara'] ?? 0 }}</td>
+                                                    @endif
+                                                @endforeach
+                                            @endforeach
+                                        @endif
+                                        <td>{{ $tps["jumlah_suara"]["dpt"] ?? "Kosong" }}</td>
+                                        <td>{{ $tps["jumlah_suara"]["dptb"] ?? "Kosong" }}</td>
+                                        <td>{{ $tps["jumlah_suara"]["dptk"] ?? "Kosong" }}</td>
+                                        <td>{{ $tps["jumlah_suara"]["surat_suara_diterima"] ?? "Kosong" }}</td>
+                                        <td>{{ $tps["jumlah_suara"]["surat_suara_digunakan"] ?? "Kosong" }}</td>
+                                        <td>{{ $tps["jumlah_suara"]["surat_suara_tidak_digunakan"] ?? "Kosong" }}</td>
+                                        <td>{{ $tps["jumlah_suara"]["surat_suara_rusak"] ?? "Kosong" }}</td>
+                                        <td>{{ $tps["jumlah_suara"]["total_suara_sah"] ?? "Kosong" }}</td>
+                                        <td>{{ $tps["jumlah_suara"]["total_suara_tidak_sah"] ?? "Kosong" }}</td>
+                                        <td>{{ $tps["jumlah_suara"]["total_sah_tidak_sah"] ?? "Kosong" }}</td>
+                                        <td>
+                                            <a href="{{ $tps["jumlah_suara"]["c_hasil"] ?? "#" }}" style="text-decoration: underline">File</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <script>
+                    $("#datatable-table2").DataTable({
+                        "scrollX": true,
+                    })
+                </script>
+
+            </div>
+        </div>
     </div>
 @endsection

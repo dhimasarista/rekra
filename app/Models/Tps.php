@@ -26,7 +26,7 @@ class Tps extends Model
         static::creating(function ($model) {
             /**
              * Memeriksa dan membuat primary key menjadi unique id
-            */
+             */
             if (empty($model->{$model->getKeyName()})) {
                 $model->{$model->getKeyName()} = (string) Uuid::uuid7();
             }
@@ -38,12 +38,24 @@ class Tps extends Model
             $model->updated_at = $model->freshTimestamp();
         });
     }
+    public function jumlahSuaraDetails()
+    {
+        return $this->hasMany(JumlahSuaraDetail::class, 'tps_id');
+    }
 
-    public function kelurahan(): BelongsTo {
+    public function calon()
+    {
+        return $this->belongsToMany(Calon::class, 'jumlah_suara_details', 'tps_id', 'calon_id')
+            ->withPivot('amount');
+    }
+
+    public function kelurahan(): BelongsTo
+    {
         return $this->belongsTo(Kelurahan::class);
     }
     // Method untuk mengambil Tps beserta kelurahan, kecamatan dan kabkota nya.
-    public function tpsWithDetail() {
+    public function tpsWithDetail()
+    {
         return self::select(
             'tps.*',
             'kelurahan.id as kelurahan_id',
@@ -55,9 +67,9 @@ class Tps extends Model
             'provinsi.id as provinsi_id',
             'provinsi.name as provinsi_name',
         )
-        ->join('kelurahan', 'tps.kelurahan_id', '=', 'kelurahan.id')
-        ->join('kecamatan', 'kelurahan.kecamatan_id', '=', 'kecamatan.id')
-        ->join('kabkota', 'kecamatan.kabkota_id', '=', 'kabkota.id')
-        ->join('provinsi', 'kabkota.provinsi_id', '=', 'provinsi.id');
+            ->join('kelurahan', 'tps.kelurahan_id', '=', 'kelurahan.id')
+            ->join('kecamatan', 'kelurahan.kecamatan_id', '=', 'kecamatan.id')
+            ->join('kabkota', 'kecamatan.kabkota_id', '=', 'kabkota.id')
+            ->join('provinsi', 'kabkota.provinsi_id', '=', 'provinsi.id');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Formatting;
 use App\Models\Calon;
+use App\Models\JumlahSuara;
 use App\Models\JumlahSuaraDetail;
 use App\Models\KabKota;
 use App\Models\Kecamatan;
@@ -189,6 +190,7 @@ class RekapitulasiController extends Controller
             "provinsi" => Provinsi::with("kabkota")->find($idQuery),
             default => null,
         };
+        $calon = Calon::where("code", $idQuery)->get();
 
         if ($request->query("Chart")) {
             $dataPerwilayah = $this->getDataPerWilayah($wilayah, $idQuery, $typeQuery);
@@ -200,15 +202,63 @@ class RekapitulasiController extends Controller
             ];
         } else {
             $data = $this->getCalonTotal($idQuery);
-            // $data = Cache::remember($cacheKey, 60, function () use ($idQuery) {
-            //     return $this->getCalonTotal($idQuery);
-            // });
+            $dataTps = $this->tps->tpsWithDetail()
+                ->when($typeQuery == "kabkota", function ($query) use ($idQuery) {
+                    $query->where("kabkota.id", $idQuery);
+                })
+                ->when($typeQuery == "provinsi", function ($query) use ($idQuery) {
+                    $query->where("kabkota.provinsi_id", $idQuery);
+                })
+                ->get();
+            $newData = $dataTps->map(function ($tps) use ($idQuery) {
+                // Kelompokkan jumlah suara berdasarkan calon_id
+                $calonData = $tps->jumlahSuaraDetails
+                    ->groupBy('calon_id')
+                    ->map(function ($details, $calonId) use ($idQuery) {
+                        // Ambil data calon terkait berdasarkan calon_id dan filter dengan code
+                        $calon = Calon::where('id', $calonId)
+                            ->where('code', $idQuery)
+                            ->first();
+
+                        if ($calon) {
+                            // Hitung total suara untuk calon ini
+                            $totalSuara = $details->sum('amount');
+
+                            return [
+                                'id' => $calon->id,
+                                'calon_name' => $calon->calon_name,
+                                'wakil_name' => $calon->wakil_name,
+                                'total_suara' => $totalSuara,
+                            ];
+                        }
+
+                        return null; // Jika tidak ditemukan, kembalikan null
+                    })
+                    ->filter() // Hapus entri null
+                    ->values(); // Reset key untuk array indeks
+
+                // Masukkan calonData yang sudah dirapikan ke dalam TPS
+                $tps->calon = $calonData;
+
+                // Hapus properti jumlahSuaraDetails jika tidak diperlukan
+                unset($tps->jumlahSuaraDetails);
+                $jsd = JumlahSuaraDetail::where("tps_id", $tps->id)->where("calon_id", $calonData[0]["id"] ?? null)->first();
+                $tps->jumlah_suara = JumlahSuara::where("id", $jsd->jumlah_suara_id ?? -1)->first();
+
+                return $tps;
+            });
         }
 
-        return view($view, [
-            "data" => $data,
-            "wilayah" => $wilayah,
+        return response()->json([
+            "data" => $newData,
         ]);
+
+        // return view($view,[
+        //     "data" => $data,
+        //     "dataTps" => $newData,
+        //     "wilayah" => $wilayah,
+        //     "calon" => $calon,
+        // ]);
     }
 
     /**
@@ -382,8 +432,7 @@ class RekapitulasiController extends Controller
                 //         ],
                 //     ];
                 // });
-            }
-             else {
+            } else {
                 if ($typeQuery == "Kabkota") {
                     $wilayah = "Kecamatan";
 
@@ -459,7 +508,7 @@ class RekapitulasiController extends Controller
                             ],
                         ];
                     });
-                }else if ($typeQuery == "Kecamatan") {
+                } else if ($typeQuery == "Kecamatan") {
                     $wilayah = "Kelurahan";
 
                     // Ambil data kelurahan beserta total suara
@@ -536,8 +585,7 @@ class RekapitulasiController extends Controller
                             ],
                         ];
                     });
-                }
-                 else if ($typeQuery == "Kelurahan") {
+                } else if ($typeQuery == "Kelurahan") {
                     $wilayah = "TPS";
                     $data = Tps::select(
                         'tps.id',
