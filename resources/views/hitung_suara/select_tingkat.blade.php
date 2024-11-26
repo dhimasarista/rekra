@@ -5,6 +5,7 @@
     $idSelect3 = 'X' . bin2hex(random_bytes(8));
     $idSelect4 = 'X' . bin2hex(random_bytes(8));
     $idSelect5 = 'X' . bin2hex(random_bytes(8));
+    $idSelect0 = 'X' . bin2hex(random_bytes(8));
     $idButtonSubmit = 'X' . bin2hex(random_bytes(8));
 @endphp
 @if ($jenisWilayah == 'Provinsi')
@@ -15,6 +16,10 @@
         @endforeach
     </select>
 @elseif ($jenisWilayah == 'Kabkota')
+    <select id="{{ $idSelect0 }}" class="custom-select col-md-2 m-1"style="width: 12.499999995%;flex: 0 0 12.499%;max-width: 12.499%;">
+        <option value="Provinsi">Gubernur</option>
+        <option value="Kabkota">Bupati/WaliKota</option>
+    </select>
     <select id="{{ $idSelect1 }}" class="custom-select col-md-2 m-1">
         <option disabled selected id="">Pilih Provinsi</option>
         @foreach ($data as $provinsi)
@@ -23,6 +28,11 @@
     </select>
     <select id="{{ $idSelect2 }}" class="custom-select col-md-2 m-1" disabled></select>
 @elseif ($jenisWilayah == 'Kecamatan')
+    <select id="{{ $idSelect0 }}" class="custom-select col-md-2 m-1"style="width: 12.499999995%;flex: 0 0 12.499%;max-width: 12.499%;">
+        <option disabled selected>Pilih Tingkatan</option>
+        <option value="Provinsi">Gubernur</option>
+        <option value="Kabkota">Bupati/WaliKota</option>
+    </select>
     <select id="{{ $idSelect1 }}" class="custom-select col-md-2 m-1">
         <option disabled selected id="">Pilih Provinsi</option>
         @foreach ($data as $provinsi)
@@ -34,16 +44,26 @@
     <select id="{{ $idSelect3 }}" class="custom-select col-md-2 m-1" disabled>
     </select>
 @elseif ($jenisWilayah == 'Kelurahan')
-<select id="{{ $idSelect1 }}" class="custom-select col-md-2 m-1">
+    <select id="{{ $idSelect0 }}" class="custom-select col-md-2 m-1"style="width: 12.499999995%;flex: 0 0 12.499%;max-width: 12.499%;">
+        <option disabled selected>Pilih Tingkatan</option>
+        <option value="Provinsi">Gubernur</option>
+        <option value="Kabkota">Bupati/WaliKota</option>
+    </select>
+    <select id="{{ $idSelect1 }}" class="custom-select col-md-2 m-1" style="width: 12.499999995%;flex: 0 0 12.499%;max-width: 12.499%;">
         <option disabled selected id="">Pilih Provinsi</option>
         @foreach ($data as $provinsi)
             <option value="{{ $provinsi->id }}">{{ Formatting::capitalize($provinsi->name) }}</option>
         @endforeach
     </select>
-    <select id="{{ $idSelect2 }}" class="custom-select col-md-2 m-1" disabled></select>
-    <select id="{{ $idSelect3 }}" class="custom-select col-md-2 m-1" disabled></select>
-    <select id="{{ $idSelect4 }}" class="custom-select col-md-2 m-1" disabled></select>
+    <select id="{{ $idSelect2 }}" class="custom-select col-md-2 m-1" disabled style="width: 12.499999995%;flex: 0 0 12.499%;max-width: 12.499%;"></select>
+    <select id="{{ $idSelect3 }}" class="custom-select col-md-2 m-1" disabled style="width: 12.499999995%;flex: 0 0 12.499%;max-width: 12.499%;"></select>
+    <select id="{{ $idSelect4 }}" class="custom-select col-md-2 m-1" disabled style="width: 12.499999995%;flex: 0 0 12.499%;max-width: 12.499%;"></select>
 @elseif ($jenisWilayah == 'TPS')
+    <select id="{{ $idSelect0 }}" class="custom-select col-md-2 m-1"style="width: 12.499999995%;flex: 0 0 12.499%;max-width: 12.499%;">
+        <option disabled selected>Pilih Tingkatan</option>
+        <option value="Provinsi">Gubernur</option>
+        <option value="Kabkota">Bupati/WaliKota</option>
+    </select>
     <select id="{{ $idSelect1 }}" class="custom-select col-md-1 m-1"
         style="width: 12.499999995%;flex: 0 0 12.499%;max-width: 12.499%;">
         <option disabled selected id="">Pilih Provinsi</option>
@@ -51,9 +71,9 @@
             <option value="{{ $provinsi->id }}">{{ Formatting::capitalize($provinsi->name) }}</option>
         @endforeach
     </select>
-    <select id="{{ $idSelect2 }}" class="custom-select col-md-2 m-1" disabled></select>
-    <select id="{{ $idSelect3 }}" class="custom-select col-md-2 m-1" disabled></select>
-    <select id="{{ $idSelect4 }}" class="custom-select col-md-2 m-1" disabled></select>
+    <select id="{{ $idSelect2 }}" class="custom-select col-md-2 m-1" disabled style="width: 12.499999995%;flex: 0 0 12.499%;max-width: 12.499%;"></select>
+    <select id="{{ $idSelect3 }}" class="custom-select col-md-2 m-1" disabled style="width: 12.499999995%;flex: 0 0 12.499%;max-width: 12.499%;"></select>
+    <select id="{{ $idSelect4 }}" class="custom-select col-md-2 m-1" disabled style="width: 12.499999995%;flex: 0 0 12.499%;max-width: 12.499%;"></select>
     <select id="{{ $idSelect5 }}" class="custom-select col-md-1 m-1" disabled></select>
 @endif
 <script>

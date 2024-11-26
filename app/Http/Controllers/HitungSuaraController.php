@@ -6,6 +6,7 @@ use App\Helpers\Formatting;
 use App\Models\Calon;
 use App\Models\JumlahSuara;
 use App\Models\JumlahSuaraDetail;
+use App\Models\KabKota;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use App\Models\Provinsi;
@@ -27,9 +28,6 @@ class HitungSuaraController extends Controller
         $this->jumlahSuaraDetail = $jumlahSuaraDetail;
         $this->tps = $tps;
     }
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         try {
@@ -49,9 +47,6 @@ class HitungSuaraController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function list(Request $request)
     {
         try {
@@ -160,9 +155,6 @@ class HitungSuaraController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         try {
@@ -254,9 +246,6 @@ class HitungSuaraController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function indexRekap(Request $request)
     {
         try {
@@ -273,9 +262,6 @@ class HitungSuaraController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function selectTingkat(Request $request)
     {
         $provinsi = Provinsi::all();
@@ -285,9 +271,6 @@ class HitungSuaraController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function uploadChasil(Request $request)
     {
         try {
@@ -314,11 +297,123 @@ class HitungSuaraController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function listRekap(Request $request)
     {
-        //
+        try {
+            $typeQuery = $request->query("Type");
+            $tingkatQuery = $request->query("Tingkat");
+            $idQuery = $request->query("Id");
+            $wilayah = null;
+            $data = null;
+
+            if ($tingkatQuery == $idQuery) {
+                $wilayah = Kabkota::where("provinsi_id", $idQuery)->get();
+                $data = Calon::select(
+                    "calon.id",
+                    "calon.calon_name",
+                    "calon.wakil_name",
+                    DB::raw("COALESCE(SUM(jumlah_suara_details.amount), 0) as total"),
+                    DB::raw('SUM(jumlah_suara.dpt) as total_dpt'),
+                    DB::raw('SUM(jumlah_suara.dptb) as total_dptb'),
+                    DB::raw('SUM(jumlah_suara.dptk) as total_dptk'),
+                    DB::raw('SUM(jumlah_suara.surat_suara_diterima) as total_surat_suara_diterima'),
+                    DB::raw('SUM(jumlah_suara.surat_suara_digunakan) as total_surat_suara_digunakan'),
+                    DB::raw('SUM(jumlah_suara.surat_suara_tidak_digunakan) as total_surat_suara_tidak_digunakan'),
+                    DB::raw('SUM(jumlah_suara.surat_suara_rusak) as total_surat_suara_rusak'),
+                    DB::raw('SUM(jumlah_suara.total_suara_sah) as total_total_suara_sah'),
+                    DB::raw('SUM(jumlah_suara.total_suara_tidak_sah) as total_total_suara_tidak_sah'),
+                    DB::raw('SUM(jumlah_suara.total_sah_tidak_sah) as total_sah_tidak_sah')
+                )
+                ->leftJoin("jumlah_suara_details", "calon.id", "=", "jumlah_suara_details.calon_id")
+                ->leftJoin("jumlah_suara", "jumlah_suara_details.jumlah_suara_id", "=", "jumlah_suara.id")
+                    ->leftJoin("tps", "jumlah_suara_details.tps_id", "=", "tps.id")
+                    ->leftJoin("kelurahan", "tps.kelurahan_id", "=", "kelurahan.id")
+                    ->leftJoin("kecamatan", "kelurahan.kecamatan_id", "=", "kecamatan.id")
+                    ->leftJoin("kabkota", "kecamatan.kabkota_id", "=", "kabkota.id")
+                    ->leftJoin("provinsi", "kabkota.provinsi_id", "=", "provinsi.id")
+                    ->where("provinsi.id", $idQuery)
+                    ->groupBy("calon.id", "calon.calon_name", "calon.wakil_name")
+                    ->get();
+            } else {
+                if ($tingkatQuery == "Provinsi") {
+                    if ($typeQuery == "") {
+                        # code...
+                    }
+
+                } else if ($tingkatQuery == "Kabkota") {
+
+                }
+            }
+            return view("hitung_suara.rekap_table", [
+                "data" => $data,
+                "wilayah" => $wilayah
+            ]);
+        } catch (Exception $e) {
+            return response()->json(["message" => $e->getMessage()], 500);
+        }
     }
+    private function getDataPerWilayah($wilayah, $idQuery, $typeQuery)
+    {
+        $dataPerwilayah = [];
+        $calonTotal = $this->getCalonTotal($idQuery);
+
+        foreach ($wilayah->{($typeQuery === "Provinsi" || $typeQuery === "provinsi") ? 'kabkota' : 'kecamatan'} as $region) {
+            $totalSuara = $this->getTotalSuaraPerWilayah($region->id, $idQuery, $typeQuery);
+
+            $totalSuaraArray = $totalSuara->isEmpty() ? $calonTotal->map(fn($calon) => (object) [
+                'id' => $calon->id,
+                'calon_name' => $calon->calon_name,
+                'wakil_name' => $calon->wakil_name,
+                'total' => 0,
+            ]) : $totalSuara;
+
+            $dataPerwilayah[] = [
+                "id" => $region->id,
+                "name" => $region->name,
+                "total_suara" => $totalSuaraArray,
+            ];
+        }
+
+        return $dataPerwilayah;
+    }
+
+    /**
+     * Get Total Suara per Wilayah (Kecamatan/Kabkota)
+     */
+    private function getTotalSuaraPerWilayah($regionId, $idQuery, $typeQuery)
+    {
+        return Calon::select(
+            "calon.id",
+            "calon.calon_name",
+            "calon.wakil_name",
+            DB::raw("COALESCE(SUM(jumlah_suara_details.amount), 0) as total")
+        )
+            ->leftJoin("jumlah_suara_details", "calon.id", "=", "jumlah_suara_details.calon_id")
+            ->leftJoin("tps", "jumlah_suara_details.tps_id", "=", "tps.id")
+            ->leftJoin("kelurahan", "tps.kelurahan_id", "=", "kelurahan.id")
+            ->leftJoin("kecamatan", "kelurahan.kecamatan_id", "=", "kecamatan.id")
+            ->leftJoin("kabkota", "kecamatan.kabkota_id", "=", "kabkota.id")
+            ->where(($typeQuery === "provinsi") ? "kabkota.id" : "kecamatan.id", $regionId)
+            ->where("calon.code", $idQuery)
+            ->groupBy("calon.id", "calon.calon_name", "calon.wakil_name")
+            ->get();
+    }
+
+    /**
+     * Get Calon Total
+     */
+    private function getCalonTotal($idQuery)
+    {
+        return Calon::select(
+            "calon.id",
+            "calon.calon_name",
+            "calon.wakil_name",
+            DB::raw("COALESCE(SUM(jumlah_suara_details.amount), 0) as total")
+        )
+            ->leftJoin("jumlah_suara_details", "calon.id", "=", "jumlah_suara_details.calon_id")
+            ->where("calon.code", $idQuery)
+            ->groupBy("calon.id", "calon.calon_name", "calon.wakil_name")
+            ->get();
+    }
+
 }

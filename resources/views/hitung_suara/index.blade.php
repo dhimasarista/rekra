@@ -172,7 +172,6 @@
                                 });
                             },
                             complete: function(data) {
-                                console.log(url);
                                 TopLoaderService.end()
                             }
                         });

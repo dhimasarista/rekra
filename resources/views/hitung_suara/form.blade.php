@@ -170,9 +170,6 @@
             note: $('#{{ $idForm12 }}').val(),
             c_hasil: "",
         };
-        console.log(formData);
-
-
         // Menyusun data calon
         $('.container-calon input').each(function() {
             const id = $(this).attr('id');
