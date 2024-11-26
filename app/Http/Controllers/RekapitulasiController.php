@@ -184,7 +184,7 @@ class RekapitulasiController extends Controller
 
         // Get calon data at once for all required calons
         $calon = Calon::where("code", $idQuery)->get()->keyBy('id'); // Key by 'id' for efficient lookup
-
+        $newData = null;
         if ($request->query("Chart")) {
             // Get data for chart
             $dataPerwilayah = $this->getDataPerWilayah($wilayah, $idQuery, $typeQuery);
