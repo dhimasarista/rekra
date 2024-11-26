@@ -167,32 +167,26 @@ class RekapitulasiController extends Controller
     public function list(Request $request)
     {
         $view = $request->query("Chart") ? "layouts.chart" : "rekapitulasi.list"; // Use chart view if needed
-        $cacheKey = 'calon_data_' . $request->query('Id'); // Caching
-
         $idQuery = $request->query("Id");
         $typeQuery = strtolower($request->query("Type"));
 
-        // Check id query
+        // Validate id query
         if (!$idQuery || $idQuery == "null" || $idQuery == "Pilih") {
             return redirect("/rekapitulasi");
         }
 
-        // Get Wilayah and Cache it
-        // $wilayah = Cache::remember("wilayah_{$typeQuery}_{$idQuery}", 60, function () use ($typeQuery, $idQuery) {
-        //     return match ($typeQuery) {
-        //         "kabkota" => Kabkota::with("kecamatan")->find($idQuery),
-        //         "provinsi" => Provinsi::with("kabkota")->find($idQuery),
-        //         default => null,
-        //     };
-        // });
+        // Get wilayah based on typeQuery and idQuery
         $wilayah = match ($typeQuery) {
             "kabkota" => Kabkota::with("kecamatan")->find($idQuery),
             "provinsi" => Provinsi::with("kabkota")->find($idQuery),
             default => null,
         };
-        $calon = Calon::where("code", $idQuery)->get();
+
+        // Get calon data at once for all required calons
+        $calon = Calon::where("code", $idQuery)->get()->keyBy('id'); // Key by 'id' for efficient lookup
 
         if ($request->query("Chart")) {
+            // Get data for chart
             $dataPerwilayah = $this->getDataPerWilayah($wilayah, $idQuery, $typeQuery);
             $calonTotal = $this->getCalonTotal($idQuery);
 
@@ -201,6 +195,7 @@ class RekapitulasiController extends Controller
                 "data_perwilayah" => $dataPerwilayah,
             ];
         } else {
+            // Get TPS data and process calon data in one go
             $data = $this->getCalonTotal($idQuery);
             $dataTps = $this->tps->tpsWithDetail()
                 ->when($typeQuery == "kabkota", function ($query) use ($idQuery) {
@@ -209,57 +204,51 @@ class RekapitulasiController extends Controller
                 ->when($typeQuery == "provinsi", function ($query) use ($idQuery) {
                     $query->where("kabkota.provinsi_id", $idQuery);
                 })
+                ->with('jumlahSuaraDetails') // Eager load jumlahSuaraDetails
                 ->get();
-            $newData = $dataTps->map(function ($tps) use ($idQuery) {
-                // Kelompokkan jumlah suara berdasarkan calon_id
-                $calonData = $tps->jumlahSuaraDetails
-                    ->groupBy('calon_id')
-                    ->map(function ($details, $calonId) use ($idQuery) {
-                        // Ambil data calon terkait berdasarkan calon_id dan filter dengan code
-                        $calon = Calon::where('id', $calonId)
-                            ->where('code', $idQuery)
-                            ->first();
 
-                        if ($calon) {
-                            // Hitung total suara untuk calon ini
-                            $totalSuara = $details->sum('amount');
+            // Map through dataTps and process calon data
+            $newData = $dataTps->map(function ($tps) use ($calon) {
+                // Grouping suara by calon_id and getting the calon data from the already fetched $calon
+                $calonData = $tps->jumlahSuaraDetails->groupBy('calon_id')->map(function ($details, $calonId) use ($calon) {
+                    // Get calon from already loaded calon data
+                    $calonItem = $calon->get($calonId); // Efficient lookup using keyBy
 
-                            return [
-                                'id' => $calon->id,
-                                'calon_name' => $calon->calon_name,
-                                'wakil_name' => $calon->wakil_name,
-                                'total_suara' => $totalSuara,
-                            ];
-                        }
+                    if ($calonItem) {
+                        // Calculate total suara for calon
+                        $totalSuara = $details->sum('amount');
+                        return [
+                            'id' => $calonItem->id,
+                            'calon_name' => $calonItem->calon_name,
+                            'wakil_name' => $calonItem->wakil_name,
+                            'total_suara' => $totalSuara,
+                        ];
+                    }
 
-                        return null; // Jika tidak ditemukan, kembalikan null
-                    })
-                    ->filter() // Hapus entri null
-                    ->values(); // Reset key untuk array indeks
+                    return null;
+                })->filter(); // Filter out null values
 
-                // Masukkan calonData yang sudah dirapikan ke dalam TPS
+                // Add calon data to TPS
                 $tps->calon = $calonData;
 
-                // Hapus properti jumlahSuaraDetails jika tidak diperlukan
-                unset($tps->jumlahSuaraDetails);
-                $jsd = JumlahSuaraDetail::where("tps_id", $tps->id)->where("calon_id", $calonData[0]["id"] ?? null)->first();
-                $tps->jumlah_suara = JumlahSuara::where("id", $jsd->jumlah_suara_id ?? -1)->first();
+                // Fetch JumlahSuara for each TPS
+                $jsd = JumlahSuaraDetail::where("tps_id", $tps->id)
+                    ->whereIn("calon_id", $calonData->pluck('id'))
+                    ->first(); // Use whereIn for better performance
+                $tps->jumlah_suara = $jsd ? JumlahSuara::find($jsd->jumlah_suara_id) : null;
 
                 return $tps;
             });
         }
 
-        return response()->json([
-            "data" => $newData,
+        return view($view, [
+            "data" => $data,
+            "dataTps" => $newData,
+            "wilayah" => $wilayah,
+            "calon" => $calon,
         ]);
-
-        // return view($view,[
-        //     "data" => $data,
-        //     "dataTps" => $newData,
-        //     "wilayah" => $wilayah,
-        //     "calon" => $calon,
-        // ]);
     }
+
 
     /**
      * Get Total Suara Per Wilayah

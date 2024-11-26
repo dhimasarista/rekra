@@ -154,7 +154,8 @@
                                         <td>{{ $tps["jumlah_suara"]["total_suara_tidak_sah"] ?? "Kosong" }}</td>
                                         <td>{{ $tps["jumlah_suara"]["total_sah_tidak_sah"] ?? "Kosong" }}</td>
                                         <td>
-                                            <a href="{{ $tps["jumlah_suara"]["c_hasil"] ?? "#" }}" style="text-decoration: underline">File</a>
+                                            <a href="{{ optional($tps['jumlah_suara'])['c_hasil'] ? asset(optional($tps['jumlah_suara'])['c_hasil']) : '#' }}" target="_blank" style="text-decoration: underline">File</a>
+
                                         </td>
                                     </tr>
                                 @endforeach
