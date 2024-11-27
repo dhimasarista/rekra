@@ -278,7 +278,7 @@ class HitungSuaraController extends Controller
             $kelurahan = Kelurahan::find($tps->kelurahan_id);
             $kecamatan = Kecamatan::find($kelurahan->kecamatan_id);
             $request->validate([
-                'file' => 'required|file|mimes:jpg,jpeg,png,gif,pdf|max:2048', // hanya image dan pdf dengan ukuran maksimal 2MB
+                'file' => 'required|file|mimes:jpg,jpeg,png,gif,pdf', // hanya image dan pdf dengan ukuran maksimal 2MB
             ]);
             // Ambil file dari request
             $file = $request->file('file');
